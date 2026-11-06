@@ -10,7 +10,7 @@ import { useId } from "react";
 import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 import { getExperienceName } from "~/utils/experienceUtils";
@@ -178,10 +178,7 @@ const EmployeeVerificationSection = ({
             <div className="mt-auto">
               <Card.Separator space="xs" />
               <div className="items-center">
-                <EmailVerificationDialog
-                  emailType={EmailType.Work}
-                  emailAddress={user.workEmail ?? null}
-                >
+                <EmailVerificationDialog emailAddress={user.workEmail ?? null}>
                   <Button
                     color="secondary"
                     mode="inline"
