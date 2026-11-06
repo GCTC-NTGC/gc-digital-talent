@@ -94,6 +94,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $special_application_justification
  * @property ?Carbon $special_application_closing_date
  * @property bool $is_special_application
+ * @property bool $is_dashboard_viewable
  */
 class PoolCandidate extends Model
 {
@@ -1035,6 +1036,12 @@ class PoolCandidate extends Model
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
 
+        $this->save();
+    }
+
+    public function toggleDashboardVisibility()
+    {
+        $this->is_dashboard_viewable = ! $this->is_dashboard_viewable;
         $this->save();
     }
 }

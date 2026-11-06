@@ -369,7 +369,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
             <RadioGroup
               idPrefix="govPositionType"
               name="govPositionType"
-              legend={labels.positionType}
+              legend={labels.govPositionType}
               items={govPositionTypeOptions}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />

@@ -26,11 +26,6 @@ const messages = defineMessages({
     id: "M0rL3I",
     description: "Link label to view previous nomination page",
   },
-  backToAssessments: {
-    defaultMessage: "Back to nominations",
-    id: "TzlRpv",
-    description: "Link label to return to assessment tracker",
-  },
 });
 
 const NominationNavigation = () => {

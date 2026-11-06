@@ -101,8 +101,11 @@ class LocationPreferenceUpdatePage extends AppPage {
   }
 
   async navigateToEditWorkPreference() {
+    const formResponse = this.waitForGraphqlResponse(
+      "WorkPreferencesForm_Query",
+    );
     await this.locators[FIELD.EDIT_WORK_PREFERENCE].click();
-    await this.waitForGraphqlResponse("WorkPreferencesForm_Query");
+    await formResponse;
   }
 
   async updateFlexWorkLocationOption(locOptions: FlexibleWorkLocation[]) {

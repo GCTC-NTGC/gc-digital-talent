@@ -44,7 +44,6 @@ final class SendUserEmailsVerificationInputValidator extends Validator
                     ['email']
                 ),
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
-                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
             ],
         ];
     }

@@ -26,7 +26,7 @@ test.describe("User skills", { tag: "@uat" }, () => {
     skill = skills[0];
 
     const createdUser = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         email: `${uniqueTestId}@example.org`,
         sub: uniqueTestId,

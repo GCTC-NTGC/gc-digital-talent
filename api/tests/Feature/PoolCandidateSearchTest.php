@@ -608,6 +608,41 @@ class PoolCandidateSearchTest extends TestCase
         ]);
     }
 
+    // test general search through pool candidate querying
+    public function testPoolCandidatesGeneralSearch(): void
+    {
+        // made-up names so random factory data can't match the searches
+        $candidateFor = fn (string $first, string $last) => PoolCandidate::factory()->submitted()->for($this->pool)
+            ->for(User::factory()->create(['first_name' => $first, 'last_name' => $last]))
+            ->create()->id;
+        $zebulon = $candidateFor('Zebulonqx', 'Smith');
+        $quincy = $candidateFor('Quincyqx', 'Jones');
+        $xavier = $candidateFor('Xavierqx', 'Kiwifruit');
+
+        $query =
+            /** @lang GraphQL */
+            '
+        query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginated(where: $where) {
+                data {
+                    id
+                }
+            }
+        }
+    ';
+        $search = fn (string $term) => $this->actingAs($this->processOperator, 'api')
+            ->graphQL($query, ['where' => ['generalSearch' => $term]])
+            ->json('data.poolCandidatesPaginated.data.*.id');
+
+        $this->assertSame([$zebulon], $search('zebulonqx'));
+        // partial words match too
+        $this->assertSame([$zebulon], $search('zebul'));
+        $this->assertEqualsCanonicalizing([$zebulon, $quincy], $search('zebulonqx or quincyqx'));
+        // only the exact-word search keeps Xavier: "Kiwifruit" starts with "kiwi", so the partial-word search excludes it
+        $this->assertSame([$xavier], $search('xavierqx -kiwi'));
+        $this->assertSame([], $search('nomatchqx'));
+    }
+
     public function testScopeDepartmentsIn(): void
     {
         $query = <<<'GRAPHQL'

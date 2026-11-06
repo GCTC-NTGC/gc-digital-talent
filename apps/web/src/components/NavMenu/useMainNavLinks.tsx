@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated */
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 import { useLocation } from "react-router";
@@ -6,7 +5,7 @@ import { useLocation } from "react-router";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type { RoleName } from "@gc-digital-talent/auth";
 import {
-  hasRole,
+  hasRequiredRoles,
   ROLE_NAME,
   useAuthentication,
   useAuthorization,
@@ -53,7 +52,10 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ViewUsers = hasRole(permissionConstants.viewUsers, roleAssignments) ? (
+  const ViewUsers = hasRequiredRoles({
+    toCheck: permissionConstants.viewUsers.map((name) => ({ name })),
+    userRoles: roleAssignments,
+  }) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -93,10 +95,10 @@ const useMainNavLinks = () => {
     />
   );
 
-  const Processes = hasRole(
-    permissionConstants.viewProcesses,
-    roleAssignments,
-  ) ? (
+  const Processes = hasRequiredRoles({
+    toCheck: permissionConstants.viewProcesses.map((name) => ({ name })),
+    userRoles: roleAssignments,
+  }) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -104,10 +106,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Requests = hasRole(
-    permissionConstants.viewRequests,
-    roleAssignments,
-  ) ? (
+  const Requests = hasRequiredRoles({
+    toCheck: permissionConstants.viewRequests.map((name) => ({ name })),
+    userRoles: roleAssignments,
+  }) ? (
     <NavItem
       key="requests"
       href={paths.talentRequests()}
@@ -115,10 +117,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Candidates = hasRole(
-    permissionConstants.viewCandidates,
-    roleAssignments,
-  ) ? (
+  const Candidates = hasRequiredRoles({
+    toCheck: permissionConstants.viewCandidates.map((name) => ({ name })),
+    userRoles: roleAssignments,
+  }) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}

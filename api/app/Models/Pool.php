@@ -7,7 +7,7 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
-use App\Enums\Language;
+use App\Enums\JobPosterArchiveType;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
@@ -68,6 +69,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
  * @property array $display_name
+ * @property ?string $formattedClosingDate
  * @property bool $is_hidden
  */
 class Pool extends Model
@@ -385,6 +387,12 @@ class Pool extends Model
         return $this->hasMany(ScreeningQuestion::class);
     }
 
+    /** @returns HasMany<JobPosterArchive, $this> */
+    public function jobPosterArchives(): HasMany
+    {
+        return $this->hasMany(JobPosterArchive::class);
+    }
+
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
@@ -525,6 +533,18 @@ class Pool extends Model
             : $name;
     }
 
+    protected function formattedClosingDate(): Attribute
+    {
+        $locale = app()->getLocale();
+
+        return Attribute::get(function () use ($locale) {
+            return $this->closing_date
+                ?->setTimezone('America/Vancouver')
+                ->locale($locale)
+                ->translatedFormat($locale === 'fr' ? 'j F Y' : 'F jS, Y');
+        });
+    }
+
     public function requiresBilingual(): Attribute
     {
         return Attribute::get(function ($_, $attributes) {
@@ -624,10 +644,27 @@ class Pool extends Model
     /**
      * Convert the pool to HTML for the job advertisement
      */
-    public function toAdvertisementHtml(Language $lang = Language::EN): string
+    public function toJobPosterHtml(string $locale = 'en'): string
     {
-        return view('job_advertisement.index', [
-            'pool' => $this,
-        ])->render();
+        $previousLocale = App::getLocale();
+
+        App::setLocale($locale);
+
+        $html = view('job_poster.index', ['pool' => $this])->render();
+
+        App::setLocale($previousLocale);
+
+        return $html;
+    }
+
+    public function storeArchive(JobPosterArchiveType $type)
+    {
+        $this->jobPosterArchives()->create([
+            'type' => $type->name,
+            'html' => [
+                'en' => $this->toJobPosterHtml('en'),
+                'fr' => $this->toJobPosterHtml('fr'),
+            ],
+        ]);
     }
 }

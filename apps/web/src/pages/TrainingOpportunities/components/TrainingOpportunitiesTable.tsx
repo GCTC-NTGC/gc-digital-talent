@@ -13,9 +13,13 @@ import type {
   CourseLanguage,
   DeadlineStatus,
   LocalizedString,
-  OrderByClause,
+  QueryTrainingOpportunitiesPaginatedOrderByOrderByClause,
 } from "@gc-digital-talent/graphql";
-import { graphql, SortOrder } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  SortOrder,
+  TrainingOpportunitiesOrderByColumn,
+} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import {
@@ -68,14 +72,25 @@ const defaultState = {
 function transformSortStateToOrderByClause(
   locale: Locales,
   sortingRule?: SortingState,
-): OrderByClause | OrderByClause[] | undefined {
-  const columnMap = new Map<string, string>([
-    ["name", `title->${locale}`],
-    ["language", "course_language"],
-    ["status", "registration_deadline"], // deadline status is not a real column, but sorting by deadline achieves the same thing
-    ["applicationDeadline", "registration_deadline"],
-    ["trainingStartDate", "training_start"],
-    ["trainingEndDate", "training_end"],
+):
+  | QueryTrainingOpportunitiesPaginatedOrderByOrderByClause
+  | QueryTrainingOpportunitiesPaginatedOrderByOrderByClause[]
+  | undefined {
+  const columnMap = new Map<string, TrainingOpportunitiesOrderByColumn>([
+    [
+      "name",
+      locale === "fr"
+        ? TrainingOpportunitiesOrderByColumn.TitleFr
+        : TrainingOpportunitiesOrderByColumn.TitleEn,
+    ],
+    ["language", TrainingOpportunitiesOrderByColumn.CourseLanguage],
+    ["status", TrainingOpportunitiesOrderByColumn.RegistrationDeadline], // deadline status is not a real column, but sorting by deadline achieves the same thing
+    [
+      "applicationDeadline",
+      TrainingOpportunitiesOrderByColumn.RegistrationDeadline,
+    ],
+    ["trainingStartDate", TrainingOpportunitiesOrderByColumn.TrainingStart],
+    ["trainingEndDate", TrainingOpportunitiesOrderByColumn.TrainingEnd],
   ]);
 
   const orderBy = sortingRule
@@ -96,7 +111,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunitiesPaginated(
     $first: Int
     $page: Int
-    $orderBy: [OrderByClause!]
+    $orderBy: [QueryTrainingOpportunitiesPaginatedOrderByOrderByClause!]
   ) {
     trainingOpportunitiesPaginated(
       first: $first

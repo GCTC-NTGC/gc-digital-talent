@@ -1,9 +1,0 @@
-<h3>@lang('job_advertisement.minimum_education.pm.applied_work_experience.title')</h3>
-<p>
-    @lang('job_advertisement.minimum_education.pm.applied_work_experience.description')
-</p>
-<p>@lang('job_advertisement.or')</p>
-<h3>@lang('job_advertisement.minimum_education.pm.secondary_school.title')</h3>
-<p>
-    @lang('job_advertisement.minimum_education.pm.secondary_school.description')
-</p>

@@ -9,7 +9,7 @@ return [
     'org_types_lateral' => 'Types of organizations for lateral movement',
     'promotion_interest' => 'Interest in promotion and advancement',
     'target_time_frame_promotion' => 'Target time frame for promotion or advancement',
-    'org_types_promotion' => 'Types of organizations promotion or advancement',
+    'org_types_promotion' => 'Types of organizations for promotion or advancement',
     'learning_interest' => 'Interest in learning opportunities',
     'retirement_year' => 'Year of retirement eligibility',
     'mentorship_status' => 'Mentorship status',

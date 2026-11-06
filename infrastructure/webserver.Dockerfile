@@ -8,3 +8,7 @@ RUN echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends supervisor cron postgresql-client \
     && apt-get clean
+
+# ev event loop for Reverb, so it isn't capped at ~1024 connections by stream_select
+RUN yes "" | pecl install ev \
+    && echo 'extension=ev.so' > /usr/local/etc/php/conf.d/docker-php-ext-ev.ini

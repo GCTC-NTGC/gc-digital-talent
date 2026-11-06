@@ -111,7 +111,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
     $where: UserFilterInput
     $first: Int
     $page: Int
-    $orderBy: [OrderByClause!]
+    $orderBy: [QueryUsersPaginatedOrderByOrderByClause!]
   ) {
     usersPaginated(
       where: $where

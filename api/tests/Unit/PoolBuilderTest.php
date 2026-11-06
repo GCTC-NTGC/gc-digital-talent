@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Pool;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -103,6 +104,40 @@ class PoolBuilderTest extends TestCase
             '00000000-0000-0000-0000-000000000001', // null forced first
             '00000000-0000-0000-0000-000000000002',
             '00000000-0000-0000-0000-000000000003',
+        ]);
+    }
+
+    public function testOrderByWorkStreamNameSortsByLocale()
+    {
+        // English and French names sort in opposite orders
+        $alphaZulu = WorkStream::factory()->create(['name' => ['en' => 'Alpha', 'fr' => 'Zulu']]);
+        $bravoAlpha = WorkStream::factory()->create(['name' => ['en' => 'Bravo', 'fr' => 'Alpha']]);
+        Pool::factory()->create([
+            'id' => '00000000-0000-0000-0000-000000000001',
+            'work_stream_id' => $alphaZulu->id,
+        ]);
+        Pool::factory()->create([
+            'id' => '00000000-0000-0000-0000-000000000002',
+            'work_stream_id' => $bravoAlpha->id,
+        ]);
+
+        $sortedEn = Pool::orderByWorkStreamName([
+            'order' => 'ASC',
+            'locale' => 'EN',
+        ])->get(['id'])->pluck('id')->toArray();
+
+        $sortedFr = Pool::orderByWorkStreamName([
+            'order' => 'ASC',
+            'locale' => 'FR',
+        ])->get(['id'])->pluck('id')->toArray();
+
+        assertEquals($sortedEn, [
+            '00000000-0000-0000-0000-000000000001',
+            '00000000-0000-0000-0000-000000000002',
+        ]);
+        assertEquals($sortedFr, [
+            '00000000-0000-0000-0000-000000000002',
+            '00000000-0000-0000-0000-000000000001',
         ]);
     }
 

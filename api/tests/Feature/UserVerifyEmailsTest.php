@@ -316,9 +316,11 @@ class UserVerifyEmailsTest extends TestCase
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 
-    public function testCannotRequestCodeForDuplicateEmailWithWork()
+    public function testCanRequestCodeForAnotherUsersWorkEmail()
     {
-        // Create another user with their own email
+        Notification::fake();
+
+        // Another user's work email can be requested, it will be adopted on verification
         User::factory()->create([
             'work_email' => 'regular.user.2@gc.ca',
         ]);
@@ -331,14 +333,18 @@ class UserVerifyEmailsTest extends TestCase
                     'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
-        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        )->assertJsonMissingPath('errors');
+
+        Notification::assertSentTo(
+            [$this->regularUser], VerifyEmails::class
+        );
     }
 
     public function testCannotRequestCodeForDuplicateEmailCaseInsensitive()
     {
         // Create another user with their own email
         User::factory()->create([
-            'work_email' => 'regular.user.2@gc.ca',
+            'email' => 'regular.user.2@gc.ca',
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
@@ -352,54 +358,135 @@ class UserVerifyEmailsTest extends TestCase
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 
-    public function testCannotVerifyWithDuplicateWorkEmail()
+    public function testVerifyAdoptsWorkEmailFromAnotherUser()
     {
-        // Create another user with a work email
-        User::factory()->create([
-            'work_email' => 'work.duplicate@example.org',
+        $otherUser = User::factory()->create([
+            'email' => 'other.user@example.org',
+            'work_email' => 'work.duplicate@gc.ca',
         ]);
 
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '5679',
-                'emailTypes' => [EmailType::WORK->name],
-                'emailAddress' => 'work.duplicate@example.org',
-            ],
-            now()->addHours(2)
-        );
+        $this->putVerificationToken('5679', 'work.duplicate@gc.ca');
 
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '5679',
-            ]
-        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        // stable verified_at timestamps
+        Carbon::setTestNow('2000-01-01 00:00:00');
+
+        $this->attemptVerify($this->regularUser, '5679')
+            ->assertJsonMissingPath('errors')
+            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca')
+            ->assertJsonPath('data.verifyUserEmails.isWorkEmailVerified', true);
+
+        // the other user's work email is moved to the backup
+        $otherUser->refresh();
+        $this->assertNull($otherUser->work_email);
+        $this->assertSame('work.duplicate@gc.ca', $otherUser->work_email_backup);
+        // their contact email is untouched
+        $this->assertSame('other.user@example.org', $otherUser->email);
+        $this->assertNull($otherUser->email_backup);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->regularUser->id,
+            'work_email' => 'work.duplicate@gc.ca',
+            'work_email_verified_at' => '2000-01-01 00:00:00',
+        ]);
     }
 
-    public function testCannotVerifyWithDuplicateWorkEmailCaseInsensitive()
+    public function testVerifyAdoptsWorkEmailCaseInsensitively()
     {
-        // Create another user with a work email
-        User::factory()->create([
-            'work_email' => 'work.duplicate@example.org',
+        $otherUser = User::factory()->create([
+            'work_email' => 'Work.Duplicate@GC.ca',
         ]);
 
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '5680',
-                'emailTypes' => [EmailType::WORK->name],
-                'emailAddress' => 'WORK.DUPLICATE@EXAMPLE.ORG',
-            ],
-            now()->addHours(2)
-        );
+        $this->putVerificationToken('5680', 'work.duplicate@gc.ca');
 
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '5680',
-            ]
-        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        $this->attemptVerify($this->regularUser, '5680')
+            ->assertJsonMissingPath('errors')
+            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca');
+
+        // the backup keeps the original casing
+        $otherUser->refresh();
+        $this->assertNull($otherUser->work_email);
+        $this->assertSame('Work.Duplicate@GC.ca', $otherUser->work_email_backup);
+    }
+
+    public function testVerifyAdoptsWorkEmailFromSoftDeletedUser()
+    {
+        // trashed() skips the deleting hook, so the work email is still set
+        $otherUser = User::factory()->trashed()->create([
+            'work_email' => 'work.duplicate@gc.ca',
+        ]);
+
+        $this->putVerificationToken('5681', 'work.duplicate@gc.ca');
+
+        $this->attemptVerify($this->regularUser, '5681')
+            ->assertJsonMissingPath('errors')
+            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca');
+
+        $otherUser = User::withTrashed()->findOrFail($otherUser->id);
+        $this->assertNull($otherUser->work_email);
+        $this->assertSame('work.duplicate@gc.ca', $otherUser->work_email_backup);
+    }
+
+    public function testVerifyDoesNotTakeSimilarWorkEmail()
+    {
+        // "_" would match any single character in a LIKE pattern
+        $otherUser = User::factory()->create([
+            'work_email' => 'axb@gc.ca',
+        ]);
+
+        $this->putVerificationToken('5682', 'a_b@gc.ca');
+
+        $this->attemptVerify($this->regularUser, '5682')
+            ->assertJsonMissingPath('errors')
+            ->assertJsonPath('data.verifyUserEmails.workEmail', 'a_b@gc.ca');
+
+        $otherUser->refresh();
+        $this->assertSame('axb@gc.ca', $otherUser->work_email);
+        $this->assertNull($otherUser->work_email_backup);
+    }
+
+    public function testFailedVerifyDoesNotTakeWorkEmail()
+    {
+        $otherUser = User::factory()->create([
+            'work_email' => 'work.duplicate@gc.ca',
+        ]);
+
+        $this->putVerificationToken('5683', 'work.duplicate@gc.ca');
+
+        $this->attemptVerify($this->regularUser, 'BAD-CODE')
+            ->assertGraphQLErrorMessage(ErrorCode::VERIFICATION_FAILED->name);
+
+        $otherUser->refresh();
+        $this->assertSame('work.duplicate@gc.ca', $otherUser->work_email);
+        $this->assertNull($otherUser->work_email_backup);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->regularUser->id,
+            'work_email' => 'regular.user@gc.ca',
+            'work_email_verified_at' => null,
+        ]);
+    }
+
+    public function testCannotVerifyWithAnotherUsersContactEmail()
+    {
+        // contact emails are still protected, only work emails are adopted
+        $otherUser = User::factory()->create([
+            'email' => 'contact.duplicate@gc.ca',
+        ]);
+
+        $this->putVerificationToken('5684', 'CONTACT.DUPLICATE@GC.CA');
+
+        $this->attemptVerify($this->regularUser, '5684')
+            ->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+
+        $otherUser->refresh();
+        $this->assertSame('contact.duplicate@gc.ca', $otherUser->email);
+        $this->assertNull($otherUser->email_backup);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->regularUser->id,
+            'work_email' => 'regular.user@gc.ca',
+            'work_email_verified_at' => null,
+        ]);
     }
 
     public function testVerifyIsRateLimitedAfterTooManyAttempts()

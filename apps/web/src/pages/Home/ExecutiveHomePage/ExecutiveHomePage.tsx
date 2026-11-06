@@ -445,7 +445,7 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
     poolsPaginated(
       where: { statuses: [PUBLISHED], isHidden: false }
       first: 500
-      orderBy: { column: "closing_date", order: ASC }
+      orderBy: { column: CLOSING_DATE, order: ASC }
     ) {
       data {
         id

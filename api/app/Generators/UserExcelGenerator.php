@@ -351,7 +351,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'employeeProfile.nextRoleDepartments',
             'employeeProfile.careerObjectiveDepartments',
             'poolCandidates' => function ($query) {
-                $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
+                $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+                    ->whereQualified();
             },
             'poolCandidates.pool',
             'poolCandidates.pool.classification',

@@ -104,7 +104,6 @@ class CommunityInterestTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->applicant = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())
@@ -569,6 +568,33 @@ class CommunityInterestTest extends TestCase
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 0]);
+    }
+
+    // test general search on the community talent table
+    public function testCommunityInterestsGeneralSearch(): void
+    {
+        // made-up names so random factory data can't match the searches
+        $interestFor = fn (string $first, string $last) => CommunityInterest::factory()->create([
+            'user_id' => User::factory()->withGovEmployeeProfile()->asApplicant()
+                ->create(['first_name' => $first, 'last_name' => $last])->id,
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+        ])->id;
+        $zebulon = $interestFor('Zebulonqx', 'Smith');
+        $quincy = $interestFor('Quincyqx', 'Jones');
+        $xavier = $interestFor('Xavierqx', 'Kiwifruit');
+
+        $search = fn (string $term) => $this->actingAs($this->communityAdmin, 'api')
+            ->graphQL($this->paginatedCommunityInterestsQuery, ['where' => ['generalSearch' => $term]])
+            ->json('data.communityInterestsPaginated.data.*.id');
+
+        $this->assertSame([$zebulon], $search('zebulonqx'));
+        // partial words match too
+        $this->assertSame([$zebulon], $search('zebul'));
+        $this->assertEqualsCanonicalizing([$zebulon, $quincy], $search('zebulonqx or quincyqx'));
+        // only the exact-word search keeps Xavier: "Kiwifruit" starts with "kiwi", so the partial-word search excludes it
+        $this->assertSame([$xavier], $search('xavierqx -kiwi'));
+        $this->assertSame([], $search('nomatchqx'));
     }
 
     // test scopeAuthorizedToView for community recruiter/coordinator
