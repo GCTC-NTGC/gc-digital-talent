@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import TrophyIcon from "@heroicons/react/24/outline/TrophyIcon";
 import { useQuery } from "urql";
 
 import {
@@ -38,6 +39,7 @@ const SECTION_ID = {
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
+  TALENT_NOMINATIONS: "talent-nominations-section",
 };
 
 const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
@@ -149,6 +151,16 @@ export const UserEmployeeInformation = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={SECTION_ID.TALENT_NOMINATIONS}>
+              {intl.formatMessage({
+                defaultMessage: "Nominations received",
+                id: "OI/zOh",
+                description:
+                  "Title for the nominations received section on the GC profile",
+              })}
+            </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
         </TableOfContents.List>
         <Separator decorative orientation="horizontal" space="xs" />
@@ -348,6 +360,32 @@ export const UserEmployeeInformation = ({
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
+
+          <TableOfContents.Section id={SECTION_ID.TALENT_NOMINATIONS}>
+            <Heading
+              rank="h2"
+              size="h3"
+              icon={TrophyIcon}
+              color="secondary"
+              className="font-normal sm:justify-start sm:text-left"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Nominations the [PERSON TERM] has received",
+                id: "9hf4yH",
+                description:
+                  "Title for the nominations received section on the GC profile",
+              })}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "When the [PERSON TERM] is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
+                id: "hKIj7J",
+                description:
+                  "Description for the nominations received section on the GC profile",
+              })}
+            </p>
+          </TableOfContents.Section>
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
