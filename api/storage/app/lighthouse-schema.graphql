@@ -565,6 +565,7 @@ type Query {
   ): PoolPaginator!
   publishedPoolsSearch(
     where: PublishedPoolsSearchInput
+    orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -2127,6 +2128,11 @@ enum ActivitiesOrderByColumn {
   CREATED_AT
 }
 
+enum PublishedPoolsSearchOrderByColumn {
+  CLOSING_DATE
+  PUBLISHED_AT
+}
+
 input SitewideAnnouncementInput {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
@@ -3498,6 +3504,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
+}
+
+"Order by clause for Query.publishedPoolsSearch.orderBy."
+input QueryPublishedPoolsSearchOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: PublishedPoolsSearchOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Order by clause for Query.trainingOpportunitiesPaginated.orderBy."

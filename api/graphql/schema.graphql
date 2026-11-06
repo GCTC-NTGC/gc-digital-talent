@@ -1714,6 +1714,11 @@ enum ActivitiesOrderByColumn {
   CREATED_AT @enum(value: "created_at")
 }
 
+enum PublishedPoolsSearchOrderByColumn {
+  CLOSING_DATE @enum(value: "closing_date")
+  PUBLISHED_AT @enum(value: "published_at")
+}
+
 input SitewideAnnouncementInput @validator {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
@@ -1838,7 +1843,10 @@ type Query {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPoolsSearch(where: PublishedPoolsSearchInput): [Pool]!
+  publishedPoolsSearch(
+    where: PublishedPoolsSearchInput
+    orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
+  ): [Pool]!
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["wherePublished"])
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find

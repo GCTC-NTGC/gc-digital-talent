@@ -694,6 +694,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
   classification: QueryPoolsPaginatedOrderByClassification
 }
 
+"Order by clause for Query.publishedPoolsSearch.orderBy."
+input QueryPublishedPoolsSearchOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: PublishedPoolsSearchOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
 "Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
 input QueryTrainingOpportunitiesPaginatedOrderByOrderByClause {
   "The column that is used for ordering."
