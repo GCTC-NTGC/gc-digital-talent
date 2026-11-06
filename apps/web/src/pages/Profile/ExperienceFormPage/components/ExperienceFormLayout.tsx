@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
@@ -130,7 +130,9 @@ const ExperienceFormLayout = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimeline();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from") ?? undefined;
+  const returnPath = from ?? paths.careerTimeline();
   const experience = getFragment(
     ExperienceFormLayout_Fragment,
     experienceQuery,
@@ -271,7 +273,7 @@ const ExperienceFormLayout = ({
       },
       {
         label: title,
-        url: experience ? paths.editExperience(experience.id) : "#",
+        url: experience ? paths.editExperience(experience.id, { from }) : "#",
       },
     ],
   });
