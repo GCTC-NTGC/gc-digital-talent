@@ -6,7 +6,7 @@ use App\Exceptions\AuthenticationException;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
-use App\Services\OpenIdBearerTokenService;
+use App\Services\OpenidBearerTokenService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\ConstraintViolation;
@@ -55,7 +55,7 @@ class AuthServiceProviderTest extends TestCase
     public function testAuthenticationExceptionWithInvalidToken()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenidBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
             ->andThrow(new RequiredConstraintsViolated('mock error', [
@@ -76,7 +76,7 @@ class AuthServiceProviderTest extends TestCase
     public function testAuthenticationExceptionOnTokenValidation()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenidBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
             ->andThrow(new \Error());
@@ -97,13 +97,13 @@ class AuthServiceProviderTest extends TestCase
         $testSub = 'test-sub';
         $testRoles = ['TEST'];
 
-        $mockClaims = \Mockery::mock(new DataSet(['sub' => $testSub], ''));
+        $claims = new DataSet(['sub' => $testSub], '');
 
         $fakeToken = 'fake-token';
-        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenidBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
-            ->andReturn($mockClaims);
+            ->andReturn($claims);
 
         // starting off, they shouldn't exist
         $this->assertDatabaseMissing('users', ['sub' => $testSub]);

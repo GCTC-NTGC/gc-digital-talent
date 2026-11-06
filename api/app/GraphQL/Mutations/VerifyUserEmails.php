@@ -91,7 +91,7 @@ final class VerifyUserEmails
         foreach ($token['emailTypes'] as $emailTypeString) {
             $emailType = EmailType::fromName($emailTypeString);
             if ($emailType === EmailType::WORK) {
-                // similar logic to AuthController::authCallback
+                // similar logic to UserClaimsService::applyClaims
                 // if another user has this work_email we will take it from them
                 $existingUser = User::where('id', '!=', $user->id)
                     ->whereRaw('LOWER(work_email) = ?', [mb_strtolower($newEmailAddress)])
