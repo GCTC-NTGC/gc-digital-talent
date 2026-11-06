@@ -6162,10 +6162,6 @@
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
   },
-  "MwviYD": {
-    "defaultMessage": "Équivalences de recommandation pertinentes",
-    "description": "Label for lateral movement classifications field"
-  },
   "MxmB1v": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
@@ -7708,10 +7704,6 @@
     "defaultMessage": "Employé(e)s",
     "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
-  "TPFMK3": {
-    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
-    "description": "Help text for lateral movement referral expiry date field"
-  },
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
@@ -9126,6 +9118,10 @@
   "ZEmZm4": {
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
+  },
+  "ZHxlL3": {
+    "defaultMessage": "Classifications pour un transfert latéral",
+    "description": "Label for lateral movement classifications field"
   },
   "ZI0wBf": {
     "defaultMessage": "(B B B)",
@@ -11173,10 +11169,6 @@
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
     "description": "Description of the 'disqualified' application status"
   },
-  "hPq1v7": {
-    "defaultMessage": "Par défaut, la personne nominée sera recommandée en fonction de la classification actuelle de son poste d’attache. Si cette classification comporte des équivalences admissibles qui peuvent convenir à un transfert latéral, veuillez les préciser dans le champ prévu à cet effet.",
-    "description": "Lateral movement classifications introduction"
-  },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
@@ -11316,6 +11308,10 @@
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
+  },
+  "i2qByM": {
+    "defaultMessage": "Veuillez indiquer les classifications pour lesquelles la personne nominée devrait être recommandée en vue d’un transfert latéral. Cela devrait inclure sa classification d’attache, ainsi que toute classification équivalente qui pourrait également lui convenir.",
+    "description": "Lateral movement classifications introduction"
   },
   "i31jc0": {
     "defaultMessage": "Date limite de présentation des nominations",
@@ -12443,6 +12439,10 @@
   "mnGISd": {
     "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
     "description": "Label for an employee profile career development preference field"
+  },
+  "mnOTAG": {
+    "defaultMessage": "La personne pourra être recommandée pour un transfert latéral pour les classifications sélectionnées ci-dessus jusqu’à cette date (inclusivement).",
+    "description": "Help text for lateral movement referral expiry date field"
   },
   "moB11/": {
     "defaultMessage": "est en mesure d’attribuer les rôles de recruteur de la collectivité et de coordonnateur des talents de la collectivité.",
