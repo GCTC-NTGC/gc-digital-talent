@@ -567,7 +567,7 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
 
-    "Limits number of fetched items. Maximum allowed value: 1000."
+    "Limits number of fetched items. Maximum allowed value: 100."
     first: Int! = 10
 
     "The offset from which items are returned."
@@ -1930,7 +1930,7 @@ input PublishedPoolsSearchInput {
   classifications: [UUID!]
   publishedAtRange: [PoolPublishedRange!]
   languages: [LanguageAbility!]
-  salaryRange: [ClassificationSalaryRange!]
+  salaryRange: ClassificationSalaryRange
   processNumber: String
 }
 
