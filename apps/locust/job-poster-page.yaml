@@ -1,0 +1,63 @@
+# Azure Load Testing config for job_poster_page.py
+# az load test create --load-test-resource <resource> --resource-group <group> --load-test-config-file job-poster-page.yaml
+version: v0.1
+testId: job-poster-page
+displayName: Job poster page
+description: Individual job poster pages for published jobs
+testType: Locust
+testPlan: job_poster_page.py
+engineInstances: 1
+configurationFiles:
+  - common.py
+  - queries.py
+properties:
+  userPropertyFile: locust.conf
+env:
+  - name: LOCALES
+    value: en,fr
+  - name: THINK_TIME_MIN
+    value: "5"
+  - name: THINK_TIME_MAX
+    value: "15"
+  - name: SYNTHETIC_METRICS
+    value: "true"
+failureCriteria:
+  clientMetrics:
+    - percentage(error) > 5
+autoStop:
+  errorPercentage: 50
+  timeWindow: 60
+# Server side metrics show up next to the client metrics on the dashboard.
+# Fill in the resource ids for the target environment to enable them.
+# appComponents:
+#   - resourceId: /subscriptions/<sub>/resourceGroups/<group>/providers/Microsoft.Web/sites/<app>
+#     kind: web
+#     metrics:
+#       - name: CpuTime
+#         namespace: Microsoft.Web/sites
+#         aggregation: Total
+#       - name: Http5xx
+#         namespace: Microsoft.Web/sites
+#         aggregation: Total
+#       - name: HttpResponseTime
+#         namespace: Microsoft.Web/sites
+#         aggregation: Average
+#   - resourceId: /subscriptions/<sub>/resourceGroups/<group>/providers/Microsoft.Web/serverfarms/<plan>
+#     metrics:
+#       - name: CpuPercentage
+#         namespace: Microsoft.Web/serverfarms
+#         aggregation: Average
+#       - name: MemoryPercentage
+#         namespace: Microsoft.Web/serverfarms
+#         aggregation: Average
+#   - resourceId: /subscriptions/<sub>/resourceGroups/<group>/providers/Microsoft.DBforPostgreSQL/flexibleServers/<server>
+#     metrics:
+#       - name: cpu_percent
+#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
+#         aggregation: Average
+#       - name: memory_percent
+#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
+#         aggregation: Average
+#       - name: active_connections
+#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
+#         aggregation: Maximum
