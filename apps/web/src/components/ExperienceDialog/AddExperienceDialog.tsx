@@ -13,6 +13,7 @@ interface ExperienceTypeDetails {
   title: string;
   description: string;
   linkText: string;
+  href: string;
 }
 
 interface AddExperienceDialogProps {
@@ -33,35 +34,42 @@ const AddExperienceDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const href = applicationId
-    ? paths.applicationCareerTimelineAdd(applicationId)
-    : paths.createExperience();
+  const from = applicationId
+    ? paths.applicationCareerTimeline(applicationId)
+    : undefined;
+  const getHref = (type: ExperienceType) =>
+    paths.createExperienceType(type, { from });
 
   const experienceTypes: Record<ExperienceType, ExperienceTypeDetails> = {
     work: {
       title: intl.formatMessage(experienceMessages.work),
       description: intl.formatMessage(experienceMessages.workDescription),
       linkText: intl.formatMessage(experienceMessages.addWork),
+      href: getHref("work"),
     },
     education: {
       title: intl.formatMessage(experienceMessages.education),
       description: intl.formatMessage(experienceMessages.educationDescription),
       linkText: intl.formatMessage(experienceMessages.addEducation),
+      href: getHref("education"),
     },
     community: {
       title: intl.formatMessage(experienceMessages.community),
       description: intl.formatMessage(experienceMessages.communityDescription),
       linkText: intl.formatMessage(experienceMessages.addCommunity),
+      href: getHref("community"),
     },
     personal: {
       title: intl.formatMessage(experienceMessages.personal),
       description: intl.formatMessage(experienceMessages.personalDescription),
       linkText: intl.formatMessage(experienceMessages.addPersonal),
+      href: getHref("personal"),
     },
     award: {
       title: intl.formatMessage(experienceMessages.award),
       description: intl.formatMessage(experienceMessages.awardDescription),
       linkText: intl.formatMessage(experienceMessages.addAward),
+      href: getHref("award"),
     },
   };
 
@@ -92,7 +100,11 @@ const AddExperienceDialog = ({
                 <p className="mb-3 text-gray-600 dark:text-gray-100">
                   {details.description}
                 </p>
-                <Link href={href} icon={PlusCircleIcon} className="font-bold">
+                <Link
+                  href={details.href}
+                  icon={PlusCircleIcon}
+                  className="font-bold"
+                >
                   {details.linkText}
                 </Link>
               </div>
