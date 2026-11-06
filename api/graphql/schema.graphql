@@ -1847,7 +1847,11 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
   ): [Pool]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["wherePublished"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["wherePublished", "whereNotArchived"]
+    )
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
