@@ -28,8 +28,8 @@ const messages = defineMessages({
   },
   addSubtitle: {
     defaultMessage:
-      "Share your diplomas, certificates, online courses, apprenticeships, licenses, or alternative credentials received from educational institutions.",
-    id: "m5YNK0",
+      "Share your diplomas, certificates, online courses, apprenticeships, licences, or alternative credentials received from educational institutions.",
+    id: "PZCSU3",
     description: "Subtitle for the add education experience page",
   },
   heading: {

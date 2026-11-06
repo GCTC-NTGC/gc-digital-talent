@@ -22,8 +22,8 @@ const messages = defineMessages({
     description: "Title for the add award experience page",
   },
   editTitle: {
-    defaultMessage: "Edit award or recognition",
-    id: "+H13fF",
+    defaultMessage: "Edit an award or recognition",
+    id: "CQBHqp",
     description: "Title for the edit award experience page",
   },
   addSubtitle: {
@@ -39,8 +39,8 @@ const messages = defineMessages({
   },
   intro: {
     defaultMessage:
-      "Let's add new award experience to your profile. When adding experience, it's important to remember the classic framework of who, when, where, what, why, and how. You'll start by answering a few standard questions about the award and then explore the skills that led to you achieving the award.",
-    id: "P6BFHK",
+      "Let's add an award or recognition to your profile. When adding experience, it's important to remember the classic framework of who, when, where, what, why, and how. You'll start by answering a few standard questions about the award and then explore the skills that led to you achieving the award.",
+    id: "ewol2W",
     description: "Introduction for the award experience form",
   },
 });

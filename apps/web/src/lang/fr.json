@@ -347,6 +347,10 @@
     "defaultMessage": "Création du processus de recrutement réussie!",
     "description": "Message displayed to user after pool is created successfully."
   },
+  "/WGk7k": {
+    "defaultMessage": "Indiquez les reconnaissances ou prix que vous avez reçus pour vos réalisations exceptionnelles.",
+    "description": "Subtitle for the add award experience page"
+  },
   "/WUaCi": {
     "defaultMessage": "Des renseignements requis sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité sont manquants.",
     "description": "Error message displayed when a users priority entitlements is incomplete"
@@ -1298,6 +1302,10 @@
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
   },
+  "37xkir": {
+    "defaultMessage": "Ajouter une participation à la collectivité",
+    "description": "Title for the add community participation experience page"
+  },
   "38dkpl": {
     "defaultMessage": "Erreur : La mise à jour des réponses aux questions a échoué",
     "description": "Message displayed to user after application question responses fail to be updated."
@@ -1441,6 +1449,10 @@
   "3eeKdd": {
     "defaultMessage": "De quelle façon avez-vous démontré cette compétence dans ce rôle?",
     "description": "Question for clarifying skill details"
+  },
+  "3fHWz1": {
+    "defaultMessage": "Modifier une participation à la collectivité",
+    "description": "Title for the edit community participation experience page"
   },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
@@ -2069,6 +2081,10 @@
   "6Ji7g2": {
     "defaultMessage": "Vos options en matière d'équité",
     "description": "Title for the subsection for viewing/selecting employment equity"
+  },
+  "6KUgGR": {
+    "defaultMessage": "Renseignements sur l'apprentissage personnel",
+    "description": "Heading for the personal learning experience form"
   },
   "6LOBmp": {
     "defaultMessage": "peut consulter et modifier l’ébauche d’une annonce d’emploi;",
@@ -2765,6 +2781,10 @@
   "9NDM+k": {
     "defaultMessage": "Fixer une date d'expiration pour ce candidat dans ce bassin :",
     "description": "Third section of text on the add user to pool dialog"
+  },
+  "9O3rOx": {
+    "defaultMessage": "Ajoutons une nouvelle expérience d'apprentissage personnel à votre profil. Au moment de décrire une expérience, il est important de garder à l'esprit les questions classiques de qui, quand, où, quoi, pourquoi et comment. Vous répondrez d'abord à quelques questions générales sur l'expérience. Vous décrirez ensuite la nature de votre participation, puis expliquerez comment vous avez mis différentes compétences à profit à cette occasion.",
+    "description": "Introduction for the personal learning experience form"
   },
   "9OBHdP": {
     "defaultMessage": "{date} - Aujourd’hui",
@@ -3522,6 +3542,10 @@
     "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
     "description": "Error message when a user does not meet a pools language requirements"
   },
+  "CQBHqp": {
+    "defaultMessage": "Modifier un prix ou une reconnaissance",
+    "description": "Title for the edit award experience page"
+  },
   "CQhXfC": {
     "defaultMessage": "Autre type de programme de recherche",
     "description": "First part of education experience title for other type"
@@ -3804,6 +3828,10 @@
   "DVIT0q": {
     "defaultMessage": "Statut de cadre supérieur",
     "description": "Label for employee profile senior management status input"
+  },
+  "DWrzhf": {
+    "defaultMessage": "Renseignements sur l'éducation",
+    "description": "Heading for the education experience form"
   },
   "DX3z2x": {
     "defaultMessage": "Autre collectivité",
@@ -4125,6 +4153,10 @@
     "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
+  "EmCkeP": {
+    "defaultMessage": "Modifier une éducation ou un certificat",
+    "description": "Title for the edit education experience page"
+  },
   "EoEEha": {
     "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
     "description": "Label for the input for selecting work stream referral preferences"
@@ -4412,6 +4444,10 @@
   "G+rsNw": {
     "defaultMessage": "Divers (anglais ou français)",
     "description": "Various language requirement"
+  },
+  "G/TtJA": {
+    "defaultMessage": "Ajouter une expérience d'apprentissage personnel",
+    "description": "Title for the add personal learning experience page"
   },
   "G/VuSY": {
     "defaultMessage": "Expérience associée",
@@ -5134,6 +5170,10 @@
   "Ip9S/o": {
     "defaultMessage": "Confirmez votre adresse courriel personnelle.",
     "description": "Text for first registrion step confirm personal email"
+  },
+  "Iq/n12": {
+    "defaultMessage": "Ajoutons une nouvelle expérience professionnelle à votre profil. Au moment de décrire une expérience, il est important de garder à l'esprit les questions classiques de qui, quand, où, quoi, pourquoi et comment. Vous répondrez d'abord à quelques questions générales sur l'emploi, puis vous décrirez vos tâches et la façon dont vous avez mis différentes compétences à profit.",
+    "description": "Introduction for the work experience form"
   },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
@@ -5941,6 +5981,10 @@
   "M051tF": {
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
+  },
+  "M0V9+t": {
+    "defaultMessage": "Ajouter une éducation ou un certificat",
+    "description": "Title for the add education experience page"
   },
   "M0rL3I": {
     "defaultMessage": "Nomination précédente",
@@ -6760,6 +6804,10 @@
   "PYeS11": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} one {# expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
+  },
+  "PZCSU3": {
+    "defaultMessage": "Indiquez vos diplômes, certificats, cours en ligne, programmes d'apprentissages, permis d'exercice ou autres titres professionnels que vous avez obtenus auprès d'établissements d'enseignement.",
+    "description": "Subtitle for the add education experience page"
   },
   "PaJ21r": {
     "defaultMessage": "Rendement élevé",
@@ -8635,6 +8683,10 @@
     "defaultMessage": "Raison du changement",
     "description": "Heading for form to justify updating a published process"
   },
+  "XI0wfo": {
+    "defaultMessage": "Renseignements sur la participation à la collectivité",
+    "description": "Heading for the community participation experience form"
+  },
   "XIDaGg": {
     "defaultMessage": "Rechercher un modèle",
     "description": "Heading for the form to filter job poster templates"
@@ -9178,6 +9230,10 @@
   "ZZLwb5": {
     "defaultMessage": "Niveaux de filtrage de sécurité",
     "description": "Heading for the security clearance levels section"
+  },
+  "ZZeEGE": {
+    "defaultMessage": "Ajoutons une nouvelle expérience de participation à la collectivité à votre profil. Au moment de décrire une expérience, il est important de garder à l'esprit les questions classiques de qui, quand, où, quoi, pourquoi et comment. Vous répondrez d'abord à quelques questions générales sur l'expérience. Vous décrirez ensuite la nature de votre participation, puis expliquerez comment vous avez mis différentes compétences à profit à cette occasion.",
+    "description": "Introduction for the community participation experience form"
   },
   "ZZpC8s": {
     "defaultMessage": "Voir les définitions pour « {skillName} »",
@@ -10341,6 +10397,10 @@
     "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
     "description": "Subtitle for the update job poster template page"
   },
+  "eRMznK": {
+    "defaultMessage": "Indiquez vos expériences professionnelles à temps partiel ou à temps plein, de travail autonome, dans le secteur sans but lucratif ou à titre de stagiaire.",
+    "description": "Subtitle for the add work experience page"
+  },
   "eS/PsM": {
     "defaultMessage": "Modifier les rôles dans la collectivité",
     "description": "Label for the form to edit user community membership"
@@ -10388,6 +10448,10 @@
   "eZlUrp": {
     "defaultMessage": "Afficher l'offre d'emploi",
     "description": "Label for view job advertisement link"
+  },
+  "ea/1Be": {
+    "defaultMessage": "Modifier une expérience professionnelle",
+    "description": "Title for the edit work experience page"
   },
   "ecHyZS": {
     "defaultMessage": "Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
@@ -10488,6 +10552,10 @@
   "ewKmEe": {
     "defaultMessage": "{count, plural, one {La candidature de la personne a été envoyée une fois.} other {La candidature de la personne a été envoyée # fois.}}",
     "description": "Count of how many times a user has been referred across all talent requests"
+  },
+  "ewol2W": {
+    "defaultMessage": "Ajoutons un prix ou une reconnaissance à votre profil. Au moment de décrire une expérience, il est important de garder à l'esprit les questions classiques de qui, quand, où, quoi, pourquoi et comment. Vous répondrez d'abord à quelques questions générales sur le prix ou la reconnaissance, puis vous présenterez les compétences qui vous ont permis de l'obtenir.",
+    "description": "Introduction for the award experience form"
   },
   "exPEA1": {
     "defaultMessage": "Nom du nominateur ou de la nominatrice",
@@ -10973,6 +11041,10 @@
     "defaultMessage": "Confirmez votre adresse courriel professionnelle du gouvernement du Canada et mettez à jour votre expérience de travail avec votre rôle actuel afin d’accéder à des outils utiles de gestion de carrière et aux paramètres du profil.",
     "description": "Lead-in text explaining employee verification"
   },
+  "giyIGK": {
+    "defaultMessage": "Indiquez des façons dont votre participation à votre collectivité a contribué à votre cheminement, notamment par le bénévolat, les cérémonies, les événements ou la collaboration virtuelle.",
+    "description": "Subtitle for the add community participation experience page"
+  },
   "gj0bQO": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
@@ -11036,6 +11108,10 @@
   "gwpmTn": {
     "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
     "description": "Error message for when a skill is not selected for assessment"
+  },
+  "gxzuJU": {
+    "defaultMessage": "Renseignements sur le prix ou la reconnaissance",
+    "description": "Heading for the award experience form"
   },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
@@ -11432,6 +11508,10 @@
     "defaultMessage": "Échéancier visé pour un transfert latéral",
     "description": "Label for an employee profile career development preference field"
   },
+  "iS0pd+": {
+    "defaultMessage": "Indiquez des façons dont d'autres expériences de vie, notamment votre vie familiale, vos loisirs et vos activités parascolaires, ont contribué à votre cheminement et au développement de vos compétences.",
+    "description": "Subtitle for the add personal learning experience page"
+  },
   "iSbtcK": {
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
@@ -11739,6 +11819,10 @@
   "jaMIil": {
     "defaultMessage": "Votre disponibilité",
     "description": "Label for available for opportunities radio group"
+  },
+  "jaq5mc": {
+    "defaultMessage": "Ajouter une expérience professionnelle",
+    "description": "Title for the add work experience page"
   },
   "jb7PvU": {
     "defaultMessage": "Je comprends, supprimer cette compétence",
@@ -13692,6 +13776,10 @@
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
+  "s83ACE": {
+    "defaultMessage": "Ajouter un prix ou une reconnaissance",
+    "description": "Title for the add award experience page"
+  },
   "s8ByY4": {
     "defaultMessage": "Vous avez des questions ou vous avez besoin d'aide? Communiquez avec notre équipe de soutien et dites-nous comment nous pouvons vous aider.",
     "description": "the 'contact support' tool description"
@@ -14548,6 +14636,10 @@
     "defaultMessage": "Filtrer par type de rôle",
     "description": "Legend for supervisory status input"
   },
+  "vkJsjK": {
+    "defaultMessage": "Renseignements sur le poste",
+    "description": "Heading for the work experience form"
+  },
   "voH+OJ": {
     "defaultMessage": "Identifiant de référence",
     "description": "The reference id for a job poster template"
@@ -15238,6 +15330,10 @@
     "defaultMessage": "la conformité aux règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>;",
     "description": "List item one, things developers consider for accessibility"
   },
+  "ylpJ8+": {
+    "defaultMessage": "Modifier une expérience d'apprentissage personnel",
+    "description": "Title for the edit personal learning experience page"
+  },
   "ymHPWF": {
     "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
     "description": "Instructional text under the Skill Requirements section"
@@ -15481,6 +15577,10 @@
   "zgLR8q": {
     "defaultMessage": "Les dates de début et de fin de la période de nomination, les types de nominations pouvant être soumises et la question de savoir si les compétences de leadership sont requises lors de la soumission.",
     "description": "Description before nomination settings"
+  },
+  "zggxVs": {
+    "defaultMessage": "Ajoutons une nouvelle expérience d'éducation à votre profil. Au moment de décrire une expérience, il est important de garder à l'esprit les questions classiques de qui, quand, où, quoi, pourquoi et comment. Vous répondrez d'abord à quelques questions générales sur le type d'éducation ou de certification. Vous fournirez ensuite des précisions sur l'établissement, le domaine d'études et tout autre renseignement pertinent, puis expliquerez comment vous avez mis différentes compétences à profit au cours de cette expérience.",
+    "description": "Introduction for the education experience form"
   },
   "zhqK/P": {
     "defaultMessage": "Non précisé",
