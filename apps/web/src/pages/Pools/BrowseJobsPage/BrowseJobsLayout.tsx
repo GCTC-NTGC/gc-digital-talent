@@ -77,7 +77,7 @@ export const Component = ({ children }: Props) => {
           src={theme.mode === "dark" ? flourishTopDark : flourishTopLight}
           className={flourish({ isTop: true })}
         />
-        <Container>{children}</Container>
+        <Container className="relative z-2">{children}</Container>
         <img
           alt=""
           src={theme.mode === "dark" ? flourishBottomDark : flourishBottomLight}
