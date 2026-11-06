@@ -34,11 +34,8 @@ const AddExperienceDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const from = applicationId
-    ? paths.applicationCareerTimeline(applicationId)
-    : undefined;
   const getHref = (type: ExperienceType) =>
-    paths.createExperienceType(type, { from });
+    paths.createExperienceType(type, { applicationId });
 
   const experienceTypes: Record<ExperienceType, ExperienceTypeDetails> = {
     work: {

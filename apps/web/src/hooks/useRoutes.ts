@@ -312,10 +312,13 @@ const getRoutes = (lang: Locales) => {
 
     // Career timeline
     careerTimeline: () => [applicantUrl, "career-timeline"].join("/"),
-    editExperience: (experienceId: string, opts?: { from?: string }) => {
+    editExperience: (
+      experienceId: string,
+      opts?: { applicationId?: string },
+    ) => {
       const searchParams = new Map<string, string>();
-      if (opts?.from) {
-        searchParams.set("from", opts.from);
+      if (opts?.applicationId) {
+        searchParams.set("applicationId", opts.applicationId);
       }
       return (
         [applicantUrl, "career-timeline", experienceId, "edit"].join("/") +
@@ -326,11 +329,11 @@ const getRoutes = (lang: Locales) => {
       [applicantUrl, "career-timeline", "create"].join("/"),
     createExperienceType: (
       experienceType: ExperienceType,
-      opts?: { from?: string },
+      opts?: { applicationId?: string },
     ) => {
       const searchParams = new Map<string, string>();
-      if (opts?.from) {
-        searchParams.set("from", opts.from);
+      if (opts?.applicationId) {
+        searchParams.set("applicationId", opts.applicationId);
       }
       return (
         [
