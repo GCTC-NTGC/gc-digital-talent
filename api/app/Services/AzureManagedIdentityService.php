@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Http;
 class AzureManagedIdentityService implements ManagedIdentityService
 {
     /* Retrieves identity values (from cache or Azure services) using a managed identity. */
-    protected function getIdentityValues(): array
+    protected function getIdentityValues(string $resource): array
     {
-        $cacheKey = 'azure_managed_identity_values';
+        $cacheKey = 'azure_managed_identity_values:'.$resource;
 
         if (Cache::has($cacheKey)) {
             // shortcut: use cached access token values if available
@@ -24,7 +24,7 @@ class AzureManagedIdentityService implements ManagedIdentityService
         $response = Http::withHeader('X-IDENTITY-HEADER', config('azure.managed_identity.header'))
             ->withQueryParameters([
                 'api-version' => '2019-08-01',
-                'resource' => 'https://monitor.azure.com/',
+                'resource' => $resource,
             ])
             ->get(config('azure.managed_identity.endpoint'))
             ->throwUnlessStatus(200);
@@ -45,9 +45,9 @@ class AzureManagedIdentityService implements ManagedIdentityService
     }
 
     /* Retrieve an access token from the identity service */
-    public function getAccessToken(): string
+    public function getAccessToken(string $resource): string
     {
-        $values = $this->getIdentityValues();
+        $values = $this->getIdentityValues($resource);
 
         return $values['access_token'];
     }
