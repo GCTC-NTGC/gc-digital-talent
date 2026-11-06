@@ -255,20 +255,21 @@ const ExperienceListCard = ({
         {title}
       </Heading>
       <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
-      {showEdit && addLink ? (
-        <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
-          {addText}
-        </Link>
-      ) : (
-        <AddExperienceDialog
-          trigger={
-            <Button color="primary" icon={PlusCircleIcon} mode="inline">
-              {addText}
-            </Button>
-          }
-          applicationId={applicationId}
-        />
-      )}
+      {showEdit &&
+        (addLink ? (
+          <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
+            {addText}
+          </Link>
+        ) : (
+          <AddExperienceDialog
+            trigger={
+              <Button color="primary" icon={PlusCircleIcon} mode="inline">
+                {addText}
+              </Button>
+            }
+            applicationId={applicationId}
+          />
+        ))}
       {Object.keys(groupedExperiences).length > 0 ? (
         Object.keys(groupedExperiences).map((organization) => (
           <Fragment key={organization}>
