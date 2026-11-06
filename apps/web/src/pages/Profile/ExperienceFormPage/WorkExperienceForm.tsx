@@ -34,8 +34,8 @@ const messages = defineMessages({
     description: "Subtitle for the add work experience page",
   },
   heading: {
-    defaultMessage: "Job position details",
-    id: "tK7vcF",
+    defaultMessage: "Job details",
+    id: "vkJsjK",
     description: "Heading for the work experience form",
   },
   intro: {
