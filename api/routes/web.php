@@ -18,6 +18,7 @@ Route::prefix(config('app.app_dir'))->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'login']);
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    Route::post('/auth-callback', [AuthController::class, 'authCallback']); // the dummy login form posts here
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
 });
@@ -26,6 +27,7 @@ Route::prefix('')->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'login']);
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    Route::post('/auth-callback', [AuthController::class, 'authCallback']); // the dummy login form posts here
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
 });

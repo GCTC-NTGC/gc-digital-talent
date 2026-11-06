@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CspReportController;
+use App\Http\Controllers\DummyAuthController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserGeneratedFilesController;
 use App\Support\FilePath;
@@ -30,3 +31,11 @@ Route::prefix('user-generated-files')
 
 Route::post('csp-report', [CspReportController::class, 'report'])
     ->middleware('throttle:15,1');
+
+// served under /api/ so nginx passes them to PHP and they skip the web CSRF check
+if (config('auth.login_provider') === 'dummy') {
+    Route::prefix('dummy-auth')->controller(DummyAuthController::class)->group(function () {
+        Route::post('/token', 'token');
+        Route::get('/logout', 'logout');
+    });
+}
