@@ -6259,7 +6259,7 @@
     "description": "Link text for editing a users top technical skills"
   },
   "N6jHMK": {
-    "defaultMessage": "Ajouter une participation communautaire",
+    "defaultMessage": "Ajouter une participation à la collectivité",
     "description": "Link text to add a community experience on experience card header"
   },
   "N6kGOU": {
@@ -8760,7 +8760,7 @@
     "description": "Information in dialog about submitter being different from nominator"
   },
   "XbsYGW": {
-    "defaultMessage": "L’expérience de formation vous permet de présenter vos diplômes, certificats, cours en ligne, apprentissages, permis ou autres titres de compétences obtenus auprès d’établissements d’enseignement.",
+    "defaultMessage": "L'expérience d'éducation vous permet de présenter vos diplômes, certificats, cours en ligne, apprentissages, permis ou autres titres de compétences obtenus auprès d'établissements d'enseignement.",
     "description": "Description for education experience card header"
   },
   "XdynkW": {
@@ -9580,7 +9580,7 @@
     "description": "Legend for the Conditions of Employment filter checklist"
   },
   "bLaMGb": {
-    "defaultMessage": "L’expérience communautaire est l’endroit où expliquer comment votre participation à la collectivité vous a aidé à évoluer, notamment par le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
+    "defaultMessage": "L'expérience de participation à la collectivité est l'endroit où expliquer comment votre participation à la collectivité vous a aidé à évoluer, notamment par le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
     "description": "Description for community experience card header"
   },
   "bMM+wm": {
@@ -10036,7 +10036,7 @@
     "description": "Event description when a special application is created"
   },
   "dB4fUm": {
-    "defaultMessage": "Ajouter une formation ou un certificat",
+    "defaultMessage": "Ajouter une éducation ou un certificat",
     "description": "Link text to add a education experience on experience card header"
   },
   "dBpcNA": {
@@ -12209,7 +12209,7 @@
     "description": "Label for the pool candidates table search input"
   },
   "lNrsD+": {
-    "defaultMessage": "Ajouter une expérience personnelle ou un certificat",
+    "defaultMessage": "Ajouter une expérience d'apprentissage personnel",
     "description": "Link text to add a personal experience on experience card header"
   },
   "lPuC3S": {
@@ -14037,7 +14037,7 @@
     "description": "Subtitle for verifying a candidate's veteran claim"
   },
   "tD+jQR": {
-    "defaultMessage": "Ajouter une expérience de travail",
+    "defaultMessage": "Ajouter une expérience professionnelle",
     "description": "Link text to add a work experience on experience card header"
   },
   "tD99Wf": {
@@ -14149,7 +14149,7 @@
     "description": "Text on a button to save the pool work tasks"
   },
   "tj7eTS": {
-    "defaultMessage": "Ajouter une récompense ou une reconnaissance",
+    "defaultMessage": "Ajouter un prix ou une reconnaissance",
     "description": "Link text to add an award experience on experience card header"
   },
   "tj90+D": {
@@ -14988,7 +14988,7 @@
     "description": "Label for placed end date input"
   },
   "xQSZ+V": {
-    "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
+    "defaultMessage": "Les prix et les reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
     "description": "Description for award experience card header"
   },
   "xQXV5W": {
@@ -15167,7 +15167,7 @@
     "description": "Null selection for department select input in the request form."
   },
   "yBpua7": {
-    "defaultMessage": "L’expérience de travail est un excellent endroit pour présenter vos expériences à temps partiel, à temps plein, de travail autonome, dans le secteur sans but lucratif ou de stage.",
+    "defaultMessage": "L'expérience professionnelle est un excellent endroit pour présenter vos expériences à temps partiel, à temps plein, de travail autonome, dans le secteur sans but lucratif ou de stage.",
     "description": "Description for work experience card header"
   },
   "yC4xI6": {
