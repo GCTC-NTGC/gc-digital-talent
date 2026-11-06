@@ -1,6 +1,6 @@
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import OpenJobsPage from "./OpenJobsPage";
+import OpenOpportunitiesPage from "./OpenOpportunitiesPage";
 import OpenJobsPageDeprecated from "./OpenJobsPageDeprecated";
 
 /**
@@ -9,9 +9,13 @@ import OpenJobsPageDeprecated from "./OpenJobsPageDeprecated";
  **/
 const Component = () => {
   const featureFlags = useFeatureFlags();
-  return featureFlags.jobAlerts ? <OpenJobsPage /> : <OpenJobsPageDeprecated />;
+  return featureFlags.jobAlerts ? (
+    <OpenOpportunitiesPage />
+  ) : (
+    <OpenJobsPageDeprecated />
+  );
 };
 
-Component.displayName = "OpenJobsPage";
+Component.displayName = "OpenOpportunitiesPageWrapper";
 
 export default Component;
