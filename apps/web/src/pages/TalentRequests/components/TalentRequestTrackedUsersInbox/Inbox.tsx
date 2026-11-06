@@ -1,9 +1,12 @@
 import { Children, Fragment } from "react";
-import type { ComponentPropsWithRef, ReactNode } from "react";
+import type { ComponentProps, ComponentPropsWithRef, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { CheckButton } from "@gc-digital-talent/forms";
-import { UNICODE_CHAR } from "@gc-digital-talent/ui";
+import {
+  Toolbar as ToolbarPrimitive,
+  UNICODE_CHAR,
+} from "@gc-digital-talent/ui";
 
 const toolbar = tv({
   base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-6 sm:grid-cols-2 dark:border-gray-300",
@@ -14,11 +17,14 @@ const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const actions = tv({
-  base: "flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-gray-500 px-6 py-3 dark:border-gray-300",
+  base: "border-b border-gray-500 px-6 py-3 dark:border-gray-300",
 });
 
-const Actions = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
-  <div className={actions({ class: className })} {...rest} />
+const Actions = ({
+  className,
+  ...rest
+}: ComponentProps<typeof ToolbarPrimitive.Root>) => (
+  <ToolbarPrimitive.Root className={actions({ class: className })} {...rest} />
 );
 
 const list = tv({ base: "flex flex-col" });

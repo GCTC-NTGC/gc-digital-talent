@@ -22,6 +22,7 @@ import {
   IconButton,
   Loading,
   Notice,
+  Toolbar,
   Tooltip,
 } from "@gc-digital-talent/ui";
 import {
@@ -270,12 +271,16 @@ const TalentRequestTrackedUsersInbox = ({
       </Inbox.Toolbar>
 
       <Inbox.Actions>
-        <CheckButton
-          ref={selectAllRef}
-          checked={allSelected}
-          indeterminate={hasSelection && !allSelected}
-          onToggle={() => handleToggleAll(!allSelected)}
-          label={intl.formatMessage(tableMessages.selectAll)}
+        <Toolbar.Button
+          render={
+            <CheckButton
+              ref={selectAllRef}
+              checked={allSelected}
+              indeterminate={hasSelection && !allSelected}
+              onToggle={() => handleToggleAll(!allSelected)}
+              label={intl.formatMessage(tableMessages.selectAll)}
+            />
+          }
         />
         <span className={selectionCounter({ hasSelection })}>
           <span aria-hidden>{selectedRows.length}</span>
@@ -298,15 +303,22 @@ const TalentRequestTrackedUsersInbox = ({
               <Tooltip.Root>
                 <Tooltip.Trigger
                   render={
-                    <IconButton
-                      color="black"
-                      icon={BookmarkSquareIcon}
-                      label={intl.formatMessage(talentRequestMessages.markAs, {
-                        status: intl.formatMessage(
-                          talentRequestMessages.referred,
-                        ),
-                      })}
-                      onClick={() => handleOpenDialog("refer")}
+                    <Toolbar.Button
+                      render={
+                        <IconButton
+                          color="black"
+                          icon={BookmarkSquareIcon}
+                          label={intl.formatMessage(
+                            talentRequestMessages.markAs,
+                            {
+                              status: intl.formatMessage(
+                                talentRequestMessages.referred,
+                              ),
+                            },
+                          )}
+                          onClick={() => handleOpenDialog("refer")}
+                        />
+                      }
                     />
                   }
                 />
@@ -319,13 +331,22 @@ const TalentRequestTrackedUsersInbox = ({
               <Tooltip.Root>
                 <Tooltip.Trigger
                   render={
-                    <IconButton
-                      color="black"
-                      icon={ArchiveBoxIcon}
-                      label={intl.formatMessage(talentRequestMessages.markAs, {
-                        status: intl.formatMessage(commonMessages.notReferred),
-                      })}
-                      onClick={() => handleOpenDialog("notRefer")}
+                    <Toolbar.Button
+                      render={
+                        <IconButton
+                          color="black"
+                          icon={ArchiveBoxIcon}
+                          label={intl.formatMessage(
+                            talentRequestMessages.markAs,
+                            {
+                              status: intl.formatMessage(
+                                commonMessages.notReferred,
+                              ),
+                            },
+                          )}
+                          onClick={() => handleOpenDialog("notRefer")}
+                        />
+                      }
                     />
                   }
                 />
@@ -338,13 +359,22 @@ const TalentRequestTrackedUsersInbox = ({
               <Tooltip.Root>
                 <Tooltip.Trigger
                   render={
-                    <IconButton
-                      color="black"
-                      icon={NoSymbolIcon}
-                      label={intl.formatMessage(talentRequestMessages.markAs, {
-                        status: intl.formatMessage(commonMessages.notSelected),
-                      })}
-                      onClick={() => handleOpenDialog("notSelect")}
+                    <Toolbar.Button
+                      render={
+                        <IconButton
+                          color="black"
+                          icon={NoSymbolIcon}
+                          label={intl.formatMessage(
+                            talentRequestMessages.markAs,
+                            {
+                              status: intl.formatMessage(
+                                commonMessages.notSelected,
+                              ),
+                            },
+                          )}
+                          onClick={() => handleOpenDialog("notSelect")}
+                        />
+                      }
                     />
                   }
                 />
@@ -358,16 +388,20 @@ const TalentRequestTrackedUsersInbox = ({
             <DropdownMenu.Root>
               <DropdownMenu.Trigger
                 render={
-                  <Button
-                    mode="inline"
-                    color="black"
-                    icon={ArrowDownTrayIcon}
-                    utilityIcon={ChevronDownIcon}
-                  >
-                    <span className="sr-only">
-                      {intl.formatMessage(commonMessages.download)}
-                    </span>
-                  </Button>
+                  <Toolbar.Button
+                    render={
+                      <Button
+                        mode="inline"
+                        color="black"
+                        icon={ArrowDownTrayIcon}
+                        utilityIcon={ChevronDownIcon}
+                      >
+                        <span className="sr-only">
+                          {intl.formatMessage(commonMessages.download)}
+                        </span>
+                      </Button>
+                    }
+                  />
                 }
               />
               <DropdownMenu.Popup positionerProps={{ align: "start" }}>
@@ -405,10 +439,14 @@ const TalentRequestTrackedUsersInbox = ({
           <DropdownMenu.Root>
             <DropdownMenu.Trigger
               render={
-                <IconButton
-                  color="black"
-                  icon={EllipsisHorizontalIcon}
-                  label={intl.formatMessage(tableMessages.actions)}
+                <Toolbar.Button
+                  render={
+                    <IconButton
+                      color="black"
+                      icon={EllipsisHorizontalIcon}
+                      label={intl.formatMessage(tableMessages.actions)}
+                    />
+                  }
                 />
               }
             />
