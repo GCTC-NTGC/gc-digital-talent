@@ -122,7 +122,12 @@ export function convertFormValuesToMutationInput(
       formValues.lateralMovementRejectedNotes,
     ),
     lateralMovementClassifications: {
-      sync: formValues.lateralMovementClassifications,
+      // if lateral movement is approved sync the classifications, otherwise clear
+      sync:
+        formValues.lateralMovementDecision ==
+        TalentNominationGroupDecision.Approved
+          ? formValues.lateralMovementClassifications
+          : [],
     },
     lateralMovementReferralExpiryDate:
       formValues.lateralMovementReferralExpiryDate ?? null,
