@@ -9119,6 +9119,10 @@
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
   },
+  "ZHxlL3": {
+    "defaultMessage": "Classifications pour un transfert latéral",
+    "description": "Label for lateral movement classifications field"
+  },
   "ZI0wBf": {
     "defaultMessage": "(B B B)",
     "description": "Second part of bilingual intermediate pool language"
@@ -11305,6 +11309,10 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
+  "i2qByM": {
+    "defaultMessage": "Veuillez indiquer les classifications pour lesquelles la personne nominée devrait être recommandée en vue d’un transfert latéral. Cela devrait inclure sa classification d’attache, ainsi que toute classification équivalente qui pourrait également lui convenir.",
+    "description": "Lateral movement classifications introduction"
+  },
   "i31jc0": {
     "defaultMessage": "Date limite de présentation des nominations",
     "description": "Label for the deadline to nominate"
@@ -12431,6 +12439,10 @@
   "mnGISd": {
     "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
     "description": "Label for an employee profile career development preference field"
+  },
+  "mnOTAG": {
+    "defaultMessage": "La personne pourra être recommandée pour un transfert latéral pour les classifications sélectionnées ci-dessus jusqu’à cette date (inclusivement).",
+    "description": "Help text for lateral movement referral expiry date field"
   },
   "moB11/": {
     "defaultMessage": "est en mesure d’attribuer les rôles de recruteur de la collectivité et de coordonnateur des talents de la collectivité.",
