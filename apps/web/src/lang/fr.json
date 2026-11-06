@@ -6466,6 +6466,10 @@
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
   },
+  "ORrbTd": {
+    "defaultMessage": "Fermée : {title}",
+    "description": "Label for an item that has been closed"
+  },
   "OTWd3v": {
     "defaultMessage": "Sélectionnez la collectivité",
     "description": "Placeholder text for community selection input"

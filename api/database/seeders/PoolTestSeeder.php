@@ -113,7 +113,6 @@ class PoolTestSeeder extends Seeder
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
-                'closing_date' => config('constants.far_future_date'),
                 'work_stream_id' => $businessAdvisoryStreamId,
 
             ]);
@@ -141,7 +140,7 @@ class PoolTestSeeder extends Seeder
 
         // IT - 05 Closed - Simple
         Pool::factory()
-            ->published()
+            ->closed()
             ->withPoolSkills()
             ->withGeneralQuestions(2)
             ->withScreeningQuestions(1)
@@ -157,7 +156,6 @@ class PoolTestSeeder extends Seeder
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
-                    'closing_date' => config('constants.past_date'),
                     'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
@@ -181,7 +179,6 @@ class PoolTestSeeder extends Seeder
                     'work_stream_id' => WorkStream::where('key', 'EXECUTIVE_GROUP')->sole()->id,
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
-                    'closing_date' => config('constants.past_date'),
                 ],
             );
 
