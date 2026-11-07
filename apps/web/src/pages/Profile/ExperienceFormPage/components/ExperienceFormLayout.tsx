@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
@@ -16,11 +16,7 @@ import {
   AlertDialog,
 } from "@gc-digital-talent/ui";
 import type { IconType } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Submit } from "@gc-digital-talent/forms";
@@ -44,9 +40,9 @@ import {
   experienceSkillsToFormSkills,
   formValuesToSubmitData,
 } from "~/utils/experienceUtils";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { ExperienceFormSkill_Fragment } from "../ExperienceFormPage";
+import useExperienceFormCrumbs from "../useExperienceFormCrumbs";
 import ExperienceSkills from "./ExperienceSkills";
 
 export const ExperienceFormLayout_Fragment = graphql(/* GraphQL */ `
@@ -72,6 +68,19 @@ export const ExperienceFormLayout_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const saveAndReturnMessage = defineMessage({
+  defaultMessage: "Save and return to my career timeline",
+  id: "jZi53k",
+  description: "Label on button to save and return on the current experience",
+});
+
+// Used when the form was opened from an application
+const saveAndGoBackMessage = defineMessage({
+  defaultMessage: "Save and go back",
+  id: "CuHYqt",
+  description: "Text for save button on profile form.",
+});
 
 export const editSubTitle = defineMessage({
   defaultMessage: "Update or delete an experience on your career timeline",
@@ -130,7 +139,11 @@ const ExperienceFormLayout = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimeline();
+  const [searchParams] = useSearchParams();
+  const applicationId = searchParams.get("applicationId") ?? undefined;
+  const returnPath = applicationId
+    ? paths.applicationCareerTimeline(applicationId)
+    : paths.careerTimeline();
   const experience = getFragment(
     ExperienceFormLayout_Fragment,
     experienceQuery,
@@ -244,7 +257,16 @@ const ExperienceFormLayout = ({
           );
           return result.data;
         })
-        .catch(handleError);
+        .catch(() => {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Error: deleting experience failed",
+              id: "YVhQ4t",
+              description:
+                "Message displayed to user after experience fails to be deleted.",
+            }),
+          );
+        });
     }
   };
 
@@ -259,21 +281,13 @@ const ExperienceFormLayout = ({
     }
   }, [isSubmitSuccessful, reset, action, experienceType]);
 
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.applicantDashboard(),
-      },
-      {
-        label: intl.formatMessage(navigationMessages.careerTimeline),
-        url: returnPath,
-      },
-      {
-        label: title,
-        url: experience ? paths.editExperience(experience.id) : "#",
-      },
-    ],
+  const crumbs = useExperienceFormCrumbs({
+    applicationId,
+    edit,
+    title,
+    currentUrl: experience
+      ? paths.editExperience(experience.id, { applicationId })
+      : "#",
   });
 
   return (
@@ -307,12 +321,11 @@ const ExperienceFormLayout = ({
                 {edit ? (
                   <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
                     <Submit
-                      text={intl.formatMessage({
-                        defaultMessage: "Save and return to my career timeline",
-                        id: "jZi53k",
-                        description:
-                          "Label on button to save and return on the current experience",
-                      })}
+                      text={intl.formatMessage(
+                        applicationId
+                          ? formMessages.saveChanges
+                          : saveAndReturnMessage,
+                      )}
                       isSubmitting={mutationExecuting}
                     />
                     <Link color="warning" mode="inline" href={returnPath}>
@@ -391,13 +404,11 @@ const ExperienceFormLayout = ({
                     >
                       {mutationExecuting
                         ? intl.formatMessage(formMessages.submitting)
-                        : intl.formatMessage({
-                            defaultMessage:
-                              "Save and return to my career timeline",
-                            id: "jZi53k",
-                            description:
-                              "Label on button to save and return on the current experience",
-                          })}
+                        : intl.formatMessage(
+                            applicationId
+                              ? saveAndGoBackMessage
+                              : saveAndReturnMessage,
+                          )}
                     </Button>
                     <Button
                       type="submit"

@@ -164,6 +164,26 @@ export default [
                 "create",
                 "./pages/Profile/ExperienceFormPage/CreateExperienceFormPage.tsx",
               ),
+              route(
+                "create/work-experience",
+                "./pages/Profile/ExperienceFormPage/CreateWorkExperiencePage.tsx",
+              ),
+              route(
+                "create/education-or-certificate",
+                "./pages/Profile/ExperienceFormPage/CreateEducationExperiencePage.tsx",
+              ),
+              route(
+                "create/community-participation",
+                "./pages/Profile/ExperienceFormPage/CreateCommunityExperiencePage.tsx",
+              ),
+              route(
+                "create/personal-learning",
+                "./pages/Profile/ExperienceFormPage/CreatePersonalExperiencePage.tsx",
+              ),
+              route(
+                "create/award-or-recognition",
+                "./pages/Profile/ExperienceFormPage/CreateAwardExperiencePage.tsx",
+              ),
             ]),
             ...prefix("community-interests", [
               route(
