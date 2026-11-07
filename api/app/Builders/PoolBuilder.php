@@ -2,6 +2,10 @@
 
 namespace App\Builders;
 
+use App\Enums\ClassificationSalaryRange;
+use App\Enums\LanguageAbility;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolPublishedRange;
 use App\Enums\PoolStatus;
 use App\Models\Team;
 use App\Models\User;
@@ -156,6 +160,174 @@ class PoolBuilder extends Builder
             });
         });
 
+    }
+
+    // just searching pool name to start
+    public function keywordSearch(?array $terms): self
+    {
+        if (empty($terms)) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($terms) {
+            foreach ($terms as $term) {
+                $query->orWhere(function ($query) use ($term) {
+                    $query->name($term);
+                });
+            }
+        });
+    }
+
+    // filter by enum PoolAreaOfSelection options
+    public function whereAreaOfSelectionIn(?array $areasOfSelection): self
+    {
+        // TODO
+        // should an additional early return be added if all possible enum values are selected?
+        if (empty($areasOfSelection)) {
+            return $this;
+        }
+
+        return $this->whereIn('area_of_selection', $areasOfSelection);
+    }
+
+    public function whereDepartmentsIn(?array $departmentIds): self
+    {
+        if (empty($departmentIds)) {
+            return $this;
+        }
+
+        return $this->whereIn('department_id', $departmentIds);
+    }
+
+    public function whereClassificationsIn(?array $classificationIds): self
+    {
+        if (empty($classificationIds)) {
+            return $this;
+        }
+
+        return $this->whereIn('classification_id', $classificationIds);
+    }
+
+    // filter published at by various enum PoolPublishedRange options
+    public function wherePublishedAtIn(?array $publicationRanges): self
+    {
+        // TODO
+        // should an additional early return be added if all possible enum values are selected?
+        if (empty($publicationRanges)) {
+            return $this;
+        }
+
+        // TODO
+        // should isPublished be redundantly called here or not?
+        // currently publishedPoolsSearch always calls wherePublished
+        return $this->where(function ($query) use ($publicationRanges) {
+            $nowSub48Hours = now()->subHours(48);
+            $nowSub30Days = now()->subDays(30);
+
+            if (in_array(PoolPublishedRange::UNDER_48_HOURS->name, $publicationRanges)) {
+                $query->orWhere('published_at', '>=', $nowSub48Hours);
+            }
+
+            if (in_array(PoolPublishedRange::UNDER_30_DAYS->name, $publicationRanges)) {
+                $query->orWhere('published_at', '>=', $nowSub30Days);
+            }
+
+            if (in_array(PoolPublishedRange::OVER_30_DAYS->name, $publicationRanges)) {
+                $query->orWhere('published_at', '<=', $nowSub30Days);
+            }
+        });
+    }
+
+    // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
+    public function whereLanguagesIn(?array $languageAbilities): self
+    {
+        // TODO
+        // should an additional early return be added if all possible enum values are selected?
+        if (empty($languageAbilities)) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($languageAbilities) {
+            // always match with VARIOUS
+            $query->orWhere('advertisement_language', PoolLanguage::VARIOUS->name);
+
+            if (in_array(LanguageAbility::ENGLISH->name, $languageAbilities)) {
+                $query->orWhere(function ($query) {
+                    $query->where('advertisement_language', PoolLanguage::ENGLISH->name);
+                });
+            }
+
+            if (in_array(LanguageAbility::FRENCH->name, $languageAbilities)) {
+                $query->orWhere(function ($query) {
+                    $query->where('advertisement_language', PoolLanguage::FRENCH->name);
+                });
+            }
+
+            if (in_array(LanguageAbility::BILINGUAL->name, $languageAbilities)) {
+                $query->orWhere(function ($query) {
+                    $query
+                        ->orWhere('advertisement_language', PoolLanguage::VARIOUS_BILINGUAL->name)
+                        ->orWhere('advertisement_language', PoolLanguage::BILINGUAL_INTERMEDIATE->name)
+                        ->orWhere('advertisement_language', PoolLanguage::BILINGUAL_ADVANCED->name);
+                });
+            }
+        });
+    }
+
+    // // filter given enum ClassificationSalaryRange options, map to pool's classification min/max salary
+    public function whereSalaryRangeIn(?string $salaryRange): self
+    {
+
+        if (empty($salaryRange)) {
+            return $this;
+        }
+
+        return $this->whereHas('classification', function ($query) use ($salaryRange) {
+            // range only needs to equal/best the minimum for the classification
+            $query->where(function ($query) use ($salaryRange) {
+                if ((ClassificationSalaryRange::BETWEEN_0_39999->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 0)
+                            ->where('min_salary', '<=', 39999);
+                    });
+                }
+                if ((ClassificationSalaryRange::BETWEEN_40000_59999->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 40000)
+                            ->where('min_salary', '<=', 59999);
+                    });
+                }
+                if ((ClassificationSalaryRange::BETWEEN_60000_79999->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 60000)
+                            ->where('min_salary', '<=', 79999);
+                    });
+                }
+                if ((ClassificationSalaryRange::BETWEEN_80000_99999->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 80000)
+                            ->where('min_salary', '<=', 99999);
+                    });
+                }
+                if ((ClassificationSalaryRange::BETWEEN_100000_119999->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 100000)
+                            ->where('min_salary', '<=', 119999);
+                    });
+                }
+                if ((ClassificationSalaryRange::OVER_120000->name === $salaryRange)) {
+                    $query->orWhere(function ($query) {
+                        $query
+                            ->where('min_salary', '>=', 120000);
+                    });
+                }
+            });
+        });
     }
 
     /**

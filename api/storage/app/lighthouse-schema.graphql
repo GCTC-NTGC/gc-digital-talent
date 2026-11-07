@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedClassificationSalaryRange implements LocalizedEnumOption {
+  value: ClassificationSalaryRange!
+  label: LocalizedString!
+}
+
 type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   value: CommunityInterestAdditionalDuty!
   label: LocalizedString!
@@ -305,6 +310,11 @@ type LocalizedPoolLanguage implements LocalizedEnumOption {
 
 type LocalizedPoolOpportunityLength implements LocalizedEnumOption {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolPublishedRange implements LocalizedEnumOption {
+  value: PoolPublishedRange!
   label: LocalizedString!
 }
 
@@ -548,6 +558,16 @@ type Query {
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolPaginator!
+  publishedPoolsSearch(
+    where: PublishedPoolsSearchInput
+    orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 100."
     first: Int! = 10
 
     "The offset from which items are returned."
@@ -1903,6 +1923,17 @@ input PoolFilterInput {
   isHidden: Boolean
 }
 
+input PublishedPoolsSearchInput {
+  keywordSearch: [String!]
+  eligibility: [PoolAreaOfSelection!]
+  departments: [UUID!]
+  classifications: [UUID!]
+  publishedAtRange: [PoolPublishedRange!]
+  languages: [LanguageAbility!]
+  salaryRange: ClassificationSalaryRange
+  processNumber: String
+}
+
 input PoolWorkStreamNameOrderByInput {
   locale: Language!
   order: SortOrder!
@@ -2095,6 +2126,11 @@ enum UsersOrderByColumn {
 
 enum ActivitiesOrderByColumn {
   CREATED_AT
+}
+
+enum PublishedPoolsSearchOrderByColumn {
+  CLOSING_DATE
+  PUBLISHED_AT
 }
 
 input SitewideAnnouncementInput {
@@ -3470,6 +3506,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
   classification: QueryPoolsPaginatedOrderByClassification
 }
 
+"Order by clause for Query.publishedPoolsSearch.orderBy."
+input QueryPublishedPoolsSearchOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: PublishedPoolsSearchOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
 "Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
 input QueryTrainingOpportunitiesPaginatedOrderByOrderByClause {
   "The column that is used for ordering."
@@ -4048,6 +4093,15 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum ClassificationSalaryRange {
+  BETWEEN_0_39999
+  BETWEEN_40000_59999
+  BETWEEN_60000_79999
+  BETWEEN_80000_99999
+  BETWEEN_100000_119999
+  OVER_120000
+}
+
 enum CommunityInterestAdditionalDuty {
   CORPORATE_COMMUNICATIONS
   FACILITIES_MANAGEMENT_AND_SECURITY
@@ -4545,6 +4599,12 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolPublishedRange {
+  UNDER_48_HOURS
+  UNDER_30_DAYS
+  OVER_30_DAYS
 }
 
 enum PoolSelectionLimitation {
