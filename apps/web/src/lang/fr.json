@@ -10190,6 +10190,10 @@
     "defaultMessage": "Modifier la date de clôture",
     "description": "Title to change the closing date of a process"
   },
+  "dl0HbD": {
+    "defaultMessage": "(Expiré)",
+    "description": "Label for draft applications after deadline"
+  },
   "dnKWUf": {
     "defaultMessage": "Ajouter des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
