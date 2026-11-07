@@ -1489,7 +1489,7 @@ input PoolFilterInput {
 }
 
 input PublishedPoolsSearchInput {
-  keywordSearch: String @scope # only name search to start
+  keywordSearch: [String!] @scope # only name search to start
   eligibility: [PoolAreaOfSelection!] @scope(name: "whereAreaOfSelectionIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   classifications: [UUID!] @scope(name: "whereClassificationsIn")

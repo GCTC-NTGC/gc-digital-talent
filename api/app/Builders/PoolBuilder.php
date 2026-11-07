@@ -163,14 +163,18 @@ class PoolBuilder extends Builder
     }
 
     // just searching pool name to start
-    public function keywordSearch(?string $term): self
+    public function keywordSearch(?array $terms): self
     {
-        if (! $term) {
+        if (empty($terms)) {
             return $this;
         }
 
-        return $this->where(function ($query) use ($term) {
-            $query->name($term);
+        return $this->where(function ($query) use ($terms) {
+            foreach ($terms as $term) {
+                $query->orWhere(function ($query) use ($term) {
+                    $query->name($term);
+                });
+            }
         });
     }
 

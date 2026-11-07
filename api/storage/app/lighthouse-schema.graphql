@@ -1924,7 +1924,7 @@ input PoolFilterInput {
 }
 
 input PublishedPoolsSearchInput {
-  keywordSearch: String
+  keywordSearch: [String!]
   eligibility: [PoolAreaOfSelection!]
   departments: [UUID!]
   classifications: [UUID!]
