@@ -1,5 +1,7 @@
 import { useIntl } from "react-intl";
 import { format } from "date-fns/format";
+import { isPast } from "date-fns/isPast";
+import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 
 import {
   DATE_FORMAT_LOCALIZED,
@@ -74,6 +76,7 @@ export const ApplicationDate = ({
       ? format(applicationCutOffDate, DATETIME_FORMAT_STRING)
       : null;
     const deadlineClose = deadlineToApply(formattedCutoff, status);
+    const expired = isPast(applicationCutOffDate ?? "");
 
     return (
       <span
@@ -81,6 +84,9 @@ export const ApplicationDate = ({
           deadlineClose ? "text-error-600 dark:text-error-100" : undefined
         }
       >
+        {expired && (
+          <ExclamationCircleIcon className="mr-1.5 inline-block size-4.5 align-text-bottom text-error dark:text-error-200" />
+        )}
         {intl.formatMessage({
           defaultMessage: "Deadline",
           id: "nIAA4Q",
@@ -95,6 +101,16 @@ export const ApplicationDate = ({
               timeZone: TZ_VANCOUVER,
             })
           : nullMessage}
+        {expired && (
+          <>
+            {" "}
+            {intl.formatMessage({
+              defaultMessage: "(Expired)",
+              id: "dl0HbD",
+              description: "Label for draft applications after deadline",
+            })}
+          </>
+        )}
       </span>
     );
   }
