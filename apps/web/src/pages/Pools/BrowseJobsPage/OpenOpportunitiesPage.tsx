@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   Heading,
+  Notice,
   Pending,
   Ul,
   UNICODE_CHAR,
@@ -42,9 +43,6 @@ export const Component = () => {
   });
 
   const pools = unpackMaybes(data?.poolsPaginated?.data);
-
-  // todo: implement sorting
-  const sortedPools = pools.toSorted((a, b) => 0);
 
   return (
     <BrowseJobsLayout>
@@ -100,7 +98,7 @@ export const Component = () => {
                     description: "opportunity result count",
                   },
                   {
-                    resultCount: sortedPools.length,
+                    resultCount: pools.length,
                   },
                 )}
               </span>
@@ -134,29 +132,53 @@ export const Component = () => {
             </div>
           </Card>
           <Pending fetching={fetching} error={error}>
-            {sortedPools.length ? (
+            {pools.length ? (
               <Ul unStyled className="flex flex-col gap-1.5">
-                {sortedPools.map((pool) => (
+                {pools.map((pool) => (
                   <li key={pool.id}>
                     <JobCard poolQuery={pool} />
                   </li>
                 ))}
               </Ul>
             ) : (
-              <span>no results</span>
+              <Notice.Root mode="card">
+                <Notice.Content>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "There aren’t any active opportunities that match your search criteria. You can try a different set of filters, or you can save the current ones as an alert, which will notify you through email when a matching job is posted.",
+                    id: "yBV0YH",
+                    description: "Null state for opportunity search",
+                  })}
+                </Notice.Content>
+                <Notice.Actions>
+                  {/* Eventually there will be a "Create an alert" button here too */}
+                  <Button mode="inline" color="black">
+                    {intl.formatMessage({
+                      defaultMessage: "Reset all filters",
+                      id: "DO62XW",
+                      description: "Button to clear all search filters",
+                    })}
+                  </Button>
+                </Notice.Actions>
+              </Notice.Root>
             )}
           </Pending>
 
-          <div className="mt-6 self-center">
-            {/* todo: button doesn't do anything */}
-            <Button color="secondary" icon={ArrowPathIcon}>
-              {intl.formatMessage({
-                defaultMessage: "Load more results",
-                id: "HuA8aL",
-                description: "Button text to load the next set of results",
-              })}
-            </Button>
-          </div>
+          {/* This button will only be shown when we enable pagination */}
+          {
+            // eslint-disable-next-line no-constant-condition
+            false ? (
+              <div className="mt-6 self-center">
+                <Button color="secondary" icon={ArrowPathIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Load more results",
+                    id: "HuA8aL",
+                    description: "Button text to load the next set of results",
+                  })}
+                </Button>
+              </div>
+            ) : null
+          }
         </div>
       </div>
     </BrowseJobsLayout>
