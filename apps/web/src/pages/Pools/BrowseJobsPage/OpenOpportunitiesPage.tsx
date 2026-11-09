@@ -5,6 +5,8 @@ import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 import { faker } from "@faker-js/faker";
+import BellAlertIcon from "@heroicons/react/20/solid/BellAlertIcon";
+import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
 
 import {
   Button,
@@ -133,7 +135,7 @@ export const Component = () => {
               })}
             </Heading>
             {/* filter list */}
-            <div className="flex flex-col items-start gap-6">
+            <div className="flex flex-col gap-6">
               {/* this is an example filter block */}
               <div>
                 <Button
@@ -158,8 +160,24 @@ export const Component = () => {
                 </Chips>
               </div>
             </div>
+            <Card.Separator className="my-6" />
+            <Button mode="inline" icon={BellAlertIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Create job alert",
+                id: "YsHrTn",
+                description: "Button to create a job alert",
+              })}
+            </Button>
           </Card>
-          <Card>manage my alerts</Card>
+          <Card space="md">
+            <Button mode="inline" icon={Cog8ToothIcon} counter={1}>
+              {intl.formatMessage({
+                defaultMessage: "Manage my alerts",
+                id: "Tqdczp",
+                description: "Button to manage job alerts",
+              })}
+            </Button>
+          </Card>
         </div>
         <div className="flex w-full flex-col">
           {/* Results bar */}
