@@ -35,7 +35,7 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const Component = () => {
+export const OpenOpportunitiesPage = () => {
   const intl = useIntl();
 
   const { resetFilters } = useBrowseJobsSearchParams();
@@ -100,11 +100,7 @@ export const Component = () => {
                 </Notice.Content>
                 <Notice.Actions>
                   {/* Eventually there will be a "Create an alert" button here too */}
-                  <Button
-                    mode="inline"
-                    color="black"
-                    onClick={resetFilters}
-                  >
+                  <Button mode="inline" color="black" onClick={resetFilters}>
                     {intl.formatMessage({
                       defaultMessage: "Reset all filters",
                       id: "0/jj1v",
@@ -133,6 +129,6 @@ export const Component = () => {
   );
 };
 
-Component.displayName = "OpenOpportunitiesPage";
+OpenOpportunitiesPage.displayName = "OpenOpportunitiesPage";
 
-export default Component;
+export default OpenOpportunitiesPage;

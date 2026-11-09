@@ -15,7 +15,6 @@ export const UNICODE_CHAR = {
   RIGHT_ENGLISH_QUOTE: "\u201D",
   LEFT_FRENCH_QUOTE: "\u00AB",
   RIGHT_FRENCH_QUOTE: "\u00BB",
-  VERTICAL_LINE: "\u007C",
 };
 
 export const wrapParens = (children: ReactNode) => (
