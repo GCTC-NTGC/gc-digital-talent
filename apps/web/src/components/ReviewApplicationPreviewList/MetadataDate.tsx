@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { format } from "date-fns/format";
 import { isPast } from "date-fns/isPast";
-import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/16/solid/ExclamationCircleIcon";
 
 import {
   DATE_FORMAT_LOCALIZED,
