@@ -28,6 +28,10 @@ import JobCard from "~/components/JobCard/JobCard";
 
 import BrowseJobsLayout from "./BrowseJobsLayout";
 
+// features in progress
+const featurePaginationButton = true;
+const featureManageAlertButtons = true;
+
 const selectedFilterStyle: ButtonProps = {
   mode: "inline",
   color: "black",
@@ -160,24 +164,30 @@ export const Component = () => {
                 </Chips>
               </div>
             </div>
-            <Card.Separator className="my-6" />
-            <Button mode="inline" icon={BellAlertIcon}>
-              {intl.formatMessage({
-                defaultMessage: "Create job alert",
-                id: "YsHrTn",
-                description: "Button to create a job alert",
-              })}
-            </Button>
+            {featureManageAlertButtons ? (
+              <>
+                <Card.Separator className="my-6" />
+                <Button mode="inline" icon={BellAlertIcon}>
+                  {intl.formatMessage({
+                    defaultMessage: "Create job alert",
+                    id: "YsHrTn",
+                    description: "Button to create a job alert",
+                  })}
+                </Button>
+              </>
+            ) : null}
           </Card>
-          <Card space="md">
-            <Button mode="inline" icon={Cog8ToothIcon} counter={1}>
-              {intl.formatMessage({
-                defaultMessage: "Manage my alerts",
-                id: "Tqdczp",
-                description: "Button to manage job alerts",
-              })}
-            </Button>
-          </Card>
+          {featureManageAlertButtons ? (
+            <Card space="md">
+              <Button mode="inline" icon={Cog8ToothIcon} counter={1}>
+                {intl.formatMessage({
+                  defaultMessage: "Manage my alerts",
+                  id: "Tqdczp",
+                  description: "Button to manage job alerts",
+                })}
+              </Button>
+            </Card>
+          ) : null}
         </div>
         <div className="flex w-full flex-col">
           {/* Results bar */}
@@ -272,21 +282,17 @@ export const Component = () => {
             )}
           </Pending>
 
-          {/* This button will only be shown when we enable pagination */}
-          {
-            // eslint-disable-next-line no-constant-condition
-            false ? (
-              <div className="mt-6 self-center">
-                <Button color="secondary" icon={ArrowPathIcon}>
-                  {intl.formatMessage({
-                    defaultMessage: "Load more results",
-                    id: "HuA8aL",
-                    description: "Button text to load the next set of results",
-                  })}
-                </Button>
-              </div>
-            ) : null
-          }
+          {featurePaginationButton ? (
+            <div className="mt-6 self-center">
+              <Button color="secondary" icon={ArrowPathIcon}>
+                {intl.formatMessage({
+                  defaultMessage: "Load more results",
+                  id: "HuA8aL",
+                  description: "Button text to load the next set of results",
+                })}
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </BrowseJobsLayout>
