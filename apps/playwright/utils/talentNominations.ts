@@ -185,6 +185,49 @@ export const createTalentNomination: GraphQLRequestFunc<
     .then((res) => res.createTalentNomination);
 };
 
+const Test_ManagedTalentNominationEventsQueryDocument = /* GraphQL */ `
+  query Test_ManagedTalentNominationEvents(
+    $status: TalentNominationEventStatus
+  ) {
+    talentNominationEvents(where: { status: $status, canManage: true }) {
+      id
+      name {
+        en
+        fr
+      }
+      countTalentNominationGroups
+    }
+  }
+`;
+
+/**
+ * Get the managed talent nomination event with nominations that closes last
+ */
+export const getTalentNominationEventWithNominations: GraphQLRequestFunc<
+  TalentNominationEvent,
+  { status: TalentNominationEventStatus }
+> = async (ctx, { status }) => {
+  // The API lists events by close date, so the last one closes last
+  const event = await ctx
+    .post<GraphQLResponse<"talentNominationEvents", TalentNominationEvent[]>>(
+      Test_ManagedTalentNominationEventsQueryDocument,
+      { isPrivileged: true, variables: { status } },
+    )
+    .then((res) =>
+      res.talentNominationEvents
+        .filter(
+          (e) =>
+            e.countTalentNominationGroups > 0 &&
+            !e.name.en?.startsWith("Playwright"),
+        )
+        .at(-1),
+    );
+  if (!event) {
+    throw new Error(`No ${status} talent nomination event with nominations`);
+  }
+  return event;
+};
+
 const Test_UpdateTalentNominationMutation = /* GraphQL */ `
   mutation Test_UpdateTalentNomination(
     $talentNomination: UpdateTalentNominationInput!

@@ -174,3 +174,45 @@ export const setTalentRequestStatus: GraphQLRequestFunc<
     )
     .then((res) => res.updateTalentRequestStatus);
 };
+
+const Test_TalentRequestsQueryDocument = /* GraphQL */ `
+  query Test_TalentRequests {
+    talentRequests(first: 500) {
+      data {
+        id
+        jobTitle
+        createdAt
+        trackedUsers {
+          id
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * Get the newest talent request with tracked users that wasn't created by Playwright
+ */
+export const getTalentRequestWithTrackedUsers: GraphQLRequestFunc<
+  TalentRequest
+> = async (ctx) => {
+  const talentRequest = await ctx
+    .post<GraphQLResponse<"talentRequests", { data: TalentRequest[] }>>(
+      Test_TalentRequestsQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) =>
+      res.talentRequests.data
+        .filter(
+          (request) =>
+            request.trackedUsers?.length &&
+            !request.jobTitle?.startsWith("Test job title"),
+        )
+        .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
+        .at(0),
+    );
+  if (!talentRequest) {
+    throw new Error("No talent request with tracked users");
+  }
+  return talentRequest;
+};

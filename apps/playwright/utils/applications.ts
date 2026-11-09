@@ -464,3 +464,41 @@ export const ResumeCandidateReferrals: GraphQLRequestFunc<
     )
     .then((res) => res.resumeCandidateReferrals);
 };
+
+const Test_ApplicationSnapshotQueryDocument = /* GraphQL */ `
+  query Test_ApplicationSnapshot($id: UUID!) {
+    poolCandidate(id: $id) {
+      id
+      profileSnapshot
+    }
+  }
+`;
+
+interface ApplicationSnapshot {
+  firstName: string;
+  lastName: string;
+}
+
+/**
+ * Get the profile saved when the application was submitted
+ * (the candidate may have changed it since)
+ */
+export const getApplicationSnapshot: GraphQLRequestFunc<
+  ApplicationSnapshot,
+  { id: string }
+> = async (ctx, { id }) => {
+  return ctx
+    .post<GraphQLResponse<"poolCandidate", PoolCandidate>>(
+      Test_ApplicationSnapshotQueryDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then(
+      (res) =>
+        JSON.parse(
+          String(res.poolCandidate.profileSnapshot),
+        ) as ApplicationSnapshot,
+    );
+};
