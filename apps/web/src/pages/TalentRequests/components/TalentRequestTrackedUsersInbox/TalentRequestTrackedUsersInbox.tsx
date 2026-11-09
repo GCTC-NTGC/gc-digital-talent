@@ -245,7 +245,7 @@ const TalentRequestTrackedUsersInbox = ({
 
   return (
     <div className="-mx-6 -mt-3 -mb-6">
-      <Inbox.Toolbar>
+      <Inbox.Filters>
         <FormProvider {...methods}>
           <Input
             type="search"
@@ -268,7 +268,7 @@ const TalentRequestTrackedUsersInbox = ({
             options={statusOptions}
           />
         </FormProvider>
-      </Inbox.Toolbar>
+      </Inbox.Filters>
 
       <Inbox.Actions>
         <Toolbar.Button

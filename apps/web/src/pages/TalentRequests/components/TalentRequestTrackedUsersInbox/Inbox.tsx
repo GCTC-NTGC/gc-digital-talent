@@ -3,17 +3,14 @@ import type { ComponentProps, ComponentPropsWithRef, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { CheckButton } from "@gc-digital-talent/forms";
-import {
-  Toolbar as ToolbarPrimitive,
-  UNICODE_CHAR,
-} from "@gc-digital-talent/ui";
+import { Toolbar, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
-const toolbar = tv({
+const filters = tv({
   base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-6 sm:grid-cols-2 dark:border-gray-300",
 });
 
-const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
-  <div className={toolbar({ class: className })} {...rest} />
+const Filters = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
+  <div className={filters({ class: className })} {...rest} />
 );
 
 const actions = tv({
@@ -23,8 +20,8 @@ const actions = tv({
 const Actions = ({
   className,
   ...rest
-}: ComponentProps<typeof ToolbarPrimitive.Root>) => (
-  <ToolbarPrimitive.Root className={actions({ class: className })} {...rest} />
+}: ComponentProps<typeof Toolbar.Root>) => (
+  <Toolbar.Root className={actions({ class: className })} {...rest} />
 );
 
 const list = tv({ base: "flex flex-col" });
@@ -109,7 +106,7 @@ const Footer = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const Inbox = {
-  Toolbar,
+  Filters,
   Actions,
   List,
   Row,
