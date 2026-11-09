@@ -2,6 +2,7 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
+import { useSearchParams } from "react-router";
 
 import {
   Button,
@@ -11,13 +12,27 @@ import {
   Pending,
   Ul,
   UNICODE_CHAR,
+  type ButtonProps,
 } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import JobCard from "~/components/JobCard/JobCard";
 
 import BrowseJobsLayout from "./BrowseJobsLayout";
+
+const selectedFilterStyle: ButtonProps = {
+  mode: "inline",
+  color: "black",
+  className: "[&_*]:no-underline pointer-events-none",
+} as const;
+
+const unselectedFilterStyle: ButtonProps = {
+  mode: "inline",
+  color: "black",
+  className: "font-normal text-gray-500",
+} as const;
 
 // this will soon be replaced with a new search query
 const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
@@ -37,6 +52,15 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 
 export const Component = () => {
   const intl = useIntl();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sortBy") ?? "publishedAt";
+  const setSortBy = (s: string) =>
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("sortBy", s);
+      return next;
+    });
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
@@ -104,15 +128,19 @@ export const Component = () => {
               </span>
             </div>
             <div className="flex flex-row items-center gap-3">
-              <span className="text-gray-500 dark:text-gray-200">
-                {intl.formatMessage({
-                  defaultMessage: "Sort by:",
-                  id: "Ee09EO",
-                  description: "Prefix for some sorting options",
-                })}
+              <span id="sortBy">
+                {intl.formatMessage(formMessages.sortBy)}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               {/* TODO: visual and accessible indication of current setting */}
-              <Button mode="inline" color="black">
+              <Button
+                aria-describedby="sortBy"
+                aria-current={sortBy === "publishedAt"}
+                onClick={() => setSortBy("publishedAt")}
+                {...(sortBy === "publishedAt"
+                  ? selectedFilterStyle
+                  : unselectedFilterStyle)}
+              >
                 {intl.formatMessage({
                   defaultMessage: "Date posted",
                   id: "K7MAfs",
@@ -122,7 +150,14 @@ export const Component = () => {
               <span className="text-gray-500 dark:text-gray-200">
                 {UNICODE_CHAR.VERTICAL_LINE}
               </span>
-              <Button mode="inline" color="black">
+              <Button
+                aria-describedby="sortBy"
+                aria-current={sortBy === "closeDate"}
+                onClick={() => setSortBy("closeDate")}
+                {...(sortBy === "closeDate"
+                  ? selectedFilterStyle
+                  : unselectedFilterStyle)}
+              >
                 {intl.formatMessage({
                   defaultMessage: "Deadline",
                   id: "JQcQkH",
