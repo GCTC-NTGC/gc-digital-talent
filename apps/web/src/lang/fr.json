@@ -10881,6 +10881,10 @@
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for Functional community value"
   },
+  "gWTDsl": {
+    "defaultMessage": "Vous consultez une version archivée de cette offre d’emploi. Nous n’acceptons plus de candidatures.",
+    "description": "Warning for a closed job poster"
+  },
   "gXBSoI": {
     "defaultMessage": "Vous trouverez ici des offres d'emploi qui ont été publiées sur la plateforme et qui n'acceptent plus de candidatures.",
     "description": "Description of the closed job section"
