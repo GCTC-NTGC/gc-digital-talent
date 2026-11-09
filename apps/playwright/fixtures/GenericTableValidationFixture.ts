@@ -4,6 +4,7 @@ import { expect } from "playwright/test";
 import type {
   CandidateRemovalReason,
   FlexibleWorkLocation,
+  LocalizedTalentRequestSource,
   PlacementType,
   ScreeningStage,
   WorkRegion,
@@ -293,16 +294,18 @@ class GenericTableValidationFixture extends AppPage {
   }
 
   async verifyDefaultApplicantFilters(defaults: {
-    talentSource: string;
+    talentSources: LocalizedTalentRequestSource[];
     classification: string;
     workStream: string;
     process: string;
     skill: string;
   }) {
     const dialog = this.page.getByRole("dialog");
-    await expect(
-      dialog.getByRole("checkbox", { name: defaults.talentSource }),
-    ).toBeChecked();
+    for (const { label } of defaults.talentSources) {
+      await expect(
+        dialog.getByRole("checkbox", { name: label.en ?? "", exact: true }),
+      ).toBeChecked();
+    }
     await expect(
       dialog.getByRole("button", {
         name: new RegExp(`${escapeRegExp(defaults.classification)}$`),

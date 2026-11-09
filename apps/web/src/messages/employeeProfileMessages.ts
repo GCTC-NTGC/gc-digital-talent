@@ -101,11 +101,6 @@ const messages = defineMessages({
     id: "gYn0Zj",
     description: "Label text for employee profile, is not c-suite ",
   },
-  substantiveClassification: {
-    defaultMessage: "Substantive classification",
-    id: "baHWzA",
-    description: "Label for an employees classification",
-  },
   currentEmployeeDepartment: {
     defaultMessage: "Current department",
     id: "9h6Gt/",

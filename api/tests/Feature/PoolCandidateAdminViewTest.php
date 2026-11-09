@@ -248,8 +248,8 @@ class PoolCandidateAdminViewTest extends TestCase
 
     public function testGuestCannotViewAnyApplications(): void
     {
-        $guest = User::factory()->create();
-        $this->assertPaginatedResponse($guest, 0, []);
+        $this->graphQL($this->paginatedAdminViewQuery)
+            ->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
     // applicant cannot even view own

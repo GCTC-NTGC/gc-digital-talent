@@ -10,7 +10,6 @@ describe("NavContextContainer", () => {
   it("keeps the existing nav role if possible", () => {
     expect(
       chooseNavRole("community", [
-        "guest",
         "base_user",
         "applicant",
         "process_operator",

@@ -70,7 +70,6 @@ class CommunityDevelopmentProgramTest extends TestCase
             ->id;
 
         $this->communityAdmin = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->asCommunityAdmin([$this->communityId])
             ->create([

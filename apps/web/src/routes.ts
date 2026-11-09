@@ -150,7 +150,7 @@ export default [
               ),
               route(
                 "career-timeline",
-                "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+                "./pages/Profile/CareerExperiencePage/CareerExperiencePage.tsx",
               ),
               route("skills", "./pages/Skills/SkillPortfolioPage.tsx"),
             ]),
@@ -163,6 +163,26 @@ export default [
               route(
                 "create",
                 "./pages/Profile/ExperienceFormPage/CreateExperienceFormPage.tsx",
+              ),
+              route(
+                "create/work-experience",
+                "./pages/Profile/ExperienceFormPage/CreateWorkExperiencePage.tsx",
+              ),
+              route(
+                "create/education-or-certificate",
+                "./pages/Profile/ExperienceFormPage/CreateEducationExperiencePage.tsx",
+              ),
+              route(
+                "create/community-participation",
+                "./pages/Profile/ExperienceFormPage/CreateCommunityExperiencePage.tsx",
+              ),
+              route(
+                "create/personal-learning",
+                "./pages/Profile/ExperienceFormPage/CreatePersonalExperiencePage.tsx",
+              ),
+              route(
+                "create/award-or-recognition",
+                "./pages/Profile/ExperienceFormPage/CreateAwardExperiencePage.tsx",
               ),
             ]),
             ...prefix("community-interests", [

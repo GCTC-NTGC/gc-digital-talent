@@ -1,12 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  profileCompleted: {
-    defaultMessage:
-      "All required fields are complete. You can now change your status.",
-    id: "hTJgV2",
-    description: "Message displayed to user when user profile completed.",
-  },
   updatingFailed: {
     defaultMessage: "Error: updating user failed",
     id: "5FFRV2",
@@ -29,8 +23,8 @@ const messages = defineMessages({
     description: "Title for Veteran status",
   },
   priorityStatus: {
-    defaultMessage: "Priority status",
-    id: "+2PPS3",
+    defaultMessage: "Priority entitlements",
+    id: "Op5hGy",
     description: "Title for priority status",
   },
   contractDuration: {

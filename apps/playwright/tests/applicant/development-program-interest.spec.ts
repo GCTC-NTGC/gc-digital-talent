@@ -43,14 +43,14 @@ async function createDisposableTestUsers(
         workEmail: `${applicantSub}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     }),
     createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${communityAdminSub}@example.org`,
         sub: communityAdminSub,
       },
-      roles: ["guest", "base_user"],
+      roles: ["base_user"],
     }),
   ]);
   if (!applicantEmployee) throw new Error("Applicant user creation failed");

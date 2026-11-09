@@ -46,7 +46,7 @@ test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
     const nonGovSub = `playwright.dashboardUpdate_NonGov.${testId}@example.org`;
 
     const userWithGovExp = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         firstName: `${testId}`,
         email: `${govSub}`,
@@ -89,7 +89,7 @@ test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
     };
 
     const nonGovCreatedUser = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         firstName: `NonGov ${testId}`,
         email: `${nonGovSub}`,

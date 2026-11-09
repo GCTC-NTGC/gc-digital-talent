@@ -6,9 +6,9 @@
 @endphp
 
 <dt>
-    <x-text-label>{{ $poolSkill->skill->name }}
+    <strong>{{ $poolSkill->skill->name }}
         ({{ $isRequired ? __('job_poster.skill_requirements.required') : __('job_poster.skill_requirements.optional') }})
-    </x-text-label>
+    </strong>
 </dt>
 <dd>
     <p>

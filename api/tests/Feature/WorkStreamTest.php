@@ -22,8 +22,6 @@ class WorkStreamTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $guest;
-
     protected $nonAdmin;
 
     protected $admin;
@@ -52,7 +50,6 @@ class WorkStreamTest extends TestCase
         $this->seed(WorkStreamSeeder::class);
 
         $this->nonAdmin = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->create([
                 'email' => 'non-admin-user@test.com',

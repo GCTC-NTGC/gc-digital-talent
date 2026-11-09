@@ -141,8 +141,13 @@ const AssessmentStepCard = ({
           }}
           trigger={
             <CardRepeater.Edit
-              label={intl.formatMessage(formMessages.repeaterEdit, {
+              label={intl.formatMessage(formMessages.repeaterCardEdit, {
                 index: index + 1,
+                title: assessmentStepDisplayName(
+                  assessmentStep.title?.localized,
+                  assessmentStep.type?.label?.localized,
+                  intl,
+                ),
               })}
             />
           }
@@ -155,6 +160,14 @@ const AssessmentStepCard = ({
             assessmentStep.type?.label?.localized,
             intl,
           )}
+          label={intl.formatMessage(formMessages.repeaterDelete, {
+            index: index + 1,
+            title: assessmentStepDisplayName(
+              assessmentStep.title?.localized,
+              assessmentStep.type?.label?.localized,
+              intl,
+            ),
+          })}
           onRemove={() => handleRemove(index)}
         />
       }

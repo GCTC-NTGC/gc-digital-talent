@@ -12,15 +12,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  PoolSkillType,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -50,32 +46,11 @@ export const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
       }
     }
     poolSkills(type: ESSENTIAL) {
-      id
-      type {
-        value
-        label {
-          en
-          fr
-        }
-      }
       skill {
         id
         name {
-          en
-          fr
+          localized
         }
-        description {
-          en
-          fr
-        }
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        key
       }
     }
   }
@@ -95,9 +70,8 @@ const SearchResultCard = ({
   const { register, setValue } = useFormContext();
   const poolSubmitProps = register("pool");
   const paths = useRoutes();
-  const essentialSkills = filterPoolSkillsByType(
-    pool.poolSkills,
-    PoolSkillType.Essential,
+  const essentialSkills = unpackMaybes(
+    unpackMaybes(pool.poolSkills).map((poolSkill) => poolSkill.skill),
   );
 
   return (
@@ -180,7 +154,8 @@ const SearchResultCard = ({
                   key={skill.id}
                   className="text-gray-600 dark:text-gray-200"
                 >
-                  {getLocalizedName(skill?.name, intl)}
+                  {skill.name?.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
                 </span>
               </Fragment>
             ))

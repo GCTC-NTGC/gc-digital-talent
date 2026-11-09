@@ -200,8 +200,14 @@ export const showDetails = (
   return context ? detailContexts.includes(context) : false;
 };
 
+type FilterableSkill = Pick<
+  SkillBrowserSkillFragment,
+  "id" | "name" | "families"
+> &
+  Partial<Pick<SkillBrowserSkillFragment, "category">>;
+
 interface GetFilteredFamiliesArgs {
-  skills: SkillBrowserSkillFragment[];
+  skills: FilterableSkill[];
 }
 
 export const getFilteredFamilies = ({ skills }: GetFilteredFamiliesArgs) => {
@@ -211,10 +217,10 @@ export const getFilteredFamilies = ({ skills }: GetFilteredFamiliesArgs) => {
 };
 
 interface GetFilteredSkillsArgs {
-  skills: SkillBrowserSkillFragment[];
+  skills: FilterableSkill[];
   family?: string;
   category?: SkillCategory | "all" | "";
-  inLibrary?: SkillBrowserSkillFragment[];
+  inLibrary?: FilterableSkill[];
 }
 
 export const getFilteredSkills = ({
@@ -222,7 +228,7 @@ export const getFilteredSkills = ({
   family,
   category,
   inLibrary,
-}: GetFilteredSkillsArgs): SkillBrowserSkillFragment[] => {
+}: GetFilteredSkillsArgs): FilterableSkill[] => {
   if (inLibrary && family && family === "library") {
     // If `inLibrary` was passed and selected, filter by those instead of family
     return skills.filter((currentSkill) =>
@@ -241,7 +247,7 @@ export const getFilteredSkills = ({
   }
   if (category && category !== "all") {
     return skills.filter(
-      (currentSkill) => currentSkill.category.value === category,
+      (currentSkill) => currentSkill.category?.value === category,
     );
   }
 

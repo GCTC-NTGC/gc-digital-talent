@@ -80,16 +80,6 @@ export const getApplicationStatusChip = (
 /* Applicant facing statuses */
 
 export const applicationStatusLabels = defineMessages({
-  EXPIRED: {
-    defaultMessage: "Expired",
-    id: "GIC6EK",
-    description: "Expired status",
-  },
-  DRAFT: {
-    defaultMessage: "Draft",
-    id: "fRyPvR",
-    description: "Item's state is draft",
-  },
   RECEIVED: {
     defaultMessage: "Received",
     id: "IH+bPG",
@@ -109,17 +99,6 @@ export const applicationStatusLabels = defineMessages({
     defaultMessage: "Advanced to assessment",
     id: "Ho4kfT",
     description: "Status label for an application under assessment",
-  },
-  UNSUCCESSFUL: {
-    defaultMessage: "Unsuccessful",
-    id: "TIAla1",
-    description:
-      "Message displayed when candidate has not passed an assessment step",
-  },
-  SUCCESSFUL: {
-    defaultMessage: "Qualified in process",
-    id: "kolwAf",
-    description: "Status label for a qualified application",
   },
 });
 
