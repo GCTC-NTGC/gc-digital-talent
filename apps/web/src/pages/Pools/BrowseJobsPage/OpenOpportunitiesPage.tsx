@@ -3,10 +3,15 @@ import { useIntl } from "react-intl";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
+import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
+import { useState } from "react";
+import { faker } from "@faker-js/faker";
 
 import {
   Button,
   Card,
+  Chip,
+  Chips,
   Heading,
   Notice,
   Pending,
@@ -68,6 +73,8 @@ export const Component = () => {
 
   const pools = unpackMaybes(data?.poolsPaginated?.data);
 
+  const [exampleFilters, setExampleFilters] = useState<string[]>([]);
+
   return (
     <BrowseJobsLayout>
       <Heading
@@ -103,7 +110,50 @@ export const Component = () => {
       </p>
       <div className="flex flex-col gap-6 xs:flex-row">
         <div className="flex w-full flex-col gap-1.5 xs:w-78">
-          <Card>filter jobs</Card>
+          <Card space="md">
+            <Heading rank="h3" size="h6" className="mx-0 mt-0 mb-4.5">
+              {intl.formatMessage({
+                defaultMessage: "Filter jobs",
+                id: "5/P7D5",
+                description: "Heading for job filtering",
+              })}
+            </Heading>
+            {/* filter list */}
+            <div className="flex flex-col items-start gap-6">
+              {/* this is an example filter block */}
+              <div>
+                <Button
+                  mode="inline"
+                  className="mb-1.5"
+                  icon={PlusCircleIcon}
+                  color="black"
+                  onClick={() =>
+                    setExampleFilters([...exampleFilters, faker.lorem.word()])
+                  }
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Example",
+                    id: "+jIT2i",
+                    description: "Title for the example component",
+                  })}
+                </Button>
+                <Chips>
+                  {exampleFilters.map((f, i) => (
+                    <Chip
+                      key={f}
+                      onDismiss={() =>
+                        setExampleFilters((prev) =>
+                          prev.filter((_, idx) => idx !== i),
+                        )
+                      }
+                    >
+                      {f}
+                    </Chip>
+                  ))}
+                </Chips>
+              </div>
+            </div>
+          </Card>
           <Card>manage my alerts</Card>
         </div>
         <div className="flex w-full flex-col">
