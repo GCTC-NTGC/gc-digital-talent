@@ -1,12 +1,13 @@
+import { useId } from "react";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
-import { faker } from "@faker-js/faker";
 import BellAlertIcon from "@heroicons/react/20/solid/BellAlertIcon";
 import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
+import random from "lodash/random";
 
 import {
   Button,
@@ -62,16 +63,20 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 
 export const Component = () => {
   const intl = useIntl();
+  const sortByLabelId = useId();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sortBy = searchParams.get("sortBy") ?? "publishedAt";
-  const setSortBy = (s: string) =>
+  const setSortBy = (s: string) => {
+    // already selected, avoid pushing a duplicate history entry
+    if (s === sortBy) return;
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       next.set("sortBy", s);
       return next;
     });
+  };
 
   const exampleFilter = searchParams.getAll("exampleFilter");
   const addExampleFilter = (value: string) =>
@@ -88,6 +93,15 @@ export const Component = () => {
       remaining.forEach((v) => next.append("exampleFilter", v));
       return next;
     });
+
+  const handleResetFilters = () => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("exampleFilter");
+      // any other filters here
+      return next;
+    });
+  };
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
@@ -129,7 +143,7 @@ export const Component = () => {
         })}
       </p>
       <div className="flex flex-col gap-6 xs:flex-row">
-        <div className="flex w-full flex-col gap-1.5 xs:w-78">
+        <div className="flex w-full shrink-0 flex-col gap-1.5 xs:w-78">
           <Card space="md">
             <Heading rank="h3" size="h6" className="mx-0 mt-0 mb-4.5">
               {intl.formatMessage({
@@ -147,7 +161,7 @@ export const Component = () => {
                   className="mb-1.5"
                   icon={PlusCircleIcon}
                   color="black"
-                  onClick={() => addExampleFilter(faker.lorem.word())}
+                  onClick={() => addExampleFilter(`Item ${random(1, 1000)}`)}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Example",
@@ -155,13 +169,23 @@ export const Component = () => {
                     description: "Title for the example component",
                   })}
                 </Button>
-                <Chips>
-                  {exampleFilter.map((f) => (
-                    <Chip key={f} onDismiss={() => removeExampleFilter(f)}>
-                      {f}
-                    </Chip>
-                  ))}
-                </Chips>
+                {exampleFilter.length ? (
+                  <Chips>
+                    {exampleFilter.map((f) => (
+                      <Chip key={f} onDismiss={() => removeExampleFilter(f)}>
+                        {f}
+                      </Chip>
+                    ))}
+                  </Chips>
+                ) : (
+                  <div className="text-sm text-gray-500 dark:text-gray-200">
+                    {intl.formatMessage({
+                      defaultMessage: "No filters selected",
+                      id: "sxFMPR",
+                      description: "null state for filter list",
+                    })}
+                  </div>
+                )}
               </div>
             </div>
             {featureManageAlertButtons ? (
@@ -192,33 +216,35 @@ export const Component = () => {
         <div className="flex w-full flex-col">
           {/* Results bar */}
           <Card className="mb-1.5 flex flex-row items-center gap-6">
-            <div className="grow">
-              <span className="font-bold">
-                {intl.formatMessage(
-                  {
-                    defaultMessage: `{resultCount, plural,
-                        zero {0 matching opportunities}
+            <div role="status" className="grow font-bold">
+              {!fetching
+                ? intl.formatMessage(
+                    {
+                      defaultMessage: `{resultCount, plural,
+                        =0 {0 matching opportunities}
                         one {# matching opportunity}
                         other {# matching opportunities}
                       }`,
-                    id: "J+ZAtS",
-                    description: "opportunity result count",
-                  },
-                  {
-                    resultCount: pools.length,
-                  },
-                )}
-              </span>
+                      id: "ibG2Sh",
+                      description: "opportunity result count",
+                    },
+                    {
+                      resultCount: pools.length,
+                    },
+                  )
+                : null}
             </div>
-            <div className="flex flex-row items-center gap-3">
-              <span id="sortBy">
+            <div
+              role="group"
+              aria-labelledby={sortByLabelId}
+              className="flex flex-row items-center gap-3"
+            >
+              <span id={sortByLabelId}>
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
-              {/* TODO: visual and accessible indication of current setting */}
               <Button
-                aria-describedby="sortBy"
-                aria-current={sortBy === "publishedAt"}
+                aria-pressed={sortBy === "publishedAt"}
                 onClick={() => setSortBy("publishedAt")}
                 {...(sortBy === "publishedAt"
                   ? selectedFilterStyle
@@ -230,12 +256,11 @@ export const Component = () => {
                   description: "Button to sort by date posted",
                 })}
               </Button>
-              <span className="text-gray-500 dark:text-gray-200">
+              <span aria-hidden className="text-gray-500 dark:text-gray-200">
                 {UNICODE_CHAR.VERTICAL_LINE}
               </span>
               <Button
-                aria-describedby="sortBy"
-                aria-current={sortBy === "closeDate"}
+                aria-pressed={sortBy === "closeDate"}
                 onClick={() => setSortBy("closeDate")}
                 {...(sortBy === "closeDate"
                   ? selectedFilterStyle
@@ -270,7 +295,11 @@ export const Component = () => {
                 </Notice.Content>
                 <Notice.Actions>
                   {/* Eventually there will be a "Create an alert" button here too */}
-                  <Button mode="inline" color="black">
+                  <Button
+                    mode="inline"
+                    color="black"
+                    onClick={() => handleResetFilters()}
+                  >
                     {intl.formatMessage({
                       defaultMessage: "Reset all filters",
                       id: "DO62XW",
