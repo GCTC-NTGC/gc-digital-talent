@@ -49,10 +49,6 @@ class ApplicationPage extends AppPage {
 
   async addExperience() {
     await this.page
-      .getByRole("combobox", { name: /experience type/i })
-      .selectOption({ label: "Education and certificates" });
-
-    await this.page
       .getByRole("group", {
         name: /type of education or certificate/i,
       })

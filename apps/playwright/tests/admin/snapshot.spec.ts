@@ -117,7 +117,9 @@ test.describe("Snapshot", () => {
     await expect(
       appPage.page
         .locator("div")
-        .filter({ hasText: /^Priority statusThis claim is unverified\.$/ })
+        .filter({
+          hasText: /^Priority entitlementsThis claim is unverified\.$/,
+        })
         .getByRole("paragraph"),
     ).toBeVisible();
     await expect(
@@ -178,9 +180,13 @@ test.describe("Snapshot", () => {
       name: /citizenship, veteran status and priority entitlements/i,
     });
     await expect(
-      govEmployee.getByText(/Yes, I do have a priority/i),
+      govEmployee.getByText(/Yes, I have a priority/i),
     ).toBeVisible();
-    await expect(govEmployee.getByText("Priority number123")).toBeVisible();
+    await expect(
+      govEmployee.getByText(
+        "Priority number provided by the Public Service Commission of Canada123",
+      ),
+    ).toBeVisible();
 
     // signature
     const signature = appPage.page.getByRole("region", {
@@ -189,6 +195,8 @@ test.describe("Snapshot", () => {
     await expect(signature.getByText(/Playwright signature/i)).toBeVisible();
 
     // assert experience appears three times, twice in snapshot and once in career timeline
-    await expect(appPage.page.getByText(/Test experience/i)).toHaveCount(3);
+    await expect(
+      appPage.page.getByRole("heading").getByText(/Test experience/i),
+    ).toHaveCount(3);
   });
 });

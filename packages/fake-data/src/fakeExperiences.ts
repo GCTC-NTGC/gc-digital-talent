@@ -72,6 +72,7 @@ const generateCommunity = () => {
     __typename: "CommunityExperience" as const,
     user: sampleApp,
     id: faker.string.uuid(),
+    awardExperiences: [],
     skills: faker.helpers.arrayElements(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
@@ -94,6 +95,7 @@ const generateEducation = () => {
     __typename: "EducationExperience" as const,
     user: sampleApp,
     id: faker.string.uuid(),
+    awardExperiences: [],
     skills: faker.helpers.arrayElements(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
@@ -140,6 +142,7 @@ const generatePersonal = () => {
     __typename: "PersonalExperience" as const,
     user: sampleApp,
     id: faker.string.uuid(),
+    awardExperiences: [],
     skills: faker.helpers.arrayElements(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
@@ -161,6 +164,7 @@ const generateWork = () => {
     __typename: "WorkExperience" as const,
     user: sampleApp,
     id: faker.string.uuid(),
+    awardExperiences: [],
     skills: faker.helpers.arrayElements(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
