@@ -101,11 +101,13 @@ class PublishedPoolsSearchTest extends TestCase
         assertEqualsCanonicalizing([
             $frenchMatch->id,
         ], $poolIds);
-        // match english OR french
+        // match english AND french returns no one
         $poolIds = Pool::query()->keywordSearch(['english', 'french'])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([], $poolIds);
+        // match both names of $english match returns it
+        $poolIds = Pool::query()->keywordSearch(['english', 'abc'])->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $englishMatch->id,
-            $frenchMatch->id,
         ], $poolIds);
     }
 }
