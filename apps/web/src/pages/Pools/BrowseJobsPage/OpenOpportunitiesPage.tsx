@@ -28,6 +28,7 @@ import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import JobCard from "~/components/JobCard/JobCard";
 
 import BrowseJobsLayout from "./BrowseJobsLayout";
+import browseJobsMessages from "./browseJobsMessages";
 
 // features in progress
 const featurePaginationButton = true;
@@ -118,11 +119,7 @@ export const Component = () => {
         color="primary"
         className="mt-0 mb-6 font-normal"
       >
-        {intl.formatMessage({
-          defaultMessage: "Open job opportunities",
-          id: "fSMBX0",
-          description: "Title for the current jobs recruiting candidates",
-        })}
+        {intl.formatMessage(browseJobsMessages.openOpportunities)}
       </Heading>
       <p className="mb-3">
         {intl.formatMessage({
@@ -221,12 +218,12 @@ export const Component = () => {
                 ? intl.formatMessage(
                     {
                       defaultMessage: `{resultCount, plural,
-                        =0 {0 matching opportunities}
-                        one {# matching opportunity}
-                        other {# matching opportunities}
+                        =0 {0 open opportunities}
+                        one {# open opportunity}
+                        other {# open opportunities}
                       }`,
-                      id: "ibG2Sh",
-                      description: "opportunity result count",
+                      id: "Efy/VY",
+                      description: "Number of open job opportunities found",
                     },
                     {
                       resultCount: pools.length,
