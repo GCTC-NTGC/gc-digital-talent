@@ -51,7 +51,7 @@ const TalentNominationHistory = ({
       ))}
     </Accordion.Root>
   ) : (
-    <Notice.Root className="my-6">
+    <Notice.Root>
       <Notice.Content>
         <p>
           {intl.formatMessage({
