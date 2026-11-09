@@ -384,9 +384,8 @@ export const UserEmployeeInformation = ({
                   className="font-normal sm:justify-start sm:text-left"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Nominations the [PERSON TERM] has received",
-                    id: "9hf4yH",
+                    defaultMessage: "Nominations the employee has received",
+                    id: "RvEuTQ",
                     description:
                       "Title for the nominations received section on the GC profile",
                   })}
@@ -394,8 +393,8 @@ export const UserEmployeeInformation = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "When the [PERSON TERM] is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
-                    id: "hKIj7J",
+                      "When the employee is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
+                    id: "9hMoLz",
                     description:
                       "Description for the nominations received section on the GC profile",
                   })}

@@ -56,8 +56,8 @@ const TalentNominationHistory = ({
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Nominations will automatically appear here as [PERSON TERM] has received them.",
-            id: "RzVM9J",
+              "Nominations will automatically appear here as the employee receives them.",
+            id: "5qDoKZ",
             description:
               "Message displayed when an employee has not received any nominations",
           })}

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
-import { Button, Dialog, Notice, PreviewList } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Button,
+  Dialog,
+  Notice,
+  PreviewList,
+} from "@gc-digital-talent/ui";
 import {
   getFragment,
   graphql,
@@ -31,6 +37,7 @@ export const NominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
     approvedForAdvancement
     approvedForLateralMovement
@@ -63,6 +70,8 @@ const NominationDetailsDialog = ({
   const eventDescription =
     nominationGroup.talentNominationEvent?.description?.localized;
 
+  const contactEmail = nominationGroup.talentNominationEvent?.contactEmail;
+
   const { nominatorNames } = nominationGroup;
   const nominatedBy =
     nominatorNames.length > 0 ? intl.formatList(nominatorNames) : notProvided;
@@ -81,6 +90,58 @@ const NominationDetailsDialog = ({
   ]
     .filter(notEmpty)
     .map((message) => intl.formatMessage(message));
+
+  const nominationMeanings = [
+    nominationGroup.approvedForAdvancement
+      ? {
+          option: intl.formatMessage(
+            talentNominationMessages.nominateForAdvancement,
+          ),
+          meaning: intl.formatMessage(
+            {
+              defaultMessage:
+                "Being nominated for advancement means that you have been identified as someone who might benefit from new and challenging opportunities. This nomination recognizes that promotion may be the most effective way to maximize your contribution to your organization and the broader public service. <link>Reach out to the community event team</link> for event-specific details.",
+              id: "E6/qXV",
+              description: "Description for advancement nomination meaning",
+            },
+            {
+              link: (chunks: ReactNode) =>
+                contactEmail ? (
+                  <Link external color="black" href={`mailto:${contactEmail}`}>
+                    {chunks}
+                  </Link>
+                ) : (
+                  chunks
+                ),
+            },
+          ),
+        }
+      : null,
+    nominationGroup.approvedForLateralMovement
+      ? {
+          option: intl.formatMessage(
+            talentNominationMessages.nominateForLateralMovement,
+          ),
+          meaning: intl.formatMessage({
+            defaultMessage:
+              "Being nominated for lateral movement means that you might benefit from diversifying your experience in similar roles that will expand your understanding of the enterprise and its programs and services. Lateral moves can support professional goals and are an opportunity to gain new perspectives, strengthen skills and build the breadth of experience needed for future advancement.",
+            id: "/OP7BB",
+            description: "Description for lateral movement nomination meaning",
+          }),
+        }
+      : null,
+    nominationGroup.approvedForDevelopmentPrograms
+      ? {
+          option: intl.formatMessage(adminMessages.developmentOpportunities),
+          meaning: intl.formatMessage({
+            defaultMessage:
+              "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to compliment or enhance your skillset in preparation for new career opportunities.",
+            id: "3REesV",
+            description: "Description for development nomination meaning",
+          }),
+        }
+      : null,
+  ].filter(notEmpty);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -102,8 +163,8 @@ const NominationDetailsDialog = ({
           subtitle={intl.formatMessage(
             {
               defaultMessage:
-                "More about this employee's nomination during {eventName}",
-              id: "nxNaC4",
+                "More about the employee’s nomination during {eventName}",
+              id: "VXb4Sa",
               description:
                 "Subtitle for the nomination details dialog on the GC profile",
             },
@@ -118,7 +179,7 @@ const NominationDetailsDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           {eventDescription ? (
-            <Notice.Root mode="inline" className="mb-6">
+            <Notice.Root mode="inline" className="mb-6" color="success">
               <Notice.Title>{eventName}</Notice.Title>
               <Notice.Content>
                 <p>{eventDescription}</p>
@@ -129,8 +190,8 @@ const NominationDetailsDialog = ({
           <div className="flex flex-col gap-6">
             <FieldDisplay
               label={intl.formatMessage({
-                defaultMessage: "Who nominated this employee",
-                id: "ZcJlXd",
+                defaultMessage: "Who nominated them",
+                id: "riapK6",
                 description:
                   "Label for who nominated the employee on the GC profile",
               })}
@@ -140,8 +201,8 @@ const NominationDetailsDialog = ({
 
             <FieldDisplay
               label={intl.formatMessage({
-                defaultMessage: "What this employee was nominated for",
-                id: "O6gTOS",
+                defaultMessage: "What they were nominated for",
+                id: "65Ocoa",
                 description:
                   "Label for the type(s) of nomination an employee received",
               })}
@@ -159,11 +220,46 @@ const NominationDetailsDialog = ({
                 notProvided
               )}
             </FieldDisplay>
+            {nominationMeanings.length > 0
+              ? nominationMeanings.map((nominationMeaning) => (
+                  <FieldDisplay
+                    key={nominationMeaning.option}
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage:
+                          'What it means to be nominated for "{nominationOptions}"',
+                        id: "qzzqI0",
+                        description:
+                          "Label for the meaning of a nomination status, with the status name as a variable",
+                      },
+                      {
+                        nominationOptions: nominationMeaning.option,
+                      },
+                    )}
+                  >
+                    {nominationMeaning.meaning}
+                  </FieldDisplay>
+                ))
+              : null}
           </div>
           <Dialog.Footer>
             <Button onClick={() => setIsOpen(false)}>
               {intl.formatMessage(commonMessages.close)}
             </Button>
+            {contactEmail ? (
+              <Link
+                mode="text"
+                color="primary"
+                external
+                href="mailto:ocio-apcdo-bdpi-bpcap@tbs-sct.gc.ca"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Contact the Digital Community",
+                  id: "8+j5O+",
+                  description: "Link text to email the digital community",
+                })}
+              </Link>
+            ) : null}
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
