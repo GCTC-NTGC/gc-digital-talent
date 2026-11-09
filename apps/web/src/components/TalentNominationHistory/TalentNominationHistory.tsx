@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Notice, PreviewList } from "@gc-digital-talent/ui";
+import { Accordion, Notice, PreviewList } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import TalentNominationHistoryListItem from "./TalentNominationHistoryListItem";
@@ -37,24 +37,27 @@ const TalentNominationHistory = ({
   });
 
   return nominationGroups.length > 0 ? (
-    <div className="my-6">
-      <PreviewList.Root>
-        {nominationGroups.map((nominationGroup) => (
-          <TalentNominationHistoryListItem
-            key={nominationGroup.id}
-            nominationGroupQuery={nominationGroup}
-          />
-        ))}
-      </PreviewList.Root>
-    </div>
+    <Accordion.Root type="multiple" mode="card">
+      {nominationGroups.map((nominationGroup) => (
+        <Accordion.Item value={nominationGroup.id} key={nominationGroup.id}>
+          <div className="p-6">
+            <PreviewList.Root>
+              <TalentNominationHistoryListItem
+                nominationGroupQuery={nominationGroup}
+              />
+            </PreviewList.Root>
+          </div>
+        </Accordion.Item>
+      ))}
+    </Accordion.Root>
   ) : (
     <Notice.Root className="my-6">
       <Notice.Content>
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Nominations will automatically appear here as you receive them.",
-            id: "DNjn83",
+              "Nominations will automatically appear here as [PERSON TERM] has received them.",
+            id: "RzVM9J",
             description:
               "Message displayed when an employee has not received any nominations",
           })}
