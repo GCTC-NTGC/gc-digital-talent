@@ -86,6 +86,8 @@ export const ApplicationDate = ({
       >
         {expired && (
           <ExclamationCircleIcon
+            role="img"
+            aria-hidden="false"
             aria-label={intl.formatMessage(commonMessages.warning)}
             className="mr-1.5 inline-block size-4.5 align-text-bottom text-error dark:text-error-200"
           />
