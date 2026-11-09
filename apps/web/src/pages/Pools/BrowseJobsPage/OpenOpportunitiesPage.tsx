@@ -18,7 +18,6 @@ import {
   Notice,
   Pending,
   Ul,
-  UNICODE_CHAR,
   type ButtonProps,
 } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -43,7 +42,7 @@ const selectedFilterStyle: ButtonProps = {
 const unselectedFilterStyle: ButtonProps = {
   mode: "inline",
   color: "black",
-  className: "font-normal text-gray-500",
+  className: "font-normal",
 } as const;
 
 // this will soon be replaced with a new search query
@@ -212,7 +211,8 @@ export const Component = () => {
         </div>
         <div className="flex w-full flex-col">
           {/* Results bar */}
-          <Card className="mb-1.5 flex flex-row items-center gap-6">
+          {/* wraps the sort controls below the count when space is tight */}
+          <Card className="mb-1.5 flex flex-row flex-wrap items-center gap-x-6 gap-y-3">
             <div role="status" className="grow font-bold">
               {!fetching
                 ? intl.formatMessage(
@@ -234,9 +234,12 @@ export const Component = () => {
             <div
               role="group"
               aria-labelledby={sortByLabelId}
-              className="flex flex-row items-center gap-3"
+              className="flex flex-row flex-wrap items-center gap-3 whitespace-nowrap"
             >
-              <span id={sortByLabelId}>
+              <span
+                id={sortByLabelId}
+                className="text-gray-500 dark:text-gray-200"
+              >
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
@@ -253,9 +256,10 @@ export const Component = () => {
                   description: "Button to sort by date posted",
                 })}
               </Button>
-              <span aria-hidden className="text-gray-500 dark:text-gray-200">
-                {UNICODE_CHAR.VERTICAL_LINE}
-              </span>
+              <span
+                aria-hidden
+                className="self-stretch border-l border-gray-300 dark:border-gray-500"
+              />
               <Button
                 aria-pressed={sortBy === "closeDate"}
                 onClick={() => setSortBy("closeDate")}
