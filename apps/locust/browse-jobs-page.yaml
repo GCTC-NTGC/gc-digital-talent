@@ -20,7 +20,7 @@ env:
   - name: THINK_TIME_MAX
     value: "15"
   - name: SYNTHETIC_METRICS
-    value: "true"
+    value: "false"
 failureCriteria:
   clientMetrics:
     - percentage(error) > 5

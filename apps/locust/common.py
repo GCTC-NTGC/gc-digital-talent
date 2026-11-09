@@ -20,14 +20,14 @@ connection error) so the failures table doubles as an error breakdown.
 A summary (server timing percentiles per operation, GraphQL error counts, lowest rate limit
 headroom seen) is logged when the test stops.
 
-PAGE and SERVER rows are synthetic, so they are included in the overall totals (requests,
-throughput, error %). Set SYNTHETIC_METRICS=false to only record real HTTP requests.
+PAGE and SERVER rows are synthetic and would be counted in the overall totals (requests,
+throughput, error %), so they are off by default. Set SYNTHETIC_METRICS=true to record them.
 
 Environment variables:
   LOCALES              comma separated locales to pick from per visit (default "en,fr")
   THINK_TIME_MIN       seconds between visits, lower bound (default 5)
   THINK_TIME_MAX       seconds between visits, upper bound (default 15)
-  SYNTHETIC_METRICS    record PAGE and SERVER rows (default "true")
+  SYNTHETIC_METRICS    record PAGE and SERVER rows (default "false")
   SKIP_TLS_VERIFY      skip TLS certificate checks, for networks that re-sign HTTPS traffic
                        with an internal certificate (default "false")
 """
@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 LOCALES = [l.strip() for l in os.getenv("LOCALES", "en,fr").split(",") if l.strip()]
 THINK_TIME_MIN = float(os.getenv("THINK_TIME_MIN", "5"))
 THINK_TIME_MAX = float(os.getenv("THINK_TIME_MAX", "15"))
-SYNTHETIC_METRICS = os.getenv("SYNTHETIC_METRICS", "true").lower() == "true"
+SYNTHETIC_METRICS = os.getenv("SYNTHETIC_METRICS", "false").lower() == "true"
 SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "false").lower() == "true"
 
 USER_AGENT = "gcdt-locust-load-test"
@@ -187,8 +187,9 @@ class PublicPageUser(HttpUser):
         ) as response:
             if response.status_code:
                 record_rate_limit(response.headers)
-                record_server_timing(label, response.headers.get("Server-Timing"))
             if not ok_status(response):
+                # Kept apart so fast 429s and 500s don't make server time look better under load
+                record_server_timing(f"failed_{label}", response.headers.get("Server-Timing"))
                 return None
 
             try:
@@ -210,6 +211,7 @@ class PublicPageUser(HttpUser):
                 return None
 
             response.success()
+            record_server_timing(label, response.headers.get("Server-Timing"))
             return data
 
     def parallel(self, calls: List[tuple]) -> Dict[str, Optional[dict]]:

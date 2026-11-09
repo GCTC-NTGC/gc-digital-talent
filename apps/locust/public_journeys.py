@@ -27,8 +27,8 @@ Environment variables (plus the ones in common.py and search_page.py, these defa
   THINK_TIME_MIN       seconds between visits, lower bound (default 20)
   THINK_TIME_MAX       seconds between visits, upper bound (default 60)
   MAX_FILTER_CHANGES   most filter changes per search visit (default 2)
-  SKIP_TLS_VERIFY      skip TLS certificate checks (default "true", for UAT behind the network's
-                       re-signing proxy), "false" for normal certificate checks
+  SKIP_TLS_VERIFY      skip TLS certificate checks (default "true", for networks that re-sign HTTPS
+                       traffic), "false" for normal certificate checks
 """
 
 import logging
@@ -63,8 +63,6 @@ if MAX_FILTER_CHANGES < 0:
 class PublicJourneysUser(PublicPageUser):
     """Anonymous visitor who browses jobs or searches for talent, by journey weight."""
 
-    # Used when no host is given on the command line or in the Azure Load tab
-    host = "https://talentcloud-pilot.uat.tbs-sct.gc.ca"
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
     skip_tls_verify = SKIP_TLS_VERIFY
 
