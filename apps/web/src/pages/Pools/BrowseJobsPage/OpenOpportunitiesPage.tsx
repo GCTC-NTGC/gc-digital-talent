@@ -4,7 +4,6 @@ import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
-import { useState } from "react";
 import { faker } from "@faker-js/faker";
 
 import {
@@ -59,6 +58,7 @@ export const Component = () => {
   const intl = useIntl();
 
   const [searchParams, setSearchParams] = useSearchParams();
+
   const sortBy = searchParams.get("sortBy") ?? "publishedAt";
   const setSortBy = (s: string) =>
     setSearchParams((prev) => {
@@ -67,13 +67,27 @@ export const Component = () => {
       return next;
     });
 
+  const exampleFilter = searchParams.getAll("exampleFilter");
+  const addExampleFilter = (value: string) =>
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.append("exampleFilter", value);
+      return next;
+    });
+  const removeExampleFilter = (value: string) =>
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      const remaining = next.getAll("exampleFilter").filter((v) => v !== value);
+      next.delete("exampleFilter");
+      remaining.forEach((v) => next.append("exampleFilter", v));
+      return next;
+    });
+
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
   });
 
   const pools = unpackMaybes(data?.poolsPaginated?.data);
-
-  const [exampleFilters, setExampleFilters] = useState<string[]>([]);
 
   return (
     <BrowseJobsLayout>
@@ -127,9 +141,7 @@ export const Component = () => {
                   className="mb-1.5"
                   icon={PlusCircleIcon}
                   color="black"
-                  onClick={() =>
-                    setExampleFilters([...exampleFilters, faker.lorem.word()])
-                  }
+                  onClick={() => addExampleFilter(faker.lorem.word())}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Example",
@@ -138,15 +150,8 @@ export const Component = () => {
                   })}
                 </Button>
                 <Chips>
-                  {exampleFilters.map((f, i) => (
-                    <Chip
-                      key={f}
-                      onDismiss={() =>
-                        setExampleFilters((prev) =>
-                          prev.filter((_, idx) => idx !== i),
-                        )
-                      }
-                    >
+                  {exampleFilter.map((f) => (
+                    <Chip key={f} onDismiss={() => removeExampleFilter(f)}>
                       {f}
                     </Chip>
                   ))}
