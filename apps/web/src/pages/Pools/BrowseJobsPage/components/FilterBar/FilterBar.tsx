@@ -1,6 +1,5 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 import BellAlertIcon from "@heroicons/react/20/solid/BellAlertIcon";
 import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
@@ -8,6 +7,8 @@ import random from "lodash/random";
 import { twMerge } from "tailwind-merge";
 
 import { Button, Card, Chip, Chips, Heading } from "@gc-digital-talent/ui";
+
+import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 
 interface FilterBarProps extends ComponentPropsWithoutRef<"div"> {
   featureManageAlertButtons: boolean;
@@ -20,23 +21,10 @@ const FilterBar = ({
 }: FilterBarProps) => {
   const intl = useIntl();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { getFilterValues, addFilterValue, removeFilterValue } =
+    useBrowseJobsSearchParams();
 
-  const exampleFilter = searchParams.getAll("exampleFilter");
-  const addExampleFilter = (value: string) =>
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.append("exampleFilter", value);
-      return next;
-    });
-  const removeExampleFilter = (value: string) =>
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      const remaining = next.getAll("exampleFilter").filter((v) => v !== value);
-      next.delete("exampleFilter");
-      remaining.forEach((v) => next.append("exampleFilter", v));
-      return next;
-    });
+  const exampleFilter = getFilterValues("exampleFilter");
 
   return (
     <div
@@ -63,7 +51,9 @@ const FilterBar = ({
               className="mb-1.5"
               icon={PlusCircleIcon}
               color="black"
-              onClick={() => addExampleFilter(`Item ${random(1, 1000)}`)}
+              onClick={() =>
+                addFilterValue("exampleFilter", `Item ${random(1, 1000)}`)
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Example",
@@ -74,7 +64,10 @@ const FilterBar = ({
             {exampleFilter.length ? (
               <Chips>
                 {exampleFilter.map((f) => (
-                  <Chip key={f} onDismiss={() => removeExampleFilter(f)}>
+                  <Chip
+                    key={f}
+                    onDismiss={() => removeFilterValue("exampleFilter", f)}
+                  >
                     {f}
                   </Chip>
                 ))}

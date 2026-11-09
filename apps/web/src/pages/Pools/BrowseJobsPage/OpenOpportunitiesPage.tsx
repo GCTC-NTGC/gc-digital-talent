@@ -2,7 +2,6 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
-import { useSearchParams } from "react-router";
 
 import { Button, Heading, Notice, Pending, Ul } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -14,6 +13,7 @@ import BrowseJobsLayout from "./BrowseJobsLayout";
 import browseJobsMessages from "./browseJobsMessages";
 import ResultsBar from "./components/ResultsBar/ResultsBar";
 import FilterBar from "./components/FilterBar/FilterBar";
+import useBrowseJobsSearchParams from "./useBrowseJobsSearchParams";
 
 // features in progress
 const featurePaginationButton = true;
@@ -38,16 +38,7 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 export const Component = () => {
   const intl = useIntl();
 
-  const [_, setSearchParams] = useSearchParams();
-
-  const handleResetFilters = () => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.delete("exampleFilter");
-      // any other filters here
-      return next;
-    });
-  };
+  const { resetFilters } = useBrowseJobsSearchParams();
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
@@ -112,7 +103,7 @@ export const Component = () => {
                   <Button
                     mode="inline"
                     color="black"
-                    onClick={() => handleResetFilters()}
+                    onClick={resetFilters}
                   >
                     {intl.formatMessage({
                       defaultMessage: "Reset all filters",

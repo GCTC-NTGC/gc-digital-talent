@@ -1,6 +1,5 @@
-import { useId } from "react";
-import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router";
+import { Fragment, useId } from "react";
+import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 import { twMerge } from "tailwind-merge";
 
 import {
@@ -10,6 +9,11 @@ import {
   type CardProps,
 } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+
+import useBrowseJobsSearchParams, {
+  sortByOptions,
+  type SortBy,
+} from "../../useBrowseJobsSearchParams";
 
 const selectedSortStyle: ButtonProps = {
   mode: "inline",
@@ -22,6 +26,15 @@ const unselectedSortStyle: ButtonProps = {
   color: "black",
   className: "font-normal",
 } as const;
+
+const sortByLabels: Record<SortBy, MessageDescriptor> = {
+  datePosted: defineMessage({
+    defaultMessage: "Date posted",
+    id: "K7MAfs",
+    description: "Button to sort by date posted",
+  }),
+  deadline: commonMessages.deadline,
+};
 
 interface ResultsBarProps extends CardProps {
   fetching: boolean;
@@ -37,18 +50,7 @@ const ResultsBar = ({
   const intl = useIntl();
   const sortByLabelId = useId();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const sortBy = searchParams.get("sortBy") ?? "publishedAt";
-  const setSortBy = (s: string) => {
-    // already selected, avoid pushing a duplicate history entry
-    if (s === sortBy) return;
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.set("sortBy", s);
-      return next;
-    });
-  };
+  const { sortBy, setSortBy } = useBrowseJobsSearchParams();
 
   return (
     <Card
@@ -85,32 +87,23 @@ const ResultsBar = ({
           {intl.formatMessage(formMessages.sortBy)}
           {intl.formatMessage(commonMessages.dividingColon)}
         </span>
-        <Button
-          aria-pressed={sortBy === "publishedAt"}
-          onClick={() => setSortBy("publishedAt")}
-          {...(sortBy === "publishedAt"
-            ? selectedSortStyle
-            : unselectedSortStyle)}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Date posted",
-            id: "K7MAfs",
-            description: "Button to sort by date posted",
-          })}
-        </Button>
-        <span
-          aria-hidden
-          className="self-stretch border-l border-gray-300 dark:border-gray-500"
-        />
-        <Button
-          aria-pressed={sortBy === "closeDate"}
-          onClick={() => setSortBy("closeDate")}
-          {...(sortBy === "closeDate"
-            ? selectedSortStyle
-            : unselectedSortStyle)}
-        >
-          {intl.formatMessage(commonMessages.deadline)}
-        </Button>
+        {sortByOptions.map((option, index) => (
+          <Fragment key={option}>
+            {index > 0 && (
+              <span
+                aria-hidden
+                className="self-stretch border-l border-gray-300 dark:border-gray-500"
+              />
+            )}
+            <Button
+              aria-pressed={sortBy === option}
+              onClick={() => setSortBy(option)}
+              {...(sortBy === option ? selectedSortStyle : unselectedSortStyle)}
+            >
+              {intl.formatMessage(sortByLabels[option])}
+            </Button>
+          </Fragment>
+        ))}
       </div>
     </Card>
   );
