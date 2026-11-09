@@ -2039,6 +2039,8 @@ type TalentRequestMatchCommunityCount {
   community: Community!
   qualifiedInPoolCount: Int!
   atLevelCount: Int!
+  advancementCount: Int!
+  lateralMovementCount: Int!
   count: Int!
 }
 

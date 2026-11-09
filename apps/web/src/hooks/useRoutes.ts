@@ -5,6 +5,7 @@ import { getLocale } from "@gc-digital-talent/i18n";
 
 import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 import type { PageSectionId as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
+import type { ExperienceType } from "~/types/experience";
 
 const createSearchQuery = (parameters: Map<string, string>): string => {
   if (parameters.size === 0) return "";
@@ -14,6 +15,14 @@ const createSearchQuery = (parameters: Map<string, string>): string => {
     ([key, value]) => `${key}=${value}`,
   );
   return `?${keyValuePairStrings.join("&")}`;
+};
+
+const experienceTypeSlugs: Record<ExperienceType, string> = {
+  work: "work-experience",
+  education: "education-or-certificate",
+  community: "community-participation",
+  personal: "personal-learning",
+  award: "award-or-recognition",
 };
 
 const getRoutes = (lang: Locales) => {
@@ -305,10 +314,38 @@ const getRoutes = (lang: Locales) => {
 
     // Career timeline
     careerTimeline: () => [applicantUrl, "career-timeline"].join("/"),
-    editExperience: (experienceId: string) =>
-      [applicantUrl, "career-timeline", experienceId, "edit"].join("/"),
+    editExperience: (
+      experienceId: string,
+      opts?: { applicationId?: string },
+    ) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.applicationId) {
+        searchParams.set("applicationId", opts.applicationId);
+      }
+      return (
+        [applicantUrl, "career-timeline", experienceId, "edit"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
+    createExperienceType: (
+      experienceType: ExperienceType,
+      opts?: { applicationId?: string },
+    ) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.applicationId) {
+        searchParams.set("applicationId", opts.applicationId);
+      }
+      return (
+        [
+          applicantUrl,
+          "career-timeline",
+          "create",
+          experienceTypeSlugs[experienceType],
+        ].join("/") + createSearchQuery(searchParams)
+      );
+    },
 
     // Community interests
     communityInterest: (communityInterestId: string) =>

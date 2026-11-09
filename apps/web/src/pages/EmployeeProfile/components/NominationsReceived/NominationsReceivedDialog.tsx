@@ -235,13 +235,13 @@ const NominationsReceivedDialog = ({
                     label={intl.formatMessage(
                       {
                         defaultMessage:
-                          "What it means to be nominated for {nominationOptions}",
-                        id: "CtftRC",
+                          'What it means to be nominated for "{nominationOptions}"',
+                        id: "qzzqI0",
                         description:
                           "Label for the meaning of a nomination status, with the status name as a variable",
                       },
                       {
-                        nominationOptions: `"${nominationMeaning.option}"`,
+                        nominationOptions: nominationMeaning.option,
                       },
                     )}
                   >

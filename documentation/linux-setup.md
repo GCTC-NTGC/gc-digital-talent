@@ -41,16 +41,17 @@ You should see the same list of files visible in [the github repository online](
 
 ## Docker compose
 
-[Docker Compose](https://docs.docker.com/compose/) is used to run the services for this app. You may have to install Compose version 2 manually.
+[Docker Compose](https://docs.docker.com/compose/) is used to run the services for this app. You may have to install Compose version 2 and Buildx manually.
 
 ```
-sudo apt install docker-compose-v2
+sudo apt install docker-compose-v2 docker-buildx
 ```
 
 Double-check:
 
 ```
 docker compose version
+docker buildx version
 ```
 
 If you haven't before, add your user to the `docker` group and activate the group:
