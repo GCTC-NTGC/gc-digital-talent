@@ -267,11 +267,7 @@ export const Component = () => {
                   ? selectedFilterStyle
                   : unselectedFilterStyle)}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Deadline",
-                  id: "JQcQkH",
-                  description: "Button to sort by deadline",
-                })}
+                {intl.formatMessage(commonMessages.deadline)}
               </Button>
             </div>
           </Card>
@@ -303,8 +299,8 @@ export const Component = () => {
                   >
                     {intl.formatMessage({
                       defaultMessage: "Reset all filters",
-                      id: "DO62XW",
-                      description: "Button to clear all search filters",
+                      id: "0/jj1v",
+                      description: "Button text to reset a filter form",
                     })}
                   </Button>
                 </Notice.Actions>
