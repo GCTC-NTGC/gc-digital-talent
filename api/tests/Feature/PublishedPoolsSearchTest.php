@@ -27,12 +27,13 @@ class PublishedPoolsSearchTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
     }
 
-    public function testQueryDoesNotReturnDraftsOrArchived(): void
+    public function testQueryDoesNotReturnDraftsOrArchivedOrHidden(): void
     {
         $draftPool = Pool::factory()->draft()->create();
         $publishedPool = Pool::factory()->published()->create();
         $closedPool = Pool::factory()->closed()->create();
         $archivedPool = Pool::factory()->archived()->create();
+        $hiddenPool = Pool::factory()->published()->create(['is_hidden' => true]);
 
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -48,7 +49,7 @@ class PublishedPoolsSearchTest extends TestCase
         );
 
         // published and closed returned
-        // 2 pools total, so no draft or archived
+        // 2 pools total, so no draft or archived or hidden
         $response->assertJsonFragment([
             'id' => $publishedPool->id,
         ]);

@@ -56,6 +56,11 @@ class PoolBuilder extends Builder
             ->where('is_hidden', $isHidden));
     }
 
+    public function whereNotHidden(): self
+    {
+        return $this->where('is_hidden', false);
+    }
+
     public function name(?string $name): self
     {
 

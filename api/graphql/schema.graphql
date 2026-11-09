@@ -1850,7 +1850,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 100
-      scopes: ["wherePublished", "whereNotArchived"]
+      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
     )
     @orderBy(column: "published_at", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate
