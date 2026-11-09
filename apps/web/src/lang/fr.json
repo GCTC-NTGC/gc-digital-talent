@@ -918,10 +918,6 @@
     "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
     "description": "Link text for government of canada security screening application and consent form"
   },
-  "1d2BaE": {
-    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
-    "description": "Definition for 'hybrid positions'"
-  },
   "1e2+hH": {
     "defaultMessage": "Classifications recommandées pour promotion",
     "description": "Label for advancement eligible classifications field"
@@ -1005,10 +1001,6 @@
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
-  },
-  "1yMApi": {
-    "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
-    "description": "Checklist option explanatory note"
   },
   "1zsfA7": {
     "defaultMessage": "Confirmation de l'adresse courriel professionnelle",
@@ -1553,10 +1545,6 @@
   "4Ahswu": {
     "defaultMessage": "Motif",
     "description": "Label for the reason why a candidate is being removed"
-  },
-  "4BJrSM": {
-    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins trois jours par semaine, et à distance les autres jours.",
-    "description": "Checklist option explanatory note"
   },
   "4BWod5": {
     "defaultMessage": "Profil d’employé",
@@ -4325,6 +4313,10 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
+  "FXmkyF": {
+    "defaultMessage": "L'employée ou l'employé travaille sur place au moins quatre jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
@@ -5510,6 +5502,10 @@
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
+  },
+  "KDcgMh": {
+    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins quatre jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
   },
   "KESOSJ": {
     "defaultMessage": "Membre ajouté avec succès",
@@ -6792,6 +6788,10 @@
   "PWqfaJ": {
     "defaultMessage": "Lien vers de l’information externe",
     "description": "Label displayed on the talent nomination event more info link field"
+  },
+  "PXSLET": {
+    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins quatre jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
+    "description": "Definition for 'hybrid positions'"
   },
   "PYMFoh": {
     "defaultMessage": "Recherche par mot-clé",
