@@ -283,35 +283,35 @@ class PoolBuilder extends Builder
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 0)
-                            ->where('min_salary', '<=', 39999);
+                            ->where('min_salary', '<', 40000);
                     });
                 }
                 if ((ClassificationSalaryRange::BETWEEN_40000_59999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 40000)
-                            ->where('min_salary', '<=', 59999);
+                            ->where('min_salary', '<', 60000);
                     });
                 }
                 if ((ClassificationSalaryRange::BETWEEN_60000_79999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 60000)
-                            ->where('min_salary', '<=', 79999);
+                            ->where('min_salary', '<', 80000);
                     });
                 }
                 if ((ClassificationSalaryRange::BETWEEN_80000_99999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 80000)
-                            ->where('min_salary', '<=', 99999);
+                            ->where('min_salary', '<', 100000);
                     });
                 }
                 if ((ClassificationSalaryRange::BETWEEN_100000_119999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 100000)
-                            ->where('min_salary', '<=', 119999);
+                            ->where('min_salary', '<', 120000);
                     });
                 }
                 if ((ClassificationSalaryRange::OVER_120000->name === $salaryRange)) {
