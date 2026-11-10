@@ -216,9 +216,6 @@ class PoolBuilder extends Builder
             return $this;
         }
 
-        // TODO
-        // should isPublished be redundantly called here or not?
-        // currently publishedPoolsSearch always calls wherePublished
         return $this->where(function ($query) use ($publicationRanges) {
             $nowSub48Hours = now()->subHours(48);
             $nowSub30Days = now()->subDays(30);
