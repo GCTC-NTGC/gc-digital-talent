@@ -17,10 +17,11 @@ Metrics recorded (rows in the Locust / Azure Load Testing stats):
 Failures are grouped by a stable message (HTTP status, rate limited, GraphQL error, empty data,
 connection error) so the failures table doubles as an error breakdown.
 
-A summary (server timing percentiles per operation, GraphQL error counts, lowest rate limit
-headroom seen) is logged as a warning when the test stops, because Azure Load Testing only keeps
+A summary (page load and server timing percentiles, top failures, GraphQL error counts, lowest
+rate limit headroom seen) is logged as a warning when the test stops, because Azure Load Testing only keeps
 warning and error lines in the engine logs. Server timings are kept as counts per rounded value,
-so memory stays flat on long runs.
+so memory stays flat on long runs. Page load times are always in the summary, so they're
+there even with SYNTHETIC_METRICS off.
 
 PAGE and SERVER rows are synthetic and would be counted in the overall totals (requests,
 throughput, error %), so they are off by default. Set SYNTHETIC_METRICS=true to record them.
@@ -61,6 +62,9 @@ SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "false").lower() == "true"
 # Fail at startup on settings that would otherwise break every visit
 if not LOCALES:
     raise ValueError("LOCALES must have at least one locale")
+# A negative think time would silently turn into no think time at all
+if min(THINK_TIME_MIN, THINK_TIME_MAX) < 0:
+    raise ValueError("THINK_TIME_MIN and THINK_TIME_MAX can't be negative")
 
 USER_AGENT = "gcdt-locust-load-test"
 
@@ -71,7 +75,12 @@ NORMALIZE_PATTERN = re.compile(r"[0-9a-f]{8}-[0-9a-f-]{27}|\d+")
 # Collected for the end of test summary
 # operation: metric: rounded duration: count
 server_timings: Dict[str, Dict[str, Counter]] = defaultdict(lambda: defaultdict(Counter))
+# page: rounded duration: count
+page_loads: Dict[str, Counter] = defaultdict(Counter)
 graphql_errors: Counter = Counter()
+# "request type name: message": count
+failures: Counter = Counter()
+graphql_responses = {"count": 0}
 rate_limit = {"min_remaining": None, "limit": None, "hits": 0}
 logged_errors = set()
 
@@ -209,6 +218,7 @@ class PublicPageUser(HttpUser):
         ) as response:
             try:
                 if response.status_code:
+                    graphql_responses["count"] += 1
                     record_rate_limit(response.headers)
                 data = self.graphql_data(response, label, expect)
             except Exception as error:
@@ -268,8 +278,24 @@ class PublicPageUser(HttpUser):
         failed = [operation for operation, data in results.items() if data is None]
         if not ok:
             failed.insert(0, f"html_{page}")
+        # Failed page loads are kept apart, like server timings
+        page_loads[page if not failed else f"failed_{page}"][round_duration(elapsed_ms)] += 1
         fire_synthetic("PAGE", f"page_load_{page}", elapsed_ms, error=f"Failed: {', '.join(failed)}" if failed else None)
         return results
+
+
+@events.request.add_listener
+def count_failure(request_type, name, exception=None, **_kwargs):
+    if exception:
+        failures[f"{request_type} {name}: {exception}"] += 1
+
+
+def histogram_line(histogram: Counter) -> str:
+    """count p50 p95 p99 max columns of the summary."""
+    return (
+        f"{sum(histogram.values()):>7} {percentile(histogram, 50):>8.1f} {percentile(histogram, 95):>8.1f} "
+        f"{percentile(histogram, 99):>8.1f} {max(histogram):>8.1f}"
+    )
 
 
 @events.test_stop.add_listener
@@ -279,18 +305,27 @@ def log_summary(environment, **_kwargs):
         return
     lines = ["", "===== Load test summary ====="]
 
+    if page_loads:
+        lines.append("Page load per page (ms): count p50 p95 p99 max")
+        for page in sorted(page_loads):
+            lines.append(f"  {page:<51} {histogram_line(page_loads[page])}")
+
     if server_timings:
         lines.append("Server-Timing per operation (ms): metric count p50 p95 p99 max")
         for operation in sorted(server_timings):
             for metric in sorted(server_timings[operation]):
-                histogram = server_timings[operation][metric]
-                lines.append(
-                    f"  {operation:<28} {metric:<22} {sum(histogram.values()):>7} "
-                    f"{percentile(histogram, 50):>8.1f} {percentile(histogram, 95):>8.1f} "
-                    f"{percentile(histogram, 99):>8.1f} {max(histogram):>8.1f}"
-                )
-    else:
+                lines.append(f"  {operation:<28} {metric:<22} {histogram_line(server_timings[operation][metric])}")
+    elif graphql_responses["count"]:
         lines.append("No Server-Timing headers received (SERVER_TIMING_ENABLED may be off on the target)")
+    else:
+        lines.append("No Server-Timing headers received, because no GraphQL request got a response (see failures)")
+
+    if failures:
+        lines.append("Top failures:")
+        for message, count in failures.most_common(10):
+            lines.append(f"  {count:>7}  {message[:150]}")
+    else:
+        lines.append("Failures: none")
 
     lines.append(
         f"Rate limit: limit={rate_limit['limit']} lowest remaining={rate_limit['min_remaining']} "

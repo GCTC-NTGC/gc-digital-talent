@@ -23,7 +23,7 @@ On top of the standard Locust stats (request count, failures, response time perc
 - **`PAGE` rows** (`page_load_*`): total time for a full page load, failed if any request in it failed
 - **`SERVER` rows** (`server_total_*`, `server_db_*`): server time and database time from the API's `Server-Timing` header (needs `SERVER_TIMING_ENABLED=true` on the target)
 - **Grouped failures**: HTTP status, rate limited (429), GraphQL error, empty data, connection error
-- **End of test summary** in the log (as a warning, since Azure Load Testing only keeps warning and error lines): Server-Timing percentiles per operation (bootstrap, Lighthouse, database, total), GraphQL error counts, lowest rate limit headroom seen. Each engine logs its own summary, so with more than one engine there is one summary per engine, not a combined one
+- **End of test summary** in the log (as a warning, since Azure Load Testing only keeps warning and error lines): page load percentiles per page (always, even with `SYNTHETIC_METRICS` off), top failures, Server-Timing percentiles per operation (bootstrap, Lighthouse, database, total), GraphQL error counts, lowest rate limit headroom seen. Each engine logs its own summary, so with more than one engine there is one summary per engine, not a combined one
 
 `PAGE` and `SERVER` rows are off by default because they would count toward the overall totals (requests, throughput, error %) and skew them. Set `SYNTHETIC_METRICS=true` to record them.
 
