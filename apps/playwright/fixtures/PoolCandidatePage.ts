@@ -34,11 +34,15 @@ class PoolCandidatePage extends AppPage {
       .first();
     const name = (await candidateLink.textContent()) ?? "";
     await candidateLink.click();
-    const profileHref = await this.page
+    const userLink = await this.page
       .getByRole("heading")
       .getByRole("link", { name, exact: true })
       .getAttribute("href");
-    return { name, userId: profileHref?.split("/").pop() ?? "" };
+    // /admin/candidates/<applicationId>/application and /admin/users/<userId>
+    const [, applicationId = ""] =
+      /candidates\/([^/]+)/.exec(this.page.url()) ?? [];
+    const [, userId = ""] = /users\/([^/]+)/.exec(userLink ?? "") ?? [];
+    return { applicationId, name, userId };
   }
 }
 

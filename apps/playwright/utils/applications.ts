@@ -470,6 +470,7 @@ const Test_ApplicationSnapshotQueryDocument = /* GraphQL */ `
     poolCandidate(id: $id) {
       id
       profileSnapshot
+      signature
     }
   }
 `;
@@ -477,11 +478,12 @@ const Test_ApplicationSnapshotQueryDocument = /* GraphQL */ `
 interface ApplicationSnapshot {
   firstName: string;
   lastName: string;
+  signature: string;
 }
 
 /**
- * Get the profile saved when the application was submitted
- * (the candidate may have changed it since)
+ * Get the profile and signature saved when the application was submitted
+ * (the candidate may have changed their profile since)
  */
 export const getApplicationSnapshot: GraphQLRequestFunc<
   ApplicationSnapshot,
@@ -495,10 +497,11 @@ export const getApplicationSnapshot: GraphQLRequestFunc<
         variables: { id },
       },
     )
-    .then(
-      (res) =>
-        JSON.parse(
-          String(res.poolCandidate.profileSnapshot),
-        ) as ApplicationSnapshot,
-    );
+    .then(({ poolCandidate }) => ({
+      ...(JSON.parse(String(poolCandidate.profileSnapshot)) as Omit<
+        ApplicationSnapshot,
+        "signature"
+      >),
+      signature: poolCandidate.signature ?? "",
+    }));
 };

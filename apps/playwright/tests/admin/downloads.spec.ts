@@ -1,7 +1,6 @@
 import {
   FlexibleWorkLocation,
   TalentNominationEventStatus,
-  WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
@@ -61,7 +60,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
   });
 
   test.describe("Community recruiter downloads", () => {
-    let candidate: { name: string; userId: string };
+    let candidate: { applicationId: string; name: string; userId: string };
 
     test.beforeEach(async ({ appPage }) => {
       await loginBySub(appPage.page, recruiterSub);
@@ -72,8 +71,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
     }) => {
       const poolCandidatePage = new PoolCandidatePage(appPage.page);
       candidate = await poolCandidatePage.openFirstCandidate();
+      const { signature } = await getApplicationSnapshot(recruiterCtx, {
+        id: candidate.applicationId,
+      });
 
-      await test.step("Download candidate application", async () => {
+      await test.step("Download candidate application DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOWNLOAD,
@@ -81,11 +83,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           ),
         );
         await expect(word.heading(candidate.name)).toBeVisible();
-        await expect(word.text(`Signed: ${candidate.name}`)).toBeVisible();
+        await expect(word.text(`Signed: ${signature}`)).toBeVisible();
         await word.close();
       });
 
-      await test.step("Download full profile", async () => {
+      await test.step("Download full profile DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOWNLOAD,
@@ -98,11 +100,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Download profile without contact information", async () => {
+      await test.step("Download profile without contact information DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOWNLOAD,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILE,
+            DOWNLOAD_OPTION.PROFILE_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -128,7 +130,6 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           "profiles_",
         );
         const fileNames = await excel.getFullNames(path);
-        // A user with several community interests has several rows but one profile
         expect(fileNames.sort()).toEqual([...new Set(selectedNames)].sort());
         await excel.validateUserRows(path, recruiterCtx);
         return selectedNames;
@@ -147,11 +148,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Download profile DOCX without contact information", async () => {
+      await test.step("Download profile without contact information DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOCX,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILE,
+            DOWNLOAD_OPTION.PROFILE_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -160,7 +161,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Filter by work stream, work location and classification and download full dataset", async () => {
+      await test.step("Filter by work stream, work location and classification and download full dataset Excel", async () => {
         await tableValidation.filterCommunityTalentByWorkStream(
           workStream?.name?.en ?? "",
         );
@@ -168,8 +169,12 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           "CommunityTalentTable",
         );
         await tableValidation.filterFlexWorkLocation(
-          [FlexibleWorkLocation.Hybrid],
-          [WorkRegion.NationalCapital],
+          [
+            FlexibleWorkLocation.Hybrid,
+            FlexibleWorkLocation.Onsite,
+            FlexibleWorkLocation.Remote,
+          ],
+          [],
         );
         await tableResponse;
         await tableValidation.filterCommunityTalentByClassification(
@@ -191,7 +196,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       const userPage = new UserPage(appPage.page);
       await userPage.goToUserProfile(candidate.userId);
 
-      await test.step("Download full profile and profile without contact information from the user page", async () => {
+      await test.step("Download full profile DOCX and profile without contact information DOCX from the user page", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.PROFILE,
@@ -204,7 +209,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.PROFILE,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILE,
+            DOWNLOAD_OPTION.PROFILE_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -225,7 +230,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       await talentRequestPage.goToDetails(talentRequest.id);
 
       const matchingNames =
-        await test.step("Download find matching candidate as excel", async () => {
+        await test.step("Download find matching candidates Excel", async () => {
           const selectedNames = await downloads.selectAllRows();
           const path = await downloads.downloadFromNotifications(
             DOWNLOAD_BUTTON.EXCEL,
@@ -237,12 +242,12 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           return selectedNames;
         });
 
-      await test.step("Download profile without contact information in find matching candidate", async () => {
+      await test.step("Download find matching profile without contact information DOCX", async () => {
         await downloads.selectFirstRow();
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOCX,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILE,
+            DOWNLOAD_OPTION.PROFILE_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -252,7 +257,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       });
 
       const names =
-        await test.step("Download candidate tracking as spreadsheet", async () => {
+        await test.step("Download candidate tracking spreadsheet Excel", async () => {
           await talentRequestPage.goToTracking(talentRequest.id);
           const selectedNames = await downloads.selectAllRows();
           const path = await downloads.downloadFromNotifications(
@@ -266,7 +271,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           return selectedNames;
         });
 
-      await test.step("Download candidate tracking - full profiles DOCX", async () => {
+      await test.step("Download candidate tracking full profiles DOCX", async () => {
         await downloads.selectFirstRow();
         await word.setContent(
           await downloads.downloadFile(
@@ -279,11 +284,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Download candidate tracking profiles DOCX without contact information", async () => {
+      await test.step("Download candidate tracking profiles without contact information DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOWNLOAD,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILES,
+            DOWNLOAD_OPTION.PROFILES_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -321,10 +326,9 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       const community = await getMyCommunity(adminCtx, {});
       await poolCandidatePage.goToIndex();
 
-      const { names, applicantNames } =
+      const { names, applicantNames, signatures } =
         await test.step("Download applications Excel", async () => {
           const selectedNames = await downloads.selectAllRows();
-          // Applications show the name the candidate had when they applied, which can differ from the table
           const snapshots = await Promise.all(
             (await poolCandidatePage.getCandidateIds()).map((id) =>
               getApplicationSnapshot(adminCtx, { id }),
@@ -340,7 +344,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           );
           const fileNames = await excel.getFullNames(path);
           expect(fileNames.sort()).toEqual([...snapshotNames].sort());
-          return { names: selectedNames, applicantNames: snapshotNames };
+          return {
+            names: selectedNames,
+            applicantNames: snapshotNames,
+            signatures: snapshots.map(({ signature }) => signature),
+          };
         });
 
       await test.step("Download profiles Excel", async () => {
@@ -350,7 +358,6 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           DOWNLOAD_OPTION.PROFILES_EXCEL,
         );
         const fileNames = await excel.getFullNames(path);
-        // One profile per user, even when they have several applications
         expect(fileNames.sort()).toEqual([...new Set(names)].sort());
         await excel.validateUserRows(path, adminCtx);
       });
@@ -364,7 +371,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           ),
         );
         await expect(word.heading(applicantNames[0])).toBeVisible();
-        await expect(word.text(`Signed: ${applicantNames[0]}`)).toBeVisible();
+        await expect(word.text(`Signed: ${signatures[0]}`)).toBeVisible();
         await word.close();
       });
 
@@ -380,11 +387,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Download profile DOCX without contact information", async () => {
+      await test.step("Download profile without contact information DOCX", async () => {
         await word.setContent(
           await downloads.downloadFile(
             DOWNLOAD_BUTTON.DOCX,
-            DOWNLOAD_OPTION.ANONYMOUS_PROFILE,
+            DOWNLOAD_OPTION.PROFILE_WITHOUT_CONTACT,
           ),
         );
         await expect(word.heading(userProfile)).toBeVisible();
@@ -393,7 +400,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
 
-      await test.step("Filter by community and download full dataset", async () => {
+      await test.step("Filter by community and download full dataset Excel", async () => {
         await tableValidation.filterCandidatesByCommunity(
           community?.name?.en ?? "",
         );
@@ -446,7 +453,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
             return selectedNames;
           });
 
-        await test.step(`Download full dataset for the ${status.toLowerCase()} event`, async () => {
+        await test.step(`Download full dataset Excel for the ${status.toLowerCase()} event`, async () => {
           const total = await tableValidation.getTableTotal();
           const path = await downloads.downloadFromNotifications(
             DOWNLOAD_BUTTON.FULL_DATASET,

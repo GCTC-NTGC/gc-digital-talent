@@ -15,12 +15,13 @@ export const DOWNLOAD_OPTION = {
   APPLICATION: "Download application",
   FULL_PROFILE: "Download full profile",
   PROFILE: "Download profile",
-  ANONYMOUS_PROFILE: "Download profile without contact information",
+  PROFILE_WITHOUT_CONTACT: "Download profile without contact information",
   APPLICATIONS_EXCEL: "Download applications Excel",
   PROFILES_EXCEL: "Download profiles Excel",
   NOMINATION: "Download nomination",
   FULL_PROFILES: "Download full profiles (.docx)",
-  ANONYMOUS_PROFILES: "Download profiles without contact information (.docx)",
+  PROFILES_WITHOUT_CONTACT:
+    "Download profiles without contact information (.docx)",
   SPREADSHEET: "Download as spreadsheet (.xlsx)",
 } as const;
 
