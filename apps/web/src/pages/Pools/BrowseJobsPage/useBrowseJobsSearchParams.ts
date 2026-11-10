@@ -44,12 +44,7 @@ const useBrowseJobsSearchParams = () => {
   const removeFilterValue = (filter: FilterOption, value: string) =>
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
-      // Rebuilds the list because the two-argument `next.delete(filter, value)`
-      // needs Chrome 113, Firefox 115 or Safari 17. Switch to it once
-      // .browserslistrc (`> 0.5% in CA`) no longer pulls in iOS Safari 16.
-      const remaining = next.getAll(filter).filter((v) => v !== value);
-      next.delete(filter);
-      remaining.forEach((v) => next.append(filter, v));
+      next.delete(filter, value);
       return next;
     });
 
