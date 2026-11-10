@@ -26,8 +26,6 @@ env:
     value: "60"
   - name: MAX_FILTER_CHANGES
     value: "2"
-  - name: SKIP_TLS_VERIFY
-    value: "true"
 failureCriteria:
   clientMetrics:
     - percentage(error) > 5

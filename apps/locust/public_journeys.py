@@ -27,8 +27,6 @@ Environment variables (plus the ones in common.py and search_page.py, these defa
   THINK_TIME_MIN       seconds between visits, lower bound (default 20)
   THINK_TIME_MAX       seconds between visits, upper bound (default 60)
   MAX_FILTER_CHANGES   most filter changes per search visit (default 2)
-  SKIP_TLS_VERIFY      skip TLS certificate checks (default "true", for networks that re-sign HTTPS
-                       traffic), "false" for normal certificate checks
 """
 
 import logging
@@ -36,7 +34,7 @@ import os
 
 from locust import between, events
 
-from common import PublicPageUser
+from common import SKIP_TLS_VERIFY, PublicPageUser
 from search_page import FILTER_PAUSE_MAX, FILTER_PAUSE_MIN, search_visit
 
 logger = logging.getLogger(__name__)
@@ -47,7 +45,6 @@ SEARCH_WEIGHT = int(os.getenv("SEARCH_WEIGHT", "30"))
 THINK_TIME_MIN = float(os.getenv("THINK_TIME_MIN", "20"))
 THINK_TIME_MAX = float(os.getenv("THINK_TIME_MAX", "60"))
 MAX_FILTER_CHANGES = int(os.getenv("MAX_FILTER_CHANGES", "2"))
-SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "true").lower() == "true"
 
 # Fail at startup on settings that would otherwise break the run part way through
 if min(OPEN_JOBS_WEIGHT, CLOSED_JOBS_WEIGHT, SEARCH_WEIGHT) < 0:
@@ -64,7 +61,6 @@ class PublicJourneysUser(PublicPageUser):
     """Anonymous visitor who browses jobs or searches for talent, by journey weight."""
 
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
-    skip_tls_verify = SKIP_TLS_VERIFY
 
     def open_jobs(self):
         self.load_page("jobs", f"/{self.locale()}/jobs", [("OpenJobsPage", None, "poolsPaginated")])

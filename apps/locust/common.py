@@ -141,13 +141,11 @@ class PublicPageUser(HttpUser):
     # Used when no host is given on the command line, in locust.conf or in the Azure Load tab
     host = "https://dev-talentcloud.tbs-sct.gc.ca"
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
-    # Subclasses can change the default, the SKIP_TLS_VERIFY environment variable still wins
-    skip_tls_verify = SKIP_TLS_VERIFY
 
     def on_start(self):
         # A trailing slash on the host (eg. from the Azure Load tab) would make every path start with //
         self.client.base_url = self.client.base_url.rstrip("/")
-        if self.skip_tls_verify:
+        if SKIP_TLS_VERIFY:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             self.client.verify = False
         # The API rate limits by user, then ai_user cookie, then IP. Load test engines share a
@@ -187,32 +185,36 @@ class PublicPageUser(HttpUser):
         ) as response:
             if response.status_code:
                 record_rate_limit(response.headers)
-            if not ok_status(response):
-                # Kept apart so fast 429s and 500s don't make server time look better under load
-                record_server_timing(f"failed_{label}", response.headers.get("Server-Timing"))
-                return None
-
-            try:
-                body = response.json()
-            except ValueError:
-                response.failure("Invalid JSON response")
-                return None
-
-            errors = body.get("errors")
-            if errors:
-                message = NORMALIZE_PATTERN.sub("#", str(errors[0].get("message", "unknown")))[:120]
-                graphql_errors[f"{label}: {message}"] += 1
-                response.failure(f"GraphQL error: {message}")
-                return None
-
-            data = body.get("data") or {}
-            if expect and data.get(expect) is None:
-                response.failure(f"Empty data: {expect}")
-                return None
-
-            response.success()
-            record_server_timing(label, response.headers.get("Server-Timing"))
+            data = self.graphql_data(response, label, expect)
+            # Failures are kept apart so fast 429s and 500s don't make server time look better under load
+            record_server_timing(label if data is not None else f"failed_{label}", response.headers.get("Server-Timing"))
             return data
+
+    def graphql_data(self, response, label: str, expect: Optional[str]) -> Optional[dict]:
+        """Marks the GraphQL response passed or failed, returns its data or None on failure."""
+        if not ok_status(response):
+            return None
+
+        try:
+            body = response.json()
+        except ValueError:
+            response.failure("Invalid JSON response")
+            return None
+
+        errors = body.get("errors")
+        if errors:
+            message = NORMALIZE_PATTERN.sub("#", str(errors[0].get("message", "unknown")))[:120]
+            graphql_errors[f"{label}: {message}"] += 1
+            response.failure(f"GraphQL error: {message}")
+            return None
+
+        data = body.get("data") or {}
+        if expect and data.get(expect) is None:
+            response.failure(f"Empty data: {expect}")
+            return None
+
+        response.success()
+        return data
 
     def parallel(self, calls: List[tuple]) -> Dict[str, Optional[dict]]:
         """Send GraphQL calls at the same time, like the browser does. Each call is (operation, variables, expect)."""

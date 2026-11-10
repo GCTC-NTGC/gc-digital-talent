@@ -9,7 +9,7 @@ Load tests for public pages, run with [Locust](https://locust.io/) locally or in
 | Job poster  | `job_poster_page.py`  | `job-poster-page.yaml`  |
 | Public mix  | `public_journeys.py`  | `public-journeys.yaml`  |
 
-`public_journeys.py` mixes browse open jobs, browse closed jobs and search in one test, weighted by `OPEN_JOBS_WEIGHT`, `CLOSED_JOBS_WEIGHT` and `SEARCH_WEIGHT` (default 50/20/30, a weight of 0 turns a journey off). Try 30/10/60 for search heavy or 70/20/10 for jobs heavy. It defaults to 20 to 60 seconds of think time, 2 filter changes and `SKIP_TLS_VERIFY=true`, and logs its settings when the test starts.
+`public_journeys.py` mixes browse open jobs, browse closed jobs and search in one test, weighted by `OPEN_JOBS_WEIGHT`, `CLOSED_JOBS_WEIGHT` and `SEARCH_WEIGHT` (default 50/20/30, a weight of 0 turns a journey off). Try 30/10/60 for search heavy or 70/20/10 for jobs heavy. It defaults to 20 to 60 seconds of think time, and 2 filter changes, and logs its settings when the test starts.
 
 Each visit loads a page the way the browser does: the page HTML, then the app shell GraphQL queries (`authorizationQuery`, `SitewideBanner`) in parallel, then the page's own queries in parallel. This hits PHP-FPM and Postgres, not just Nginx. Static assets (JS, CSS, images) aren't requested, since browsers cache them.
 
@@ -23,7 +23,7 @@ On top of the standard Locust stats (request count, failures, response time perc
 - **`PAGE` rows** (`page_load_*`): total time for a full page load, failed if any request in it failed
 - **`SERVER` rows** (`server_total_*`, `server_db_*`): server time and database time from the API's `Server-Timing` header (needs `SERVER_TIMING_ENABLED=true` on the target)
 - **Grouped failures**: HTTP status, rate limited (429), GraphQL error, empty data, connection error
-- **End of test summary** in the log: Server-Timing percentiles per operation (bootstrap, Lighthouse, database, total), GraphQL error counts, lowest rate limit headroom seen
+- **End of test summary** in the log: Server-Timing percentiles per operation (bootstrap, Lighthouse, database, total), GraphQL error counts, lowest rate limit headroom seen. Each Locust process logs its own summary, so with more than one engine there is one summary per engine, not a combined one
 
 `PAGE` and `SERVER` rows are off by default because they would count toward the overall totals (requests, throughput, error %) and skew them. Set `SYNTHETIC_METRICS=true` to record them.
 
