@@ -184,8 +184,6 @@ class PoolBuilder extends Builder
     // filter by enum PoolAreaOfSelection options
     public function whereAreaOfSelectionIn(?array $areasOfSelection): self
     {
-        // TODO
-        // should an additional early return be added if all possible enum values are selected?
         if (empty($areasOfSelection)) {
             return $this;
         }
@@ -214,8 +212,6 @@ class PoolBuilder extends Builder
     // filter published at by various enum PoolPublishedRange options
     public function wherePublishedAtIn(?array $publicationRanges): self
     {
-        // TODO
-        // should an additional early return be added if all possible enum values are selected?
         if (empty($publicationRanges)) {
             return $this;
         }
@@ -244,8 +240,6 @@ class PoolBuilder extends Builder
     // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
     public function whereLanguagesIn(?array $languageAbilities): self
     {
-        // TODO
-        // should an additional early return be added if all possible enum values are selected?
         if (empty($languageAbilities)) {
             return $this;
         }
