@@ -21,8 +21,13 @@ const FilterBar = ({
 }: FilterBarProps) => {
   const intl = useIntl();
 
-  const { getFilterValues, addFilterValue, removeFilterValue } =
-    useBrowseJobsSearchParams();
+  const {
+    getFilterValues,
+    addFilterValue,
+    removeFilterValue,
+    getEnabledFilterCount,
+    resetFilters,
+  } = useBrowseJobsSearchParams();
 
   const exampleFilter = getFilterValues("exampleFilter");
 
@@ -35,13 +40,25 @@ const FilterBar = ({
       {...rest}
     >
       <Card space="md">
-        <Heading rank="h3" size="h6" className="mx-0 mt-0 mb-4.5">
-          {intl.formatMessage({
-            defaultMessage: "Filter jobs",
-            id: "5/P7D5",
-            description: "Heading for job filtering",
-          })}
-        </Heading>
+        <div className="mb-4.5 flex flex-row">
+          <Heading rank="h3" size="h6" className="m-0 grow">
+            {intl.formatMessage({
+              defaultMessage: "Filter jobs",
+              id: "5/P7D5",
+              description: "Heading for job filtering",
+            })}
+          </Heading>
+          {getEnabledFilterCount() > 0 ? (
+            <Button color="black" mode="inline" onClick={() => resetFilters()}>
+              {intl.formatMessage({
+                defaultMessage: "Reset all filters",
+                id: "0/jj1v",
+                description: "Button text to reset a filter form",
+              })}
+            </Button>
+          ) : null}
+        </div>
+
         {/* filter list */}
         <div className="flex flex-col gap-6">
           {/* this is an example filter block */}

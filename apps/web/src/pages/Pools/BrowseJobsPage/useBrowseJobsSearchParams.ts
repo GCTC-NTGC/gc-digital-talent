@@ -55,6 +55,10 @@ const useBrowseJobsSearchParams = () => {
       return next;
     });
 
+  // number of filters with at least one value selected
+  const getEnabledFilterCount = (): number =>
+    filterOptions.filter((filter) => searchParams.has(filter)).length;
+
   return {
     sortBy,
     setSortBy,
@@ -62,6 +66,7 @@ const useBrowseJobsSearchParams = () => {
     addFilterValue,
     removeFilterValue,
     resetFilters,
+    getEnabledFilterCount,
   };
 };
 

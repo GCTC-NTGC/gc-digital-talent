@@ -36,6 +36,25 @@ const sortByLabels: Record<SortBy, MessageDescriptor> = {
   deadline: commonMessages.deadline,
 };
 
+const resultMessageWithNoFilters = defineMessage({
+  defaultMessage: `{resultCount, plural,
+                        =0 {0 open opportunities}
+                        one {# open opportunity}
+                        other {# open opportunities}
+                      }`,
+  id: "Efy/VY",
+  description: "Number of open job opportunities found",
+});
+
+const resultMessageWithSomeFilters = defineMessage({
+  defaultMessage: `{resultCount, plural,
+                        =0 {0 matching opportunities}
+                        one {# matching opportunity}
+                        other {# matching opportunities}
+                      }`,
+  id: "ENIwpZ",
+  description: "Number of matching job opportunities found",
+});
 interface ResultsBarProps extends CardProps {
   fetching: boolean;
   resultCount: number;
@@ -50,7 +69,13 @@ const ResultsBar = ({
   const intl = useIntl();
   const sortByLabelId = useId();
 
-  const { sortBy, setSortBy } = useBrowseJobsSearchParams();
+  const { sortBy, setSortBy, getEnabledFilterCount } =
+    useBrowseJobsSearchParams();
+
+  const resultMessage =
+    getEnabledFilterCount() > 0
+      ? resultMessageWithSomeFilters
+      : resultMessageWithNoFilters;
 
   return (
     <Card
@@ -62,20 +87,9 @@ const ResultsBar = ({
     >
       <div role="status" className="grow font-bold">
         {!fetching
-          ? intl.formatMessage(
-              {
-                defaultMessage: `{resultCount, plural,
-                        =0 {0 open opportunities}
-                        one {# open opportunity}
-                        other {# open opportunities}
-                      }`,
-                id: "Efy/VY",
-                description: "Number of open job opportunities found",
-              },
-              {
-                resultCount,
-              },
-            )
+          ? intl.formatMessage(resultMessage, {
+              resultCount,
+            })
           : null}
       </div>
       <div
