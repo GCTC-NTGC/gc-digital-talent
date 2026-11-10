@@ -543,9 +543,8 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  archives(
-    type: JobPosterArchiveType @where
-  ): [JobPosterArchive!] @hasMany(relation: "jobPosterArchives")
+  archives(type: JobPosterArchiveType @where): [JobPosterArchive!]
+    @hasMany(relation: "jobPosterArchives")
   activities(
     where: ProcessActivityFilterInput @spread
     orderBy: _ @orderBy(columnsEnum: "ActivitiesOrderByColumn")
@@ -1049,6 +1048,7 @@ type TalentNominationGroupAsNominee
   nominatorNames: [String!]!
     @rename(attribute: "approved_nominator_names")
     @with(relation: "nominations.nominator")
+  classificationAtTimeOfLastApproval: Classification @belongsTo
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 

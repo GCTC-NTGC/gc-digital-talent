@@ -43,6 +43,9 @@ export const NominationsReceivedDialog_Fragment = graphql(/* GraphQL */ `
     approvedForLateralMovement
     approvedForDevelopmentPrograms
     nominatorNames
+    classificationAtTimeOfLastApproval {
+      groupAndLevel
+    }
   }
 `);
 
@@ -75,6 +78,9 @@ const NominationsReceivedDialog = ({
   const { nominatorNames } = nominationGroup;
   const nominatedBy =
     nominatorNames.length > 0 ? intl.formatList(nominatorNames) : notProvided;
+
+  const classificationAtTimeOfApproval =
+    nominationGroup.classificationAtTimeOfLastApproval?.groupAndLevel;
 
   // Filter and build the nomination options list only showing what they were approved for
   const nominationOptionsList = [
@@ -226,6 +232,17 @@ const NominationsReceivedDialog = ({
               ) : (
                 notProvided
               )}
+            </FieldDisplay>
+
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Your classification at the time",
+                id: "tP4ulX",
+                description:
+                  "Label for the nominee's classification at the time their nomination was approved",
+              })}
+            >
+              {classificationAtTimeOfApproval ?? notProvided}
             </FieldDisplay>
 
             {nominationMeanings.length > 0
