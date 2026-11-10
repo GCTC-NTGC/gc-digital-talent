@@ -1495,7 +1495,7 @@ input PublishedPoolsSearchInput {
   classifications: [UUID!] @scope(name: "whereClassificationsIn")
   publishedAtRange: [PoolPublishedRange!] @scope(name: "wherePublishedAtIn")
   languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
-  salaryRange: ClassificationSalaryRange @scope(name: "whereSalaryRangeIn")
+  salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
   processNumber: String @scope
 }
 

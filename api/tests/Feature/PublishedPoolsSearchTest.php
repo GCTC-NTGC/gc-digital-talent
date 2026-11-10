@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ClassificationSalaryRange;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\SalaryRange;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\Pool;
@@ -121,7 +121,7 @@ class PublishedPoolsSearchTest extends TestCase
                     'classifications' => [$classification->id, $higherPaidClassification->id],
                     'publishedAtRange' => [PoolPublishedRange::UNDER_30_DAYS->name],
                     'languages' => [LanguageAbility::ENGLISH->name],
-                    'salaryRange' => ClassificationSalaryRange::BETWEEN_80000_99999->name,
+                    'salaryRange' => SalaryRange::BETWEEN_80000_99999->name,
                     'processNumber' => 'MATCH',
                 ],
             ]

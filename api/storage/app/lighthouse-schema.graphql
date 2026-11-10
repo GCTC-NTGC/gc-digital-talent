@@ -108,11 +108,6 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedClassificationSalaryRange implements LocalizedEnumOption {
-  value: ClassificationSalaryRange!
-  label: LocalizedString!
-}
-
 type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   value: CommunityInterestAdditionalDuty!
   label: LocalizedString!
@@ -345,6 +340,11 @@ type LocalizedPriorityWeight implements LocalizedEnumOption {
 
 type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   value: ProvinceOrTerritory!
+  label: LocalizedString!
+}
+
+type LocalizedSalaryRange implements LocalizedEnumOption {
+  value: SalaryRange!
   label: LocalizedString!
 }
 
@@ -1930,7 +1930,7 @@ input PublishedPoolsSearchInput {
   classifications: [UUID!]
   publishedAtRange: [PoolPublishedRange!]
   languages: [LanguageAbility!]
-  salaryRange: ClassificationSalaryRange
+  salaryRange: SalaryRange
   processNumber: String
 }
 
@@ -4093,15 +4093,6 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
-enum ClassificationSalaryRange {
-  BETWEEN_0_39999
-  BETWEEN_40000_59999
-  BETWEEN_60000_79999
-  BETWEEN_80000_99999
-  BETWEEN_100000_119999
-  OVER_120000
-}
-
 enum CommunityInterestAdditionalDuty {
   CORPORATE_COMMUNICATIONS
   FACILITIES_MANAGEMENT_AND_SECURITY
@@ -4651,6 +4642,15 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
+}
+
+enum SalaryRange {
+  BETWEEN_0_39999
+  BETWEEN_40000_59999
+  BETWEEN_60000_79999
+  BETWEEN_80000_99999
+  BETWEEN_100000_119999
+  OVER_120000
 }
 
 enum ScreeningStage {

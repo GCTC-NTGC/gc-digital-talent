@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum ClassificationSalaryRange
+enum SalaryRange
 {
     use HasLocalization;
 
@@ -17,6 +17,6 @@ enum ClassificationSalaryRange
 
     public static function getLangFilename(): string
     {
-        return 'classification_salary_range';
+        return 'salary_range';
     }
 }

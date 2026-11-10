@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Enums\ClassificationSalaryRange;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\SalaryRange;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\WorkStream;
@@ -361,19 +361,19 @@ class PoolBuilderTest extends TestCase
         ]);
 
         // match 39999 and below, inclusive on 39999
-        $poolIds = Pool::query()->whereSalaryRangeIn(ClassificationSalaryRange::BETWEEN_0_39999->name)->get()->pluck('id')->toArray();
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::BETWEEN_0_39999->name)->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $belowBoundary->id,
         ], $poolIds);
 
         // match 40000-59999 inclusive on 40000
-        $poolIds = Pool::query()->whereSalaryRangeIn(ClassificationSalaryRange::BETWEEN_40000_59999->name)->get()->pluck('id')->toArray();
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::BETWEEN_40000_59999->name)->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $onBoundary->id,
         ], $poolIds);
 
         // match 120000 and above, inclusive on 120000
-        $poolIds = Pool::query()->whereSalaryRangeIn(ClassificationSalaryRange::OVER_120000->name)->get()->pluck('id')->toArray();
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::OVER_120000->name)->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $onTopBoundary->id,
         ], $poolIds);

@@ -2,11 +2,11 @@
 
 namespace App\Builders;
 
-use App\Enums\ClassificationSalaryRange;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
 use App\Enums\PoolStatus;
+use App\Enums\SalaryRange;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -268,10 +268,9 @@ class PoolBuilder extends Builder
         });
     }
 
-    // // filter given enum ClassificationSalaryRange options, map to pool's classification min/max salary
+    // filter given enum SalaryRange option, map to pool's classification min salary
     public function whereSalaryRangeIn(?string $salaryRange): self
     {
-
         if (empty($salaryRange)) {
             return $this;
         }
@@ -279,42 +278,42 @@ class PoolBuilder extends Builder
         return $this->whereHas('classification', function ($query) use ($salaryRange) {
             // range only needs to equal/best the minimum for the classification
             $query->where(function ($query) use ($salaryRange) {
-                if ((ClassificationSalaryRange::BETWEEN_0_39999->name === $salaryRange)) {
+                if ((SalaryRange::BETWEEN_0_39999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 0)
                             ->where('min_salary', '<', 40000);
                     });
                 }
-                if ((ClassificationSalaryRange::BETWEEN_40000_59999->name === $salaryRange)) {
+                if ((SalaryRange::BETWEEN_40000_59999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 40000)
                             ->where('min_salary', '<', 60000);
                     });
                 }
-                if ((ClassificationSalaryRange::BETWEEN_60000_79999->name === $salaryRange)) {
+                if ((SalaryRange::BETWEEN_60000_79999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 60000)
                             ->where('min_salary', '<', 80000);
                     });
                 }
-                if ((ClassificationSalaryRange::BETWEEN_80000_99999->name === $salaryRange)) {
+                if ((SalaryRange::BETWEEN_80000_99999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 80000)
                             ->where('min_salary', '<', 100000);
                     });
                 }
-                if ((ClassificationSalaryRange::BETWEEN_100000_119999->name === $salaryRange)) {
+                if ((SalaryRange::BETWEEN_100000_119999->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 100000)
                             ->where('min_salary', '<', 120000);
                     });
                 }
-                if ((ClassificationSalaryRange::OVER_120000->name === $salaryRange)) {
+                if ((SalaryRange::OVER_120000->name === $salaryRange)) {
                     $query->orWhere(function ($query) {
                         $query
                             ->where('min_salary', '>=', 120000);
