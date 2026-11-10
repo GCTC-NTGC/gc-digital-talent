@@ -18,7 +18,8 @@ Failures are grouped by a stable message (HTTP status, rate limited, GraphQL err
 connection error) so the failures table doubles as an error breakdown.
 
 A summary (server timing percentiles per operation, GraphQL error counts, lowest rate limit
-headroom seen) is logged when the test stops.
+headroom seen) is logged when the test stops. Server timings are kept as counts per rounded value,
+like Locust does for response times, so memory stays flat on long runs.
 
 PAGE and SERVER rows are synthetic and would be counted in the overall totals (requests,
 throughput, error %), so they are off by default. Set SYNTHETIC_METRICS=true to record them.
@@ -55,6 +56,10 @@ THINK_TIME_MAX = float(os.getenv("THINK_TIME_MAX", "15"))
 SYNTHETIC_METRICS = os.getenv("SYNTHETIC_METRICS", "false").lower() == "true"
 SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "false").lower() == "true"
 
+# Fail at startup on settings that would otherwise break every visit
+if not LOCALES:
+    raise ValueError("LOCALES must have at least one locale")
+
 USER_AGENT = "gcdt-locust-load-test"
 
 SERVER_TIMING_PATTERN = re.compile(r'([\w-]+);desc="[^"]*";dur=([\d.]+)')
@@ -62,16 +67,33 @@ SERVER_TIMING_PATTERN = re.compile(r'([\w-]+);desc="[^"]*";dur=([\d.]+)')
 NORMALIZE_PATTERN = re.compile(r"[0-9a-f]{8}-[0-9a-f-]{27}|\d+")
 
 # Collected for the end of test summary
-server_timings: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
+# operation: metric: rounded duration: count
+server_timings: Dict[str, Dict[str, Counter]] = defaultdict(lambda: defaultdict(Counter))
 graphql_errors: Counter = Counter()
 rate_limit = {"min_remaining": None, "limit": None, "hits": 0}
-logged_connection_errors = set()
+logged_errors = set()
 
 
-def percentile(ordered: List[float], pct: float) -> float:
-    """Percentile of an already sorted list."""
-    index = min(len(ordered) - 1, int(round(pct / 100 * (len(ordered) - 1))))
-    return ordered[index]
+def round_duration(duration: float) -> float:
+    """Round like Locust does for response times: 2 significant digits from 100ms up."""
+    if duration < 100:
+        return round(duration)
+    if duration < 1000:
+        return round(duration, -1)
+    if duration < 10000:
+        return round(duration, -2)
+    return round(duration, -3)
+
+
+def percentile(histogram: Counter, pct: float) -> float:
+    """Percentile of a histogram of rounded duration: count."""
+    rank = int(round(pct / 100 * (sum(histogram.values()) - 1)))
+    seen = 0
+    for duration in sorted(histogram):
+        seen += histogram[duration]
+        if seen > rank:
+            return duration
+    return max(histogram)
 
 
 def fire_synthetic(request_type: str, name: str, response_time: float, length: int = 0, error: Optional[str] = None):
@@ -92,7 +114,7 @@ def record_server_timing(operation: str, header: Optional[str]):
     if not header:
         return
     for metric, duration in SERVER_TIMING_PATTERN.findall(header):
-        server_timings[operation][metric].append(float(duration))
+        server_timings[operation][metric][round_duration(float(duration))] += 1
         if metric == "total":
             fire_synthetic("SERVER", f"server_total_{operation}", float(duration))
         elif metric == "database-query":
@@ -103,9 +125,9 @@ def connection_error(error) -> str:
     """Short, stable description of why a request got no response, eg. "Connection error: SSLError"."""
     cause = re.search(r"Caused by (\w+)", str(error))
     description = type(error).__name__ + (f" ({cause.group(1)})" if cause else "")
-    if description not in logged_connection_errors:
+    if description not in logged_errors:
         # Log the full error once so the cause is in the engine logs
-        logged_connection_errors.add(description)
+        logged_errors.add(description)
         logger.warning("Connection error %s: %s", description, error)
     return f"Connection error: {description}"
 
@@ -183,9 +205,18 @@ class PublicPageUser(HttpUser):
             headers={"Accept": "application/graphql-response+json, application/json"},
             catch_response=True,
         ) as response:
-            if response.status_code:
-                record_rate_limit(response.headers)
-            data = self.graphql_data(response, label, expect)
+            try:
+                if response.status_code:
+                    record_rate_limit(response.headers)
+                data = self.graphql_data(response, label, expect)
+            except Exception as error:
+                # Locust leaves any other exception out of the stats, so fail the request instead
+                description = type(error).__name__
+                if description not in logged_errors:
+                    logged_errors.add(description)
+                    logger.exception("Unexpected error in %s", label)
+                response.failure(f"Unexpected error: {description}")
+                data = None
             # Failures are kept apart so fast 429s and 500s don't make server time look better under load
             record_server_timing(label if data is not None else f"failed_{label}", response.headers.get("Server-Timing"))
             return data
@@ -247,11 +278,11 @@ def log_summary(environment, **_kwargs):
         lines.append("Server-Timing per operation (ms): metric count p50 p95 p99 max")
         for operation in sorted(server_timings):
             for metric in sorted(server_timings[operation]):
-                values = sorted(server_timings[operation][metric])
+                histogram = server_timings[operation][metric]
                 lines.append(
-                    f"  {operation:<28} {metric:<22} {len(values):>7} "
-                    f"{percentile(values, 50):>8.1f} {percentile(values, 95):>8.1f} "
-                    f"{percentile(values, 99):>8.1f} {values[-1]:>8.1f}"
+                    f"  {operation:<28} {metric:<22} {sum(histogram.values()):>7} "
+                    f"{percentile(histogram, 50):>8.1f} {percentile(histogram, 95):>8.1f} "
+                    f"{percentile(histogram, 99):>8.1f} {max(histogram):>8.1f}"
                 )
     else:
         lines.append("No Server-Timing headers received (SERVER_TIMING_ENABLED may be off on the target)")

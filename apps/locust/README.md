@@ -27,7 +27,7 @@ On top of the standard Locust stats (request count, failures, response time perc
 
 `PAGE` and `SERVER` rows are off by default because they would count toward the overall totals (requests, throughput, error %) and skew them. Set `SYNTHETIC_METRICS=true` to record them.
 
-Server side metrics (App Service CPU/memory, Postgres CPU/connections) come from Azure, see `appComponents` in the yaml files.
+Server side metrics (App Service CPU/memory, Postgres VM CPU/memory) come from Azure, see `appComponents` in the yaml files.
 
 ## Settings
 

@@ -30,6 +30,10 @@ MAX_FILTER_CHANGES = int(os.getenv("MAX_FILTER_CHANGES", "4"))
 FILTER_PAUSE_MIN = float(os.getenv("FILTER_PAUSE_MIN", "2"))
 FILTER_PAUSE_MAX = float(os.getenv("FILTER_PAUSE_MAX", "6"))
 
+# Fail at startup on settings that would otherwise break every visit
+if MAX_FILTER_CHANGES < 0:
+    raise ValueError("MAX_FILTER_CHANGES can't be negative")
+
 # What SearchForm sends before anything is selected
 DEFAULT_FILTER = {
     "flexibleWorkLocations": ["ONSITE"],

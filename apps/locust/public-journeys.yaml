@@ -55,14 +55,12 @@ autoStop:
 #       - name: MemoryPercentage
 #         namespace: Microsoft.Web/serverfarms
 #         aggregation: Average
-#   - resourceId: /subscriptions/<sub>/resourceGroups/<group>/providers/Microsoft.DBforPostgreSQL/flexibleServers/<server>
+#   # Postgres runs on its own VM, so only VM level metrics are available (no connection counts)
+#   - resourceId: /subscriptions/<sub>/resourceGroups/<group>/providers/Microsoft.Compute/virtualMachines/<postgres-vm>
 #     metrics:
-#       - name: cpu_percent
-#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
+#       - name: Percentage CPU
+#         namespace: Microsoft.Compute/virtualMachines
 #         aggregation: Average
-#       - name: memory_percent
-#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
+#       - name: Available Memory Bytes
+#         namespace: Microsoft.Compute/virtualMachines
 #         aggregation: Average
-#       - name: active_connections
-#         namespace: Microsoft.DBforPostgreSQL/flexibleServers
-#         aggregation: Maximum
