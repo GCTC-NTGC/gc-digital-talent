@@ -2130,7 +2130,6 @@ enum ActivitiesOrderByColumn {
 }
 
 enum PublishedPoolsSearchOrderByColumn {
-  ID
   CLOSING_DATE
   PUBLISHED_AT
 }

@@ -1716,7 +1716,6 @@ enum ActivitiesOrderByColumn {
 }
 
 enum PublishedPoolsSearchOrderByColumn {
-  ID @enum(value: "id")
   CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
 }
