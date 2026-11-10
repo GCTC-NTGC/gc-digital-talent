@@ -176,9 +176,7 @@ class PoolBuilder extends Builder
 
         return $this->where(function ($query) use ($terms) {
             foreach ($terms as $term) {
-                $query->where(function ($query) use ($term) {
-                    $query->name($term);
-                });
+                $query->name($term);
             }
         });
     }
