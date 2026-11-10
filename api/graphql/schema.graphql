@@ -1497,6 +1497,7 @@ input PublishedPoolsSearchInput {
   languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
   salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
   processNumber: String @scope
+  poolStatuses: [PoolStatus!] @scope(name: "statuses") # this query will only return open or closed
 }
 
 input PoolWorkStreamNameOrderByInput {

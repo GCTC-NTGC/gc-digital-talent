@@ -6,6 +6,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\PoolStatus;
 use App\Enums\SalaryRange;
 use App\Models\Classification;
 use App\Models\Department;
@@ -97,6 +98,7 @@ class PublishedPoolsSearchTest extends TestCase
             'languages' => ['advertisement_language' => PoolLanguage::FRENCH->name],
             'salaryRange' => ['classification_id' => $higherPaidClassification->id],
             'processNumber' => ['process_number' => 'OTHER-002'],
+            'poolStatuses' => ['closing_date' => now()->subDay()],
         ];
         foreach ($misses as $override) {
             Pool::factory()->published()->create(array_merge($matching, $override));
@@ -123,6 +125,7 @@ class PublishedPoolsSearchTest extends TestCase
                     'languages' => [LanguageAbility::ENGLISH->name],
                     'salaryRange' => SalaryRange::BETWEEN_80000_99999->name,
                     'processNumber' => 'MATCH',
+                    'poolStatuses' => [PoolStatus::PUBLISHED->name],
                 ],
             ]
         );

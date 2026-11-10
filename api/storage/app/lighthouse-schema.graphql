@@ -1932,6 +1932,7 @@ input PublishedPoolsSearchInput {
   languages: [LanguageAbility!]
   salaryRange: SalaryRange
   processNumber: String
+  poolStatuses: [PoolStatus!]
 }
 
 input PoolWorkStreamNameOrderByInput {
