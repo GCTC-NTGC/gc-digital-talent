@@ -91,4 +91,5 @@ def log_configuration(environment, **_kwargs):
         f"  FILTER_PAUSE         {FILTER_PAUSE_MIN:g}s to {FILTER_PAUSE_MAX:g}s",
         f"  SKIP_TLS_VERIFY      {SKIP_TLS_VERIFY}",
     ]
-    logger.info("\n".join(lines))
+    # Warning, not info: Azure Load Testing drops info lines from the engine logs
+    logger.warning("\n".join(lines))

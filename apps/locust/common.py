@@ -18,8 +18,9 @@ Failures are grouped by a stable message (HTTP status, rate limited, GraphQL err
 connection error) so the failures table doubles as an error breakdown.
 
 A summary (server timing percentiles per operation, GraphQL error counts, lowest rate limit
-headroom seen) is logged when the test stops. Server timings are kept as counts per rounded value,
-like Locust does for response times, so memory stays flat on long runs.
+headroom seen) is logged as a warning when the test stops, because Azure Load Testing only keeps
+warning and error lines in the engine logs. Server timings are kept as counts per rounded value,
+so memory stays flat on long runs.
 
 PAGE and SERVER rows are synthetic and would be counted in the overall totals (requests,
 throughput, error %), so they are off by default. Set SYNTHETIC_METRICS=true to record them.
@@ -45,6 +46,7 @@ from typing import Dict, List, Optional
 import gevent
 import urllib3
 from locust import HttpUser, between, events
+from locust.runners import MasterRunner
 
 import queries
 
@@ -75,9 +77,9 @@ logged_errors = set()
 
 
 def round_duration(duration: float) -> float:
-    """Round like Locust does for response times: 2 significant digits from 100ms up."""
+    """Round to 0.1ms under 100ms, then 2 significant digits like Locust does for response times."""
     if duration < 100:
-        return round(duration)
+        return round(duration, 1)
     if duration < 1000:
         return round(duration, -1)
     if duration < 10000:
@@ -272,6 +274,9 @@ class PublicPageUser(HttpUser):
 
 @events.test_stop.add_listener
 def log_summary(environment, **_kwargs):
+    # In a split run the master sends no requests, so only the workers have anything to report
+    if isinstance(environment.runner, MasterRunner):
+        return
     lines = ["", "===== Load test summary ====="]
 
     if server_timings:
@@ -299,4 +304,5 @@ def log_summary(environment, **_kwargs):
     else:
         lines.append("GraphQL errors: none")
 
-    logger.info("\n".join(lines))
+    # Warning, not info: Azure Load Testing drops info lines from the engine logs
+    logger.warning("\n".join(lines))
