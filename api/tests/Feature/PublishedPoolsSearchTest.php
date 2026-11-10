@@ -57,15 +57,9 @@ class PublishedPoolsSearchTest extends TestCase
 
         // published and closed returned
         // 2 pools total, so no draft or archived or hidden
-        $response->assertJsonFragment([
-            'id' => $publishedPool->id,
-        ]);
-        $response->assertJsonFragment([
-            'id' => $closedPool->id,
-        ]);
-        assertEquals(
-            2,
-            count($response['data']['publishedPoolsSearch']['data'])
+        assertEqualsCanonicalizing(
+            [$publishedPool->id, $closedPool->id],
+            $response->json('data.publishedPoolsSearch.data.*.id')
         );
     }
 
