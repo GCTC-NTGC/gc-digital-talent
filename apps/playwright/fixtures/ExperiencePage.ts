@@ -39,7 +39,7 @@ class ExperiencePage extends AppPage {
 
   async edit(id: string) {
     await this.page.goto(`/en/applicant/career-timeline/${id}/edit`);
-    await this.waitForGraphqlResponse("ExperienceFormData");
+    await this.waitForGraphqlResponse("EditExperienceTypeFormData");
   }
 
   async addExternalWorkExperience(input: WorkExperienceInput) {
