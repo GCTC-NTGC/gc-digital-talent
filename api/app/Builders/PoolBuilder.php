@@ -229,7 +229,7 @@ class PoolBuilder extends Builder
             }
 
             if (in_array(PoolPublishedRange::OVER_30_DAYS->name, $publicationRanges)) {
-                $query->orWhere('published_at', '<=', $nowSub30Days);
+                $query->orWhere('published_at', '<', $nowSub30Days);
             }
         });
     }
