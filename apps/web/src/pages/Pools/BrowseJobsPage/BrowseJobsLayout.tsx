@@ -1,10 +1,11 @@
-import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
+import { Outlet } from "react-router";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Container, Flourish } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -17,6 +18,7 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import browseJobsMessages from "./browseJobsMessages";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
+import OpenJobsPageDeprecated from "./OpenJobsPageDeprecated";
 
 const flourish = tv({
   base: "absolute z-1 w-[25vw]",
@@ -27,19 +29,11 @@ const flourish = tv({
     },
   },
 });
-interface Props {
-  children: ReactNode;
-}
-
-/*
- * I don't think it's possible to use a React Router Outlet here
- * since PoolAdvertisementPage is in the subtree but doesn't
- * use this layout
- */
-export const Component = ({ children }: Props) => {
+export const BrowseJobsLayout = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const theme = useTheme();
+  const featureFlags = useFeatureFlags();
 
   const formattedTitle = intl.formatMessage(navigationMessages.browseJobs);
   const formattedSubtitle = intl.formatMessage({
@@ -57,7 +51,7 @@ export const Component = ({ children }: Props) => {
     ],
   });
 
-  return (
+  return featureFlags.jobAlerts ? (
     <>
       <SEO title={formattedTitle} description={formattedSubtitle} />
       <Hero
@@ -77,7 +71,9 @@ export const Component = ({ children }: Props) => {
           src={theme.mode === "dark" ? flourishTopDark : flourishTopLight}
           className={flourish({ isTop: true })}
         />
-        <Container className="relative z-2">{children}</Container>
+        <Container className="relative z-2">
+          <Outlet />
+        </Container>
         <img
           alt=""
           src={theme.mode === "dark" ? flourishBottomDark : flourishBottomLight}
@@ -87,9 +83,11 @@ export const Component = ({ children }: Props) => {
       <ConversionFeatures />
       <Flourish />
     </>
+  ) : (
+    <OpenJobsPageDeprecated />
   );
 };
 
-Component.displayName = "BrowseJobsLayout";
+BrowseJobsLayout.displayName = "BrowseJobsLayout";
 
-export default Component;
+export default BrowseJobsLayout;

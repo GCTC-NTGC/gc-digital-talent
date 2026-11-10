@@ -9,7 +9,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import JobCard from "~/components/JobCard/JobCard";
 
-import BrowseJobsLayout from "./BrowseJobsLayout";
 import browseJobsMessages from "./browseJobsMessages";
 import ResultsBar from "./components/ResultsBar/ResultsBar";
 import FilterBar from "./components/FilterBar/FilterBar";
@@ -47,7 +46,7 @@ export const OpenOpportunitiesPage = () => {
   const pools = unpackMaybes(data?.poolsPaginated?.data);
 
   return (
-    <BrowseJobsLayout>
+    <>
       <Heading
         rank="h2"
         size="h3"
@@ -125,7 +124,7 @@ export const OpenOpportunitiesPage = () => {
           ) : null}
         </div>
       </div>
-    </BrowseJobsLayout>
+    </>
   );
 };
 
