@@ -17,6 +17,15 @@ import type {
   ApplicationStepInfo,
 } from "~/types/applicationStep";
 
+/**
+ * Step number of the career timeline step in the application.
+ *
+ * Welcome, profile and career timeline are always the first three steps
+ * (see getApplicationSteps in pages/Applications/utils.ts).
+ * Used outside the application, where its steps aren't available.
+ */
+export const CAREER_TIMELINE_STEP_ORDINAL = 3;
+
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: ApplicationStepInfo[],
