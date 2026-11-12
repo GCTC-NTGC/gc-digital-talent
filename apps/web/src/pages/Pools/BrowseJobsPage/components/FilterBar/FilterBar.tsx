@@ -5,10 +5,19 @@ import BellAlertIcon from "@heroicons/react/20/solid/BellAlertIcon";
 import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
 import random from "lodash/random";
 import { twMerge } from "tailwind-merge";
+import { FormProvider, useForm } from "react-hook-form";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Button, Card, Chip, Chips, Heading } from "@gc-digital-talent/ui";
+import { Input } from "@gc-digital-talent/forms";
+
+import adminMessages from "~/messages/adminMessages";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
+
+interface searchByKeywordForm {
+  searchByKeyword: string;
+}
 
 interface FilterBarProps extends ComponentPropsWithoutRef<"div"> {
   featureManageAlertButtons: boolean;
@@ -30,6 +39,16 @@ const FilterBar = ({
   } = useBrowseJobsSearchParams();
 
   const exampleFilter = getFilterValues("exampleFilter");
+  const keywords = getFilterValues("keyword");
+
+  const keywordFormMethods = useForm<searchByKeywordForm>();
+
+  const handleKeywordFormSubmit = ({
+    searchByKeyword: keyword,
+  }: searchByKeywordForm) => {
+    addFilterValue("keyword", keyword);
+    keywordFormMethods.reset();
+  };
 
   return (
     <div
@@ -84,6 +103,61 @@ const FilterBar = ({
                   <Chip
                     key={f}
                     onDismiss={() => removeFilterValue("exampleFilter", f)}
+                  >
+                    {f}
+                  </Chip>
+                ))}
+              </Chips>
+            ) : (
+              <div className="text-sm text-gray-500 dark:text-gray-200">
+                {intl.formatMessage({
+                  defaultMessage: "No filters selected",
+                  id: "sxFMPR",
+                  description: "null state for filter list",
+                })}
+              </div>
+            )}
+          </div>
+          <div>
+            <FormProvider {...keywordFormMethods}>
+              <form
+                onSubmit={keywordFormMethods.handleSubmit(
+                  handleKeywordFormSubmit,
+                )}
+              >
+                <div className="mb-1.5 flex flex-row items-end gap-1">
+                  <div className="min-w-0 flex-1">
+                    <Input
+                      type="text"
+                      id="searchByKeyword"
+                      label={intl.formatMessage(adminMessages.searchByKeyword)}
+                      name="searchByKeyword"
+                    />
+                  </div>
+                  <div className="shrink-0">
+                    <Button type="submit">
+                      <PlusIcon
+                        className="h-6 w-auto"
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Add a keyword",
+                          id: "aTcy3P",
+                          description: "Button to submit a keyword",
+                        })}
+                        role="img"
+                        aria-hidden="false"
+                      />
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </FormProvider>
+
+            {keywords.length ? (
+              <Chips>
+                {keywords.map((f) => (
+                  <Chip
+                    key={f}
+                    onDismiss={() => removeFilterValue("keyword", f)}
                   >
                     {f}
                   </Chip>

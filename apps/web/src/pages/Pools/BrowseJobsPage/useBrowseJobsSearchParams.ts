@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 export const sortByOptions = ["datePosted", "deadline"] as const;
 export type SortBy = (typeof sortByOptions)[number];
 
-export const filterOptions = ["exampleFilter"] as const;
+export const filterOptions = ["exampleFilter", "keyword"] as const;
 export type FilterOption = (typeof filterOptions)[number];
 
 const SORT_BY_PARAM = "sortBy";
