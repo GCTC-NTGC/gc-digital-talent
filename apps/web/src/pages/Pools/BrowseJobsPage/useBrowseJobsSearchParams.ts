@@ -36,6 +36,7 @@ const useBrowseJobsSearchParams = () => {
 
   const addFilterValue = (filter: FilterOption, value: string) =>
     setSearchParams((prev) => {
+      if (prev.has(filter, value)) return prev;
       const next = new URLSearchParams(prev);
       next.append(filter, value);
       return next;
