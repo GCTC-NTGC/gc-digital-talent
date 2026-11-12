@@ -38,9 +38,6 @@ return [
         // IP ranges) with a 403 by design, regardless of User-Agent.
         'connexion.canada.ca',
         'login.canada.ca',
-
-        // used in SignOutPage test
-        'bad-actor.com',
     ],
 
     /*
