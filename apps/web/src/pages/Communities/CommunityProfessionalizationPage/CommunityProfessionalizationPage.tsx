@@ -142,18 +142,14 @@ export const CommunityProfessionalizationForm = ({
               })}
             </p>
             <AddDialog community={community} />
-            <div
-              role="group"
-              aria-labelledby="sortFilter"
-              className="mt-6 flex items-center gap-3"
-            >
-              <span
+            <fieldset className="mt-6 flex items-center gap-3">
+              <legend
                 id="sortFilter"
-                className="text-gray-500 dark:text-gray-200"
+                className="float-left text-gray-500 dark:text-gray-200"
               >
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
-              </span>
+              </legend>
               <Button
                 onClick={() => setSortBy("recentlyAdded")}
                 {...(sortBy === "recentlyAdded"
@@ -174,7 +170,7 @@ export const CommunityProfessionalizationForm = ({
               >
                 {intl.formatMessage(commonMessages.name)}
               </Button>
-            </div>
+            </fieldset>
           </div>
           {sortedCommunityDevelopmentPrograms.length > 0 ? (
             <div className="-mr-6 -mb-5 -ml-6">

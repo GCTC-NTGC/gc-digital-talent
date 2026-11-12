@@ -130,6 +130,8 @@ const Item = forwardRef<HTMLLIElement, ItemProps>(
   ({ active, selected, children, ...rest }, forwardedRef) => (
     <li
       ref={forwardedRef}
+      // An option element is only valid inside select, datalist or optgroup
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
       role="option"
       className={item({ active, selected })}
       {...omit(rest, "aria-selected")}

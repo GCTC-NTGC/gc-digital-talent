@@ -25,11 +25,11 @@ type WrapperProps = DetailedHTMLProps<
 >;
 
 const Wrapper = ({ children, className, ...rest }: WrapperProps) => (
-  <div role="region" className={wrapper({ class: className })} {...rest}>
+  <section className={wrapper({ class: className })} {...rest}>
     <div className="overflow-x-auto overflow-y-hidden rounded-md shadow-md">
       {children}
     </div>
-  </div>
+  </section>
 );
 
 type TableProps = DetailedHTMLProps<
@@ -39,6 +39,8 @@ type TableProps = DetailedHTMLProps<
 
 const Table = ({ children, ...rest }: TableProps) => (
   <table
+    // Note: Need to specify role for mobile responsive styles
+    // oxlint-disable-next-line jsx-a11y/no-redundant-roles
     role="table"
     className="block w-full border-collapse bg-white sm:table dark:bg-gray-600"
     {...rest}
@@ -67,8 +69,8 @@ type BodyProps = DetailedHTMLProps<
 
 const Body = (props: BodyProps) => (
   // Note: Need to specify role for mobile responsive styles
-  // eslint-disable-next-line jsx-a11y/no-redundant-roles
   <tbody
+    // oxlint-disable-next-line jsx-a11y/no-redundant-roles
     role="rowgroup"
     className="block w-full sm:table-row-group"
     {...props}
@@ -100,7 +102,15 @@ const tr = tv({
   base: "flex flex-row flex-wrap items-center justify-between border-gray-500 not-last:border-b odd:bg-white even:bg-gray-100/50 sm:table-row dark:border-gray-300 dark:odd:bg-gray-600 dark:even:bg-gray-700/50",
 });
 
-const Row = (props: RowProps) => <tr role="row" className={tr()} {...props} />;
+const Row = (props: RowProps) => (
+  <tr
+    // Note: Need to specify role for mobile responsive styles
+    // oxlint-disable-next-line jsx-a11y/no-redundant-roles, jsx-a11y/no-interactive-element-to-noninteractive-role
+    role="row"
+    className={tr()}
+    {...props}
+  />
+);
 
 type AriaSort = "ascending" | "descending" | "none" | undefined;
 
@@ -136,6 +146,8 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
 
   return (
     <th
+      // Note: Need to specify role for mobile responsive styles
+      // oxlint-disable-next-line jsx-a11y/no-redundant-roles
       role="columnheader"
       {...(header.column.getCanSort() && {
         "aria-sort": ariaSort,

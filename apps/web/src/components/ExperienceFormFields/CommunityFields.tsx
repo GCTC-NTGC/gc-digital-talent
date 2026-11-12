@@ -19,6 +19,7 @@ import type {
 } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { useStableDate } from "~/hooks/useStableDate";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;
@@ -30,7 +31,7 @@ const CommunityFields = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent =
     useWatch<CommunityFormValues>({ name: "roleStatus" }) !== "past";
@@ -133,7 +134,13 @@ const CommunityFields = ({
       {organizationSuggestions.length > 0 && (
         <datalist id="organizationSuggestions">
           {organizationSuggestions.map((suggestion) => {
-            return <option key={suggestion} value={suggestion}></option>;
+            return (
+              <option
+                key={suggestion}
+                value={suggestion}
+                aria-label={suggestion}
+              />
+            );
           })}
         </datalist>
       )}

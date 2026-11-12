@@ -39,8 +39,8 @@ export function hasAllEmptyFields({
     !nextRoleJobTitle &&
     !nextRoleCommunity &&
     !nextRoleCommunityOther &&
-    !(nextRoleWorkStreams?.length ?? 0 > 0) &&
-    !(nextRoleDepartments?.length ?? 0 > 0) &&
+    !((nextRoleWorkStreams?.length ?? 0) > 0) &&
+    !((nextRoleDepartments?.length ?? 0) > 0) &&
     !nextRoleAdditionalInformation &&
     (nextRoleIsCSuiteRole === undefined || nextRoleIsCSuiteRole === null) &&
     !nextRoleCSuiteRoleTitle

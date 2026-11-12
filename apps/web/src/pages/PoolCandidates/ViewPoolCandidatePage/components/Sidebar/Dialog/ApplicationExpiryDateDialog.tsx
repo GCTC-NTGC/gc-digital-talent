@@ -15,6 +15,8 @@ import {
 import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
+import { useStableDate } from "~/hooks/useStableDate";
+
 import Footer from "./Footer";
 
 const ApplicationExpiryDateDialog_Fragment = graphql(/** GraphQL */ `
@@ -107,7 +109,7 @@ const ApplicationExpiryDateDialog = ({
       })
     : title;
 
-  const todayDate = new Date();
+  const todayDate = useStableDate();
 
   const computedTriggerColour = isExpired ? "error" : "success";
 

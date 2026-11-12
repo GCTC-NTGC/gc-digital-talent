@@ -18,7 +18,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   Button,
-  NavMenu as NavMenu,
+  NavMenu,
   NavMenuProvider,
   Container,
 } from "@gc-digital-talent/ui";

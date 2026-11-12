@@ -155,12 +155,13 @@ export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   const { watch } = useFormContext<Record<string, string>>();
+  const [now] = useState(() => new Date());
   const watchFirstInput = watch(name);
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;
 
-  return inputDate && isAfter(new Date(), inputDate) ? (
+  return inputDate && isAfter(now, inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
     <p className="my-6 text-black dark:text-white">
