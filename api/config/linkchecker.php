@@ -39,6 +39,8 @@ return [
         'connexion.canada.ca',
         'login.canada.ca',
 
+        // used in SignOutPage test
+        'bad-actor.com',
     ],
 
     /*
