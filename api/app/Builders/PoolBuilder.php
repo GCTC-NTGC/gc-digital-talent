@@ -24,6 +24,7 @@ class PoolBuilder extends Builder
     // how much each scored filter contributes to the match score
     // every component is normalized to 0..1 before weighting
     public const MATCH_SCORE_WEIGHTS = [
+        'keywords' => 1.0,
         'skills' => 1.0,
     ];
 
@@ -192,11 +193,27 @@ class PoolBuilder extends Builder
             return $this;
         }
 
-        return $this->where(function ($query) use ($terms) {
+        $this->where(function ($query) use ($terms) {
             foreach ($terms as $term) {
                 $query->name($term);
             }
         });
+
+        // every term already matches somewhere in the name, so score how well:
+        // a whole word scores 1.0 and part of a word 0.5, averaged over the terms
+        $termScores = [];
+        $bindings = [];
+        foreach ($terms as $term) {
+            $termScores[] = "CASE WHEN pools.name->>'en' ~* ? OR pools.name->>'fr' ~* ? THEN 1.0 ELSE 0.5 END";
+            $wholeWord = '\\m'.preg_quote($term).'\\M';
+            array_push($bindings, $wholeWord, $wholeWord);
+        }
+
+        return $this->addMatchScore(
+            sprintf('(%s) / %d.0', implode(' + ', $termScores), count($terms)),
+            $bindings,
+            self::MATCH_SCORE_WEIGHTS['keywords'],
+        );
     }
 
     // filter by enum PoolAreaOfSelection options

@@ -456,4 +456,63 @@ class PoolBuilderTest extends TestCase
 
         $this->assertStringNotContainsString('order by', strtolower($sql));
     }
+
+    public function testMatchScoreRanksWholeWordKeywordsAboveSubstrings(): void
+    {
+        $substring = Pool::factory()->published()->create(['name' => ['en' => 'Database administrator', 'fr' => 'abc']]);
+        $wholeWordFrench = Pool::factory()->published()->create(['name' => ['en' => 'abc', 'fr' => 'Analyste de data']]);
+        $wholeWord = Pool::factory()->published()->create(['name' => ['en' => 'Data analyst', 'fr' => 'abc']]);
+        // regex characters in a term are escaped, so they don't break the score expression
+        $literal = Pool::factory()->published()->create(['name' => ['en' => 'C++ developer', 'fr' => 'abc']]);
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['data'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->orderBy('id', 'desc')
+            ->get()->pluck('id')->toArray();
+        $tiedWholeWords = collect([$wholeWord->id, $wholeWordFrench->id])->sortDesc()->values()->all();
+        assertEquals([...$tiedWholeWords, $substring->id], $poolIds);
+
+        // every term must still match: both pools score (1.0 for 'data' + 0.5 for 'analys') / 2
+        $poolIds = Pool::query()
+            ->keywordSearch(['data', 'analys'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([$wholeWord->id, $wholeWordFrench->id], $poolIds);
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['c++'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([$literal->id], $poolIds);
+    }
+
+    public function testMatchScoreCombinesKeywordsAndSkills(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $makePool = function (string $name, array $skills) {
+            $pool = Pool::factory()->published()->create(['name' => ['en' => $name, 'fr' => 'abc']]);
+            foreach ($skills as $skill) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+            }
+
+            return $pool;
+        };
+
+        $substringOneSkill = $makePool('Database administrator', [$skillA]); // 0.5 + 0.5
+        $wholeWordBothSkills = $makePool('Data analyst', [$skillA, $skillB]); // 1.0 + 1.0
+        $substringBothSkills = $makePool('Database analyst', [$skillA, $skillB]); // 0.5 + 1.0
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['data'])
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $wholeWordBothSkills->id,
+            $substringBothSkills->id,
+            $substringOneSkill->id,
+        ], $poolIds);
+    }
 }
