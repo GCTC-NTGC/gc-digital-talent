@@ -15,10 +15,12 @@ import {
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
 
-import NominationDetailsDialog from "./NominationDetailsDialog";
+import NominationDetailsDialog, {
+  type NominationDetailsVariant,
+} from "./NominationDetailsDialog";
 
-export const TalentNominationHistoryListItem_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationHistoryListItem on TalentNominationGroupAsNominee {
+export const NominationDetailsListItem_Fragment = graphql(/* GraphQL */ `
+  fragment NominationDetailsListItem on TalentNominationGroupAsNominee {
     id
     updatedAt
     talentNominationEvent {
@@ -40,20 +42,20 @@ export const TalentNominationHistoryListItem_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface TalentNominationHistoryListItemProps {
+interface NominationDetailsListItemProps {
   headingAs?: HeadingRank;
-  nominationGroupQuery: FragmentType<
-    typeof TalentNominationHistoryListItem_Fragment
-  >;
+  nominationGroupQuery: FragmentType<typeof NominationDetailsListItem_Fragment>;
+  variant: NominationDetailsVariant;
 }
 
-const TalentNominationHistoryListItem = ({
+const NominationDetailsListItem = ({
   headingAs,
   nominationGroupQuery,
-}: TalentNominationHistoryListItemProps) => {
+  variant,
+}: NominationDetailsListItemProps) => {
   const intl = useIntl();
   const nominationGroup = getFragment(
-    TalentNominationHistoryListItem_Fragment,
+    NominationDetailsListItem_Fragment,
     nominationGroupQuery,
   );
 
@@ -147,10 +149,13 @@ const TalentNominationHistoryListItem = ({
       metaData={metaData}
       headingAs={headingAs}
       action={
-        <NominationDetailsDialog nominationGroupQuery={nominationGroup} />
+        <NominationDetailsDialog
+          nominationGroupQuery={nominationGroup}
+          variant={variant}
+        />
       }
     />
   );
 };
 
-export default TalentNominationHistoryListItem;
+export default NominationDetailsListItem;

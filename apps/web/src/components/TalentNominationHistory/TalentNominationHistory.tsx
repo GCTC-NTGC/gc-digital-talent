@@ -5,14 +5,14 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, Notice, PreviewList } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import TalentNominationHistoryListItem from "./TalentNominationHistoryListItem";
+import NominationDetailsListItem from "./NominationDetailsListItem";
 
 export const TalentNominationHistory_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationHistory on User {
     talentNominationGroupsAsRecruiter {
       id
       updatedAt
-      ...TalentNominationHistoryListItem
+      ...NominationDetailsListItem
     }
   }
 `);
@@ -42,8 +42,9 @@ const TalentNominationHistory = ({
         <Accordion.Item value={nominationGroup.id} key={nominationGroup.id}>
           <div className="p-6">
             <PreviewList.Root>
-              <TalentNominationHistoryListItem
+              <NominationDetailsListItem
                 nominationGroupQuery={nominationGroup}
+                variant="recruiter"
               />
             </PreviewList.Root>
           </div>
