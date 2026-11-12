@@ -145,4 +145,48 @@ class PublishedPoolsSearchTest extends TestCase
             array_column($response['data']['publishedPoolsSearch']['data'], 'id')
         );
     }
+
+    public function testMatchRankOrdersBySkillOverlapThenId(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+
+        $bothSkills = Pool::factory()->published()->create();
+        $bothSkills->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        $bothSkills->poolSkills()->create(['skill_id' => $skillB->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        // two pools with the same score, tie broken by the default id sort
+        $tiedPools = Pool::factory()->count(2)->published()->create();
+        foreach ($tiedPools as $pool) {
+            $pool->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        }
+        $tiedIdsDesc = $tiedPools->pluck('id')->sortDesc()->values()->all();
+
+        $query = /** @lang GraphQL */ '
+            query publishedPoolsSearch($where: PublishedPoolsSearchInput, $orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]) {
+                publishedPoolsSearch(where: $where, orderBy: $orderBy) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ';
+
+        $response = $this->graphQL($query, [
+            'where' => ['skills' => [$skillA->id, $skillB->id]],
+            'orderBy' => [['column' => 'MATCH_RANK', 'order' => 'DESC']],
+        ]);
+        assertEquals(
+            [$bothSkills->id, ...$tiedIdsDesc],
+            $response->json('data.publishedPoolsSearch.data.*.id')
+        );
+
+        // nothing scored, so every pool ties and the default id sort applies
+        $response = $this->graphQL($query, [
+            'orderBy' => [['column' => 'MATCH_RANK', 'order' => 'DESC']],
+        ]);
+        assertEquals(
+            Pool::query()->pluck('id')->sortDesc()->values()->all(),
+            $response->json('data.publishedPoolsSearch.data.*.id')
+        );
+    }
 }

@@ -1719,6 +1719,7 @@ enum ActivitiesOrderByColumn {
 enum PublishedPoolsSearchOrderByColumn {
   CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
+  MATCH_RANK @enum(value: "match_score") # see PoolBuilder::orderByMatchScore
 }
 
 input SitewideAnnouncementInput @validator {

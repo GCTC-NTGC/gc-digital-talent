@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Builders\PoolBuilder;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
@@ -404,5 +405,55 @@ class PoolBuilderTest extends TestCase
             $essentialA->id,
             $nonessentialB->id,
         ], $poolIds);
+    }
+
+    public function testMatchScoreRanksSkillOverlap(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $makePool = function (array $skills) {
+            $pool = Pool::factory()->published()->create();
+            foreach ($skills as [$skill, $type]) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => $type->name]);
+            }
+
+            return $pool;
+        };
+
+        // scores are (sum of essential 1.0 / nonessential 0.5) / 2 skills selected
+        $nonessentialA = $makePool([[$skillA, PoolSkillType::NONESSENTIAL]]); // 0.25
+        $essentialBoth = $makePool([[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::ESSENTIAL]]); // 1.0
+        $essentialA = $makePool([[$skillA, PoolSkillType::ESSENTIAL]]); // 0.5
+        $essentialANonessentialB = $makePool([[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::NONESSENTIAL]]); // 0.75
+
+        $poolIds = Pool::query()
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $essentialBoth->id,
+            $essentialANonessentialB->id,
+            $essentialA->id,
+            $nonessentialA->id,
+        ], $poolIds);
+
+        // ascending reverses the score order
+        $poolIds = Pool::query()
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'asc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $nonessentialA->id,
+            $essentialA->id,
+            $essentialANonessentialB->id,
+            $essentialBoth->id,
+        ], $poolIds);
+    }
+
+    public function testMatchScoreWithoutScoredFiltersAddsNoOrder(): void
+    {
+        $sql = Pool::query()->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')->toSql();
+
+        $this->assertStringNotContainsString('order by', strtolower($sql));
     }
 }
