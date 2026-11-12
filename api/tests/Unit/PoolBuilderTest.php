@@ -6,9 +6,12 @@ use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\PoolSkillType;
 use App\Enums\SalaryRange;
+use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
+use App\Models\Skill;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -376,6 +379,30 @@ class PoolBuilderTest extends TestCase
         $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::OVER_120000->name)->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $onTopBoundary->id,
+        ], $poolIds);
+    }
+
+    public function testSkillsScope(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $essentialA = Pool::factory()->published()->create();
+        $essentialA->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        $nonessentialB = Pool::factory()->published()->create();
+        $nonessentialB->poolSkills()->create(['skill_id' => $skillB->id, 'type' => PoolSkillType::NONESSENTIAL->name]);
+        Pool::factory()->published()->create();
+
+        // essential skills match
+        $poolIds = Pool::query()->whereSkillsIn([$skillA->id])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $essentialA->id,
+        ], $poolIds);
+
+        // nonessential skills match, and selected skills are OR matched
+        $poolIds = Pool::query()->whereSkillsIn([$skillA->id, $skillB->id])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $essentialA->id,
+            $nonessentialB->id,
         ], $poolIds);
     }
 }
