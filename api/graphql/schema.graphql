@@ -1501,6 +1501,7 @@ input PublishedPoolsSearchInput {
   publishedAtRange: [PoolPublishedRange!] @scope(name: "wherePublishedAtIn")
   languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
   salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
+  skills: [UUID!] @scope(name: "whereSkillsIn")
   processNumber: String @scope
   poolStatuses: [PoolStatus!] @scope(name: "statuses") # this query will only return open or closed
 }

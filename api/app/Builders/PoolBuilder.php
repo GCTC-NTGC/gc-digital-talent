@@ -234,6 +234,18 @@ class PoolBuilder extends Builder
         });
     }
 
+    // pool must have at least one of the skills, essential or nonessential
+    public function whereSkillsIn(?array $skillIds): self
+    {
+        if (empty($skillIds)) {
+            return $this;
+        }
+
+        return $this->whereHas('poolSkills', function ($query) use ($skillIds) {
+            $query->whereIn('skill_id', $skillIds);
+        });
+    }
+
     // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
     public function whereLanguagesIn(?array $languageAbilities): self
     {
