@@ -18,7 +18,7 @@ import {
 import adminMessages from "~/messages/adminMessages";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
-import OpportunityDetailsFilterDialog from "../OpportunityDetailsFilterDialog/OpportunityDetailsFilterDialog";
+import OpportunityDetailsFilterDialog from "../filterDialogs/OpportunityDetailsFilterDialog";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
