@@ -1,0 +1,4 @@
+# Built by bundle.py
+azure/
+# Local virtual environment
+.venv/
