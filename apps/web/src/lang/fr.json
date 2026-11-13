@@ -12316,6 +12316,10 @@
     "defaultMessage": "Année d'admissibilité à la retraite",
     "description": "Label for an employee profile career development preference field"
   },
+  "lwjtDd": {
+    "defaultMessage": "Retourner à l'information sur le processus",
+    "description": "Link text to go back to the process details page"
+  },
   "lxoLwy": {
     "defaultMessage": "Identifiant de l'organisation",
     "description": "Label for department identifier"
@@ -12683,10 +12687,6 @@
   "nPBGRJ": {
     "defaultMessage": "Le statut de la candidature a été mis à jour avec succès.",
     "description": "Success message when updating application status"
-  },
-  "nPPUMW": {
-    "defaultMessage": "Retourner au traitement des détails",
-    "description": "Link text to go back to the process details page"
   },
   "nPc3eL": {
     "defaultMessage": "Lien de parenté entre le nominateur ou la nominatrice et le nominé ou la nominée",
