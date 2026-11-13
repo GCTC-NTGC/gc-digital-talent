@@ -190,9 +190,6 @@ const Test_TalentRequestsQueryDocument = /* GraphQL */ `
   }
 `;
 
-/**
- * Get the newest talent request with tracked users that wasn't created by Playwright
- */
 export const getTalentRequestWithTrackedUsers: GraphQLRequestFunc<
   TalentRequest
 > = async (ctx) => {

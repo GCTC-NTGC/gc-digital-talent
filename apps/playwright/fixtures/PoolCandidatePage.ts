@@ -23,10 +23,16 @@ class PoolCandidatePage extends AppPage {
   }
 
   async openFirstCandidate() {
-    await this.goToIndex();
-    await this.waitForGraphqlResponse(
+    // From a process page through its Candidates tab (the main menu outside <main> has a "Candidates" link too)
+    const candidatesResponse = this.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
+    await this.page
+      .getByRole("main")
+      .getByRole("navigation")
+      .getByRole("link", { name: "Candidates", exact: true })
+      .click();
+    await candidatesResponse;
     const candidateLink = this.page
       .getByRole("row")
       .nth(1)

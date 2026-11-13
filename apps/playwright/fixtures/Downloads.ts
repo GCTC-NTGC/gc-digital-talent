@@ -80,7 +80,6 @@ class Downloads extends AppPage {
   }
 
   private async clickDownload(button: DownloadButton, option?: DownloadOption) {
-    // The candidate application page shows the same download menu twice
     await this.page
       .getByRole("button", { name: button, exact: true })
       .first()
@@ -141,14 +140,12 @@ class Downloads extends AppPage {
     await this.page.keyboard.press("Escape");
     await this.clickDownload(button, option);
     await expect(this.locators[FIELD.PREPARING_TOAST]).toBeVisible();
-    // The "file ready" toast arrives over Reverb, which only UAT reliably delivers
     if (process.env.TESTING_ENDPOINT_SECRET) {
       await expect(this.locators[FIELD.FILE_READY_TOAST]).toBeVisible({
         timeout: 180_000,
       });
     }
     await this.locators[FIELD.VIEW_NOTIFICATIONS].click();
-    // Each generated file name has a timestamp, so a new newest link is this download
     await expect(async () => {
       await this.refreshNotifications();
       const [newestFile] = await fileLinks.allTextContents();
