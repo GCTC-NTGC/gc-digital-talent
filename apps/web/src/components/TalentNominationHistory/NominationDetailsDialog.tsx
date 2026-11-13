@@ -23,6 +23,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import nomineeMessages from "./nomineeMessages";
 import recruiterMessages from "./recruiterMessages";
+import sharedMessages from "./sharedMessages";
 
 export type NominationDetailsVariant = "nominee" | "recruiter";
 
@@ -32,9 +33,6 @@ const variantMessages: Record<
     subtitle: MessageDescriptor;
     whoNominated: MessageDescriptor;
     whatNominatedFor: MessageDescriptor;
-    meaningAdvancement: MessageDescriptor;
-    meaningLateralMovement: MessageDescriptor;
-    meaningDevelopment: MessageDescriptor;
   }
 > = {
   nominee: nomineeMessages,
@@ -121,7 +119,7 @@ const NominationDetailsDialog = ({
           option: intl.formatMessage(
             talentNominationMessages.nominateForAdvancement,
           ),
-          meaning: intl.formatMessage(messages.meaningAdvancement, {
+          meaning: intl.formatMessage(sharedMessages.meaningAdvancement, {
             link: (chunks: ReactNode) =>
               contactEmail ? (
                 <Link external color="black" href={`mailto:${contactEmail}`}>
@@ -138,13 +136,13 @@ const NominationDetailsDialog = ({
           option: intl.formatMessage(
             talentNominationMessages.nominateForLateralMovement,
           ),
-          meaning: intl.formatMessage(messages.meaningLateralMovement),
+          meaning: intl.formatMessage(sharedMessages.meaningLateralMovement),
         }
       : null,
     nominationGroup.approvedForDevelopmentPrograms
       ? {
           option: intl.formatMessage(adminMessages.developmentOpportunities),
-          meaning: intl.formatMessage(messages.meaningDevelopment),
+          meaning: intl.formatMessage(sharedMessages.meaningDevelopment),
         }
       : null,
   ].filter(notEmpty);
