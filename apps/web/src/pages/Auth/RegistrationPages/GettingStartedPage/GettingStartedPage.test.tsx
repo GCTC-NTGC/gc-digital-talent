@@ -24,7 +24,7 @@ const mockClient = {
     fromValue({
       // pretend that an email address verification email was sent
       data: {
-        sendUserEmailsVerification: {
+        sendUserWorkEmailVerification: {
           id: 1,
         },
       },

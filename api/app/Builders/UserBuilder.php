@@ -553,9 +553,14 @@ class UserBuilder extends Builder
         return $this->whereWorkEmail($args['search'] ?? null);
     }
 
-    public function whereExactWorkEmail(string $email): self
+    public function whereContactEmailMatches(string $email): self
     {
-        return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+        return $this->whereRaw('LOWER("email") = ?', [mb_strtolower($email)]);
+    }
+
+    public function whereWorkEmailMatches(string $email): self
+    {
+        return $this->whereRaw('LOWER("work_email") = ?', [mb_strtolower($email)]);
     }
 
     public function whereWorkEmailIsVerified(): self
