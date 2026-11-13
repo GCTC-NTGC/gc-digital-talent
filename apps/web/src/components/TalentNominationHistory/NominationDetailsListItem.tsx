@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import type { HeadingRank } from "@gc-digital-talent/ui";
 import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -43,13 +42,11 @@ export const NominationDetailsListItem_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface NominationDetailsListItemProps {
-  headingAs?: HeadingRank;
   nominationGroupQuery: FragmentType<typeof NominationDetailsListItem_Fragment>;
   variant: NominationDetailsVariant;
 }
 
 const NominationDetailsListItem = ({
-  headingAs,
   nominationGroupQuery,
   variant,
 }: NominationDetailsListItemProps) => {
@@ -147,7 +144,6 @@ const NominationDetailsListItem = ({
     <PreviewList.Item
       title={title}
       metaData={metaData}
-      headingAs={headingAs}
       action={
         <NominationDetailsDialog
           nominationGroupQuery={nominationGroup}

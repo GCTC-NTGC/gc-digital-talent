@@ -374,34 +374,34 @@ export const UserEmployeeInformation = ({
           </Accordion.Root>
 
           {canViewNominations && (
-            <>
-              <TableOfContents.Section id={SECTION_ID.TALENT_NOMINATIONS}>
-                <Heading
-                  rank="h2"
-                  size="h3"
-                  icon={TrophyIcon}
-                  color="secondary"
-                  className="font-normal sm:justify-start sm:text-left"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Nominations the employee has received",
-                    id: "RvEuTQ",
-                    description:
-                      "Title for the nominations received section on the GC profile",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "When the employee is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
-                    id: "9hMoLz",
-                    description:
-                      "Description for the nominations received section on the GC profile",
-                  })}
-                </p>
-              </TableOfContents.Section>
-              <TalentNominationHistory userQuery={user} />
-            </>
+            <TableOfContents.Section id={SECTION_ID.TALENT_NOMINATIONS}>
+              <Heading
+                rank="h2"
+                size="h3"
+                icon={TrophyIcon}
+                color="secondary"
+                className="font-normal sm:justify-start sm:text-left"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Nominations the employee has received",
+                  id: "RvEuTQ",
+                  description:
+                    "Title for the nominations received section on the GC profile",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "When the employee is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
+                  id: "9hMoLz",
+                  description:
+                    "Description for the nominations received section on the GC profile",
+                })}
+              </p>
+              <div className="mt-6">
+                <TalentNominationHistory userQuery={user} />
+              </div>
+            </TableOfContents.Section>
           )}
         </div>
       </TableOfContents.Content>

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, Notice, PreviewList } from "@gc-digital-talent/ui";
+import { Card, Notice, PreviewList } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import NominationDetailsListItem from "./NominationDetailsListItem";
@@ -37,20 +37,17 @@ const TalentNominationHistory = ({
   });
 
   return nominationGroups.length > 0 ? (
-    <Accordion.Root type="multiple" mode="card">
-      {nominationGroups.map((nominationGroup) => (
-        <Accordion.Item value={nominationGroup.id} key={nominationGroup.id}>
-          <div className="p-6">
-            <PreviewList.Root>
-              <NominationDetailsListItem
-                nominationGroupQuery={nominationGroup}
-                variant="recruiter"
-              />
-            </PreviewList.Root>
-          </div>
-        </Accordion.Item>
-      ))}
-    </Accordion.Root>
+    <Card className="overflow-hidden p-0 [&>ul>li]:p-6 dark:[&>ul>li:not(:last-child)]:border-b-gray-700 dark:[&>ul>li:nth-child(even)]:bg-gray-700/30 [&>ul>li:nth-child(odd)]:bg-gray-100/30 dark:[&>ul>li:nth-child(odd)]:bg-gray-700/50">
+      <PreviewList.Root>
+        {nominationGroups.map((nominationGroup) => (
+          <NominationDetailsListItem
+            key={nominationGroup.id}
+            nominationGroupQuery={nominationGroup}
+            variant="recruiter"
+          />
+        ))}
+      </PreviewList.Root>
+    </Card>
   ) : (
     <Notice.Root>
       <Notice.Content>
