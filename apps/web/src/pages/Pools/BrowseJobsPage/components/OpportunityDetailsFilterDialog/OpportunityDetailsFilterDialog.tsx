@@ -1,38 +1,30 @@
 import { useState, type ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
-import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Checklist, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   sortPoolAreaOfSelection,
+  type MaybeLocalizedEnums,
 } from "@gc-digital-talent/i18n";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
-
-const Options_Query = graphql(/* GraphQL */ `
-  query OpportunityDetailsFilterOptions {
-    areasOfSelection: localizedEnumStrings(enumName: "PoolAreaOfSelection") {
-      value
-      label {
-        localized
-      }
-    }
-  }
-`);
 
 interface FormValues {
   applicationEligibility: string[];
 }
 
 interface Props {
+  poolAreaOfSelectionEnums: MaybeLocalizedEnums;
   children: ReactNode;
 }
 
-const OpportunityDetailsFilterDialog = ({ children }: Props) => {
+const OpportunityDetailsFilterDialog = ({
+  poolAreaOfSelectionEnums,
+  children,
+}: Props) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
@@ -47,13 +39,8 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
     defaultValues: getFormValuesFromFilters(),
   });
 
-  const [{ data, fetching, error }] = useQuery({
-    query: Options_Query,
-    pause: !open,
-  });
-
   const areaOfSelectionOptions = localizedEnumToOptions(
-    sortPoolAreaOfSelection(data?.areasOfSelection),
+    sortPoolAreaOfSelection(poolAreaOfSelectionEnums),
     intl,
   );
 
@@ -96,48 +83,46 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Pending fetching={fetching} error={error}>
-            <FormProvider {...formMethods}>
-              <form onSubmit={formMethods.handleSubmit(handleSaveFilter)}>
-                <Checklist
-                  idPrefix={"applicationEligibility"}
-                  legend={intl.formatMessage({
-                    defaultMessage: "Application eligibility",
-                    id: "P3U7AV",
-                    description: "Title for an area of selection checklist",
+          <FormProvider {...formMethods}>
+            <form onSubmit={formMethods.handleSubmit(handleSaveFilter)}>
+              <Checklist
+                idPrefix={"applicationEligibility"}
+                legend={intl.formatMessage({
+                  defaultMessage: "Application eligibility",
+                  id: "P3U7AV",
+                  description: "Title for an area of selection checklist",
+                })}
+                items={areaOfSelectionOptions}
+                name={"applicationEligibility"}
+              />
+              <Dialog.Footer>
+                <Button type="submit" color="primary">
+                  {intl.formatMessage({
+                    defaultMessage: "Save filters",
+                    id: "9yKptF",
+                    description: "Command to save the filter set",
                   })}
-                  items={areaOfSelectionOptions}
-                  name={"applicationEligibility"}
-                />
-                <Dialog.Footer>
-                  <Button type="submit" color="primary">
-                    {intl.formatMessage({
-                      defaultMessage: "Save filters",
-                      id: "9yKptF",
-                      description: "Command to save the filter set",
-                    })}
+                </Button>
+                <Button
+                  type="button"
+                  color="primary"
+                  mode="inline"
+                  onClick={() => handleClearFilters()}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Clear filters",
+                    id: "OVeNqb",
+                    description: "Command to clear the filter set",
+                  })}
+                </Button>
+                <Dialog.Close>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
-                  <Button
-                    type="button"
-                    color="primary"
-                    mode="inline"
-                    onClick={() => handleClearFilters()}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Clear filters",
-                      id: "OVeNqb",
-                      description: "Command to clear the filter set",
-                    })}
-                  </Button>
-                  <Dialog.Close>
-                    <Button type="button" color="warning" mode="inline">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </Dialog.Close>
-                </Dialog.Footer>
-              </form>
-            </FormProvider>
-          </Pending>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

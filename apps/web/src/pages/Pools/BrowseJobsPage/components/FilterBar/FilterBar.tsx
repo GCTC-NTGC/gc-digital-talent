@@ -9,26 +9,46 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Button, Card, Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import OpportunityDetailsFilterDialog from "../OpportunityDetailsFilterDialog/OpportunityDetailsFilterDialog";
 
+const Options_Fragment = graphql(/* GraphQL */ `
+  fragment BrowseJobsFilterBarOptions on Query {
+    poolAreaOfSelectionEnums: localizedEnumStrings(
+      enumName: "PoolAreaOfSelection"
+    ) {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 interface searchByKeywordForm {
   searchByKeyword: string;
 }
 
 interface FilterBarProps extends ComponentPropsWithoutRef<"div"> {
   featureManageAlertButtons: boolean;
+  optionsFragment: FragmentType<typeof Options_Fragment>;
 }
 
 const FilterBar = ({
   featureManageAlertButtons,
+  optionsFragment,
   className,
   ...rest
 }: FilterBarProps) => {
   const intl = useIntl();
+  const options = getFragment(Options_Fragment, optionsFragment);
 
   const {
     getFilterValues,
@@ -52,7 +72,8 @@ const FilterBar = ({
         key={`applicationEligibility:${f}`}
         onDismiss={() => removeFilterValue("applicationEligibility", f)}
       >
-        {f}
+        {options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
+          .localized ?? f}
       </Chip>
     )),
   ];
@@ -147,7 +168,9 @@ const FilterBar = ({
             )}
           </div>
           <div>
-            <OpportunityDetailsFilterDialog>
+            <OpportunityDetailsFilterDialog
+              poolAreaOfSelectionEnums={options.poolAreaOfSelectionEnums}
+            >
               <Button
                 mode="inline"
                 className="mb-1.5"
