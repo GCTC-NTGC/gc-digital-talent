@@ -5,17 +5,36 @@ namespace App\Builders;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SalaryRange;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class PoolBuilder extends Builder
 {
+    // sort column for relevance ranking, see orderByMatchScore
+    public const MATCH_SCORE_COLUMN = 'match_score';
+
+    // how much each scored filter contributes to the match score
+    // every component is normalized to 0..1 before weighting
+    public const MATCH_SCORE_WEIGHTS = [
+        'keywords' => 1.0,
+        'skills' => 1.0,
+    ];
+
+    /**
+     * Score components added by filter scopes, summed by orderByMatchScore
+     *
+     * @var array<int, array{sql: string, bindings: array<int, mixed>}>
+     */
+    protected array $matchScoreParts = [];
+
     public function wherePublished(): self
     {
         return $this->where('published_at', '<=', now());
@@ -174,11 +193,27 @@ class PoolBuilder extends Builder
             return $this;
         }
 
-        return $this->where(function ($query) use ($terms) {
+        $this->where(function ($query) use ($terms) {
             foreach ($terms as $term) {
                 $query->name($term);
             }
         });
+
+        // every term already matches somewhere in the name, so score how well:
+        // a whole word scores 1.0 and part of a word 0.5, averaged over the terms
+        $termScores = [];
+        $bindings = [];
+        foreach ($terms as $term) {
+            $termScores[] = "CASE WHEN pools.name->>'en' ~* ? OR pools.name->>'fr' ~* ? THEN 1.0 ELSE 0.5 END";
+            $wholeWord = '\\m'.preg_quote($term).'\\M';
+            array_push($bindings, $wholeWord, $wholeWord);
+        }
+
+        return $this->addMatchScore(
+            sprintf('(%s) / %d.0', implode(' + ', $termScores), count($terms)),
+            $bindings,
+            self::MATCH_SCORE_WEIGHTS['keywords'],
+        );
     }
 
     // filter by enum PoolAreaOfSelection options
@@ -232,6 +267,24 @@ class PoolBuilder extends Builder
                 $query->orWhere('published_at', '<', $nowSub30Days);
             }
         });
+    }
+
+    // pool must have at least one of the skills, essential or nonessential
+    public function whereSkillsIn(?array $skillIds): self
+    {
+        if (empty($skillIds)) {
+            return $this;
+        }
+
+        // essential skills count for more than nonessential ones
+        $rowWeight = sprintf(
+            "CASE pool_skill.type WHEN '%s' THEN 1.0 ELSE 0.5 END",
+            PoolSkillType::ESSENTIAL->name
+        );
+
+        return $this->whereHas('poolSkills', function ($query) use ($skillIds) {
+            $query->whereIn('skill_id', $skillIds);
+        })->addOverlapScore('poolSkills', 'skill_id', $skillIds, self::MATCH_SCORE_WEIGHTS['skills'], $rowWeight);
     }
 
     // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
@@ -501,5 +554,103 @@ class PoolBuilder extends Builder
     public function withPolicyEagerLoads(): self
     {
         return $this->with(['team', 'community.team', 'department.team']);
+    }
+
+    /**
+     * Add a component to the match score
+     *
+     * @param  string  $sql  expression evaluating to 0..1 for each pool
+     * @param  array<int, mixed>  $bindings
+     */
+    public function addMatchScore(string $sql, array $bindings, float $weight): self
+    {
+        $this->matchScoreParts[] = [
+            'sql' => sprintf('(%F * (%s))', $weight, $sql),
+            'bindings' => $bindings,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Score how many of the selected values a multi-valued attribute matches
+     *
+     * Scores (sum of matched row weights) / (number of values selected), so 0..1
+     * when row weights are 0..1. The relation must be a HasMany on Pool.
+     *
+     * @param  string  $relationName  HasMany relation holding the attribute rows
+     * @param  string  $valueColumn  column on the related table compared to $values
+     * @param  array<int, string>  $values  values selected by the user
+     * @param  string|null  $rowWeightSql  trusted SQL weighting each matched row, defaults to 1
+     */
+    public function addOverlapScore(
+        string $relationName,
+        string $valueColumn,
+        array $values,
+        float $weight,
+        ?string $rowWeightSql = null,
+    ): self {
+        $values = array_values(array_unique($values));
+        if (empty($values)) {
+            return $this;
+        }
+
+        /** @var HasMany $relation */
+        $relation = $this->getModel()->{$relationName}();
+        $related = $relation->getRelated();
+
+        $matchedWeight = $related->newQuery()
+            ->toBase()
+            ->selectRaw(sprintf('COALESCE(SUM(%s), 0)', $rowWeightSql ?? '1.0'))
+            ->whereColumn($relation->getQualifiedForeignKeyName(), $relation->getQualifiedParentKeyName())
+            ->whereIn($related->qualifyColumn($valueColumn), $values);
+
+        return $this->addMatchScore(
+            sprintf('(%s) / %d.0', $matchedWeight->toSql(), count($values)),
+            $matchedWeight->getBindings(),
+            $weight,
+        );
+    }
+
+    /**
+     * Order by the sum of the match score components
+     *
+     * Relies on the filter scopes running before the orderBy argument, which
+     * Lighthouse does because `where` is defined before `orderBy` on the field.
+     * With no scored filters there is nothing to rank, so the default sort applies.
+     */
+    public function orderByMatchScore(string $direction = 'desc'): self
+    {
+        $directionSql = match (strtolower($direction)) {
+            'asc' => 'ASC',
+            'desc' => 'DESC',
+            default => throw new \Exception('Invalid order option'),
+        };
+
+        if (empty($this->matchScoreParts)) {
+            return $this;
+        }
+
+        $sql = implode(' + ', array_column($this->matchScoreParts, 'sql'));
+        $bindings = array_merge(...array_column($this->matchScoreParts, 'bindings'));
+
+        return $this->orderByRaw("($sql) $directionSql", $bindings);
+    }
+
+    /**
+     * Route the match score sort column from Lighthouse's @orderBy to orderByMatchScore
+     *
+     * @param  mixed  $column
+     * @param  string  $direction
+     */
+    public function orderBy($column, $direction = 'asc'): self
+    {
+        if ($column === self::MATCH_SCORE_COLUMN) {
+            return $this->orderByMatchScore($direction);
+        }
+
+        $this->query->orderBy($column, $direction);
+
+        return $this;
     }
 }

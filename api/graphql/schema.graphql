@@ -1496,6 +1496,7 @@ input PublishedPoolsSearchInput {
   publishedAtRange: [PoolPublishedRange!] @scope(name: "wherePublishedAtIn")
   languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
   salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
+  skills: [UUID!] @scope(name: "whereSkillsIn")
   processNumber: String @scope
   poolStatuses: [PoolStatus!] @scope(name: "statuses") # this query will only return open or closed
 }
@@ -1718,6 +1719,7 @@ enum ActivitiesOrderByColumn {
 enum PublishedPoolsSearchOrderByColumn {
   CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
+  MATCH_RANK @enum(value: "match_score") # see PoolBuilder::orderByMatchScore
 }
 
 input SitewideAnnouncementInput @validator {

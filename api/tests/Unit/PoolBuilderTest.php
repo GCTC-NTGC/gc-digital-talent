@@ -2,13 +2,17 @@
 
 namespace Tests\Unit;
 
+use App\Builders\PoolBuilder;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\PoolSkillType;
 use App\Enums\SalaryRange;
+use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
+use App\Models\Skill;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -376,6 +380,139 @@ class PoolBuilderTest extends TestCase
         $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::OVER_120000->name)->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([
             $onTopBoundary->id,
+        ], $poolIds);
+    }
+
+    public function testSkillsScope(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $essentialA = Pool::factory()->published()->create();
+        $essentialA->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        $nonessentialB = Pool::factory()->published()->create();
+        $nonessentialB->poolSkills()->create(['skill_id' => $skillB->id, 'type' => PoolSkillType::NONESSENTIAL->name]);
+        Pool::factory()->published()->create();
+
+        // essential skills match
+        $poolIds = Pool::query()->whereSkillsIn([$skillA->id])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $essentialA->id,
+        ], $poolIds);
+
+        // nonessential skills match, and selected skills are OR matched
+        $poolIds = Pool::query()->whereSkillsIn([$skillA->id, $skillB->id])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $essentialA->id,
+            $nonessentialB->id,
+        ], $poolIds);
+    }
+
+    public function testMatchScoreRanksSkillOverlap(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $makePool = function (array $skills) {
+            $pool = Pool::factory()->published()->create();
+            foreach ($skills as [$skill, $type]) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => $type->name]);
+            }
+
+            return $pool;
+        };
+
+        // scores are (sum of essential 1.0 / nonessential 0.5) / 2 skills selected
+        $nonessentialA = $makePool([[$skillA, PoolSkillType::NONESSENTIAL]]); // 0.25
+        $essentialBoth = $makePool([[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::ESSENTIAL]]); // 1.0
+        $essentialA = $makePool([[$skillA, PoolSkillType::ESSENTIAL]]); // 0.5
+        $essentialANonessentialB = $makePool([[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::NONESSENTIAL]]); // 0.75
+
+        $poolIds = Pool::query()
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $essentialBoth->id,
+            $essentialANonessentialB->id,
+            $essentialA->id,
+            $nonessentialA->id,
+        ], $poolIds);
+
+        // ascending reverses the score order
+        $poolIds = Pool::query()
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'asc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $nonessentialA->id,
+            $essentialA->id,
+            $essentialANonessentialB->id,
+            $essentialBoth->id,
+        ], $poolIds);
+    }
+
+    public function testMatchScoreWithoutScoredFiltersAddsNoOrder(): void
+    {
+        $sql = Pool::query()->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')->toSql();
+
+        $this->assertStringNotContainsString('order by', strtolower($sql));
+    }
+
+    public function testMatchScoreRanksWholeWordKeywordsAboveSubstrings(): void
+    {
+        $substring = Pool::factory()->published()->create(['name' => ['en' => 'Database administrator', 'fr' => 'abc']]);
+        $wholeWordFrench = Pool::factory()->published()->create(['name' => ['en' => 'abc', 'fr' => 'Analyste de data']]);
+        $wholeWord = Pool::factory()->published()->create(['name' => ['en' => 'Data analyst', 'fr' => 'abc']]);
+        // regex characters in a term are escaped, so they don't break the score expression
+        $literal = Pool::factory()->published()->create(['name' => ['en' => 'C++ developer', 'fr' => 'abc']]);
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['data'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->orderBy('id', 'desc')
+            ->get()->pluck('id')->toArray();
+        $tiedWholeWords = collect([$wholeWord->id, $wholeWordFrench->id])->sortDesc()->values()->all();
+        assertEquals([...$tiedWholeWords, $substring->id], $poolIds);
+
+        // every term must still match: both pools score (1.0 for 'data' + 0.5 for 'analys') / 2
+        $poolIds = Pool::query()
+            ->keywordSearch(['data', 'analys'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([$wholeWord->id, $wholeWordFrench->id], $poolIds);
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['c++'])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([$literal->id], $poolIds);
+    }
+
+    public function testMatchScoreCombinesKeywordsAndSkills(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $makePool = function (string $name, array $skills) {
+            $pool = Pool::factory()->published()->create(['name' => ['en' => $name, 'fr' => 'abc']]);
+            foreach ($skills as $skill) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+            }
+
+            return $pool;
+        };
+
+        $substringOneSkill = $makePool('Database administrator', [$skillA]); // 0.5 + 0.5
+        $wholeWordBothSkills = $makePool('Data analyst', [$skillA, $skillB]); // 1.0 + 1.0
+        $substringBothSkills = $makePool('Database analyst', [$skillA, $skillB]); // 0.5 + 1.0
+
+        $poolIds = Pool::query()
+            ->keywordSearch(['data'])
+            ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals([
+            $wholeWordBothSkills->id,
+            $substringBothSkills->id,
+            $substringOneSkill->id,
         ], $poolIds);
     }
 }
