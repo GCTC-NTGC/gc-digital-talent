@@ -27,6 +27,16 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 
 Access the application at: http://localhost:8000
 
+## File ownership
+
+These containers start as root, work out who owns the checked-out project, and
+drop to that user before running anything, so the files they generate belong to
+you. See `infrastructure/bin/entrypoint-uid.sh`.
+
+`docker compose exec` starts a new process rather than joining that one, so it
+runs as root and anything it writes will be root-owned. Pass
+`--user "$(id -u):$(id -g)"` if the command creates files.
+
 ## Features
 
 - **Hot Module Replacement (HMR)**: Frontend changes are instantly reflected in the browser
