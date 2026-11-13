@@ -33,6 +33,7 @@ const variantMessages: Record<
     subtitle: MessageDescriptor;
     whoNominated: MessageDescriptor;
     whatNominatedFor: MessageDescriptor;
+    classificationAtTimeOfLastApproval: MessageDescriptor;
   }
 > = {
   nominee: nomineeMessages,
@@ -103,7 +104,6 @@ const NominationDetailsDialog = ({
 
   const classificationAtTimeOfApproval =
     nominationGroup.classificationAtTimeOfLastApproval?.groupAndLevel;
-
   // Filter and build the nomination options list only showing what they were approved for
   const nominationOptionsList = [
     nominationGroup.approvedForAdvancement
@@ -211,28 +211,9 @@ const NominationDetailsDialog = ({
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
               {nominatedBy}
             </FieldDisplay>
-
-            <FieldDisplay label={intl.formatMessage(messages.whatNominatedFor)}>
-              {nominationOptionsList.length > 0 ? (
-                <ul className="space-y-1">
-                  {nominationOptionsList.map((option, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckIcon className="h-5 w-5 text-success" />
-                      <span>{option}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "What you were nominated for",
-                  id: "wRsQe+",
-                  description: "Label for the type(s) of a received nomination",
-                })}
+                label={intl.formatMessage(messages.whatNominatedFor)}
               >
                 {nominationOptionsList.length > 0 ? (
                   <ul className="space-y-1">
@@ -247,19 +228,14 @@ const NominationDetailsDialog = ({
                   notProvided
                 )}
               </FieldDisplay>
-
               <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Your classification at the time",
-                  id: "tP4ulX",
-                  description:
-                    "Label for the nominee's classification at the time their nomination was approved",
-                })}
+                label={intl.formatMessage(
+                  messages.classificationAtTimeOfLastApproval,
+                )}
               >
                 {classificationAtTimeOfApproval ?? notProvided}
               </FieldDisplay>
             </div>
-
             {nominationMeanings.length > 0
               ? nominationMeanings.map((nominationMeaning) => (
                   <FieldDisplay

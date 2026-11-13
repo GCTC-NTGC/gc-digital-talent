@@ -16,6 +16,12 @@ const recruiterMessages = defineMessages({
     id: "65Ocoa",
     description: "Label for the type(s) of nomination an employee received",
   },
+  classificationAtTimeOfLastApproval: {
+    defaultMessage: "Their substantive classification at the time",
+    id: "ThOac9",
+    description:
+      "Label for the nominee's classification at the time their nomination was approved",
+  },
 });
 
 export default recruiterMessages;
