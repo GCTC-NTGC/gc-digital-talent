@@ -5,14 +5,14 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Notice, PreviewList } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import NominationsReceivedListItem from "./NominationsReceivedListItem";
+import NominationDetailsListItem from "~/components/TalentNominationHistory/NominationDetailsListItem";
 
 export const NominationsReceived_Fragment = graphql(/* GraphQL */ `
   fragment NominationsReceived on User {
     talentNominationGroupsAsNominee {
       id
       updatedAt
-      ...NominationsReceivedListItem
+      ...NominationDetailsListItem
     }
   }
 `);
@@ -42,9 +42,10 @@ const NominationsReceived = ({
     <div className="border-t border-t-gray-100 pt-6">
       <PreviewList.Root>
         {nominationGroups.map((nominationGroup) => (
-          <NominationsReceivedListItem
+          <NominationDetailsListItem
             key={nominationGroup.id}
             nominationGroupQuery={nominationGroup}
+            variant="nominee"
           />
         ))}
       </PreviewList.Root>

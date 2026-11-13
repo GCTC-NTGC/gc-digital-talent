@@ -918,6 +918,7 @@ type User {
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
   talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
+  talentNominationGroupsAsRecruiter: [TalentNominationGroupAsNominee!]
 }
 
 type CommunityInterest {
