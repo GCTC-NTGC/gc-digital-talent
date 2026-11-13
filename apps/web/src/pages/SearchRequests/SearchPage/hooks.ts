@@ -13,7 +13,11 @@ import type {
 } from "~/types/talentRequestForm";
 import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
-import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
+import {
+  applicantFilterToQueryArgs,
+  dataToFormValues,
+  hasSearchFilters,
+} from "./utils";
 
 interface TalentRequestState {
   applicantFilter?: ApplicantFilterInput;
@@ -50,9 +54,14 @@ export const useInitialFilters = (
 };
 
 const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
-  query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
+  query CountTalentRequestMatches(
+    $where: TalentRequestMatchFilterInput
+    $withBreakdown: Boolean!
+  ) {
     countTalentRequestMatches(where: $where)
-    countTalentRequestMatchesByPool(where: $where) {
+    # Breakdowns are skipped on the server until the user adds a filter
+    countTalentRequestMatchesByPool(where: $where)
+      @include(if: $withBreakdown) {
       pool {
         id
         community {
@@ -62,7 +71,8 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
       }
       count
     }
-    countTalentRequestMatchesByCommunity(where: $where) {
+    countTalentRequestMatchesByCommunity(where: $where)
+      @include(if: $withBreakdown) {
       community {
         id
         name {
@@ -86,10 +96,14 @@ export const useCandidateCount = (filters: ApplicantFilterInput) => {
     () => applicantFilterToQueryArgs(filters),
     [filters],
   );
+  const hasFilters = useMemo(() => hasSearchFilters(filters), [filters]);
 
   const [{ data: talentRequestData, fetching }] = useQuery({
     query: CountTalentRequestMatches_Query,
-    variables: { where: { applicantFilter: queryArgs.where } },
+    variables: {
+      where: { applicantFilter: queryArgs.where },
+      withBreakdown: hasFilters,
+    },
   });
 
   const candidateCount = talentRequestData?.countTalentRequestMatches ?? 0;
@@ -129,6 +143,7 @@ export const useCandidateCount = (filters: ApplicantFilterInput) => {
 
   return {
     fetching,
+    hasFilters,
     candidateCount,
     results: talentRequestData?.countTalentRequestMatchesByPool ?? [],
     communities: talentRequestData?.countTalentRequestMatchesByCommunity ?? [],

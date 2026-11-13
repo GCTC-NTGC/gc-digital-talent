@@ -100,7 +100,7 @@ export const SearchForm = ({
   );
   const [filterPending, setFilterPending] = useState(false);
 
-  const { fetching, candidateCount, results, communities } =
+  const { fetching, hasFilters, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
@@ -253,7 +253,7 @@ export const SearchForm = ({
           <Separator />
           {updatePending ? (
             <Loading inline />
-          ) : (
+          ) : hasFilters ? (
             <>
               <Heading rank="h3" size="h4" id="results">
                 {intl.formatMessage({
@@ -322,7 +322,7 @@ export const SearchForm = ({
                 <NoResults />
               )}
             </>
-          )}
+          ) : null}
         </form>
       </FormProvider>
     </Container>
