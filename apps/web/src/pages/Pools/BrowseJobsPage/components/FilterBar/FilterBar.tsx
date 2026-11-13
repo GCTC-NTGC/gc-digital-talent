@@ -14,6 +14,7 @@ import { Input } from "@gc-digital-talent/forms";
 import adminMessages from "~/messages/adminMessages";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
+import OpportunityDetailsFilterDialog from "../OpportunityDetailsFilterDialog/OpportunityDetailsFilterDialog";
 
 interface searchByKeywordForm {
   searchByKeyword: string;
@@ -172,6 +173,22 @@ const FilterBar = ({
                 })}
               </div>
             )}
+          </div>
+          <div>
+            <OpportunityDetailsFilterDialog>
+              <Button
+                mode="inline"
+                className="mb-1.5"
+                icon={PlusCircleIcon}
+                color="black"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Opportunity details",
+                  id: "KyyLUM",
+                  description: "Title for opportunities filter dialog",
+                })}
+              </Button>
+            </OpportunityDetailsFilterDialog>
           </div>
         </div>
         {featureManageAlertButtons ? (

@@ -23,6 +23,7 @@ import {
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -359,6 +360,15 @@ export function sortTalentRequestReason(
       TalentRequestReason.RequiredByDirective,
     ],
     TalentRequestReasons,
+  );
+}
+
+export function sortPoolAreaOfSelection(
+  poolAreaOfSelection?: MaybeLocalizedEnums,
+) {
+  return sortLocalizedEnums(
+    [PoolAreaOfSelection.Public, PoolAreaOfSelection.Employees],
+    poolAreaOfSelection,
   );
 }
 

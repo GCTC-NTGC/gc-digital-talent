@@ -3,7 +3,11 @@ import { useSearchParams } from "react-router";
 export const sortByOptions = ["datePosted", "deadline"] as const;
 export type SortBy = (typeof sortByOptions)[number];
 
-export const filterOptions = ["exampleFilter", "keyword"] as const;
+export const filterOptions = [
+  "exampleFilter",
+  "keyword",
+  "applicationEligibility",
+] as const;
 export type FilterOption = (typeof filterOptions)[number];
 
 const SORT_BY_PARAM = "sortBy";
@@ -42,6 +46,23 @@ const useBrowseJobsSearchParams = () => {
       return next;
     });
 
+  // replace all values for a filter, an empty array clears it
+  const setFilterValues = (filter: FilterOption, values: string[]) =>
+    setSearchParams((prev) => {
+      const unique = [...new Set(values)];
+      const current = prev.getAll(filter);
+      // unchanged, avoid pushing a duplicate history entry
+      if (
+        unique.length === current.length &&
+        unique.every((value, i) => value === current[i])
+      )
+        return prev;
+      const next = new URLSearchParams(prev);
+      next.delete(filter);
+      unique.forEach((value) => next.append(filter, value));
+      return next;
+    });
+
   const removeFilterValue = (filter: FilterOption, value: string) =>
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
@@ -49,7 +70,14 @@ const useBrowseJobsSearchParams = () => {
       return next;
     });
 
-  const resetFilters = () =>
+  const resetFilter = (filter: FilterOption) =>
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete(filter);
+      return next;
+    });
+
+  const resetAllFilters = () =>
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       filterOptions.forEach((filter) => next.delete(filter));
@@ -65,8 +93,10 @@ const useBrowseJobsSearchParams = () => {
     setSortBy,
     getFilterValues,
     addFilterValue,
+    setFilterValues,
     removeFilterValue,
-    resetFilters,
+    resetFilter,
+    resetFilters: resetAllFilters,
     getEnabledFilterCount,
   };
 };
