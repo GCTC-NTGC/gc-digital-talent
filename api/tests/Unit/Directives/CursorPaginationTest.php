@@ -413,4 +413,34 @@ final class CursorPaginationTest extends TestCase
         $this->assertEquals(0, $countQueries('edges { node { level } }'));
         $this->assertEquals(1, $countQueries('totalCount edges { node { level } }'));
     }
+
+    public function testInvalidCursorIsRejected(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(first: 2, after: "not-a-cursor") {
+                edges { node { level } }
+            }
+        }')->assertGraphQLErrorMessage('The cursor is not valid.');
+    }
+
+    public function testCursorFromAnotherOrderingIsRejected(): void
+    {
+        $response = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(orderBy: { column: "level", order: ASC }, first: 2) {
+                pageInfo { endCursor }
+            }
+        }');
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "min_salary", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', [
+            'after' => Arr::get($response, 'data.classifications.pageInfo.endCursor'),
+        ])->assertGraphQLErrorMessage('The cursor does not match the ordering of this query.');
+    }
 }
