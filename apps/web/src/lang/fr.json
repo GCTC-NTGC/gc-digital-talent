@@ -1386,10 +1386,6 @@
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
   },
-  "3REesV": {
-    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
-    "description": "Description for development nomination meaning"
-  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -1978,6 +1974,10 @@
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
   },
+  "5qDoKZ": {
+    "defaultMessage": "Lorsqu’un employé fait l’objet d’une nomination, celle-ci s’affiche automatiquement ici.",
+    "description": "Message displayed when an employee has not received any nominations"
+  },
   "5qiuq2": {
     "defaultMessage": "Modifier les détails de {name}",
     "description": "Description for update talent management event"
@@ -2029,6 +2029,10 @@
   "64yExe": {
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
+  },
+  "65Ocoa": {
+    "defaultMessage": "Type de nomination",
+    "description": "Label for the type(s) of nomination an employee received"
   },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
@@ -2865,6 +2869,10 @@
   "9h6Gt/": {
     "defaultMessage": "Ministère actuel",
     "description": "Label for an employees department"
+  },
+  "9hMoLz": {
+    "defaultMessage": "Lorsque l’employée ou employé est recommandé pour un avancement, un transfert latéral ou des possibilités de perfectionnement dans le cadre d’un événement de gestion des talents, un résumé de la nomination approuvée s’affiche ici. Pour plus de renseignements, veuillez sélectionner une nomination.",
+    "description": "Description for the nominations received section on the GC profile"
   },
   "9jO3/H": {
     "defaultMessage": "Modifier l'adresse courriel professionnelle",
@@ -5540,7 +5548,7 @@
     "description": "Text prompting for input when duplicating a process"
   },
   "KR4kRt": {
-    "defaultMessage": "Démontrer l'expérience par :",
+    "defaultMessage": "Afficher l'expérience par :",
     "description": "Label for experience sorting options"
   },
   "KRXSAf": {
@@ -6477,6 +6485,10 @@
   "OHb3HT": {
     "defaultMessage": "Classifications autorisées",
     "description": "Label for classifications multi select"
+  },
+  "OI/zOh": {
+    "defaultMessage": "Nominations reçues",
+    "description": "Title for the nominations received section on the GC profile"
   },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
@@ -7436,6 +7448,10 @@
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
   },
+  "RvEuTQ": {
+    "defaultMessage": "Nominations que l’employée ou employé a reçues",
+    "description": "Title for the nominations received section on the GC profile"
+  },
   "Rw9JVt": {
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
     "description": "Null message title for talent nominations table."
@@ -8242,6 +8258,10 @@
   "VWRYBz": {
     "defaultMessage": "Certaines classifications n’ont pas de collectivité fonctionnelle associée.",
     "description": "Heads-up before community select"
+  },
+  "VXb4Sa": {
+    "defaultMessage": "Plus d’information sur la nomination de l’employée ou employé durant {eventName}",
+    "description": "Subtitle for the nomination details dialog on the GC profile"
   },
   "VYzAZy": {
     "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
@@ -12912,6 +12932,10 @@
     "defaultMessage": "Motif de non-recommandation",
     "description": "Label for the not referred reason select in the referral dialog"
   },
+  "oRDxWd": {
+    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "description": "Description for development nomination meaning"
+  },
   "oRk5nf": {
     "defaultMessage": "Ce que la personne candidate voit",
     "description": "Heading for candidate facing screening stage"
@@ -13711,6 +13735,10 @@
   "riPKUN": {
     "defaultMessage": " Nous avons migré à ConnexionCanada, la principale méthode d’ouverture de session qui a remplacé cléGC, l’ancienne méthode d’ouverture de session.",
     "description": "Paragraph explaining the move to CanadaLogin"
+  },
+  "riapK6": {
+    "defaultMessage": "Qui est à l'origine de sa nomination",
+    "description": "Label for who nominated the employee on the GC profile"
   },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
