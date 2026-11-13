@@ -3547,7 +3547,7 @@
     "description": "Title for the edit award experience page"
   },
   "CQhXfC": {
-    "defaultMessage": "Autre type de programme de recherche",
+    "defaultMessage": "Autre type de bourse de recherche",
     "description": "First part of education experience title for other type"
   },
   "CQxGrS": {
@@ -7593,7 +7593,7 @@
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "SevzT7": {
-    "defaultMessage": "Type de programme de recherche",
+    "defaultMessage": "Type de bourse de recherche",
     "description": "Label displayed on education form for fellowship type input"
   },
   "SfNeqY": {
@@ -11354,7 +11354,7 @@
     "description": "Candidate search filter dialog: subtitle"
   },
   "hr2X3H": {
-    "defaultMessage": "Autre type de programme de recherche",
+    "defaultMessage": "Autre type de bourse de recherche",
     "description": "Label displayed on education form for other fellowship type input"
   },
   "hr8t+y": {
