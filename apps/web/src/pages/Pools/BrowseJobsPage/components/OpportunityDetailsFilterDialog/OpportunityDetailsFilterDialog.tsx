@@ -39,10 +39,12 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
   const { resetFilter, getFilterValues, setFilterValues } =
     useBrowseJobsSearchParams();
 
+  const getFormValuesFromFilters = (): FormValues => ({
+    applicationEligibility: getFilterValues("applicationEligibility"),
+  });
+
   const formMethods = useForm<FormValues>({
-    defaultValues: {
-      applicationEligibility: getFilterValues("applicationEligibility"),
-    },
+    defaultValues: getFormValuesFromFilters(),
   });
 
   const [{ data, fetching, error }] = useQuery({
@@ -54,6 +56,13 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
     sortPoolAreaOfSelection(data?.areasOfSelection),
     intl,
   );
+
+  const handleOpenChange = (newOpen: boolean) => {
+    if (newOpen) {
+      formMethods.reset(getFormValuesFromFilters());
+    }
+    setOpen(newOpen);
+  };
 
   const handleSaveFilter = (formValues: FormValues) => {
     setFilterValues(
@@ -69,7 +78,7 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
