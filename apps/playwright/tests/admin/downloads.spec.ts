@@ -98,9 +98,10 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
     const pool = await getPublishedPoolWithCandidates(recruiterCtx, {});
     await poolPage.openPool(pool.id);
     candidate = await poolCandidatePage.openFirstCandidate();
-    const { signature } = await getApplicationSnapshot(recruiterCtx, {
-      id: candidate.applicationId,
-    });
+    const { firstName, lastName, signature } = await getApplicationSnapshot(
+      recruiterCtx,
+      { id: candidate.applicationId },
+    );
 
     await test.step("Download candidate application in DOCx", async () => {
       await word.setContent(
@@ -109,7 +110,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
           DOWNLOAD_OPTION.APPLICATION,
         ),
       );
-      await expect(word.heading(candidate.name)).toBeVisible();
+      await expect(word.heading(`${firstName} ${lastName}`)).toBeVisible();
       await expect(word.text(`Signed: ${signature}`)).toBeVisible();
       await word.close();
     });
