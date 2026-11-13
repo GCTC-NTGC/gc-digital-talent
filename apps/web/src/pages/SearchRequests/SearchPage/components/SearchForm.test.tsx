@@ -39,6 +39,7 @@ interface Variables {
       qualifiedInClassifications?: { level?: number }[] | null;
     } | null;
   } | null;
+  withBreakdown?: boolean;
 }
 
 // IT-01 returns the community card, IT-04 returns the no-results card.
@@ -93,5 +94,32 @@ describe("SearchForm", () => {
     ) as { applicantFilter?: { community?: { id: string } } };
 
     expect(stored.applicantFilter?.community).toBeUndefined();
+  });
+
+  it("skips the breakdowns and hides the results until a filter is added", async () => {
+    setInSessionStorage(TALENT_REQUEST_STATE_KEY, {});
+    const executeQuery = vi.fn((_: { variables?: Variables }) =>
+      fromValue({ data: { countTalentRequestMatches: 5 } }),
+    );
+
+    renderWithProviders(
+      <GraphqlProvider value={{ executeQuery }}>
+        <SearchForm
+          classifications={classifications}
+          skills={[]}
+          workStreams={workStreams}
+        />
+      </GraphqlProvider>,
+    );
+
+    expect(
+      await screen.findByRole("combobox", { name: /classification/i }),
+    ).toBeInTheDocument();
+    expect(executeQuery.mock.calls[0]?.[0].variables?.withBreakdown).toBe(
+      false,
+    );
+    expect(
+      screen.queryByRole("heading", { name: /^results/i }),
+    ).not.toBeInTheDocument();
   });
 });
