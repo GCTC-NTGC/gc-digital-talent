@@ -75,8 +75,8 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Hybrid positions</strong> require in-office presence for 3 or more days per week, with the remainder allowing you to work from the location of your choice.",
-                  id: "1d2BaE",
+                    "<strong>Hybrid positions</strong> require in-office presence for 4 or more days per week, with the remainder allowing you to work from the location of your choice.",
+                  id: "PXSLET",
                   description: "Definition for 'hybrid positions'",
                 })}
               </li>
