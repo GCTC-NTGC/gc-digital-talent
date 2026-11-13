@@ -1226,6 +1226,10 @@
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
   },
+  "2r/3yb": {
+    "defaultMessage": "Motif",
+    "description": "Disqualified decision input"
+  },
   "2r9tuE": {
     "defaultMessage": "Paramètres du compte",
     "description": "Title for the account settings page"
@@ -4116,10 +4120,6 @@
   "EYqGpP": {
     "defaultMessage": "Télécharger les profils sans inclure les coordonnées (.docx)",
     "description": "Button label for downloading anonymized selected user profiles"
-  },
-  "Ed+xy1": {
-    "defaultMessage": "Décision disqualifiée",
-    "description": "Disqualified decision input"
   },
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
