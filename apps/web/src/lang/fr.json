@@ -14084,6 +14084,10 @@
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
   },
+  "tP4ulX": {
+    "defaultMessage": "Votre classification au moment de la nomination",
+    "description": "Label for the nominee's classification at the time their nomination was approved"
+  },
   "tPCmUl": {
     "defaultMessage": "Date de clôture",
     "description": "Header for Closing date"
