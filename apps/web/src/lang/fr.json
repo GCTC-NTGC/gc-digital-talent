@@ -1394,6 +1394,10 @@
     "defaultMessage": "Vous perdrez toutes les réponses aux questions de présélection associées à ce processus.",
     "description": "Point two, what happens when an application is deleted"
   },
+  "ThOac9": {
+    "defaultMessage": "Classification de son poste d’attache au moment de sa nomination",
+    "description": "Label for the nominee's classification at the time their nomination was approved"
+  },
   "3XvHVf": {
     "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
@@ -14115,6 +14119,10 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
+  },
+  "tP4ulX": {
+    "defaultMessage": "Votre classification au moment de la nomination",
+    "description": "Label for the nominee's classification at the time their nomination was approved"
   },
   "tPCmUl": {
     "defaultMessage": "Date de clôture",

@@ -1558,6 +1558,7 @@ type TalentNominationGroupAsNominee {
   approvedForLateralMovement: Boolean!
   approvedForDevelopmentPrograms: Boolean!
   nominatorNames: [String!]!
+  classificationAtTimeOfLastApproval: Classification
   updatedAt: DateTime
 }
 
