@@ -319,6 +319,11 @@ type LocalizedPoolOpportunityLength implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPoolPublishedRange implements LocalizedEnumOption {
+  value: PoolPublishedRange!
+  label: LocalizedString!
+}
+
 type LocalizedPoolSelectionLimitation implements LocalizedEnumOption {
   value: PoolSelectionLimitation!
   label: LocalizedString!
@@ -346,6 +351,11 @@ type LocalizedPriorityWeight implements LocalizedEnumOption {
 
 type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   value: ProvinceOrTerritory!
+  label: LocalizedString!
+}
+
+type LocalizedSalaryRange implements LocalizedEnumOption {
+  value: SalaryRange!
   label: LocalizedString!
 }
 
@@ -682,6 +692,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
+}
+
+"Order by clause for Query.publishedPoolsSearch.orderBy."
+input QueryPublishedPoolsSearchOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: PublishedPoolsSearchOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
@@ -1761,6 +1780,12 @@ enum PoolOpportunityLength {
   VARIOUS
 }
 
+enum PoolPublishedRange {
+  UNDER_48_HOURS
+  UNDER_30_DAYS
+  OVER_30_DAYS
+}
+
 enum PoolSelectionLimitation {
   AT_LEVEL_ONLY
   DEPARTMENTAL_PREFERENCE
@@ -1805,6 +1830,15 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
+}
+
+enum SalaryRange {
+  BETWEEN_0_39999
+  BETWEEN_40000_59999
+  BETWEEN_60000_79999
+  BETWEEN_80000_99999
+  BETWEEN_100000_119999
+  OVER_120000
 }
 
 enum ScreeningStage {
