@@ -11298,7 +11298,7 @@
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
   "hbbeY8": {
-    "defaultMessage": "Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
+    "defaultMessage": "Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en <a>accédant à votre profil ConnexionCanada</a>.",
     "description": "Footer for create account page"
   },
   "hbcdJm": {
