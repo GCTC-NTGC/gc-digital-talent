@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'screened_out_application' => 'Qualifiez le candidat ou la candidate',
-    'screened_out_assessment' => 'Disqualifiez le candidat ou la candidate',
+    'screened_out_application' => 'Éliminé(e) à la présélection',
+    'screened_out_assessment' => 'Non retenu(e) à l\'évaluation',
 ];

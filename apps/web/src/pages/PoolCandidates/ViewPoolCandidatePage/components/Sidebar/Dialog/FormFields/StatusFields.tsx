@@ -127,9 +127,9 @@ export const DisqualifiedFields = ({ query }: DisqualifiedFieldsProps) => {
       idPrefix="disqualificationReason"
       name="disqualificationReason"
       legend={intl.formatMessage({
-        defaultMessage: "Disqualified decision",
+        defaultMessage: "Reason",
         description: "Disqualified decision input",
-        id: "Ed+xy1",
+        id: "2r/3yb",
       })}
       rules={{
         required: intl.formatMessage(errorMessages.required),

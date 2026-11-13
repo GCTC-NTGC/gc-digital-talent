@@ -30,7 +30,7 @@ class CheckExternalLinks extends Command
             ->in($webSrcPath)
             ->name(['*.ts', '*.tsx', '*.js', '*.jsx', '*.html'])
             ->exclude(['node_modules', 'dist', '.git', 'svg', 'Svg', 'icon', 'icons'])
-            ->notName('*.stories.*')
+            ->notName(['*.stories.*', '*.test.ts*'])
             ->sortByName();
 
         $repoRoot = dirname(base_path());
