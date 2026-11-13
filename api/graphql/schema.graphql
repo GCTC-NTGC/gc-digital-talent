@@ -189,6 +189,11 @@ type User {
     @canResolved(ability: "view") # Search talent requests submitted by a user
   talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
     @hasMany(scopes: ["withApprovedOption", "whereAuthorizedToViewAsNominee"])
+  talentNominationGroupsAsRecruiter: [TalentNominationGroupAsNominee!]
+    @hasMany(
+      relation: "talentNominationGroupsAsNominee"
+      scopes: ["withApprovedOption", "whereAuthorizedToView"]
+    )
 }
 
 type CommunityInterest {
@@ -1489,6 +1494,18 @@ input PoolFilterInput {
   isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
+input PublishedPoolsSearchInput {
+  keywordSearch: [String!] @scope # only name search to start
+  eligibility: [PoolAreaOfSelection!] @scope(name: "whereAreaOfSelectionIn")
+  departments: [UUID!] @scope(name: "whereDepartmentsIn")
+  classifications: [UUID!] @scope(name: "whereClassificationsIn")
+  publishedAtRange: [PoolPublishedRange!] @scope(name: "wherePublishedAtIn")
+  languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
+  salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
+  processNumber: String @scope
+  poolStatuses: [PoolStatus!] @scope(name: "statuses") # this query will only return open or closed
+}
+
 input PoolWorkStreamNameOrderByInput {
   locale: Language!
   order: SortOrder!
@@ -1704,6 +1721,11 @@ enum ActivitiesOrderByColumn {
   CREATED_AT @enum(value: "created_at")
 }
 
+enum PublishedPoolsSearchOrderByColumn {
+  CLOSING_DATE @enum(value: "closing_date")
+  PUBLISHED_AT @enum(value: "published_at")
+}
+
 input SitewideAnnouncementInput @validator {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
@@ -1828,6 +1850,16 @@ type Query {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
+  publishedPoolsSearch(
+    where: PublishedPoolsSearchInput
+    orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
+  ): [Pool]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 100
+      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
+    )
+    @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

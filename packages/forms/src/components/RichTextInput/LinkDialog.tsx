@@ -94,7 +94,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const handleOpenChange = (newOpen: boolean) => {
     if (newOpen) {
       const attributes = editor?.getAttributes("link");
-      if (newOpen && (attributes?.href || attributes?.target)) {
+      if (attributes?.href || attributes?.target) {
         if (attributes?.href) {
           methods.setValue("href", String(attributes.href));
         }

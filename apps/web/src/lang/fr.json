@@ -918,10 +918,6 @@
     "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
     "description": "Link text for government of canada security screening application and consent form"
   },
-  "1d2BaE": {
-    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
-    "description": "Definition for 'hybrid positions'"
-  },
   "1e2+hH": {
     "defaultMessage": "Classifications recommandées pour promotion",
     "description": "Label for advancement eligible classifications field"
@@ -1005,10 +1001,6 @@
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
-  },
-  "1yMApi": {
-    "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
-    "description": "Checklist option explanatory note"
   },
   "1zsfA7": {
     "defaultMessage": "Confirmation de l'adresse courriel professionnelle",
@@ -1234,6 +1226,10 @@
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
   },
+  "2r/3yb": {
+    "defaultMessage": "Motif",
+    "description": "Disqualified decision input"
+  },
   "2r9tuE": {
     "defaultMessage": "Paramètres du compte",
     "description": "Title for the account settings page"
@@ -1389,10 +1385,6 @@
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
-  },
-  "3REesV": {
-    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
-    "description": "Description for development nomination meaning"
   },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
@@ -1553,10 +1545,6 @@
   "4Ahswu": {
     "defaultMessage": "Motif",
     "description": "Label for the reason why a candidate is being removed"
-  },
-  "4BJrSM": {
-    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins trois jours par semaine, et à distance les autres jours.",
-    "description": "Checklist option explanatory note"
   },
   "4BWod5": {
     "defaultMessage": "Profil d’employé",
@@ -1986,6 +1974,10 @@
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
   },
+  "5qDoKZ": {
+    "defaultMessage": "Lorsqu’un employé fait l’objet d’une nomination, celle-ci s’affiche automatiquement ici.",
+    "description": "Message displayed when an employee has not received any nominations"
+  },
   "5qiuq2": {
     "defaultMessage": "Modifier les détails de {name}",
     "description": "Description for update talent management event"
@@ -2037,6 +2029,10 @@
   "64yExe": {
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
+  },
+  "65Ocoa": {
+    "defaultMessage": "Type de nomination",
+    "description": "Label for the type(s) of nomination an employee received"
   },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
@@ -2873,6 +2869,10 @@
   "9h6Gt/": {
     "defaultMessage": "Ministère actuel",
     "description": "Label for an employees department"
+  },
+  "9hMoLz": {
+    "defaultMessage": "Lorsque l’employée ou employé est recommandé pour un avancement, un transfert latéral ou des possibilités de perfectionnement dans le cadre d’un événement de gestion des talents, un résumé de la nomination approuvée s’affiche ici. Pour plus de renseignements, veuillez sélectionner une nomination.",
+    "description": "Description for the nominations received section on the GC profile"
   },
   "9jO3/H": {
     "defaultMessage": "Modifier l'adresse courriel professionnelle",
@@ -4129,10 +4129,6 @@
     "defaultMessage": "Télécharger les profils sans inclure les coordonnées (.docx)",
     "description": "Button label for downloading anonymized selected user profiles"
   },
-  "Ed+xy1": {
-    "defaultMessage": "Décision disqualifiée",
-    "description": "Disqualified decision input"
-  },
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
     "description": "Message before skills list in application education page."
@@ -4324,6 +4320,10 @@
   "FSvySJ": {
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
+  },
+  "FXmkyF": {
+    "defaultMessage": "L'employée ou l'employé travaille sur place au moins quatre jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
   },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
@@ -5511,6 +5511,10 @@
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
+  "KDcgMh": {
+    "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins quatre jours par semaine, et à distance les autres jours.",
+    "description": "Checklist option explanatory note"
+  },
   "KESOSJ": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a community member was added to a community"
@@ -5544,7 +5548,7 @@
     "description": "Text prompting for input when duplicating a process"
   },
   "KR4kRt": {
-    "defaultMessage": "Démontrer l'expérience par :",
+    "defaultMessage": "Afficher l'expérience par :",
     "description": "Label for experience sorting options"
   },
   "KRXSAf": {
@@ -6482,6 +6486,10 @@
     "defaultMessage": "Classifications autorisées",
     "description": "Label for classifications multi select"
   },
+  "OI/zOh": {
+    "defaultMessage": "Nominations reçues",
+    "description": "Title for the nominations received section on the GC profile"
+  },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
@@ -6792,6 +6800,10 @@
   "PWqfaJ": {
     "defaultMessage": "Lien vers de l’information externe",
     "description": "Label displayed on the talent nomination event more info link field"
+  },
+  "PXSLET": {
+    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins quatre jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
+    "description": "Definition for 'hybrid positions'"
   },
   "PYMFoh": {
     "defaultMessage": "Recherche par mot-clé",
@@ -7435,6 +7447,10 @@
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
+  },
+  "RvEuTQ": {
+    "defaultMessage": "Nominations que l’employée ou employé a reçues",
+    "description": "Title for the nominations received section on the GC profile"
   },
   "Rw9JVt": {
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
@@ -8242,6 +8258,10 @@
   "VWRYBz": {
     "defaultMessage": "Certaines classifications n’ont pas de collectivité fonctionnelle associée.",
     "description": "Heads-up before community select"
+  },
+  "VXb4Sa": {
+    "defaultMessage": "Plus d’information sur la nomination de l’employée ou employé durant {eventName}",
+    "description": "Subtitle for the nomination details dialog on the GC profile"
   },
   "VYzAZy": {
     "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
@@ -10189,6 +10209,10 @@
   "dkiKpU": {
     "defaultMessage": "Modifier la date de clôture",
     "description": "Title to change the closing date of a process"
+  },
+  "dl0HbD": {
+    "defaultMessage": "(Expiré)",
+    "description": "Label for draft applications after deadline"
   },
   "dnKWUf": {
     "defaultMessage": "Ajouter des compétences à cette liste.",
@@ -12908,6 +12932,10 @@
     "defaultMessage": "Motif de non-recommandation",
     "description": "Label for the not referred reason select in the referral dialog"
   },
+  "oRDxWd": {
+    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "description": "Description for development nomination meaning"
+  },
   "oRk5nf": {
     "defaultMessage": "Ce que la personne candidate voit",
     "description": "Heading for candidate facing screening stage"
@@ -13707,6 +13735,10 @@
   "riPKUN": {
     "defaultMessage": " Nous avons migré à ConnexionCanada, la principale méthode d’ouverture de session qui a remplacé cléGC, l’ancienne méthode d’ouverture de session.",
     "description": "Paragraph explaining the move to CanadaLogin"
+  },
+  "riapK6": {
+    "defaultMessage": "Qui est à l'origine de sa nomination",
+    "description": "Label for who nominated the employee on the GC profile"
   },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
