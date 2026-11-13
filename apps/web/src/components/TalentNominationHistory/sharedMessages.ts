@@ -15,8 +15,8 @@ const sharedMessages = defineMessages({
   },
   meaningDevelopment: {
     defaultMessage:
-      "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to compliment or enhance your skillset in preparation for new career opportunities.",
-    id: "3REesV",
+      "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to complement or enhance your skillset in preparation for new career opportunities.",
+    id: "oRDxWd",
     description: "Description for development nomination meaning",
   },
 });

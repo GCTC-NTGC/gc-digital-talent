@@ -1386,10 +1386,6 @@
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
   },
-  "3REesV": {
-    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
-    "description": "Description for development nomination meaning"
-  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -12935,6 +12931,10 @@
   "oQwEoy": {
     "defaultMessage": "Motif de non-recommandation",
     "description": "Label for the not referred reason select in the referral dialog"
+  },
+  "oRDxWd": {
+    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "description": "Description for development nomination meaning"
   },
   "oRk5nf": {
     "defaultMessage": "Ce que la personne candidate voit",
