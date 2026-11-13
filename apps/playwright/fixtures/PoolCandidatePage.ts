@@ -1,5 +1,3 @@
-import { expect, type Download } from "@playwright/test";
-
 import AppPage from "./AppPage";
 
 /**
@@ -16,81 +14,41 @@ class PoolCandidatePage extends AppPage {
     await this.page.goto(`/en/admin/candidates/${id}/application`);
   }
 
-  async searchForCandidate(name: string) {
-    await this.goToIndex();
-    await this.page
-      .getByRole("textbox", { name: /search by keyword/i })
-      .fill(name);
-    await this.waitForGraphqlResponse(
+  async getCandidateIds() {
+    // Candidate name links go to /admin/candidates/<id>/application
+    const hrefs = await this.page
+      .locator("tbody tr a[href*='/candidates/']")
+      .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+    return hrefs.map((href) => href?.split("/").at(-2) ?? "");
+  }
+
+  async openFirstCandidate() {
+    // From a process page through its Candidates tab (the main menu outside <main> has a "Candidates" link too)
+    const candidatesResponse = this.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
-  }
-
-  async resolveDownloadPromise(
-    downloadPromise: Promise<Download>,
-  ): Promise<string> {
-    const download = await downloadPromise;
-
-    const name = download.suggestedFilename();
-    const path = "/tmp/" + name;
-
-    // Wait for the download process to complete and save the downloaded file somewhere.
-    await download.saveAs(path);
-
-    return path;
-  }
-
-  async downloadProfileExcel() {
-    const downloadPromise = this.page.waitForEvent("download");
     await this.page
-      .getByRole("button", { name: /download excel/i })
-      .first()
+      .getByRole("main")
+      .getByRole("navigation")
+      .getByRole("link", { name: "Candidates", exact: true })
       .click();
-    await this.page
-      .getByRole("menuitem", { name: /download profiles excel/i })
-      .click();
-
-    const now = new Date();
-    const today = now.toISOString().split("T")[0];
-
-    if (process.env.TESTING_ENDPOINT_SECRET) {
-      await expect(
-        this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
-      ).toBeVisible({ timeout: 90_000 });
-    }
-
-    await this.page
-      .getByRole("button", { name: /view notifications/i })
-      .click();
-    await this.waitForGraphqlResponse("NotificationDialog");
-    await expect(async () => {
-      await this.page.getByRole("button", { name: /refresh/i }).click();
-      await this.waitForGraphqlResponse("NotificationDialog");
-      await expect(
-        this.page
-          .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
-          .first(),
-      ).toBeVisible();
-    }).toPass({ timeout: 90_000 });
-
-    await this.page
-      .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
-      .first()
-      .click();
-    return await this.resolveDownloadPromise(downloadPromise);
-  }
-
-  async downloadApplication() {
-    const downloadPromise = this.page.waitForEvent("download");
-    await this.page
-      .getByRole("button", { name: /download/i })
-      .first()
-      .click();
-    await this.page
-      .getByRole("menuitem", { name: /download application/i })
-      .click();
-
-    return await this.resolveDownloadPromise(downloadPromise);
+    await candidatesResponse;
+    const candidateLink = this.page
+      .getByRole("row")
+      .nth(1)
+      .getByRole("link")
+      .first();
+    const name = (await candidateLink.textContent()) ?? "";
+    await candidateLink.click();
+    const userLink = await this.page
+      .getByRole("heading")
+      .getByRole("link", { name, exact: true })
+      .getAttribute("href");
+    // /admin/candidates/<applicationId>/application and /admin/users/<userId>
+    const [, applicationId = ""] =
+      /candidates\/([^/]+)/.exec(this.page.url()) ?? [];
+    const [, userId = ""] = /users\/([^/]+)/.exec(userLink ?? "") ?? [];
+    return { applicationId, name, userId };
   }
 }
 
