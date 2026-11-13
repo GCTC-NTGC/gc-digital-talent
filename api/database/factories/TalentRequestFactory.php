@@ -210,6 +210,7 @@ class TalentRequestFactory extends BaseFactory
             $this->nominate($user, $talentRequest->applicantFilter, $forAdvancement, $forLateralMovement);
 
             TalentRequestTrackedUser::factory()
+                ->referred()
                 ->for($talentRequest)
                 ->create(['user_id' => $user->id]);
         });
