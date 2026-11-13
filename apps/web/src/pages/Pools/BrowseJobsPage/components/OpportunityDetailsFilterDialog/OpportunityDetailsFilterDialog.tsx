@@ -13,7 +13,7 @@ import {
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 
-const OpportunityDetailsFilterOptions_Fragment = graphql(/* GraphQL */ `
+const Options_Query = graphql(/* GraphQL */ `
   query OpportunityDetailsFilterOptions {
     areasOfSelection: localizedEnumStrings(enumName: "PoolAreaOfSelection") {
       value
@@ -48,7 +48,7 @@ const OpportunityDetailsFilterDialog = ({ children }: Props) => {
   });
 
   const [{ data, fetching, error }] = useQuery({
-    query: OpportunityDetailsFilterOptions_Fragment,
+    query: Options_Query,
     pause: !open,
   });
 

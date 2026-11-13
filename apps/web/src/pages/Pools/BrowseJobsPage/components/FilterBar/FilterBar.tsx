@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 import BellAlertIcon from "@heroicons/react/20/solid/BellAlertIcon";
 import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
-import random from "lodash/random";
 import { twMerge } from "tailwind-merge";
 import { FormProvider, useForm } from "react-hook-form";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
@@ -39,8 +38,24 @@ const FilterBar = ({
     resetFilters,
   } = useBrowseJobsSearchParams();
 
-  const exampleFilter = getFilterValues("exampleFilter");
-  const keywords = getFilterValues("keyword");
+  const keywordsChips = getFilterValues("keyword").map((f) => (
+    <Chip
+      key={`keyword:${f}`}
+      onDismiss={() => removeFilterValue("keyword", f)}
+    >
+      {f}
+    </Chip>
+  ));
+  const opportunityDetailsChips = [
+    ...getFilterValues("applicationEligibility").map((f) => (
+      <Chip
+        key={`applicationEligibility:${f}`}
+        onDismiss={() => removeFilterValue("applicationEligibility", f)}
+      >
+        {f}
+      </Chip>
+    )),
+  ];
 
   const keywordFormMethods = useForm<searchByKeywordForm>();
 
@@ -51,6 +66,16 @@ const FilterBar = ({
     keywordFormMethods.reset();
   };
 
+  const filterNullMessage = (
+    <div className="text-sm text-gray-500 dark:text-gray-200">
+      {intl.formatMessage({
+        defaultMessage: "No filters selected",
+        id: "sxFMPR",
+        description: "null state for filter list",
+      })}
+    </div>
+  );
+
   return (
     <div
       className={twMerge(
@@ -60,7 +85,7 @@ const FilterBar = ({
       {...rest}
     >
       <Card space="md">
-        <div className="mb-4.5 flex flex-row">
+        <div className="mb-4.5 flex flex-row items-baseline">
           <Heading rank="h3" size="h6" className="m-0 grow">
             {intl.formatMessage({
               defaultMessage: "Filter jobs",
@@ -81,44 +106,6 @@ const FilterBar = ({
 
         {/* filter list */}
         <div className="flex flex-col gap-6">
-          {/* this is an example filter block */}
-          <div>
-            <Button
-              mode="inline"
-              className="mb-1.5"
-              icon={PlusCircleIcon}
-              color="black"
-              onClick={() =>
-                addFilterValue("exampleFilter", `Item ${random(1, 1000)}`)
-              }
-            >
-              {intl.formatMessage({
-                defaultMessage: "Example",
-                id: "+jIT2i",
-                description: "Title for the example component",
-              })}
-            </Button>
-            {exampleFilter.length ? (
-              <Chips>
-                {exampleFilter.map((f) => (
-                  <Chip
-                    key={f}
-                    onDismiss={() => removeFilterValue("exampleFilter", f)}
-                  >
-                    {f}
-                  </Chip>
-                ))}
-              </Chips>
-            ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-200">
-                {intl.formatMessage({
-                  defaultMessage: "No filters selected",
-                  id: "sxFMPR",
-                  description: "null state for filter list",
-                })}
-              </div>
-            )}
-          </div>
           <div>
             <FormProvider {...keywordFormMethods}>
               <form
@@ -153,25 +140,10 @@ const FilterBar = ({
               </form>
             </FormProvider>
 
-            {keywords.length ? (
-              <Chips>
-                {keywords.map((f) => (
-                  <Chip
-                    key={f}
-                    onDismiss={() => removeFilterValue("keyword", f)}
-                  >
-                    {f}
-                  </Chip>
-                ))}
-              </Chips>
+            {keywordsChips.length ? (
+              <Chips>{keywordsChips}</Chips>
             ) : (
-              <div className="text-sm text-gray-500 dark:text-gray-200">
-                {intl.formatMessage({
-                  defaultMessage: "No filters selected",
-                  id: "sxFMPR",
-                  description: "null state for filter list",
-                })}
-              </div>
+              filterNullMessage
             )}
           </div>
           <div>
@@ -189,6 +161,11 @@ const FilterBar = ({
                 })}
               </Button>
             </OpportunityDetailsFilterDialog>
+            {opportunityDetailsChips.length ? (
+              <Chips>{opportunityDetailsChips}</Chips>
+            ) : (
+              filterNullMessage
+            )}
           </div>
         </div>
         {featureManageAlertButtons ? (
