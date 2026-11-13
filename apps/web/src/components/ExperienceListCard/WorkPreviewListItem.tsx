@@ -81,6 +81,8 @@ const WorkPreviewListItem = ({
     EmploymentCategory.GovernmentOfCanada;
   const isStudent =
     experience.govEmploymentType?.value === GovEmployeeType.Student;
+  const isContractor =
+    experience.govEmploymentType?.value === GovEmployeeType.Contractor;
   const isActing =
     isGovExperience &&
     experience.govPositionType?.value === GovPositionType.Acting;
@@ -97,7 +99,7 @@ const WorkPreviewListItem = ({
           description: "Text when government position is acting",
         }) + " "
       : "") +
-    (isGovExperience && !isStudent
+    (isGovExperience && !isStudent && !isContractor
       ? classification + intl.formatMessage(commonMessages.dividingColon)
       : "") +
     experience.role;
