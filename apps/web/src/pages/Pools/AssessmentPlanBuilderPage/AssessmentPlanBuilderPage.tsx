@@ -112,8 +112,8 @@ export const AssessmentPlanBuilder = ({
         </TableOfContents.List>
         <Link mode="solid" color="primary" href={routes.poolView(pool.id)}>
           {intl.formatMessage({
-            defaultMessage: "Back to process details",
-            id: "nPPUMW",
+            defaultMessage: "Back to process information",
+            id: "lwjtDd",
             description: "Link text to go back to the process details page",
           })}
         </Link>

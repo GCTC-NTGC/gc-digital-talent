@@ -7,6 +7,6 @@ return [
     'license_accreditation' => 'Permis ou accréditation',
     'professional_certification' => 'Certification professionnelle',
     'individual_course' => 'Cours individuel',
-    'fellowship' => 'Programme de recherche',
+    'fellowship' => 'Bourse de recherche',
     'other' => Lang::get('common.other', [], 'fr'),
 ];
