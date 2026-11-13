@@ -5,6 +5,7 @@ namespace Tests\Unit\Directives;
 use App\Models\Classification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
@@ -364,5 +365,52 @@ final class CursorPaginationTest extends TestCase
         $edgesBack = Arr::get($responseBack, 'data.classifications.edges');
         $this->assertCount(1, $edgesBack);
         $this->assertEquals(1, $edgesBack[0]['node']['level']);
+    }
+
+    public function testTotalCountIgnoresPageAndCursor(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(
+                    where: { availableInSearch: true }
+                    orderBy: { column: "level", order: ASC }
+                    first: 2
+                    after: $after
+                ) {
+                    totalCount
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        // 3 of the 5 are available in search, whichever page is requested
+        $response1 = $this->graphQL($query);
+        $response1->assertJsonPath('data.classifications.totalCount', 3);
+        $this->assertEquals([1, 3], Arr::pluck(Arr::get($response1, 'data.classifications.edges'), 'node.level'));
+
+        $response2 = $this->graphQL($query, ['after' => Arr::get($response1, 'data.classifications.pageInfo.endCursor')]);
+        $response2->assertJsonPath('data.classifications.totalCount', 3);
+        $this->assertEquals([5], Arr::pluck(Arr::get($response2, 'data.classifications.edges'), 'node.level'));
+
+        // and when no items are requested
+        $this->graphQL(/** @lang GraphQL */ '{ classifications(first: 0) { totalCount } }')
+            ->assertJsonPath('data.classifications.totalCount', 5);
+    }
+
+    public function testTotalCountOnlyQueriedWhenSelected(): void
+    {
+        $countQueries = function (string $selection): int {
+            DB::flushQueryLog();
+            DB::enableQueryLog();
+            $this->graphQL("{ classifications(orderBy: { column: \"level\", order: ASC }, first: 2) { $selection } }")
+                ->assertGraphQLErrorFree();
+            DB::disableQueryLog();
+
+            return count(array_filter(DB::getQueryLog(), fn ($entry) => str_contains($entry['query'], 'count(*)')));
+        };
+
+        $this->assertEquals(0, $countQueries('edges { node { level } }'));
+        $this->assertEquals(1, $countQueries('totalCount edges { node { level } }'));
     }
 }
