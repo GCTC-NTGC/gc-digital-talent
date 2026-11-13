@@ -1,6 +1,11 @@
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import type { TalentNominationEvent } from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,
   TalentNominationEventStatus,
+  TalentNominationLateralMovementOption,
+  TalentNominationNomineeRelationshipToNominator,
+  TalentNominationUserReview,
   TalentRequestTrackedUserReferralDecision,
 } from "@gc-digital-talent/graphql/schema-types";
 
@@ -23,11 +28,19 @@ import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { getApplicationSnapshot } from "~/utils/applications";
 import { getPublishedPoolWithCandidates } from "~/utils/pools";
-import { getTalentNominationEventWithNominations } from "~/utils/talentNominations";
+import { generateUniqueTestId } from "~/utils/id";
+import {
+  createTalentNomination,
+  createTalentNominationEvent,
+  getTalentNominationEventWithNominations,
+  submitTalentNomination,
+  updateTalentNomination,
+} from "~/utils/talentNominations";
 import {
   getTalentRequestWithTrackedUsers,
   updateTalentRequestTrackedUser,
 } from "~/utils/talentRequests";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { getWorkStreams } from "~/utils/workStreams";
 
 const recruiterSub =
@@ -425,14 +438,74 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
     await loginBySub(appPage.page, talentCoordinatorSub);
     const talentManagement = new TalentManagement(appPage.page);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
+    const createdTalentEvents: Partial<
+      Record<TalentNominationEventStatus, TalentNominationEvent>
+    > = {};
+    let platformAdminCtx: GraphQLContext;
+    let nomineeId = "";
+
+    await test.step("Setup data for local and CI execution", async (step) => {
+      step.skip(isUat, "UAT uses its existing past event");
+      platformAdminCtx = await graphql.newContext();
+      const uniqueTestId = generateUniqueTestId();
+      const nominee = await createUserWithRoles(platformAdminCtx, {
+        user: {
+          email: `${uniqueTestId}.nominee@example.org`,
+          sub: `${uniqueTestId}.nominee`,
+          lastName: uniqueTestId,
+        },
+        roles: ["base_user", "applicant"],
+      });
+      nomineeId = nominee?.id ?? "";
+      const pastTalentEvent = await createTalentNominationEvent(
+        talentCoordinatorCtx,
+        {
+          name: {
+            en: `Playwright Past Event ${uniqueTestId} EN`,
+            fr: `Playwright Past Event ${uniqueTestId} FR`,
+          },
+          openDate: `${FAR_PAST_DATE} 00:00:00`,
+          closeDate: `${PAST_DATE} 00:00:00`,
+          includeNineBox: false,
+        },
+      );
+      const talentCoordinator = await me(talentCoordinatorCtx, {});
+      const talentNomination = await createTalentNomination(
+        talentCoordinatorCtx,
+        { talentNominationEvent: { connect: pastTalentEvent?.id ?? "" } },
+      );
+      await updateTalentNomination(talentCoordinatorCtx, {
+        id: talentNomination?.id ?? "",
+        nominator: { connect: talentCoordinator.id },
+        nominee: { connect: nomineeId },
+        nomineeReview: TalentNominationUserReview.Correct,
+        nomineeRelationshipToNominator:
+          TalentNominationNomineeRelationshipToNominator.CurrentEmployee,
+        nominateForAdvancement: false,
+        advancementClassifications: { sync: [] },
+        nominateForLateralMovement: true,
+        lateralMovementOptions: [
+          TalentNominationLateralMovementOption.LargeDepartment,
+        ],
+        nominateForDevelopmentPrograms: false,
+        nominationRationale:
+          "Consistently delivers results and leads cross-functional initiatives.",
+      });
+      await submitTalentNomination(talentCoordinatorCtx, {
+        id: talentNomination?.id ?? "",
+      });
+      createdTalentEvents[TalentNominationEventStatus.Past] = pastTalentEvent;
+    });
+
     for (const status of [
       TalentNominationEventStatus.Active,
       TalentNominationEventStatus.Past,
     ]) {
-      const talentEvent = await getTalentNominationEventWithNominations(
-        talentCoordinatorCtx,
-        { status },
-      );
+      const talentEvent =
+        createdTalentEvents[status] ??
+        (await getTalentNominationEventWithNominations(talentCoordinatorCtx, {
+          status,
+        }));
       await appPage.page.goto("/en/community");
       await talentManagement.goToTalentManagementTable();
       await talentManagement.viewTalentNominationEvent(
@@ -480,5 +553,10 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         await word.close();
       });
     }
+
+    await test.step("Delete setup data for local and CI execution", async (step) => {
+      step.skip(isUat, "Nothing was created on UAT");
+      await deleteUser(platformAdminCtx, { id: nomineeId });
+    });
   });
 });
