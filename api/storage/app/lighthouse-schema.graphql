@@ -574,6 +574,7 @@ type Query {
     page: Int
   ): PoolPaginator!
   publishedPoolsSearchWithCursor(
+    excludeIds: [UUID!]
     where: PublishedPoolsSearchInput
     orderBy: [QueryPublishedPoolsSearchWithCursorOrderByOrderByClause!]
 

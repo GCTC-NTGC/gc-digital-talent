@@ -1868,6 +1868,8 @@ type Query {
     @orderBy(column: "id", direction: DESC)
   # duplicate of publishedPoolsSearch for trying out cursor pagination, see #18552
   publishedPoolsSearchWithCursor(
+    # ids already shown, so a pool is not repeated if its sort value changes between pages
+    excludeIds: [UUID!] @notIn(key: "id")
     where: PublishedPoolsSearchInput
     orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
   ): [Pool]!

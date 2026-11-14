@@ -247,6 +247,58 @@ class PublishedPoolsSearchTest extends TestCase
         assertEquals([$highest->id, ...$tiedIdsDesc, $wholeWordWeakSkill->id, $partWordStrongSkill->id], $ids);
     }
 
+    public function testExcludeIdsStopsRepeatWhenRankChangesBetweenPages(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+
+        $top = Pool::factory()->published()->create();
+        $top->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        $top->poolSkills()->create(['skill_id' => $skillB->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        $others = Pool::factory()->count(2)->published()->create();
+        foreach ($others as $other) {
+            $other->poolSkills()->create(['skill_id' => $skillA->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        }
+        $otherIdsDesc = $others->pluck('id')->sortDesc()->values()->all();
+
+        $query = /** @lang GraphQL */ '
+            query publishedPoolsSearchWithCursor($where: PublishedPoolsSearchInput, $after: String, $excludeIds: [UUID!]) {
+                publishedPoolsSearchWithCursor(
+                    where: $where
+                    excludeIds: $excludeIds
+                    orderBy: [{ column: MATCH_RANK, order: DESC }]
+                    first: 2
+                    after: $after
+                ) {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                    pageInfo {
+                        endCursor
+                    }
+                }
+            }
+        ';
+        $where = ['skills' => [$skillA->id, $skillB->id]];
+
+        $firstPage = $this->graphQL($query, ['where' => $where]);
+        $firstPageIds = $firstPage->json('data.publishedPoolsSearchWithCursor.edges.*.node.id');
+        assertEquals([$top->id, $otherIdsDesc[0]], $firstPageIds);
+
+        // the top pool now ranks last, which puts it after the cursor
+        $top->poolSkills()->where('skill_id', $skillB->id)->delete();
+        $top->poolSkills()->where('skill_id', $skillA->id)->update(['type' => PoolSkillType::NONESSENTIAL->name]);
+
+        $secondPage = $this->graphQL($query, [
+            'where' => $where,
+            'after' => $firstPage->json('data.publishedPoolsSearchWithCursor.pageInfo.endCursor'),
+            'excludeIds' => $firstPageIds,
+        ]);
+        assertEquals([$otherIdsDesc[1]], $secondPage->json('data.publishedPoolsSearchWithCursor.edges.*.node.id'));
+    }
+
     public function testRankedCursorCanBeReplayedWithoutFilters(): void
     {
         $skill = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
