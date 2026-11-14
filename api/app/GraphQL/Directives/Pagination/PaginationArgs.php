@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
+use UnexpectedValueException;
 
 class PaginationArgs
 {
@@ -47,6 +48,10 @@ class PaginationArgs
 
         $perPage = $perPageArg;
         $cursor = Cursor::fromEncoded($cursorArg);
+        // an undecodable cursor comes back null, which would silently return the first page
+        if ($cursorArg !== null && $cursor === null) {
+            throw new Error('The cursor is not valid.');
+        }
 
         if ($perPage < 0) {
             throw new Error(self::requestedLessThanZeroItems($perPage));
@@ -93,11 +98,17 @@ class PaginationArgs
             $builder instanceof Relation => $builder->getQuery()->getQuery()
         };
         // Builder->ensureOrderForCursorPagination filters out any ordering that does not include a `direction` property.
-        if (! Arr::every($query->orders, fn ($o) => array_key_exists('direction', $o))) {
+        // orders is null when nothing was sorted; Laravel then sorts by the primary key
+        if (! Arr::every($query->orders ?? [], fn ($o) => array_key_exists('direction', $o))) {
             throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
-        return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
+        try {
+            return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
+        } catch (UnexpectedValueException) {
+            // the cursor was issued for a different ordering and lacks one of this query's columns
+            throw new Error('The cursor does not match the ordering of this query.');
+        }
     }
 
     /*

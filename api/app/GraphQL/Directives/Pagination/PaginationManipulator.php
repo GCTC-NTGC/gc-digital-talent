@@ -97,6 +97,9 @@ class PaginationManipulator
 
                 "A list of {$fieldTypeName} edges."
                 edges: [{$connectionEdgeName}!]! @field(resolver: "{$connectionFieldClass}@edgeResolver") {$this->maybeInheritCacheControlDirective()}
+
+                "The number of {$fieldTypeName} items across all pages."
+                totalCount: Int! @field(resolver: "{$connectionFieldClass}@totalCountResolver") {$this->maybeInheritCacheControlDirective()}
             }
 GRAPHQL
         );

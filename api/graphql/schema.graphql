@@ -1501,6 +1501,7 @@ input PublishedPoolsSearchInput {
   publishedAtRange: [PoolPublishedRange!] @scope(name: "wherePublishedAtIn")
   languages: [LanguageAbility!] @scope(name: "whereLanguagesIn")
   salaryRange: SalaryRange @scope(name: "whereSalaryRangeIn")
+  skills: [UUID!] @scope(name: "whereSkillsIn")
   processNumber: String @scope
   poolStatuses: [PoolStatus!] @scope(name: "statuses") # this query will only return open or closed
 }
@@ -1723,6 +1724,7 @@ enum ActivitiesOrderByColumn {
 enum PublishedPoolsSearchOrderByColumn {
   CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
+  MATCH_RANK @enum(value: "match_score") # column added by the withMatchScore scope
 }
 
 input SitewideAnnouncementInput @validator {
@@ -1856,7 +1858,29 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 100
-      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
+      scopes: [
+        "wherePublished"
+        "whereNotArchived"
+        "whereNotHidden"
+        "withMatchScore"
+      ]
+    )
+    @orderBy(column: "id", direction: DESC)
+  # duplicate of publishedPoolsSearch for trying out cursor pagination, see #18552
+  publishedPoolsSearchWithCursor(
+    # ids already shown, so a pool is not repeated if its sort value changes between pages
+    excludeIds: [UUID!] @notIn(key: "id")
+    where: PublishedPoolsSearchInput
+    orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
+  ): [Pool]!
+    @cursorPaginate(
+      maxCount: 100
+      scopes: [
+        "wherePublished"
+        "whereNotArchived"
+        "whereNotHidden"
+        "withMatchScore"
+      ]
     )
     @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate

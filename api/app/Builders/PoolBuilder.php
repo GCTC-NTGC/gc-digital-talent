@@ -5,17 +5,36 @@ namespace App\Builders;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolPublishedRange;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SalaryRange;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class PoolBuilder extends Builder
 {
+    // column holding the relevance score, added by withMatchScore
+    public const MATCH_SCORE_COLUMN = 'match_score';
+
+    // how much each scored filter contributes to the match score
+    // every component is normalized to 0..1 before weighting
+    public const MATCH_SCORE_WEIGHTS = [
+        'keywords' => 1.0,
+        'skills' => 1.0,
+    ];
+
+    /**
+     * Score components added by filter scopes, totalled by withMatchScore
+     *
+     * @var array<int, array{sql: string, bindings: array<int, mixed>}>
+     */
+    protected array $matchScoreParts = [];
+
     public function wherePublished(): self
     {
         return $this->where('published_at', '<=', now());
@@ -174,11 +193,28 @@ class PoolBuilder extends Builder
             return $this;
         }
 
-        return $this->where(function ($query) use ($terms) {
+        $this->where(function ($query) use ($terms) {
             foreach ($terms as $term) {
                 $query->name($term);
             }
         });
+
+        // every term already matches somewhere in the name, so score how well:
+        // a whole word scores 1.0 and part of a word 0.5, averaged over the terms
+        $termScores = [];
+        $bindings = [];
+        foreach ($terms as $term) {
+            $termScores[] = "CASE WHEN pools.name->>'en' ~* ? OR pools.name->>'fr' ~* ? THEN 1.0 ELSE 0.5 END";
+            // a word is bounded by the start, end or a non-word character, so terms like `c++` and `.net` count too
+            $wholeWord = '(^|\\W)'.preg_quote($term).'($|\\W)';
+            array_push($bindings, $wholeWord, $wholeWord);
+        }
+
+        return $this->addMatchScore(
+            sprintf('(%s) / %d.0', implode(' + ', $termScores), count($terms)),
+            $bindings,
+            self::MATCH_SCORE_WEIGHTS['keywords'],
+        );
     }
 
     // filter by enum PoolAreaOfSelection options
@@ -232,6 +268,24 @@ class PoolBuilder extends Builder
                 $query->orWhere('published_at', '<', $nowSub30Days);
             }
         });
+    }
+
+    // pool must have at least one of the skills, essential or nonessential
+    public function whereSkillsIn(?array $skillIds): self
+    {
+        if (empty($skillIds)) {
+            return $this;
+        }
+
+        // essential skills count for more than nonessential ones
+        $rowWeight = sprintf(
+            "CASE pool_skill.type WHEN '%s' THEN 1.0 ELSE 0.5 END",
+            PoolSkillType::ESSENTIAL->name
+        );
+
+        return $this->whereHas('poolSkills', function ($query) use ($skillIds) {
+            $query->whereIn('skill_id', $skillIds);
+        })->addOverlapScore('poolSkills', 'skill_id', $skillIds, self::MATCH_SCORE_WEIGHTS['skills'], $rowWeight);
     }
 
     // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
@@ -501,5 +555,87 @@ class PoolBuilder extends Builder
     public function withPolicyEagerLoads(): self
     {
         return $this->with(['team', 'community.team', 'department.team']);
+    }
+
+    /**
+     * Add a component to the match score
+     *
+     * @param  string  $sql  expression evaluating to 0..1 for each pool
+     * @param  array<int, mixed>  $bindings
+     */
+    public function addMatchScore(string $sql, array $bindings, float $weight): self
+    {
+        $this->matchScoreParts[] = [
+            'sql' => sprintf('(%F * (%s))', $weight, $sql),
+            'bindings' => $bindings,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Score how many of the selected values a multi-valued attribute matches
+     *
+     * Scores (sum of matched row weights) / (number of values selected), so 0..1
+     * when row weights are 0..1. The relation must be a HasMany on Pool.
+     *
+     * @param  string  $relationName  HasMany relation holding the attribute rows
+     * @param  string  $valueColumn  column on the related table compared to $values
+     * @param  array<int, string>  $values  values selected by the user
+     * @param  string|null  $rowWeightSql  trusted SQL weighting each matched row, defaults to 1
+     */
+    public function addOverlapScore(
+        string $relationName,
+        string $valueColumn,
+        array $values,
+        float $weight,
+        ?string $rowWeightSql = null,
+    ): self {
+        $values = array_values(array_unique($values));
+        if (empty($values)) {
+            return $this;
+        }
+
+        /** @var HasMany $relation */
+        $relation = $this->getModel()->{$relationName}();
+        $related = $relation->getRelated();
+
+        $matchedWeight = $related->newQuery()
+            ->toBase()
+            ->selectRaw(sprintf('COALESCE(SUM(%s), 0)', $rowWeightSql ?? '1.0'))
+            ->whereColumn($relation->getQualifiedForeignKeyName(), $relation->getQualifiedParentKeyName())
+            ->whereIn($related->qualifyColumn($valueColumn), $values);
+
+        return $this->addMatchScore(
+            sprintf('(%s) / %d.0', $matchedWeight->toSql(), count($values)),
+            $matchedWeight->getBindings(),
+            $weight,
+        );
+    }
+
+    /**
+     * Add each pool's match score as a `match_score` column, so results can be sorted by it
+     *
+     * The score is the total of the parts the filter scopes added, or 0 if none were used.
+     * List this scope on any query that offers the match rank sort.
+     */
+    public function withMatchScore(): self
+    {
+        // 0.0 and not 0, so the column is a decimal whether or not anything was scored
+        $sql = empty($this->matchScoreParts) ? '0.0' : implode(' + ', array_column($this->matchScoreParts, 'sql'));
+        $bindings = array_merge([], ...array_column($this->matchScoreParts, 'bindings'));
+
+        // The score is worked out in a small side query joined to each pool, not in the sort itself.
+        // Cursor pagination can only page through a plain column.
+        //
+        // OFFSET 0 does not change the result. It makes Postgres work the score out once per pool.
+        // Without it the score is recalculated several times per pool, and later pages were up to
+        // 4 times slower.
+        $this->query->joinLateral(
+            $this->query->newQuery()->selectRaw("($sql) as ".self::MATCH_SCORE_COLUMN, $bindings)->offset(0),
+            'pool_match_scores',
+        );
+
+        return $this;
     }
 }
