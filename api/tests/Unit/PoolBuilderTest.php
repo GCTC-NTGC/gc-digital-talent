@@ -498,6 +498,20 @@ class PoolBuilderTest extends TestCase
         assertEquals([$literal->id], $poolIds);
     }
 
+    public function testMatchScoreGivesWholeWordCreditToTermsEndingInSymbols(): void
+    {
+        $wholeWord = Pool::factory()->published()->create(['name' => ['en' => 'C++ developer', 'fr' => 'abc']]);
+        $partOfWord = Pool::factory()->published()->create(['name' => ['en' => 'C++Builder specialist', 'fr' => 'abc']]);
+
+        $scores = Pool::query()
+            ->keywordSearch(['c++'])
+            ->withMatchScore()
+            ->get()->pluck(PoolBuilder::MATCH_SCORE_COLUMN, 'id');
+
+        assertEquals(1.0, (float) $scores[$wholeWord->id]);
+        assertEquals(0.5, (float) $scores[$partOfWord->id]);
+    }
+
     public function testMatchScoreCombinesKeywordsAndSkills(): void
     {
         $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);

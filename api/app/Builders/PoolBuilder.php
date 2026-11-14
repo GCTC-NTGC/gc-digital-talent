@@ -205,7 +205,8 @@ class PoolBuilder extends Builder
         $bindings = [];
         foreach ($terms as $term) {
             $termScores[] = "CASE WHEN pools.name->>'en' ~* ? OR pools.name->>'fr' ~* ? THEN 1.0 ELSE 0.5 END";
-            $wholeWord = '\\m'.preg_quote($term).'\\M';
+            // a word is bounded by the start, end or a non-word character, so terms like `c++` and `.net` count too
+            $wholeWord = '(^|\\W)'.preg_quote($term).'($|\\W)';
             array_push($bindings, $wholeWord, $wholeWord);
         }
 
