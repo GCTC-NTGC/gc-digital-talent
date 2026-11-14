@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
 
 class PoolBuilder extends Builder
 {
-    // sort column for relevance ranking, see orderByMatchScore
+    // column holding the relevance score, added by withMatchScore
     public const MATCH_SCORE_COLUMN = 'match_score';
 
     // how much each scored filter contributes to the match score
@@ -29,7 +29,7 @@ class PoolBuilder extends Builder
     ];
 
     /**
-     * Score components added by filter scopes, summed by orderByMatchScore
+     * Score components added by filter scopes, totalled by withMatchScore
      *
      * @var array<int, array{sql: string, bindings: array<int, mixed>}>
      */
@@ -613,43 +613,27 @@ class PoolBuilder extends Builder
     }
 
     /**
-     * Order by the sum of the match score components
+     * Add each pool's match score as a `match_score` column, so results can be sorted by it
      *
-     * Relies on the filter scopes running before the orderBy argument, which
-     * Lighthouse does because `where` is defined before `orderBy` on the field.
-     * With no scored filters there is nothing to rank, so the default sort applies.
+     * The score is the total of the parts the filter scopes added, or 0 if none were used.
+     * List this scope on any query that offers the match rank sort.
      */
-    public function orderByMatchScore(string $direction = 'desc'): self
+    public function withMatchScore(): self
     {
-        $directionSql = match (strtolower($direction)) {
-            'asc' => 'ASC',
-            'desc' => 'DESC',
-            default => throw new \Exception('Invalid order option'),
-        };
+        // 0.0 and not 0, so the column is a decimal whether or not anything was scored
+        $sql = empty($this->matchScoreParts) ? '0.0' : implode(' + ', array_column($this->matchScoreParts, 'sql'));
+        $bindings = array_merge([], ...array_column($this->matchScoreParts, 'bindings'));
 
-        if (empty($this->matchScoreParts)) {
-            return $this;
-        }
-
-        $sql = implode(' + ', array_column($this->matchScoreParts, 'sql'));
-        $bindings = array_merge(...array_column($this->matchScoreParts, 'bindings'));
-
-        return $this->orderByRaw("($sql) $directionSql", $bindings);
-    }
-
-    /**
-     * Route the match score sort column from Lighthouse's @orderBy to orderByMatchScore
-     *
-     * @param  mixed  $column
-     * @param  string  $direction
-     */
-    public function orderBy($column, $direction = 'asc'): self
-    {
-        if ($column === self::MATCH_SCORE_COLUMN) {
-            return $this->orderByMatchScore($direction);
-        }
-
-        $this->query->orderBy($column, $direction);
+        // The score is worked out in a small side query joined to each pool, not in the sort itself.
+        // Cursor pagination can only page through a plain column.
+        //
+        // OFFSET 0 does not change the result. It makes Postgres work the score out once per pool.
+        // Without it the score is recalculated several times per pool, and later pages were up to
+        // 4 times slower.
+        $this->query->joinLateral(
+            $this->query->newQuery()->selectRaw("($sql) as ".self::MATCH_SCORE_COLUMN, $bindings)->offset(0),
+            'pool_match_scores',
+        );
 
         return $this;
     }

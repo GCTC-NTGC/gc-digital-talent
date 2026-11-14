@@ -189,4 +189,96 @@ class PublishedPoolsSearchTest extends TestCase
             $response->json('data.publishedPoolsSearch.data.*.id')
         );
     }
+
+    public function testMatchRankPagesWithCursor(): void
+    {
+        $skillA = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $makePool = function (string $name, array $skills) {
+            $pool = Pool::factory()->published()->create(['name' => ['en' => $name, 'fr' => 'abc']]);
+            foreach ($skills as [$skill, $type]) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => $type->name]);
+            }
+
+            return $pool;
+        };
+
+        // the last two only rank this way round because of the keyword: on skills alone they swap
+        $partWordStrongSkill = $makePool('Database admin', [[$skillA, PoolSkillType::ESSENTIAL]]); // 0.5 + 0.5
+        $wholeWordWeakSkill = $makePool('Data officer', [[$skillA, PoolSkillType::NONESSENTIAL]]); // 1.0 + 0.25
+        // three pools with the same score, so the tie spans the first two pages
+        $tiedIdsDesc = collect([1, 2, 3])
+            ->map(fn () => $makePool('Data analyst', [[$skillA, PoolSkillType::ESSENTIAL]])->id) // 1.0 + 0.5
+            ->sortDesc()->values()->all();
+        $highest = $makePool('Data lead', [[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::ESSENTIAL]]); // 1.0 + 1.0
+
+        $query = /** @lang GraphQL */ '
+            query publishedPoolsSearchWithCursor($where: PublishedPoolsSearchInput, $after: String) {
+                publishedPoolsSearchWithCursor(
+                    where: $where
+                    orderBy: [{ column: MATCH_RANK, order: DESC }]
+                    first: 2
+                    after: $after
+                ) {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
+            }
+        ';
+        $where = ['keywordSearch' => ['data'], 'skills' => [$skillA->id, $skillB->id]];
+
+        $ids = [];
+        $after = null;
+        do {
+            $response = $this->graphQL($query, ['where' => $where, 'after' => $after]);
+            $response->assertJsonPath('data.publishedPoolsSearchWithCursor.totalCount', 6);
+            $ids = [...$ids, ...$response->json('data.publishedPoolsSearchWithCursor.edges.*.node.id')];
+            $after = $response->json('data.publishedPoolsSearchWithCursor.pageInfo.endCursor');
+        } while ($response->json('data.publishedPoolsSearchWithCursor.pageInfo.hasNextPage'));
+
+        assertEquals([$highest->id, ...$tiedIdsDesc, $wholeWordWeakSkill->id, $partWordStrongSkill->id], $ids);
+    }
+
+    public function testRankedCursorCanBeReplayedWithoutFilters(): void
+    {
+        $skill = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $pools = Pool::factory()->count(2)->published()->create();
+        foreach ($pools as $pool) {
+            $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+        }
+
+        $query = /** @lang GraphQL */ '
+            query publishedPoolsSearchWithCursor($where: PublishedPoolsSearchInput, $after: String) {
+                publishedPoolsSearchWithCursor(
+                    where: $where
+                    orderBy: [{ column: MATCH_RANK, order: DESC }]
+                    first: 1
+                    after: $after
+                ) {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                    pageInfo {
+                        endCursor
+                    }
+                }
+            }
+        ';
+
+        $cursor = $this->graphQL($query, ['where' => ['skills' => [$skill->id]]])
+            ->json('data.publishedPoolsSearchWithCursor.pageInfo.endCursor');
+
+        // with no filters every pool scores 0, which must still compare against the cursor's decimal score
+        $this->graphQL($query, ['after' => $cursor])->assertGraphQLErrorFree();
+    }
 }

@@ -1724,7 +1724,7 @@ enum ActivitiesOrderByColumn {
 enum PublishedPoolsSearchOrderByColumn {
   CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
-  MATCH_RANK @enum(value: "match_score") # see PoolBuilder::orderByMatchScore
+  MATCH_RANK @enum(value: "match_score") # column added by the withMatchScore scope
 }
 
 input SitewideAnnouncementInput @validator {
@@ -1858,7 +1858,12 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 100
-      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
+      scopes: [
+        "wherePublished"
+        "whereNotArchived"
+        "whereNotHidden"
+        "withMatchScore"
+      ]
     )
     @orderBy(column: "id", direction: DESC)
   # duplicate of publishedPoolsSearch for trying out cursor pagination, see #18552
@@ -1868,7 +1873,12 @@ type Query {
   ): [Pool]!
     @cursorPaginate(
       maxCount: 100
-      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
+      scopes: [
+        "wherePublished"
+        "whereNotArchived"
+        "whereNotHidden"
+        "withMatchScore"
+      ]
     )
     @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate

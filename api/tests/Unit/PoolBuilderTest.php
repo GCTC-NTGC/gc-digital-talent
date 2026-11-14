@@ -428,6 +428,7 @@ class PoolBuilderTest extends TestCase
 
         $poolIds = Pool::query()
             ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->get()->pluck('id')->toArray();
         assertEquals([
@@ -440,6 +441,7 @@ class PoolBuilderTest extends TestCase
         // ascending reverses the score order
         $poolIds = Pool::query()
             ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'asc')
             ->get()->pluck('id')->toArray();
         assertEquals([
@@ -450,11 +452,17 @@ class PoolBuilderTest extends TestCase
         ], $poolIds);
     }
 
-    public function testMatchScoreWithoutScoredFiltersAddsNoOrder(): void
+    public function testMatchScoreWithoutScoredFiltersLeavesOrderToNextSort(): void
     {
-        $sql = Pool::query()->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')->toSql();
+        Pool::factory()->count(3)->published()->create();
 
-        $this->assertStringNotContainsString('order by', strtolower($sql));
+        // every pool scores 0, so the next sort decides the order
+        $poolIds = Pool::query()
+            ->withMatchScore()
+            ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
+            ->orderBy('id', 'desc')
+            ->get()->pluck('id')->toArray();
+        assertEquals(Pool::query()->orderBy('id', 'desc')->pluck('id')->toArray(), $poolIds);
     }
 
     public function testMatchScoreRanksWholeWordKeywordsAboveSubstrings(): void
@@ -467,6 +475,7 @@ class PoolBuilderTest extends TestCase
 
         $poolIds = Pool::query()
             ->keywordSearch(['data'])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->orderBy('id', 'desc')
             ->get()->pluck('id')->toArray();
@@ -476,12 +485,14 @@ class PoolBuilderTest extends TestCase
         // every term must still match: both pools score (1.0 for 'data' + 0.5 for 'analys') / 2
         $poolIds = Pool::query()
             ->keywordSearch(['data', 'analys'])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->get()->pluck('id')->toArray();
         assertEqualsCanonicalizing([$wholeWord->id, $wholeWordFrench->id], $poolIds);
 
         $poolIds = Pool::query()
             ->keywordSearch(['c++'])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->get()->pluck('id')->toArray();
         assertEquals([$literal->id], $poolIds);
@@ -507,6 +518,7 @@ class PoolBuilderTest extends TestCase
         $poolIds = Pool::query()
             ->keywordSearch(['data'])
             ->whereSkillsIn([$skillA->id, $skillB->id])
+            ->withMatchScore()
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->get()->pluck('id')->toArray();
         assertEquals([

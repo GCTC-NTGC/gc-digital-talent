@@ -1948,6 +1948,7 @@ input PublishedPoolsSearchInput {
   publishedAtRange: [PoolPublishedRange!]
   languages: [LanguageAbility!]
   salaryRange: SalaryRange
+  skills: [UUID!]
   processNumber: String
   poolStatuses: [PoolStatus!]
 }
@@ -2149,6 +2150,7 @@ enum ActivitiesOrderByColumn {
 enum PublishedPoolsSearchOrderByColumn {
   CLOSING_DATE
   PUBLISHED_AT
+  MATCH_RANK
 }
 
 input SitewideAnnouncementInput {
