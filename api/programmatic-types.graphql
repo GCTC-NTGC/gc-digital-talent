@@ -595,6 +595,45 @@ type PoolPaginator {
   data: [Pool!]!
 }
 
+"Information about pagination using a Relay style cursor connection."
+type PageInfo {
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+
+  "The cursor to continue paginating backwards."
+  startCursor: String
+
+  "The cursor to continue paginating forwards."
+  endCursor: String
+}
+
+"A paginated list of Pool edges."
+type PoolConnection {
+  "Pagination information about the list of edges."
+  pageInfo: PageInfo!
+
+  "A list of Pool edges."
+  edges: [PoolEdge!]!
+
+  "The number of Pool items across all pages."
+  totalCount: Int!
+}
+
+"An edge that contains a node of type Pool and a cursor."
+type PoolEdge {
+  "The Pool node."
+  node: Pool!
+
+  "A unique cursor that can be used for forward pagination."
+  nextCursor: String!
+
+  "A unique cursor that can be used for reverse pagination."
+  previousCursor: String!
+}
+
 "A paginated list of PoolCandidateAdminViewWithSkillCount items."
 type PoolCandidateAdminViewWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -696,6 +735,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
 "Order by clause for Query.publishedPoolsSearch.orderBy."
 input QueryPublishedPoolsSearchOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: PublishedPoolsSearchOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
+"Order by clause for Query.publishedPoolsSearchWithCursor.orderBy."
+input QueryPublishedPoolsSearchWithCursorOrderByOrderByClause {
   "The column that is used for ordering."
   column: PublishedPoolsSearchOrderByColumn!
 
