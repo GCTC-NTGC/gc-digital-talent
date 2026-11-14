@@ -424,6 +424,26 @@ final class CursorPaginationTest extends TestCase
         }')->assertGraphQLErrorMessage('The cursor is not valid.');
     }
 
+    public function testPagesWithoutOrderBy(): void
+    {
+        $levels = [];
+        $after = null;
+        do {
+            $response = $this->graphQL(/** @lang GraphQL */ '
+                query Classifications($after: String) {
+                    classifications(first: 2, after: $after) {
+                        edges { node { level } }
+                        pageInfo { hasNextPage endCursor }
+                    }
+                }
+            ', ['after' => $after])->assertJsonMissingPath('errors');
+            array_push($levels, ...Arr::pluck($response->json('data.classifications.edges'), 'node.level'));
+            $after = $response->json('data.classifications.pageInfo.endCursor');
+        } while ($response->json('data.classifications.pageInfo.hasNextPage'));
+
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], $levels);
+    }
+
     public function testCursorFromAnotherOrderingIsRejected(): void
     {
         $response = $this->graphQL(/** @lang GraphQL */ '
