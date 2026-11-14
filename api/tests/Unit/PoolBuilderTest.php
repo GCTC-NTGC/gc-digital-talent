@@ -504,16 +504,19 @@ class PoolBuilderTest extends TestCase
         $skillB = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
         $makePool = function (string $name, array $skills) {
             $pool = Pool::factory()->published()->create(['name' => ['en' => $name, 'fr' => 'abc']]);
-            foreach ($skills as $skill) {
-                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => PoolSkillType::ESSENTIAL->name]);
+            foreach ($skills as [$skill, $type]) {
+                $pool->poolSkills()->create(['skill_id' => $skill->id, 'type' => $type->name]);
             }
 
             return $pool;
         };
 
-        $substringOneSkill = $makePool('Database administrator', [$skillA]); // 0.5 + 0.5
-        $wholeWordBothSkills = $makePool('Data analyst', [$skillA, $skillB]); // 1.0 + 1.0
-        $substringBothSkills = $makePool('Database analyst', [$skillA, $skillB]); // 0.5 + 1.0
+        // Each pool needs both parts of its score to land where it does: the keyword part alone
+        // would put the whole word pool first, and the skills part alone would put it last.
+        // The earlier pools tied once the keyword part was taken away, so the test could pass by chance.
+        $substringBothSkills = $makePool('Database analyst', [[$skillA, PoolSkillType::ESSENTIAL], [$skillB, PoolSkillType::ESSENTIAL]]); // 0.5 + 1.0
+        $wholeWordWeakSkill = $makePool('Data analyst', [[$skillA, PoolSkillType::NONESSENTIAL]]); // 1.0 + 0.25
+        $substringOneSkill = $makePool('Database administrator', [[$skillA, PoolSkillType::ESSENTIAL]]); // 0.5 + 0.5
 
         $poolIds = Pool::query()
             ->keywordSearch(['data'])
@@ -522,8 +525,8 @@ class PoolBuilderTest extends TestCase
             ->orderBy(PoolBuilder::MATCH_SCORE_COLUMN, 'desc')
             ->get()->pluck('id')->toArray();
         assertEquals([
-            $wholeWordBothSkills->id,
             $substringBothSkills->id,
+            $wholeWordWeakSkill->id,
             $substringOneSkill->id,
         ], $poolIds);
     }
