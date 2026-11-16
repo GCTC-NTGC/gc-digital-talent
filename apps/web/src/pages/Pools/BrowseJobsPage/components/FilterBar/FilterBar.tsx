@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { FormProvider, useForm } from "react-hook-form";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Button, Card, Chip, Chips, Heading } from "@gc-digital-talent/ui";
+import { Button, Card, Heading } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import {
   getFragment,
@@ -23,6 +23,7 @@ import OpportunityDetailsFilterDialog from "../filterDialogs/OpportunityDetailsF
 import OrganizationsFilterDialog from "../filterDialogs/OrganizationsFilterDialog";
 import AdvancedFiltersDialog from "../filterDialogs/AdvancedFiltersDialog";
 import LanguageRequirementsFilterDialog from "../filterDialogs/LanguageRequirementsFilterDialog";
+import FilterChips from "./FilterChips";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
@@ -70,21 +71,6 @@ interface SearchByKeywordForm {
   searchByKeyword: string;
 }
 
-interface FilterDefinition {
-  key: string;
-  label: string;
-  handleRemove: () => void;
-}
-
-const filtersToChips = (filters: FilterDefinition[]) =>
-  filters
-    .toSorted((f1, f2) => f1.label.localeCompare(f2.label))
-    .map((f) => (
-      <Chip key={f.key} onDismiss={f.handleRemove}>
-        {f.label}
-      </Chip>
-    ));
-
 interface FilterBarProps extends ComponentPropsWithoutRef<"div"> {
   featureManageAlertButtons: boolean;
   optionsFragment: FragmentType<typeof Options_Fragment>;
@@ -110,30 +96,29 @@ const FilterBar = ({
   const keywordFilters = getFilterValues("keyword").map((f) => ({
     key: `keyword:${f}`,
     label: f,
-    handleRemove: () => removeFilterValue("keyword", f),
+    onRemove: () => removeFilterValue("keyword", f),
   }));
-
   const opportunityDetailsFilters = [
     ...getFilterValues("applicationEligibility").map((f) => ({
       key: `applicationEligibility:${f}`,
       label:
         options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      handleRemove: () => removeFilterValue("applicationEligibility", f),
+      onRemove: () => removeFilterValue("applicationEligibility", f),
     })),
     ...getFilterValues("classification").map((f) => ({
       key: `classification:${f}`,
       label:
         options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
         intl.formatMessage(commonMessages.notFound),
-      handleRemove: () => removeFilterValue("classification", f),
+      onRemove: () => removeFilterValue("classification", f),
     })),
     ...getFilterValues("minimumSalary").map((f) => ({
       key: `minimumSalary:${f}`,
       label:
         options?.salaryRangeEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      handleRemove: () => removeFilterValue("minimumSalary", f),
+      onRemove: () => removeFilterValue("minimumSalary", f),
     })),
   ];
   const languageRequirementsFilters = [
@@ -142,7 +127,7 @@ const FilterBar = ({
       label:
         options?.languageAbilityEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      handleRemove: () => removeFilterValue("languageRequirement", f),
+      onRemove: () => removeFilterValue("languageRequirement", f),
     })),
   ];
   const organizationsFilters = getFilterValues("organization").map((f) => ({
@@ -150,7 +135,7 @@ const FilterBar = ({
     label:
       options?.departments?.find((e) => e?.id === f)?.name.localized ??
       intl.formatMessage(commonMessages.notFound),
-    handleRemove: () => removeFilterValue("organization", f),
+    onRemove: () => removeFilterValue("organization", f),
   }));
   const advancedFilters = [
     ...getFilterValues("advertisementTiming").map((f) => ({
@@ -158,12 +143,12 @@ const FilterBar = ({
       label:
         options?.poolPublishedRangeEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      handleRemove: () => removeFilterValue("advertisementTiming", f),
+      onRemove: () => removeFilterValue("advertisementTiming", f),
     })),
     ...getFilterValues("processNumber").map((f) => ({
       key: `processNumber:${f}`,
       label: f,
-      handleRemove: () => removeFilterValue("processNumber", f),
+      onRemove: () => removeFilterValue("processNumber", f),
     })),
   ];
 
@@ -175,16 +160,6 @@ const FilterBar = ({
     addFilterValue("keyword", keyword);
     keywordFormMethods.reset();
   };
-
-  const filterNullMessage = (
-    <div className="text-sm text-gray-500 dark:text-gray-200">
-      {intl.formatMessage({
-        defaultMessage: "No filters selected",
-        id: "sxFMPR",
-        description: "null state for filter list",
-      })}
-    </div>
-  );
 
   return (
     <div
@@ -253,11 +228,7 @@ const FilterBar = ({
                 </div>
               </form>
             </FormProvider>
-            {keywordFilters.length ? (
-              <Chips>{filtersToChips(keywordFilters)}</Chips>
-            ) : (
-              filterNullMessage
-            )}
+            <FilterChips filters={keywordFilters} />
           </div>
           <div>
             <OpportunityDetailsFilterDialog
@@ -278,11 +249,7 @@ const FilterBar = ({
                 })}
               </Button>
             </OpportunityDetailsFilterDialog>
-            {opportunityDetailsFilters.length ? (
-              <Chips>{filtersToChips(opportunityDetailsFilters)}</Chips>
-            ) : (
-              filterNullMessage
-            )}
+            <FilterChips filters={opportunityDetailsFilters} />
           </div>
           <div>
             <LanguageRequirementsFilterDialog
@@ -302,11 +269,7 @@ const FilterBar = ({
                 })}
               </Button>
             </LanguageRequirementsFilterDialog>
-            {languageRequirementsFilters.length ? (
-              <Chips>{filtersToChips(languageRequirementsFilters)}</Chips>
-            ) : (
-              filterNullMessage
-            )}
+            <FilterChips filters={languageRequirementsFilters} />
           </div>
           <div>
             <OrganizationsFilterDialog organizations={options.departments}>
@@ -323,11 +286,7 @@ const FilterBar = ({
                 })}
               </Button>
             </OrganizationsFilterDialog>
-            {organizationsFilters.length ? (
-              <Chips>{filtersToChips(organizationsFilters)}</Chips>
-            ) : (
-              filterNullMessage
-            )}
+            <FilterChips filters={organizationsFilters} />
           </div>
           <div>
             <AdvancedFiltersDialog
@@ -346,11 +305,7 @@ const FilterBar = ({
                 })}
               </Button>
             </AdvancedFiltersDialog>
-            {advancedFilters.length ? (
-              <Chips>{filtersToChips(advancedFilters)}</Chips>
-            ) : (
-              filterNullMessage
-            )}
+            <FilterChips filters={advancedFilters} />
           </div>
         </div>
         {featureManageAlertButtons ? (
