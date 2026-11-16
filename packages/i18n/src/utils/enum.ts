@@ -24,6 +24,7 @@ import {
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
   PoolAreaOfSelection,
+  PoolPublishedRange,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -406,6 +407,19 @@ export function sortSecurityStatus(securityStatuses?: MaybeLocalizedEnums) {
       SecurityStatus.TopSecret,
     ],
     securityStatuses,
+  );
+}
+
+export function sortPoolPublishedRange(
+  poolPublishedRange?: MaybeLocalizedEnums,
+) {
+  return sortLocalizedEnums(
+    [
+      PoolPublishedRange.Under_48Hours,
+      PoolPublishedRange.Under_30Days,
+      PoolPublishedRange.Over_30Days,
+    ],
+    poolPublishedRange,
   );
 }
 

@@ -21,6 +21,7 @@ import adminMessages from "~/messages/adminMessages";
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import OpportunityDetailsFilterDialog from "../filterDialogs/OpportunityDetailsFilterDialog";
 import OrganizationsFilterDialog from "../filterDialogs/OrganizationsFilterDialog";
+import AdvancedFiltersDialog from "../filterDialogs/AdvancedFiltersDialog";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
@@ -41,6 +42,14 @@ const Options_Fragment = graphql(/* GraphQL */ `
     classifications {
       id
       groupAndLevel
+    }
+    poolPublishedRangeEnums: localizedEnumStrings(
+      enumName: "PoolPublishedRange"
+    ) {
+      value
+      label {
+        localized
+      }
     }
   }
 `);
@@ -106,7 +115,6 @@ const FilterBar = ({
         intl.formatMessage(commonMessages.notFound),
       handleRemove: () => removeFilterValue("classification", f),
     })),
-    // minimum salary
   ];
   const organizationsFilters = getFilterValues("organization").map((f) => ({
     key: `organization:${f}`,
@@ -115,6 +123,15 @@ const FilterBar = ({
       intl.formatMessage(commonMessages.notFound),
     handleRemove: () => removeFilterValue("organization", f),
   }));
+  const advancedFiltersFilters = getFilterValues("advertisementTiming").map(
+    (f) => ({
+      key: `advertisementTiming:${f}`,
+      label:
+        options?.poolPublishedRangeEnums?.find((e) => e.value === f)?.label
+          .localized ?? f,
+      handleRemove: () => removeFilterValue("advertisementTiming", f),
+    }),
+  );
 
   const keywordFormMethods = useForm<SearchByKeywordForm>();
 
@@ -198,7 +215,6 @@ const FilterBar = ({
                 </div>
               </form>
             </FormProvider>
-
             {keywordFilters.length ? (
               <Chips>{filtersToChips(keywordFilters)}</Chips>
             ) : (
@@ -246,6 +262,29 @@ const FilterBar = ({
             </OrganizationsFilterDialog>
             {organizationsFilters.length ? (
               <Chips>{filtersToChips(organizationsFilters)}</Chips>
+            ) : (
+              filterNullMessage
+            )}
+          </div>
+          <div>
+            <AdvancedFiltersDialog
+              poolPublishedRangeEnums={options.poolPublishedRangeEnums}
+            >
+              <Button
+                mode="inline"
+                className="mb-1.5"
+                icon={PlusCircleIcon}
+                color="black"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Advanced filters",
+                  id: "+D4k6z",
+                  description: "Title for advanced filters dialog",
+                })}
+              </Button>
+            </AdvancedFiltersDialog>
+            {advancedFiltersFilters.length ? (
+              <Chips>{filtersToChips(advancedFiltersFilters)}</Chips>
             ) : (
               filterNullMessage
             )}
