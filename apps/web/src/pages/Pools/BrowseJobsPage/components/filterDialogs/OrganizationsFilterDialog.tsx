@@ -55,7 +55,7 @@ const OrganizationsFilterDialog = ({ organizations, children }: Props) => {
       value: o.id,
       label: o.name.localized ?? intl.formatMessage(commonMessages.notFound),
     }))
-    .toSorted((a, b) => (a.label > b.label ? 1 : 0));
+    .toSorted((a, b) => a.label.localeCompare(b.label));
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>

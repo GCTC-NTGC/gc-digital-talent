@@ -67,7 +67,7 @@ const OpportunityDetailsFilterDialog = ({
       value: o.id,
       label: o.groupAndLevel ?? intl.formatMessage(commonMessages.notFound),
     }))
-    .toSorted((a, b) => (a.label > b.label ? 1 : 0));
+    .toSorted((a, b) => a.label.localeCompare(b.label));
 
   const minimumSalaryOptions = localizedEnumToOptions(
     sortSalaryRange(salaryRangeEnums),
@@ -144,7 +144,11 @@ const OpportunityDetailsFilterDialog = ({
                 />
                 <RadioGroup
                   idPrefix="minimumSalary"
-                  legend={undefined}
+                  legend={intl.formatMessage({
+                    defaultMessage: "Minimum salary",
+                    id: "P4sciG",
+                    description: "label for a minimum salary picker",
+                  })}
                   items={minimumSalaryOptions}
                   name="minimumSalary"
                 />

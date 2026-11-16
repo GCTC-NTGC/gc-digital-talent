@@ -101,7 +101,7 @@ const useBrowseJobsSearchParams = () => {
     addFilterValue,
     setFilters,
     removeFilterValue,
-    resetFilters: resetAllFilters,
+    resetAllFilters,
     getEnabledFilterCount,
   };
 };

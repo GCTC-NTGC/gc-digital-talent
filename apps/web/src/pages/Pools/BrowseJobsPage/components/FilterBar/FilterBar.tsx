@@ -78,7 +78,7 @@ interface FilterDefinition {
 
 const filtersToChips = (filters: FilterDefinition[]) =>
   filters
-    .toSorted((f1, f2) => (f1.label > f2.label ? 1 : -1))
+    .toSorted((f1, f2) => f1.label.localeCompare(f2.label))
     .map((f) => (
       <Chip key={f.key} onDismiss={f.handleRemove}>
         {f.label}
@@ -104,12 +104,12 @@ const FilterBar = ({
     addFilterValue,
     removeFilterValue,
     getEnabledFilterCount,
-    resetFilters,
+    resetAllFilters,
   } = useBrowseJobsSearchParams();
 
   const keywordFilters = getFilterValues("keyword").map((f) => ({
     key: `keyword:${f}`,
-    label: f ?? intl.formatMessage(commonMessages.notFound),
+    label: f,
     handleRemove: () => removeFilterValue("keyword", f),
   }));
 
@@ -152,7 +152,7 @@ const FilterBar = ({
       intl.formatMessage(commonMessages.notFound),
     handleRemove: () => removeFilterValue("organization", f),
   }));
-  const advancedFiltersFilters = [
+  const advancedFilters = [
     ...getFilterValues("advertisementTiming").map((f) => ({
       key: `advertisementTiming:${f}`,
       label:
@@ -162,7 +162,7 @@ const FilterBar = ({
     })),
     ...getFilterValues("processNumber").map((f) => ({
       key: `processNumber:${f}`,
-      label: f ?? intl.formatMessage(commonMessages.notFound),
+      label: f,
       handleRemove: () => removeFilterValue("processNumber", f),
     })),
   ];
@@ -204,7 +204,11 @@ const FilterBar = ({
             })}
           </Heading>
           {getEnabledFilterCount() > 0 ? (
-            <Button color="black" mode="inline" onClick={() => resetFilters()}>
+            <Button
+              color="black"
+              mode="inline"
+              onClick={() => resetAllFilters()}
+            >
               {intl.formatMessage({
                 defaultMessage: "Reset all filters",
                 id: "0/jj1v",
@@ -342,8 +346,8 @@ const FilterBar = ({
                 })}
               </Button>
             </AdvancedFiltersDialog>
-            {advancedFiltersFilters.length ? (
-              <Chips>{filtersToChips(advancedFiltersFilters)}</Chips>
+            {advancedFilters.length ? (
+              <Chips>{filtersToChips(advancedFilters)}</Chips>
             ) : (
               filterNullMessage
             )}

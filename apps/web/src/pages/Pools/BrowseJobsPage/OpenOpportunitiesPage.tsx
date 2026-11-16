@@ -40,7 +40,7 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 export const OpenOpportunitiesPage = () => {
   const intl = useIntl();
 
-  const { resetFilters } = useBrowseJobsSearchParams();
+  const { resetAllFilters } = useBrowseJobsSearchParams();
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
@@ -107,7 +107,11 @@ export const OpenOpportunitiesPage = () => {
                   </Notice.Content>
                   <Notice.Actions>
                     {/* Eventually there will be a "Create an alert" button here too */}
-                    <Button mode="inline" color="black" onClick={resetFilters}>
+                    <Button
+                      mode="inline"
+                      color="black"
+                      onClick={resetAllFilters}
+                    >
                       {intl.formatMessage({
                         defaultMessage: "Reset all filters",
                         id: "0/jj1v",
