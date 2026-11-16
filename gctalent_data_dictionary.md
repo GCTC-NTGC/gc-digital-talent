@@ -214,7 +214,7 @@ Platform-wide announcements displayed to users in the application UI, such as ma
 
 ## applicant_filter_classification
 
-Junction table linking an applicant filter to one or more GC job classifications (e.g. EC-06, CS-03). Allows filtering applicants by their target or current classification.
+Junction table linking an applicant filter to one or more GC job classifications (e.g. EC-06, CS-03). Allows stored filters to filter applicants by their target or current classification. Owned by the [applicant_filters](#applicant_filters) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -228,7 +228,7 @@ Junction table linking an applicant filter to one or more GC job classifications
 
 ## applicant_filter_pool
 
-Junction table linking an applicant filter to specific recruitment pools, allowing managers to restrict a talent search to candidates from certain pools.
+Junction table linking an applicant filter to specific recruitment pools, allowing stored filters to restrict a talent search to candidates from certain pools. Owned by the [applicant_filters](#applicant_filters) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -242,7 +242,7 @@ Junction table linking an applicant filter to specific recruitment pools, allowi
 
 ## applicant_filter_qualified_classification
 
-Junction table linking an applicant filter to classifications the applicant must be "qualified at". The exact interpretation of "qualified at" depends on the Talent Sources involved in the filter; it can mean the candidate has been qualified in a pool for this classification, or nominated for advancement to this classification, or currently holds this classification. See [applicant_filters](#applicant_filters) for more details.
+Junction table linking an applicant filter to classifications the applicant must be "qualified at". The exact interpretation of "qualified at" depends on the Talent Sources involved in the filter; it can mean the candidate has been qualified in a pool for this classification, or nominated for advancement to this classification, or currently holds this classification. See [applicant_filters](#applicant_filters) for more details. Owned by the [applicant_filter](#applicant_filters) model.
 
 | Column                | Description                                  | Relationship                | Constraints                                         |
 | --------------------- | -------------------------------------------- | --------------------------- | --------------------------------------------------- |
@@ -256,7 +256,7 @@ Junction table linking an applicant filter to classifications the applicant must
 
 ## applicant_filter_skill
 
-Junction table linking an applicant filter to required skills. Allows managers to search for candidates who possess specific skills.
+Junction table linking an applicant filter to required skills. Allows managers to search for candidates who possess specific skills. Owned by the [applicant_filter](#applicant_filters) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -270,7 +270,7 @@ Junction table linking an applicant filter to required skills. Allows managers t
 
 ## applicant_filter_work_stream
 
-Junction table linking an applicant filter to work streams (functional specializations within a community). Cascades on delete.
+Junction table linking an applicant filter to work streams (functional specializations within a community). Cascades on delete. Owned by the [applicant_filter](#applicant_filters) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -335,25 +335,25 @@ Classifications are matched by `group` and `level`, not by classification id. Wi
 
 Records the outcome of assessing a pool candidate against a specific skill at a specific assessment step. Captures both the decision and supporting justification.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this assessment result. |  |  |
-| `created_at` | Timestamp when the result was recorded. |  |  |
-| `updated_at` | Timestamp when the result was last updated. |  |  |
-| `assessment_step_id` | FK to the assessment step where this evaluation took place. | FK → `assessment_steps.id` | Step, candidate and pool skill must all belong to the same pool |
-| `pool_candidate_id` | FK to the candidate being assessed. | FK → `pool_candidates.id` |  |
-| `pool_skill_id` | FK to the specific skill being assessed. | FK → `pool_skill.id` | Required when assessment_result_type = SKILL |
-| `assessment_result_type` | Whether this is an education, skill, or other result type. |  | Enum `AssessmentResultType`: EDUCATION, SKILL; unique per (assessment_step_id, pool_candidate_id, pool_skill_id, assessment_result_type) |
-| `assessment_decision` | The decision outcome (e.g. successful, unsuccessful, hold). |  | Enum `AssessmentDecision`: HOLD, SUCCESSFUL, UNSUCCESSFUL |
-| `justifications` | JSON array of reasons or evidence supporting the decision. |  | Array of `AssessmentResultJustification`: EDUCATION_ACCEPTED_INFORMATION, EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY, EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE, EDUCATION_FAILED_NOT_RELEVANT, EDUCATION_FAILED_REQUIREMENT_NOT_MET, SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED, FAILED_NOT_ENOUGH_INFORMATION, FAILED_OTHER; EDUCATION_* only for EDUCATION type, SKILL_* only for SKILL type |
-| `assessment_decision_level` | Granularity of the decision (e.g. at the pool or step level). |  | Enum `AssessmentDecisionLevel`: AT_REQUIRED, ABOVE_REQUIRED, ABOVE_AND_BEYOND_REQUIRED; only allowed when type = SKILL and decision = SUCCESSFUL |
-| `skill_decision_notes` | Free-text notes from the assessor on the skill evaluation. |  |  |
+| Column                      | Description                                                                                                                                                                                                       | Relationship               | Constraints                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                        | Unique identifier for this assessment result.                                                                                                                                                                     |                            |                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `created_at`                | Timestamp when the result was recorded.                                                                                                                                                                           |                            |                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `updated_at`                | Timestamp when the result was last updated.                                                                                                                                                                       |                            |                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `assessment_step_id`        | FK to the assessment step where this evaluation took place.                                                                                                                                                       | FK → `assessment_steps.id` | Step, candidate and pool skill must all belong to the same pool                                                                                                                                                                                                                                                                                                                                                  |
+| `pool_candidate_id`         | FK to the candidate being assessed.                                                                                                                                                                               | FK → `pool_candidates.id`  |                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `pool_skill_id`             | FK to the specific skill being assessed.                                                                                                                                                                          | FK → `pool_skill.id`       | Required when assessment_result_type = SKILL                                                                                                                                                                                                                                                                                                                                                                     |
+| `assessment_result_type`    | Whether this is an education, skill, or other result type.                                                                                                                                                        |                            | Enum `AssessmentResultType`: EDUCATION, SKILL; unique per (assessment_step_id, pool_candidate_id, pool_skill_id, assessment_result_type)                                                                                                                                                                                                                                                                         |
+| `assessment_decision`       | The decision outcome (e.g. successful, unsuccessful, hold). Hold is used to indicate that the candidate should move to further assessment steps, though a decision has not been made on this assessment step yet. |                            | Enum `AssessmentDecision`: HOLD, SUCCESSFUL, UNSUCCESSFUL                                                                                                                                                                                                                                                                                                                                                        |
+| `justifications`            | JSON array of reasons or evidence supporting the decision.                                                                                                                                                        |                            | Array of `AssessmentResultJustification`: EDUCATION_ACCEPTED_INFORMATION, EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY, EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE, EDUCATION_FAILED_NOT_RELEVANT, EDUCATION_FAILED_REQUIREMENT_NOT_MET, SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED, FAILED_NOT_ENOUGH_INFORMATION, FAILED_OTHER; EDUCATION_* only for EDUCATION type, SKILL_* only for SKILL type |
+| `assessment_decision_level` | Granularity of the decision (e.g. at the pool or step level).                                                                                                                                                     |                            | Enum `AssessmentDecisionLevel`: AT_REQUIRED, ABOVE_REQUIRED, ABOVE_AND_BEYOND_REQUIRED; only allowed when type = SKILL and decision = SUCCESSFUL                                                                                                                                                                                                                                                                 |
+| `skill_decision_notes`      | Free-text notes from the assessor on the skill evaluation.                                                                                                                                                        |                            |                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 ---
 
 ## assessment_step_pool_skill
 
-Junction table linking assessment steps to the pool skills being evaluated at that step. Defines which skills are assessed at which stage of the selection process.
+Junction table linking assessment steps to the pool skills being evaluated at that step. Defines which skills are assessed at which stage of the selection process. Owned by the [assessment_step](#assessment_steps) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -367,17 +367,17 @@ Junction table linking assessment steps to the pool skills being evaluated at th
 
 ## assessment_steps
 
-Defines the ordered stages of a pool's assessment process (e.g. application review, written exam, interview). Each step can assess different skills.
+Defines the ordered stages of a pool's assessment process (e.g. application review, written exam, interview). Each step can assess different skills. The assessment process (made of assessment_steps) is typically defined alongside a pool, before it is published.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this assessment step. |  |  |
-| `pool_id` | FK to the recruitment pool this step belongs to. | FK → `pools.id` |  |
-| `sort_order` | Numeric order of this step within the pool's assessment process. |  | Unique per (pool_id, sort_order), deferrable; set automatically: APPLICATION_SCREENING = 1, SCREENING_QUESTIONS_AT_APPLICATION = 2, others appended |
-| `type` | Type of assessment (e.g. screening, written test, interview). |  | Enum `AssessmentStepType`: SCREENING_QUESTIONS_AT_APPLICATION, TECHNICAL_EXAM_AT_SITE, TECHNICAL_EXAM_AT_HOME, PSC_EXAM, INTERVIEW_GROUP, INTERVIEW_INDIVIDUAL, INTERVIEW_FOLLOWUP, REFERENCE_CHECK, APPLICATION_SCREENING, ADDITIONAL_ASSESSMENT; APPLICATION_SCREENING cannot be set via create/update mutations |
-| `title` | Bilingual label for this assessment step. |  | Bilingual (en, fr); default empty strings |
-| `created_at` | Timestamp when the step was created. |  |  |
-| `updated_at` | Timestamp when the step was last modified. |  |  |
+| Column       | Description                                                      | Relationship    | Constraints                                                                                                                                                                                                                                                                                                        |
+| ------------ | ---------------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`         | Unique identifier for this assessment step.                      |                 |                                                                                                                                                                                                                                                                                                                    |
+| `pool_id`    | FK to the recruitment pool this step belongs to.                 | FK → `pools.id` |                                                                                                                                                                                                                                                                                                                    |
+| `sort_order` | Numeric order of this step within the pool's assessment process. |                 | Unique per (pool_id, sort_order), deferrable; set automatically: APPLICATION_SCREENING = 1, SCREENING_QUESTIONS_AT_APPLICATION = 2, others appended                                                                                                                                                                |
+| `type`       | Type of assessment (e.g. screening, written test, interview).    |                 | Enum `AssessmentStepType`: SCREENING_QUESTIONS_AT_APPLICATION, TECHNICAL_EXAM_AT_SITE, TECHNICAL_EXAM_AT_HOME, PSC_EXAM, INTERVIEW_GROUP, INTERVIEW_INDIVIDUAL, INTERVIEW_FOLLOWUP, REFERENCE_CHECK, APPLICATION_SCREENING, ADDITIONAL_ASSESSMENT; APPLICATION_SCREENING cannot be set via create/update mutations |
+| `title`      | Bilingual label for this assessment step.                        |                 | Bilingual (en, fr); default empty strings. Example: `{"en": "Technical interview", "fr": "Entrevue technique"}`                                                                                                                                                                                                    |
+| `created_at` | Timestamp when the step was created.                             |                 |                                                                                                                                                                                                                                                                                                                    |
+| `updated_at` | Timestamp when the step was last modified.                       |                 |                                                                                                                                                                                                                                                                                                                    |
 
 **Referenced by:** `assessment_results.assessment_step_id`, `assessment_step_pool_skill.assessment_step_id`, `pool_candidates.assessment_step_id`, `screening_questions.assessment_step_id`
 
@@ -387,28 +387,28 @@ Defines the ordered stages of a pool's assessment process (e.g. application revi
 
 Applicant-reported awards, recognitions, or honours on their GC Talent profile. Used as evidence of skills and competencies.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this award experience. |  |  |
-| `user_id` | FK to the user who received the award. | FK → `users.id` |  |
-| `title` | Name or title of the award or recognition. |  | Cannot be empty if provided |
-| `issued_by` | Organization or body that issued the award. |  | Cannot be empty if provided |
-| `awarded_date` | Date the award was received. |  | Cannot be empty if provided; must be today or earlier |
-| `awarded_to` | Scope of who received the award (individual, team, organization). |  | Enum `AwardedTo`: ME, MY_TEAM, MY_PROJECT, MY_ORGANIZATION |
-| `awarded_scope` | Level or breadth of the award (local, national, international). |  | Enum `AwardedScope`: INTERNATIONAL, NATIONAL, PROVINCIAL, LOCAL, COMMUNITY, ORGANIZATIONAL, SUB_ORGANIZATIONAL |
-| `details` | Additional context or description of the award. |  |  |
-| `created_at` | Timestamp when the record was created. |  |  |
-| `updated_at` | Timestamp when the record was last modified. |  |  |
-| `deleted_at` | Soft-delete timestamp; null means the record is active. |  |  |
-| `project_name` | Name of the project that received the award. |  | Required if awarded_to = MY_PROJECT |
-| `related_experience_type` | Model class of another of the user's experiences this award is linked to. |  | One of App\Models\WorkExperience, PersonalExperience, CommunityExperience, EducationExperience. Required with related_experience_id |
-| `related_experience_id` | UUID of the linked experience (polymorphic with related_experience_type). |  | Must be one of the current user's own experiences of related_experience_type |
+| Column                    | Description                                                               | Relationship    | Constraints                                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                      | Unique identifier for this award experience.                              |                 |                                                                                                                                     |
+| `user_id`                 | FK to the user who received the award.                                    | FK → `users.id` | Not null                                                                                                                            |
+| `title`                   | Name or title of the award or recognition.                                |                 |                                                                                                                                     |
+| `issued_by`               | Organization or body that issued the award.                               |                 |                                                                                                                                     |
+| `awarded_date`            | Date the award was received.                                              |                 | Must be today or earlier                                                                               |
+| `awarded_to`              | Scope of who received the award (individual, team, organization).         |                 | Enum `AwardedTo`: ME, MY_TEAM, MY_PROJECT, MY_ORGANIZATION                                                                          |
+| `awarded_scope`           | Level or breadth of the award (local, national, international).           |                 | Enum `AwardedScope`: INTERNATIONAL, NATIONAL, PROVINCIAL, LOCAL, COMMUNITY, ORGANIZATIONAL, SUB_ORGANIZATIONAL                      |
+| `details`                 | Additional context or description of the award.                           |                 |                                                                                                                                     |
+| `created_at`              | Timestamp when the record was created.                                    |                 |                                                                                                                                     |
+| `updated_at`              | Timestamp when the record was last modified.                              |                 |                                                                                                                                     |
+| `deleted_at`              | Soft-delete timestamp; null means the record is active.                   |                 |                                                                                                                                     |
+| `project_name`            | Name of the project that received the award.                              |                 | Required if awarded_to = MY_PROJECT                                                                                                 |
+| `related_experience_type` | Model class of another of the user's experiences this award is linked to. |                 | One of App\Models\WorkExperience, PersonalExperience, CommunityExperience, EducationExperience. Required with related_experience_id |
+| `related_experience_id`   | UUID of the linked experience (polymorphic with related_experience_type). |                 | Must be one of the current user's own experiences of related_experience_type                                                        |
 
 ---
 
 ## classification_community_development_program
 
-Junction table linking GC job classifications to community-specific development programs, defining which classifications are eligible for which programs within a community.
+Junction table linking GC job classifications to community-specific development programs, allowing programs to express that they are only available to certain classifications. Owned by the [community_development_program](#community_development_programs) model.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -420,7 +420,7 @@ Junction table linking GC job classifications to community-specific development 
 
 ## classification_development_program
 
-Junction table linking GC job classifications to platform-wide development programs, defining eligibility criteria by classification.
+**This table is unused and planned for deletion.** Junction table linking GC job classifications to platform-wide development programs, allowing programs to express that they are only available to certain classifications Owned by the [development_program](#development_programs) model, which has been deprecated in favour of [community_development_program](#community_development_programs). 
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -432,76 +432,78 @@ Junction table linking GC job classifications to platform-wide development progr
 
 ## classification_pool_candidate_filter
 
-Junction table linking pool candidate filters (legacy search filters) to classifications. Allows filtering candidate search results by job classification.
+Junction table storing classification filters as part of a pool candidate filter. Owned by [pool_candidate_filter](#pool_candidate_filters). Since pool_candidate_filter has been replaced by [applicant_filter](#applicant_filters), this table only holds legacy data.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this link. |  |  |
-| `created_at` | Timestamp when the link was created. |  |  |
-| `updated_at` | Timestamp when the link was last modified. |  |  |
-| `pool_candidate_filter_id` | FK to the pool candidate filter. | FK → `pool_candidate_filters.id` |  |
-| `classification_id` | FK to the classification being filtered on. | FK → `classifications.id` |  |
+| Column                     | Description                                 | Relationship                     | Constraints |
+| -------------------------- | ------------------------------------------- | -------------------------------- | ----------- |
+| `id`                       | Unique identifier for this link.            |                                  |             |
+| `created_at`               | Timestamp when the link was created.        |                                  |             |
+| `updated_at`               | Timestamp when the link was last modified.  |                                  |             |
+| `pool_candidate_filter_id` | FK to the pool candidate filter.            | FK → `pool_candidate_filters.id` |             |
+| `classification_id`        | FK to the classification being filtered on. | FK → `classifications.id`        |             |
 
 ---
 
 ## classification_talent_nomination_advancement
 
-Junction table linking a talent nomination to the classifications the nominator recommends the nominee for advancement into. Rolled up into the nominations Excel export alongside the group's approved classifications.
+Junction table linking a talent nomination to the classifications the nominator recommends the nominee for advancement into. Owned by [talent_nomination](#talent_nominations).Rolled up into the nominations Excel export alongside the group's approved classifications.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this link. |  |  |
-| `created_at` | Timestamp when the link was created. |  |  |
-| `updated_at` | Timestamp when the link was last modified. |  |  |
-| `classification_id` | FK to the recommended advancement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_id); synced list must be distinct and exist in classifications |
-| `talent_nomination_id` | FK to the nomination making the recommendation. | FK → `talent_nominations.id` | Links only allowed when the nomination's nominate_for_advancement is true (prohibited otherwise, on save and submit) |
+| Column                 | Description                                       | Relationship                 | Constraints                                          |
+| ---------------------- | ------------------------------------------------- | ---------------------------- | ---------------------------------------------------- |
+| `id`                   | Unique identifier for this link.                  |                              |                                                      |
+| `created_at`           | Timestamp when the link was created.              |                              |                                                      |
+| `updated_at`           | Timestamp when the link was last modified.        |                              |                                                      |
+| `classification_id`    | FK to the recommended advancement classification. | FK → `classifications.id`    | Unique per (classification_id, talent_nomination_id) |
+| `talent_nomination_id` | FK to the nomination making the recommendation.   | FK → `talent_nominations.id` |                                                      |
 
 ---
 
 ## classification_talent_nomination_group_advancement
 
-Junction table recording the classifications an admin has approved a nominee for advancement into, at the talent nomination group level. Set when an advancement decision is made on the group.
+Junction table recording the classifications an admin has approved a nominee for advancement into, at the talent nomination group level. Set when an advancement decision is made on the group. Owned by [talent_nomination_group](#talent_nomination_groups).
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this link. |  |  |
-| `created_at` | Timestamp when the link was created. |  |  |
-| `updated_at` | Timestamp when the link was last modified. |  |  |
-| `classification_id` | FK to the approved advancement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_group_id); synced list must be distinct and exist in classifications |
-| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` | At least one link required when advancement_decision is APPROVED; links prohibited otherwise |
+| Column                       | Description                                         | Relationship                       | Constraints                                                |
+| ---------------------------- | --------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------- |
+| `id`                         | Unique identifier for this link.                    |                                    |                                                            |
+| `created_at`                 | Timestamp when the link was created.                |                                    |                                                            |
+| `updated_at`                 | Timestamp when the link was last modified.          |                                    |                                                            |
+| `classification_id`          | FK to the approved advancement classification.      | FK → `classifications.id`          | Unique per (classification_id, talent_nomination_group_id) |
+| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` |                                                            |
 
 ---
 
 ## classification_talent_nomination_group_lateral_movement
 
-Junction table recording the classifications an admin has approved a nominee for lateral movement into, at the talent nomination group level. Set when a lateral movement decision is made on the group.
+Junction table recording the classifications an admin has approved a nominee for lateral movement into, at the talent nomination group level. Set when a lateral movement decision is made on the group. Owned by [talent_nomination_group](#talent_nomination_groups).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for this link. |  |  |
 | `created_at` | Timestamp when the link was created. |  |  |
 | `updated_at` | Timestamp when the link was last modified. |  |  |
-| `classification_id` | FK to the approved lateral movement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_group_id); synced list must be distinct and exist in classifications |
-| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` | At least one link required when lateral_movement_decision is APPROVED; links prohibited otherwise |
+| `classification_id` | FK to the approved lateral movement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_group_id) |
+| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` |  |
 
 ---
 
 ## classifications
 
-Reference table of GC occupational group and level classifications (e.g. EC-06, CS-03, AS-04). Used across pools, users, work experiences, and nominations to define seniority and salary bands.
+Reference table of GC occupational group and level classifications (e.g. EC-06, CS-03, AS-04). Referenced by most other significant data models in some way.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the classification. |  |  |
-| `created_at` | Timestamp when the record was created. |  |  |
-| `updated_at` | Timestamp when the record was last modified. |  |  |
-| `name` | Bilingual display name for the classification. |  | Not null; bilingual (en, fr) |
-| `group` | Occupational group code (e.g. EC, CS, AS, PE). |  | Not null |
-| `level` | Numeric level within the group (e.g. 1, 2, 3, 06). |  | Not null; must be >= 0 (DB CHECK); cannot be changed via update mutation |
-| `min_salary` | Minimum annual salary for this classification. |  | Must be >= 0 (DB CHECK) |
-| `max_salary` | Maximum annual salary for this classification. |  | Must be >= 0 and >= min_salary (DB CHECK) |
-| `deleted_at` | Soft-delete timestamp; null means the classification is active. |  |  |
-| `is_available_in_search` | Whether this classification appears in search filters. |  | Not null, default false |
+ Sometimes used as a proxy for salary; filtering for jobs within a certain salary range would return job posters whose classification's salary overlaps with the filter range.
+
+| Column                   | Description                                                                                                               | Relationship | Constraints                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- |
+| `id`                     | Unique identifier for the classification.                                                                                 |              |                                                                                             |
+| `created_at`             | Timestamp when the record was created.                                                                                    |              |                                                                                             |
+| `updated_at`             | Timestamp when the record was last modified.                                                                              |              |                                                                                             |
+| `name`                   | Bilingual display name for the classification.                                                                            |              | Not null. Example: `{"en": "Information Technology", "fr": "Technologie de l’information"}` |
+| `group`                  | Occupational group code (e.g. EC, CS, AS, PE).                                                                            |              | Not null; string (varchar 255), e.g. `IT`                                                   |
+| `level`                  | Numeric level within the group. Stored as an integer, e.g. `6` (not `"06"`); the UI zero-pads it for display, e.g. IT-06; |              | Not null; must be >= 0 (DB CHECK); cannot be changed via update mutation                    |
+| `min_salary`             | Minimum annual salary for this classification. Stored as an integer, in whole dollars.                                    |              | Nullable; must be >= 0 (DB CHECK)                                                           |
+| `max_salary`             | Maximum annual salary for this classification. Stored as an integer, in whole dollars.                                    |              | Nullable; must be >= 0 and >= min_salary (DB CHECK)                                         |
+| `deleted_at`             | Soft-delete timestamp; null means the classification is active.                                                           |              |                                                                                             |
+| `is_available_in_search` | Purely used for UI: controls whether this classification appears in search filters on the Find Talent page.               |              | Not null, default false                                                                     |
 
 **Referenced by:** `applicant_filter_classification.classification_id`, `applicant_filter_qualified_classification.classification_id`, `classification_community_development_program.classification_id`, `classification_development_program.classification_id`, `classification_pool_candidate_filter.classification_id`, `classification_talent_nomination_advancement.classification_id`, `classification_talent_nomination_group_advancement.classification_id`, `classification_talent_nomination_group_lateral_movement.classification_id`, `generic_job_titles.classification_id`, `job_poster_templates.classification_id`, `off_platform_recruitment_processes.classification_id`, `pools.classification_id`, `talent_nomination_groups.classification_at_time_of_last_approval_id`, `talent_nominations.advancement_reference_fallback_classification_id`, `talent_nominations.nominator_fallback_classification_id`, `users.career_objective_classification_id`, `users.computed_classification`, `users.next_role_classification_id`, `work_experiences.classification_id`
 
@@ -509,7 +511,7 @@ Reference table of GC occupational group and level classifications (e.g. EC-06, 
 
 ## communities
 
-Functional communities within the GC (e.g. Data Science, Digital, Finance). Communities group related work streams, pools, and development programs, and serve as the primary organizing unit for talent management.
+Functional communities within the GC (e.g. Data Science, Digital, Finance). Communities group related work streams, pools, and development programs, and serve as the primary organizing unit for talent management, and related roles and permissions.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -517,10 +519,10 @@ Functional communities within the GC (e.g. Data Science, Digital, Finance). Comm
 | `created_at` | Timestamp when the community was created. |  |  |
 | `updated_at` | Timestamp when the community was last modified. |  |  |
 | `key` | Human-readable unique slug for the community. |  | Not null; unique |
-| `name` | Bilingual display name of the community. |  | Bilingual: en and fr required together |
-| `description` | Bilingual description of the community's mandate and focus. |  | Bilingual: en and fr required together |
-| `mandate_authority` | The GC body or authority responsible for this community. |  | Bilingual: en and fr required together |
-| `information_url` | Link to external information about the community. |  | Bilingual: en and fr required together; must be http/https URLs |
+| `name` | Bilingual display name of the community. |  | Bilingual: en and fr required together. Example: `{"en": "Digital Community", "fr": "Communauté numérique"}` |
+| `description` | Bilingual description of the community's mandate and focus. |  | Bilingual: en and fr required together. Example: `{"en": "Supports the digital community across government.", "fr": "Soutient la communauté numérique du gouvernement."}` |
+| `mandate_authority` | The GC body or authority responsible for this community. |  | Bilingual: en and fr required together. Example: `{"en": "Office of the Chief Information Officer", "fr": "Bureau du dirigeant principal de l’information"}` |
+| `information_url` | Link to external information about the community. |  | Bilingual: en and fr required together; must be http/https URLs. Example: `{"en": "https://example.gc.ca/en/digital", "fr": "https://example.gc.ca/fr/numerique"}` |
 | `contact_email` | Contact email address for the community team. |  |  |
 
 **Referenced by:** `applicant_filters.community_id`, `community_development_program.community_id`, `community_interests.community_id`, `development_programs.community_id`, `pool_candidate_search_requests.community_id`, `pools.community_id`, `talent_nomination_events.community_id`, `talent_requests.community_id`, `users.career_objective_community_id`, `users.next_role_community_id`, `work_streams.community_id`
@@ -565,7 +567,7 @@ Links a community development program to a talent nomination event, and stores t
 | `id` | Unique identifier for this link. |  |  |
 | `community_development_program_id` | FK to the community development program. | FK → `community_development_program.id` | Must belong to the same community as the talent nomination event |
 | `talent_nomination_event_id` | FK to the talent nomination event. | FK → `talent_nomination_events.id` | Unique per (community_development_program_id, talent_nomination_event_id) |
-| `description_for_nominations` | Custom bilingual description shown to nominators for this program at this event. |  | Bilingual (en, fr); default empty strings |
+| `description_for_nominations` | Custom bilingual description shown to nominators for this program at this event. |  | Bilingual (en, fr); default empty strings. Example: `{"en": "Nominate employees ready for leadership training.", "fr": "Proposez des employés prêts pour une formation en leadership."}` |
 
 ---
 
@@ -660,7 +662,7 @@ Reference table of GC departments and agencies (e.g. Treasury Board, DND, PSC). 
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `department_number` | Official GC department number. |  | Unique; NOT NULL |
-| `name` | Bilingual official name of the department or agency. |  | Localized JSON (en, fr); NOT NULL, defaults to empty strings |
+| `name` | Bilingual official name of the department or agency. |  | Localized JSON (en, fr); NOT NULL, defaults to empty strings. Example: `{"en": "Treasury Board of Canada Secretariat", "fr": "Secrétariat du Conseil du Trésor du Canada"}` |
 | `deleted_at` | Soft-delete timestamp; null means the department is active. |  |  |
 | `org_identifier` | Short code or acronym identifying the organization. |  | Required on create |
 | `size` | Approximate size category of the department. |  | Enum `DepartmentSize`: MICRO, SMALL, MEDIUM, LARGE; required on create |
@@ -740,12 +742,12 @@ Catalogue of GC talent development programs (e.g. leadership programs, interchan
 | `id` | Unique identifier for the development program. |  |  |
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
-| `name` | Bilingual display name of the program. |  | Localized JSON (en, fr); NOT NULL |
-| `description_for_profile` | Bilingual description shown to users on their profile page. |  | Localized JSON (en, fr); NOT NULL |
-| `description_for_nominations` | Bilingual description shown to nominators on nomination forms. |  | Deprecated; replaced by description on community_development_program_talent_nomination_event |
+| `name` | Bilingual display name of the program. |  | Localized JSON (en, fr); NOT NULL. Example: `{"en": "Government of Canada IT Apprenticeship Program", "fr": "Programme d’apprentissage en TI du gouvernement du Canada"}` |
+| `description_for_profile` | Bilingual description shown to users on their profile page. |  | Localized JSON (en, fr); NOT NULL. Example: `{"en": "I have completed or am enrolled in this program.", "fr": "J’ai terminé ce programme ou j’y suis inscrit."}` |
+| `description_for_nominations` | Bilingual description shown to nominators on nomination forms. |  | Deprecated; replaced by description on community_development_program_talent_nomination_event. Example: `{"en": "Nominate employees for this program.", "fr": "Proposez des employés pour ce programme."}` |
 | `community_id` | FK to the community that owns or sponsors this program. | FK → `communities.id` |  |
-| `information_url` | Link to external information about the program. |  | Localized URL (http/https); if en or fr is given, both are required |
-| `abbreviation` | Short bilingual abbreviation for the program (e.g. FLDP, CSPS). |  | Localized; if en or fr is given, both are required |
+| `information_url` | Link to external information about the program. |  | Localized URL (http/https); if en or fr is given, both are required. Example: `{"en": "https://example.gc.ca/en/program", "fr": "https://example.gc.ca/fr/programme"}` |
+| `abbreviation` | Short bilingual abbreviation for the program (e.g. FLDP, CSPS). |  | Localized; if en or fr is given, both are required. Example: `{"en": "FLDP", "fr": "PPLF"}` |
 
 **Referenced by:** `classification_development_program.development_program_id`, `community_development_program.development_program_id`, `development_program_interests.development_program_id`, `development_program_talent_nomination.development_program_id`, `development_program_talent_nomination_event.development_program_id`, `development_program_user.development_program_id`
 
@@ -840,7 +842,7 @@ Optional open-ended questions added by pool administrators to a job advertisemen
 | `id` | Unique identifier for the question. |  |  |
 | `pool_id` | FK to the pool this question is associated with. | FK → `pools.id` |  |
 | `sort_order` | Display order of the question in the application form. |  |  |
-| `question` | Bilingual question text shown to applicants. |  | Localized JSON (en, fr); required (NOT NULL) |
+| `question` | Bilingual question text shown to applicants. |  | Localized JSON (en, fr); required (NOT NULL). Example: `{"en": "Why are you interested in this role?", "fr": "Pourquoi ce poste vous intéresse-t-il?"}` |
 | `deleted_at` | Soft-delete timestamp; null means the question is active. |  |  |
 | `created_at` | Timestamp when the question was created. |  |  |
 | `updated_at` | Timestamp when the question was last modified. |  |  |
@@ -875,7 +877,7 @@ Reference table of standardized plain-language job titles (e.g. 'Data Scientist'
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the title is active. |  |  |
 | `key` | Human-readable slug for the title. |  | Unique; Enum `GenericJobTitleKey`: TECHNICIAN_IT01, ANALYST_IT02, TEAM_LEADER_IT03, TECHNICAL_ADVISOR_IT03, SENIOR_ADVISOR_IT04, MANAGER_IT04, DIGITAL_LEADER_EX_03 |
-| `name` | Bilingual plain-language display name. |  | Localized JSON (en, fr); NOT NULL, defaults to empty strings |
+| `name` | Bilingual plain-language display name. |  | Localized JSON (en, fr); NOT NULL, defaults to empty strings. Example: `{"en": "Analyst", "fr": "Analyste"}` |
 | `classification_id` | FK to the GC classification this title maps to. | FK → `classifications.id` |  |
 
 **Referenced by:** `generic_job_title_user.generic_job_title_id`
@@ -890,7 +892,7 @@ Point-in-time snapshots of a pool's rendered job poster HTML (English and French
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for this archive snapshot. |  |  |
 | `type` | The lifecycle stage at which the snapshot was taken. |  | Enum `JobPosterArchiveType`: PUBLISHED, CLOSED; not unique per pool, so multiple snapshots of a type may exist |
-| `html` | Bilingual rendered job poster HTML, generated from the job_poster.index Blade view in each locale. |  | Localized JSON {en, fr}; both populated by Pool::storeArchive |
+| `html` | Bilingual rendered job poster HTML, generated from the job_poster.index Blade view in each locale. |  | Localized JSON {en, fr}; both populated by Pool::storeArchive. Example: `{"en": "<h1>IT-02: Web Developer</h1>…", "fr": "<h1>IT-02 : Développeur(-euse) Web</h1>…"}` |
 | `pool_id` | FK to the pool whose poster was archived. | FK → `pools.id` |  |
 | `created_at` | Timestamp when the snapshot was taken. |  |  |
 | `updated_at` | Timestamp when the snapshot was last modified. |  |  |
@@ -922,14 +924,14 @@ Reusable templates for job advertisements, pre-populated with role descriptions,
 | `updated_at` | Timestamp when the template was last modified. |  |  |
 | `reference_id` | External reference identifier for the template. |  | Required; unique (enforced by API validator, not DB) |
 | `supervisory_status` | Whether this role involves supervisory responsibilities. |  | Enum `SupervisoryStatus`: INDIVIDUAL_CONTRIBUTOR, SUPERVISOR; required on create |
-| `name` | Bilingual name of the template. |  | Localized JSON (en, fr); required on create |
-| `description` | Bilingual description of the role for this template. |  | Localized JSON (en, fr); required on create |
-| `work_description` | Bilingual description of the work environment and context. |  |  |
-| `tasks` | Bilingual list of typical tasks for this role. |  | Localized JSON (en, fr); required on create |
-| `keywords` | Bilingual keywords to aid discovery and search. |  | Localized arrays of strings (en: [], fr: []) |
-| `essential_technical_skills_notes` | Bilingual notes about essential technical skill requirements. |  |  |
-| `essential_behavioural_skills_notes` | Bilingual notes about essential behavioural competencies. |  |  |
-| `nonessential_technical_skills_notes` | Bilingual notes about asset technical skills. |  |  |
+| `name` | Bilingual name of the template. |  | Localized JSON (en, fr); required on create. Example: `{"en": "Web Developer", "fr": "Développeur(-euse) Web"}` |
+| `description` | Bilingual description of the role for this template. |  | Localized JSON (en, fr); required on create. Example: `{"en": "As an IT-02 Web Developer, you will…", "fr": "En tant que développeur(-euse) Web IT-02, vous…"}` |
+| `work_description` | Bilingual description of the work environment and context. |  | Example: `{"en": "https://www.gcpedia.gc.ca/…_EN.docx", "fr": "https://www.gcpedia.gc.ca/…_FR.docx"}` |
+| `tasks` | Bilingual list of typical tasks for this role. |  | Localized JSON (en, fr); required on create. Example: `{"en": "<ul><li><p>Writes new code…</p></li></ul>", "fr": "<ul><li><p>Écrit du nouveau code…</p></li></ul>"}` |
+| `keywords` | Bilingual keywords to aid discovery and search. |  | Localized arrays of strings (en: [], fr: []). Example: `{"en": ["Programmer", "Developer"], "fr": ["Programmeur", "Développeur"]}` |
+| `essential_technical_skills_notes` | Bilingual notes about essential technical skill requirements. |  | Example: `{"en": "Web Development Languages may be replaced with…", "fr": "Les langages de développement Web peuvent être remplacés par…"}` |
+| `essential_behavioural_skills_notes` | Bilingual notes about essential behavioural competencies. |  | Example: `{"en": "Collaboration may be replaced with…", "fr": "La collaboration peut être remplacée par…"}` |
+| `nonessential_technical_skills_notes` | Bilingual notes about asset technical skills. |  | Example: `{"en": "Project management tools may be replaced with…", "fr": "Les outils de gestion de projet peuvent être remplacés par…"}` |
 | `classification_id` | FK to the GC classification this template targets. | FK → `classifications.id` | Required on create (NOT NULL) |
 | `work_stream_id` | FK to the work stream this template is designed for. | FK → `work_streams.id` | Required on create via API (nullable in DB) |
 
@@ -1033,8 +1035,8 @@ Reference table of all defined platform permissions (e.g. view-pool, update-cand
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the permission. |  |  |
 | `name` | Human-readable permission slug (e.g. view-any-pool). |  | Unique. Format `action-scope-resource` (e.g. update-team-publishedPool), seeded from config/rolepermission.php |
-| `display_name` | Human-readable bilingual label for the permission. |  |  |
-| `description` | Bilingual explanation of what this permission grants. |  |  |
+| `display_name` | Human-readable bilingual label for the permission. |  | Example: `{"en": "View any user", "fr": "Voir tout utilisateur"}` |
+| `description` | Bilingual explanation of what this permission grants. |  | Example: `{"en": "View any user’s profile", "fr": "Voir le profil de tout utilisateur"}` |
 | `created_at` | Timestamp when the permission was created. |  |  |
 | `updated_at` | Timestamp when the permission was last modified. |  |  |
 
@@ -1259,24 +1261,24 @@ Recruitment pools (job advertisements) at the heart of the GC Digital Talent pla
 | `id` | Unique identifier for the pool. |  |  |
 | `created_at` | Timestamp when the pool was created. |  |  |
 | `updated_at` | Timestamp when the pool was last modified. |  |  |
-| `name` | Bilingual name of the pool/advertisement. |  | Required to publish; bilingual (en and fr both or neither). Default {en:'', fr:''} |
+| `name` | Bilingual name of the pool/advertisement. |  | Required to publish; bilingual (en and fr both or neither). Default {en:'', fr:''}. Example: `{"en": "Web Developer", "fr": "Développeur(-euse) Web"}` |
 | `deleted_at` | Soft-delete timestamp; null means the pool is active. |  |  |
 | `operational_requirements` | JSON array of operational conditions required for the role. |  | Array of `OperationalRequirement`: SHIFT_WORK, ON_CALL, TRAVEL, TRANSPORT_EQUIPMENT, DRIVERS_LICENSE, OVERTIME_OCCASIONAL, OVERTIME_REGULAR |
-| `key_tasks` | Bilingual description of key tasks and responsibilities. |  | Required to publish; bilingual: en and fr both required |
+| `key_tasks` | Bilingual description of key tasks and responsibilities. |  | Required to publish; bilingual: en and fr both required. Example: `{"en": "Develop and maintain web applications…", "fr": "Développer et maintenir des applications Web…"}` |
 | `closing_date` | Date and time when the pool closes for applications. |  | Required to publish; must be after end of today. Edits must be after today; changePoolClosingDate cannot move it earlier. Status becomes CLOSED once now >= closing_date |
-| `your_impact` | Bilingual statement about the role's impact. |  | Required to publish; bilingual: en and fr both required |
-| `advertisement_location` | Bilingual location description for the advertisement. |  | Bilingual; required (en and fr) if is_remote = false |
+| `your_impact` | Bilingual statement about the role's impact. |  | Required to publish; bilingual: en and fr both required. Example: `{"en": "Your work will improve services for Canadians.", "fr": "Votre travail améliorera les services aux Canadiens."}` |
+| `advertisement_location` | Bilingual location description for the advertisement. |  | Bilingual; required (en and fr) if is_remote = false. Example: `{"en": "Ottawa, Ontario", "fr": "Ottawa (Ontario)"}` |
 | `security_clearance` | Required security clearance level (e.g. reliability, secret). |  | Required to publish. Enum `SecurityStatus`: RELIABILITY, SECRET, TOP_SECRET |
 | `advertisement_language` | Language(s) in which the advertisement is posted. |  | Required to publish. Enum `PoolLanguage`: ENGLISH, FRENCH, VARIOUS, VARIOUS_BILINGUAL, BILINGUAL_INTERMEDIATE, BILINGUAL_ADVANCED |
 | `is_remote` | Whether the position is remote-eligible. |  | Required to publish (boolean) |
 | `process_number` | Official GC selection process number. |  |  |
 | `published_at` | Timestamp when the pool was published publicly. |  | Set by publishPool (only from DRAFT, after completeness and assessment plan checks). Status is computed: DRAFT if null, ARCHIVED if archived_at passed, CLOSED if closing_date passed, else PUBLISHED |
-| `what_to_expect` | Bilingual description of the assessment process for applicants. |  | Bilingual: en and fr both or neither |
+| `what_to_expect` | Bilingual description of the assessment process for applicants. |  | Bilingual: en and fr both or neither. Example: `{"en": "You will be invited to a technical interview…", "fr": "Vous serez invité(e) à une entrevue technique…"}` |
 | `archived_at` | Timestamp when the pool was archived. |  | Can only be set when status is CLOSED; unarchive (set null) only when ARCHIVED |
-| `special_note` | Bilingual special note or caveat displayed on the advertisement. |  | Bilingual: en and fr both or neither |
+| `special_note` | Bilingual special note or caveat displayed on the advertisement. |  | Bilingual: en and fr both or neither. Example: `{"en": "This process may be used to staff similar positions.", "fr": "Ce processus pourrait servir à doter des postes similaires."}` |
 | `opportunity_length` | Expected length of the opportunity (e.g. various, short-term). |  | Required to publish. Enum `PoolOpportunityLength`: TERM_SIX_MONTHS, TERM_ONE_YEAR, TERM_TWO_YEARS, INDETERMINATE, VARIOUS |
-| `what_to_expect_admission` | Bilingual description of what happens after a candidate is admitted to the pool. |  | Bilingual: en and fr both or neither |
-| `about_us` | Bilingual description of the hiring organization. |  | Bilingual: en and fr both or neither |
+| `what_to_expect_admission` | Bilingual description of what happens after a candidate is admitted to the pool. |  | Bilingual: en and fr both or neither. Example: `{"en": "Hiring managers may contact you…", "fr": "Des gestionnaires d’embauche pourraient communiquer avec vous…"}` |
+| `about_us` | Bilingual description of the hiring organization. |  | Bilingual: en and fr both or neither. Example: `{"en": "Our team builds digital services for Canadians.", "fr": "Notre équipe conçoit des services numériques pour les Canadiens."}` |
 | `classification_id` | FK to the GC classification for this pool. | FK → `classifications.id` | Required to publish |
 | `closing_reason` | Reason why the pool was closed. |  | Required when closing early (closePool sets closing_date to now); non-null means pool was closed early |
 | `change_justification` | Explanation for significant changes to the pool after publication. |  | Required when editing a published pool |
@@ -1316,8 +1318,8 @@ Reference table of platform roles (e.g. Admin, Pool Operator, Applicant, Communi
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the role. |  |  |
 | `name` | Human-readable role slug (e.g. process_operator, community_recruiter). |  | Unique. Seeded: base_user, applicant, process_operator, community_recruiter, community_admin, platform_admin, community_talent_coordinator, department_admin, department_hr_advisor |
-| `display_name` | Bilingual human-readable label for the role. |  |  |
-| `description` | Bilingual description of what this role can do. |  |  |
+| `display_name` | Bilingual human-readable label for the role. |  | Example: `{"en": "Applicant", "fr": "Candidat"}` |
+| `description` | Bilingual description of what this role can do. |  | Example: `{"en": "Available to any logged-in user.", "fr": "Accessibles à tout utilisateur qui a ouvert une session."}` |
 | `created_at` | Timestamp when the role was created. |  |  |
 | `updated_at` | Timestamp when the role was last modified. |  |  |
 | `is_team_based` | Whether this role is scoped to a team or applies platform-wide. |  | Determines whether role_user.team_id is required |
@@ -1351,7 +1353,7 @@ Questions added by pool administrators to screen applicants at the application s
 | `pool_id` | FK to the pool this question belongs to. | FK → `pools.id` | Questions are synced per pool via createOrUpdateScreeningQuestionAssessmentStep; omitted questions are deleted |
 | `assessment_step_id` | FK to the assessment step this question is part of. | FK → `assessment_steps.id` | Set to the pool's SCREENING_QUESTIONS_AT_APPLICATION assessment step |
 | `sort_order` | Display order of the question in the application form. |  |  |
-| `question` | Bilingual question text shown to applicants. |  | Localized string {en, fr}; required (NOT NULL) |
+| `question` | Bilingual question text shown to applicants. |  | Localized string {en, fr}; required (NOT NULL). Example: `{"en": "Describe a project you led.", "fr": "Décrivez un projet que vous avez dirigé."}` |
 | `created_at` | Timestamp when the question was created. |  |  |
 | `updated_at` | Timestamp when the question was last modified. |  |  |
 
@@ -1367,8 +1369,8 @@ Groups related skills into broad categories (e.g. 'Leadership', 'Technical', 'Co
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the skill family. |  |  |
 | `key` | Human-readable slug for the skill family. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
-| `name` | Bilingual display name of the skill family. |  | Localized string {en, fr}; required on create |
-| `description` | Bilingual description of the skill family and what it covers. |  | Localized string {en, fr} |
+| `name` | Bilingual display name of the skill family. |  | Localized string {en, fr}; required on create. Example: `{"en": "Cyber Security", "fr": "Cybersécurité"}` |
+| `description` | Bilingual description of the skill family and what it covers. |  | Localized string {en, fr}. Example: `{"en": "Behavioural - Personal", "fr": "Comportemental - Personnel"}` |
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the skill family is active. |  |  |
@@ -1409,12 +1411,12 @@ The platform's catalogue of skills and competencies (e.g. 'Python', 'Strategic T
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the skill. |  |  |
 | `key` | Human-readable slug for the skill. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
-| `name` | Bilingual display name of the skill. |  | Localized string {en, fr}; required |
-| `description` | Bilingual description of what this skill entails. |  | Localized string {en, fr} |
+| `name` | Bilingual display name of the skill. |  | Localized string {en, fr}; required. Example: `{"en": "Python", "fr": "Python"}` |
+| `description` | Bilingual description of what this skill entails. |  | Localized string {en, fr}. Example: `{"en": "Demonstrated drive to seek out and discover new information.", "fr": "Volonté démontrée de rechercher et de découvrir de nouvelles informations."}` |
 | `created_at` | Timestamp when the skill was created. |  |  |
 | `updated_at` | Timestamp when the skill was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the skill is active. |  | Soft delete blocked if skill is used by an active pool (`SkillNotUsedByActivePool`) |
-| `keywords` | Bilingual keywords to improve skill discoverability in search. |  | JSON {en: [string], fr: [string]}; default empty arrays |
+| `keywords` | Bilingual keywords to improve skill discoverability in search. |  | JSON {en: [string], fr: [string]}; default empty arrays. Example: `{"en": ["python", "scripting"], "fr": ["python", "script"]}` |
 | `category` | Broad category (e.g. technical, behavioural) the skill belongs to. |  | Enum `SkillCategory`: TECHNICAL, BEHAVIOURAL; default TECHNICAL |
 
 **Referenced by:** `applicant_filter_skill.skill_id`, `job_poster_template_skill.skill_id`, `pool_skill.skill_id`, `skill_skill_family.skill_id`, `skill_talent_nomination.skill_id`, `user_skills.skill_id`
@@ -1430,16 +1432,16 @@ Time-bound nomination campaigns organized by a community, during which managers 
 | `id` | Unique identifier for the nomination event. |  |  |
 | `created_at` | Timestamp when the event was created. |  |  |
 | `updated_at` | Timestamp when the event was last modified. |  |  |
-| `name` | Bilingual name of the nomination event. |  | Localized string; en and fr both required; cannot change while event is ACTIVE |
-| `description` | Bilingual description of the event's purpose and scope. |  | Localized string {en, fr} |
+| `name` | Bilingual name of the nomination event. |  | Localized string; en and fr both required; cannot change while event is ACTIVE. Example: `{"en": "2026 Digital Talent Nominations", "fr": "Mises en candidature 2026 – Talents numériques"}` |
+| `description` | Bilingual description of the event's purpose and scope. |  | Localized string {en, fr}. Example: `{"en": "Annual nomination event for the digital community.", "fr": "Événement annuel de mise en candidature de la communauté numérique."}` |
 | `open_date` | Date and time when nominations open. |  | Required; cannot change while event is ACTIVE. Status derived from dates: UPCOMING, ACTIVE, PAST |
 | `close_date` | Date and time when nominations close. |  | Required; must be after open_date; while ACTIVE can only be moved later. Nominations cannot be created/updated after close (unless user has past-nomination permission) |
-| `learn_more_url` | Bilingual URL linking to more information about the event. |  | Localized string; each value must be a valid URL |
+| `learn_more_url` | Bilingual URL linking to more information about the event. |  | Localized string; each value must be a valid URL. Example: `{"en": "https://example.gc.ca/en/nominations", "fr": "https://example.gc.ca/fr/candidatures"}` |
 | `include_leadership_competencies` | Whether nominators are asked to assess leadership competencies. |  |  |
 | `community_id` | FK to the community organizing this event. | FK → `communities.id` | Required; must exist; cannot change while event is ACTIVE |
 | `include_nine_box` | Whether nominations for this event collect nine-box performance and leadership-potential ratings. |  | Default false |
 | `require_reference_for_advancement` | Whether advancement nominations for this event require a reference. |  | Default false |
-| `custom_instructions` | Bilingual event-specific instructions shown to nominators. |  | Bilingual |
+| `custom_instructions` | Bilingual event-specific instructions shown to nominators. |  | Bilingual. Example: `{"en": "Nominations must be approved by your director.", "fr": "Les candidatures doivent être approuvées par votre directeur(-trice)."}` |
 | `contact_email` | Contact email for questions about the event. |  | Required; email format |
 
 **Referenced by:** `community_development_program_talent_nomination_event.talent_nomination_event_id`, `development_program_talent_nomination_event.talent_nomination_event_id`, `talent_nomination_groups.talent_nomination_event_id`, `talent_nominations.talent_nomination_event_id`
@@ -1457,10 +1459,10 @@ Aggregates all nominations received for a single nominee within a given nominati
 | `updated_at` | Timestamp when the group was last modified. |  |  |
 | `nominee_id` | FK to the user being nominated. | FK → `users.id` | Unique per (nominee_id, talent_nomination_event_id); default scope hides groups whose nominee is soft-deleted |
 | `talent_nomination_event_id` | FK to the nomination event this group belongs to. | FK → `talent_nomination_events.id` | Unique per (nominee_id, talent_nomination_event_id) |
-| `advancement_decision` | Consolidated decision on advancement (e.g. recommended, not recommended). |  | Enum `TalentNominationGroupDecision`: APPROVED, REJECTED; prohibited unless group has advancement nominations |
+| `advancement_decision` | Consolidated decision on advancement (e.g. recommended, not recommended). |  | Enum `TalentNominationGroupDecision`: APPROVED, REJECTED; prohibited unless group has advancement nominations; when APPROVED, at least one approved advancement classification (`classification_talent_nomination_group_advancement`) is required; otherwise none may be linked |
 | `advancement_reference_confirmed` | Whether the advancement reference has been confirmed. |  |  |
 | `advancement_notes` | Notes supporting the advancement decision. |  |  |
-| `lateral_movement_decision` | Consolidated decision on lateral movement. |  | Enum `TalentNominationGroupDecision`: APPROVED, REJECTED; prohibited unless group has lateral movement nominations |
+| `lateral_movement_decision` | Consolidated decision on lateral movement. |  | Enum `TalentNominationGroupDecision`: APPROVED, REJECTED; prohibited unless group has lateral movement nominations; when APPROVED, at least one approved lateral movement classification (`classification_talent_nomination_group_lateral_movement`) is required; otherwise none may be linked |
 | `lateral_movement_notes` | Notes supporting the lateral movement decision. |  |  |
 | `development_programs_decision` | Consolidated decision on development program participation. |  | Enum `TalentNominationGroupDecision`: APPROVED, REJECTED; prohibited unless group has development program nominations |
 | `development_programs_notes` | Notes supporting the development programs decision. |  |  |
@@ -1499,7 +1501,7 @@ An individual nomination submitted by a manager (nominator) for an employee (nom
 | `nominee_review` | Whether the nominee has reviewed and consented to the nomination. |  | Enum `TalentNominationUserReview`: CORRECT, INCORRECT_OUT_OF_DATE, WRONG_PERSON; required to submit |
 | `nominee_relationship_to_nominator` | The nominee's working relationship to the nominator. |  | Enum `TalentNominationNomineeRelationshipToNominator`: CURRENT_EMPLOYEE, FORMER_EMPLOYEE, ANOTHER_WORK_EMPLOYEE, MENTEE, OTHER; required to submit |
 | `nominee_relationship_to_nominator_other` | Free-text if the relationship is not in the standard list. |  | Required if relationship is OTHER, otherwise prohibited |
-| `nominate_for_advancement` | Whether this nomination is for advancement to a higher level. |  | Required to submit; must be true iff an advancement reference (user or fallback email) is set |
+| `nominate_for_advancement` | Whether this nomination is for advancement to a higher level. |  | Required to submit; must be true iff an advancement reference (user or fallback email) is set; advancement classifications (`classification_talent_nomination_advancement`) may only be linked when true (prohibited otherwise, on save and submit) |
 | `nominate_for_lateral_movement` | Whether this nomination is for a lateral move. |  | Required to submit; must be true iff lateral_movement_options is non-empty |
 | `nominate_for_development_programs` | Whether this nomination is for development program participation. |  | Required to submit; must be true iff development programs or development_program_options_other set; must be false if event has no development opportunities |
 | `advancement_reference_id` | FK to the user providing a reference for advancement. | FK → `users.id` | Only allowed if nominate_for_advancement; prohibits advancement reference fallback fields |
@@ -1511,7 +1513,7 @@ An individual nomination submitted by a manager (nominator) for an employee (nom
 | `lateral_movement_options` | JSON array of lateral movement types selected. |  | Array of `TalentNominationLateralMovementOption`: SMALL_DEPARTMENT, LARGE_DEPARTMENT, CENTRAL_DEPARTMENT, NEW_DEPARTMENT, PROGRAM_EXPERIENCE, POLICY_EXPERIENCE, OTHER; distinct; default [] |
 | `lateral_movement_options_other` | Free-text for lateral movement options not in the standard list. |  | Required if lateral_movement_options contains OTHER, otherwise prohibited |
 | `development_program_options_other` | Free-text for development program options not in the standard list. |  | Only allowed if nominate_for_development_programs is true |
-| `nomination_rationale` | Bilingual narrative justifying why the employee is being nominated. |  | Required to submit |
+| `nomination_rationale` | Narrative justifying why the employee is being nominated. |  | Required to submit |
 | `additional_comments` | Free-text additional comments from the nominator. |  |  |
 | `talent_nomination_group_id` | FK to the nomination group aggregating all nominations for this nominee. | FK → `talent_nomination_groups.id` |  |
 | `nine_box_performance` | Nominator's nine-box rating of the nominee's performance. |  | Enum `NineBoxRating`: LOW, MODERATE, HIGH. Required to submit when the event has include_nine_box, otherwise prohibited |
@@ -1601,13 +1603,13 @@ Listings of training courses and learning opportunities available to GC employee
 | `id` | Unique identifier for the training opportunity. |  |  |
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
-| `title` | Bilingual title of the training course or opportunity. |  | Localized string {en, fr}; required on create |
+| `title` | Bilingual title of the training course or opportunity. |  | Localized string {en, fr}; required on create. Example: `{"en": "Agile Fundamentals", "fr": "Principes fondamentaux d’Agile"}` |
 | `course_language` | Language(s) in which the course is offered. |  | Enum `CourseLanguage`: ENGLISH, FRENCH, BILINGUAL; required on create |
 | `registration_deadline` | Date by which participants must register. |  | Required on create |
 | `training_start` | Date when the training begins. |  | Required on create |
 | `training_end` | Date when the training ends. |  |  |
-| `description` | Bilingual description of the training content and objectives. |  | Localized string {en, fr}; required on create |
-| `application_url` | URL where participants can register or apply. |  | Localized string {en, fr}; required on create |
+| `description` | Bilingual description of the training content and objectives. |  | Localized string {en, fr}; required on create. Example: `{"en": "An introduction to agile project management.", "fr": "Une introduction à la gestion de projet agile."}` |
+| `application_url` | URL where participants can register or apply. |  | Localized string {en, fr}; required on create. Example: `{"en": "https://example.gc.ca/en/apply", "fr": "https://example.gc.ca/fr/postuler"}` |
 | `course_format` | Delivery format (e.g. in-person, virtual, hybrid, self-paced). |  | Enum `CourseFormat`: ON_SITE, VIRTUAL; required on create |
 | `pinned` | Whether this opportunity is pinned to the top of the listing. |  | Required on create; default false |
 
@@ -1673,99 +1675,99 @@ Junction table recording which work streams a user is targeting for their next r
 
 The central user record for all platform participants — applicants, managers, HR advisors, and administrators. Stores identity, contact information, employment equity self-identification, language profile, career planning preferences, and computed fields derived from their work history.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the user. |  |  |
-| `created_at` | Timestamp when the account was created. |  |  |
-| `updated_at` | Timestamp when the account was last modified. |  |  |
-| `email` | Primary contact email address. |  | Unique; case-insensitively unique across email and work_email; email format; moved to email_backup on soft delete |
-| `first_name` | User's given name. |  | Required on create |
-| `last_name` | User's family name. |  | Required on create |
-| `telephone` | Contact telephone number. |  |  |
-| `preferred_lang` | Preferred language for platform communications (en or fr). |  | Enum `Language`: EN, FR (stored lowercase en/fr) |
-| `deleted_at` | Soft-delete timestamp; null means the account is active. |  | Soft delete also soft-deletes pool candidates and clears email/work_email into backup columns |
-| `sub` | OIDC subject identifier from the identity provider (GCKey/Sign-in Canada). |  | Unique |
-| `current_province` | Province or territory where the user currently works or lives. |  | Enum `ProvinceOrTerritory` (13 cases, e.g. ONTARIO, QUEBEC, BRITISH_COLUMBIA, NUNAVUT) |
-| `current_city` | City where the user currently works or lives. |  |  |
-| `looking_for_english` | Whether the user wants to work in English. |  |  |
-| `looking_for_french` | Whether the user wants to work in French. |  |  |
-| `looking_for_bilingual` | Whether the user wants to work in a bilingual position. |  |  |
-| `comprehension_level` | Self-assessed second-language reading comprehension level. |  | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED |
-| `written_level` | Self-assessed second-language written expression level. |  | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED |
-| `verbal_level` | Self-assessed second-language oral interaction level. |  | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED |
-| `estimated_language_ability` | Overall estimated second-language ability level. |  | Enum `EstimatedLanguageAbility`: BEGINNER, INTERMEDIATE, ADVANCED |
-| `computed_is_gov_employee` | Computed flag indicating the user is a current GC employee. |  | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `computed_classification` | FK to the user's current computed GC classification based on work history. | FK → `classifications.id` | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `location_exemptions` | Free-text explanation of any location flexibility exemptions. |  |  |
-| `is_woman` | Employment equity: user has self-identified as a woman. |  |  |
-| `has_disability` | Employment equity: user has declared a disability. |  |  |
-| `is_visible_minority` | Employment equity: user has self-identified as a visible minority. |  |  |
-| `has_diploma` | Whether the user holds a post-secondary diploma or higher. |  |  |
-| `location_preferences` | JSON array of preferred work locations. |  | Array of `WorkRegion`: TELEWORK, NATIONAL_CAPITAL, ATLANTIC, QUEBEC, ONTARIO, PRAIRIE, BRITISH_COLUMBIA, NORTH |
-| `accepted_operational_requirements` | JSON array of operational conditions the user accepts. |  | Array of `OperationalRequirement`: SHIFT_WORK, ON_CALL, TRAVEL, TRANSPORT_EQUIPMENT, DRIVERS_LICENSE, OVERTIME_OCCASIONAL, OVERTIME_REGULAR |
-| `computed_gov_employee_type` | Computed type of GC employment (e.g. indeterminate, term, casual). |  | Enum `GovEmployeeType`: STUDENT, CASUAL, TERM, INDETERMINATE, CONTRACTOR, INTERCHANGE; Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `computed_department` | FK to the user's current computed department based on work history. | FK → `departments.id` | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `citizenship` | Citizenship status (e.g. citizen, permanent resident). |  | Enum `CitizenshipStatus`: PERMANENT_RESIDENT, CITIZEN, OTHER |
-| `armed_forces_status` | Canadian Armed Forces status (e.g. veteran, active, none). |  | Enum `ArmedForcesStatus`: VETERAN, MEMBER, NON_CAF |
-| `has_priority_entitlement` | Whether the user has a GC priority entitlement for staffing. |  |  |
-| `priority_number` | Official priority entitlement number. |  |  |
-| `priority_weight` | Computed numeric weight reflecting priority entitlement type. |  | Generated column: 10 if has_priority_entitlement, 20 if VETERAN, 30 if CITIZEN or PERMANENT_RESIDENT, else 40 |
-| `position_duration` | JSON array of acceptable position durations. |  | Array of `PositionDuration`: TEMPORARY, PERMANENT |
-| `indigenous_declaration_signature` | Confirmation that the user has signed the Indigenous identity declaration. |  |  |
-| `indigenous_communities` | JSON array of Indigenous communities the user identifies with. |  | Array of `IndigenousCommunity`: STATUS_FIRST_NATIONS, NON_STATUS_FIRST_NATIONS, INUIT, METIS, OTHER, LEGACY_IS_INDIGENOUS; cannot include both STATUS and NON_STATUS |
-| `preferred_language_for_interview` | Preferred official language for interviews. |  | Enum `Language`: EN, FR (stored lowercase en/fr) |
-| `preferred_language_for_exam` | Preferred official language for written exams. |  | Enum `Language`: EN, FR (stored lowercase en/fr) |
-| `first_official_language` | The user's first official language (English or French). |  | Enum `Language`: EN, FR (stored lowercase en/fr) |
-| `second_language_exam_completed` | Whether the user has completed a second-language evaluation. |  |  |
-| `second_language_exam_validity` | Date until which the second-language evaluation results are valid. |  |  |
-| `enabled_email_notifications` | JSON array of email notification types the user has enabled. |  | Array of `NotificationFamily`; only APPLICATION_UPDATE, JOB_ALERT may be enabled; distinct |
-| `enabled_in_app_notifications` | JSON array of in-app notification types the user has enabled. |  | Array of `NotificationFamily`; only APPLICATION_UPDATE, JOB_ALERT may be enabled; distinct |
-| `email_verified_at` | Timestamp when the user's email address was verified. |  |  |
-| `work_email` | User's official GC work email address. |  | Unique; case-insensitively unique across email and work_email; verified via verifyUserEmails, which requires a government domain (`GovernmentEmailRegex`) and takes it from any other user holding it |
-| `work_email_verified_at` | Timestamp when the work email was verified. |  |  |
-| `last_sign_in_at` | Timestamp of the user's most recent login. |  |  |
-| `career_planning_mentorship_status` | Whether the user is currently a mentor, mentee, or neither. |  | Array of `Mentorship`: MENTOR, MENTEE |
-| `career_planning_mentorship_interest` | Whether the user is interested in a mentorship relationship. |  | Array of `Mentorship`: MENTOR, MENTEE |
-| `career_planning_exec_interest` | Whether the user is interested in executive-level opportunities. |  |  |
-| `career_planning_exec_coaching_status` | Whether the user is currently receiving executive coaching. |  | Array of `ExecCoaching`: COACHING, LEARNING |
-| `career_planning_exec_coaching_interest` | Whether the user is interested in executive coaching. |  | Array of `ExecCoaching`: COACHING, LEARNING |
-| `career_planning_about_you` | Bilingual free-text self-description for career planning. |  |  |
-| `career_planning_learning_goals` | Bilingual description of the user's learning and development goals. |  |  |
-| `career_planning_work_style` | Bilingual description of the user's preferred working style. |  |  |
-| `computed_gov_position_type` | Computed position type based on most recent GC work experience. |  | Enum `GovPositionType`: SUBSTANTIVE, ACTING, SECONDMENT, ASSIGNMENT; Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `computed_gov_end_date` | Computed end date of the user's most recent GC term position. |  | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `next_role_classification_id` | FK to the classification the user is targeting for their next role. | FK → `classifications.id` |  |
-| `career_objective_classification_id` | FK to the classification the user is targeting as a long-term career goal. | FK → `classifications.id` |  |
-| `next_role_target_role` | Type of next role the user is seeking (e.g. same, promotion, lateral). |  | Enum `TargetRole`: INDIVIDUAL_CONTRIBUTOR, MANAGER, DIRECTOR, SENIOR_DIRECTOR, EXECUTIVE_DIRECTOR, DIRECTOR_GENERAL, ASSISTANT_DEPUTY_MINISTER, DEPUTY_MINISTER, OTHER |
-| `career_objective_target_role` | Type of long-term career role the user is seeking. |  | Enum `TargetRole`: INDIVIDUAL_CONTRIBUTOR, MANAGER, DIRECTOR, SENIOR_DIRECTOR, EXECUTIVE_DIRECTOR, DIRECTOR_GENERAL, ASSISTANT_DEPUTY_MINISTER, DEPUTY_MINISTER, OTHER |
-| `next_role_target_role_other` | Free-text if next role type is not in the standard list. |  | Required if next_role_target_role is OTHER, otherwise prohibited |
-| `career_objective_target_role_other` | Free-text if career objective type is not in the standard list. |  | Required if career_objective_target_role is OTHER, otherwise prohibited |
-| `next_role_job_title` | Bilingual plain-language title of the next role the user wants. |  |  |
-| `career_objective_job_title` | Bilingual plain-language title of the user's long-term target role. |  |  |
-| `next_role_community_id` | FK to the community the user wants to work in for their next role. | FK → `communities.id` | Mutually exclusive with next_role_community_other; if set, next role work streams must be provided |
-| `career_objective_community_id` | FK to the community the user wants to work in long-term. | FK → `communities.id` | Mutually exclusive with career_objective_community_other; if set, career objective work streams must be provided |
-| `next_role_additional_information` | Bilingual additional notes about the user's next role preferences. |  |  |
-| `career_objective_additional_information` | Bilingual additional notes about the user's long-term career objectives. |  |  |
-| `career_planning_lateral_move_interest` | Whether the user is interested in a lateral move. |  |  |
-| `career_planning_lateral_move_time_frame` | Expected timeframe for a lateral move. |  | Enum `TimeFrame`: THIS_YEAR, ONE_TO_TWO_YEARS, THREE_OR_MORE_YEARS; required if lateral move interest is true |
-| `career_planning_lateral_move_organization_type` | Type of organization the user wants for a lateral move. |  | Array of `OrganizationTypeInterest`: CURRENT, CPA, NON_CPA, CENTRAL_AGENCIES, SCIENCE_REGULATORY_AGENCY, MICRO, SMALL, MEDIUM, LARGE; required if lateral move interest is true |
-| `career_planning_promotion_move_interest` | Whether the user is interested in a promotion. |  |  |
-| `career_planning_promotion_move_time_frame` | Expected timeframe for a promotion. |  | Enum `TimeFrame`: THIS_YEAR, ONE_TO_TWO_YEARS, THREE_OR_MORE_YEARS; required if promotion move interest is true |
-| `career_planning_promotion_move_organization_type` | Type of organization the user wants for a promotion. |  | Array of `OrganizationTypeInterest`: CURRENT, CPA, NON_CPA, CENTRAL_AGENCIES, SCIENCE_REGULATORY_AGENCY, MICRO, SMALL, MEDIUM, LARGE; required if promotion move interest is true |
-| `computed_gov_role` | Computed description of the user's current GC role. |  | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
-| `next_role_community_other` | Free-text if the next role community is not in the standard list. |  | Mutually exclusive with next_role_community_id |
-| `career_objective_community_other` | Free-text if the career objective community is not in the standard list. |  | Mutually exclusive with career_objective_community_id |
-| `eligible_retirement_year_known` | Whether the user knows their eligible retirement year. |  |  |
-| `eligible_retirement_year` | Year the user becomes eligible to retire. |  | Required if eligible_retirement_year_known is true; must be from start of current year to < 35 years from now |
-| `next_role_is_c_suite_role` | Whether the user's next role target is a C-suite executive position. |  |  |
-| `career_objective_is_c_suite_role` | Whether the user's long-term goal is a C-suite executive position. |  |  |
-| `next_role_c_suite_role_title` | Title of the C-suite role the user wants next. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if next_role_is_c_suite_role true, prohibited if false |
-| `career_objective_c_suite_role_title` | Title of the C-suite role the user wants long-term. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if career_objective_is_c_suite_role true, prohibited if false |
-| `career_planning_learning_opportunities_interest` | Whether the user is interested in learning opportunities. |  | Array of `LearningOpportunitiesInterest`: INTERCHANGE, ACADEMIC_PROGRAM, PEER_NETWORKING, PROFESSIONAL_ACCREDITATION |
-| `flexible_work_locations` | JSON array of flexible or remote work location preferences. |  | Array of `FlexibleWorkLocation`: REMOTE, HYBRID, ONSITE; default [] |
-| `last_sign_in_iss` | OIDC issuer of the identity provider used at last sign-in. |  |  |
-| `email_backup` | Backup email address for account recovery. |  | Holds email after soft delete; restored on user restore if no other user has that email |
-| `work_email_backup` | Backup GC work email address. |  | Holds work_email after soft delete or when another user verifies the same work email |
+| Column                                             | Description                                                                | Relationship              | Constraints                                                                                                                                                                                                      |
+| -------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                               | Unique identifier for the user.                                            |                           |                                                                                                                                                                                                                  |
+| `created_at`                                       | Timestamp when the account was created.                                    |                           |                                                                                                                                                                                                                  |
+| `updated_at`                                       | Timestamp when the account was last modified.                              |                           |                                                                                                                                                                                                                  |
+| `email`                                            | Primary contact email address.                                             |                           | Unique; case-insensitively unique across email and work_email; email format; moved to email_backup on soft delete                                                                                                |
+| `first_name`                                       | User's given name.                                                         |                           | Required on create                                                                                                                                                                                               |
+| `last_name`                                        | User's family name.                                                        |                           | Required on create                                                                                                                                                                                               |
+| `telephone`                                        | Contact telephone number.                                                  |                           |                                                                                                                                                                                                                  |
+| `preferred_lang`                                   | Preferred language for platform communications (en or fr).                 |                           | Enum `Language`: EN, FR (stored lowercase en/fr)                                                                                                                                                                 |
+| `deleted_at`                                       | Soft-delete timestamp; null means the account is active.                   |                           | Soft delete also soft-deletes pool candidates and clears email/work_email into backup columns                                                                                                                    |
+| `sub`                                              | OIDC subject identifier from the identity provider (GCKey/Sign-in Canada). |                           | Unique                                                                                                                                                                                                           |
+| `current_province`                                 | Province or territory where the user currently works or lives.             |                           | Enum `ProvinceOrTerritory` (13 cases, e.g. ONTARIO, QUEBEC, BRITISH_COLUMBIA, NUNAVUT)                                                                                                                           |
+| `current_city`                                     | City where the user currently works or lives.                              |                           |                                                                                                                                                                                                                  |
+| `looking_for_english`                              | Whether the user wants to work in English.                                 |                           |                                                                                                                                                                                                                  |
+| `looking_for_french`                               | Whether the user wants to work in French.                                  |                           |                                                                                                                                                                                                                  |
+| `looking_for_bilingual`                            | Whether the user wants to work in a bilingual position.                    |                           |                                                                                                                                                                                                                  |
+| `comprehension_level`                              | Self-assessed second-language reading comprehension level.                 |                           | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED                                                                                                                                                  |
+| `written_level`                                    | Self-assessed second-language written expression level.                    |                           | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED                                                                                                                                                  |
+| `verbal_level`                                     | Self-assessed second-language oral interaction level.                      |                           | Enum `EvaluatedLanguageAbility`: X, A, B, C, E, P, NOT_ASSESSED                                                                                                                                                  |
+| `estimated_language_ability`                       | Overall estimated second-language ability level.                           |                           | Enum `EstimatedLanguageAbility`: BEGINNER, INTERMEDIATE, ADVANCED                                                                                                                                                |
+| `computed_is_gov_employee`                         | Computed flag indicating the user is a current GC employee.                |                           | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                                                                                        |
+| `computed_classification`                          | FK to the user's current computed GC classification based on work history. | FK → `classifications.id` | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                                                                                        |
+| `location_exemptions`                              | Free-text explanation of any location flexibility exemptions.              |                           |                                                                                                                                                                                                                  |
+| `is_woman`                                         | Employment equity: user has self-identified as a woman.                    |                           |                                                                                                                                                                                                                  |
+| `has_disability`                                   | Employment equity: user has declared a disability.                         |                           |                                                                                                                                                                                                                  |
+| `is_visible_minority`                              | Employment equity: user has self-identified as a visible minority.         |                           |                                                                                                                                                                                                                  |
+| `has_diploma`                                      | Whether the user holds a post-secondary diploma or higher.                 |                           |                                                                                                                                                                                                                  |
+| `location_preferences`                             | JSON array of preferred work locations.                                    |                           | Array of `WorkRegion`: TELEWORK, NATIONAL_CAPITAL, ATLANTIC, QUEBEC, ONTARIO, PRAIRIE, BRITISH_COLUMBIA, NORTH                                                                                                   |
+| `accepted_operational_requirements`                | JSON array of operational conditions the user accepts.                     |                           | Array of `OperationalRequirement`: SHIFT_WORK, ON_CALL, TRAVEL, TRANSPORT_EQUIPMENT, DRIVERS_LICENSE, OVERTIME_OCCASIONAL, OVERTIME_REGULAR                                                                      |
+| `computed_gov_employee_type`                       | Computed type of GC employment (e.g. indeterminate, term, casual).         |                           | Enum `GovEmployeeType`: STUDENT, CASUAL, TERM, INDETERMINATE, CONTRACTOR, INTERCHANGE; Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable |
+| `computed_department`                              | FK to the user's current computed department based on work history.        | FK → `departments.id`     | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                                                                                        |
+| `citizenship`                                      | Citizenship status (e.g. citizen, permanent resident).                     |                           | Enum `CitizenshipStatus`: PERMANENT_RESIDENT, CITIZEN, OTHER                                                                                                                                                     |
+| `armed_forces_status`                              | Canadian Armed Forces status (e.g. veteran, active, none).                 |                           | Enum `ArmedForcesStatus`: VETERAN, MEMBER, NON_CAF                                                                                                                                                               |
+| `has_priority_entitlement`                         | Whether the user has a GC priority entitlement for staffing.               |                           |                                                                                                                                                                                                                  |
+| `priority_number`                                  | Official priority entitlement number.                                      |                           |                                                                                                                                                                                                                  |
+| `priority_weight`                                  | Computed numeric weight reflecting priority entitlement type.              |                           | Generated column: 10 if has_priority_entitlement, 20 if VETERAN, 30 if CITIZEN or PERMANENT_RESIDENT, else 40                                                                                                    |
+| `position_duration`                                | JSON array of acceptable position durations.                               |                           | Array of `PositionDuration`: TEMPORARY, PERMANENT                                                                                                                                                                |
+| `indigenous_declaration_signature`                 | Confirmation that the user has signed the Indigenous identity declaration. |                           |                                                                                                                                                                                                                  |
+| `indigenous_communities`                           | JSON array of Indigenous communities the user identifies with.             |                           | Array of `IndigenousCommunity`: STATUS_FIRST_NATIONS, NON_STATUS_FIRST_NATIONS, INUIT, METIS, OTHER, LEGACY_IS_INDIGENOUS; cannot include both STATUS and NON_STATUS                                             |
+| `preferred_language_for_interview`                 | Preferred official language for interviews.                                |                           | Enum `Language`: EN, FR (stored lowercase en/fr)                                                                                                                                                                 |
+| `preferred_language_for_exam`                      | Preferred official language for written exams.                             |                           | Enum `Language`: EN, FR (stored lowercase en/fr)                                                                                                                                                                 |
+| `first_official_language`                          | The user's first official language (English or French).                    |                           | Enum `Language`: EN, FR (stored lowercase en/fr)                                                                                                                                                                 |
+| `second_language_exam_completed`                   | Whether the user has completed a second-language evaluation.               |                           |                                                                                                                                                                                                                  |
+| `second_language_exam_validity`                    | Date until which the second-language evaluation results are valid.         |                           |                                                                                                                                                                                                                  |
+| `enabled_email_notifications`                      | JSON array of email notification types the user has enabled.               |                           | Array of `NotificationFamily`; only APPLICATION_UPDATE, JOB_ALERT may be enabled; distinct                                                                                                                       |
+| `enabled_in_app_notifications`                     | JSON array of in-app notification types the user has enabled.              |                           | Array of `NotificationFamily`; only APPLICATION_UPDATE, JOB_ALERT may be enabled; distinct                                                                                                                       |
+| `email_verified_at`                                | Timestamp when the user's email address was verified.                      |                           |                                                                                                                                                                                                                  |
+| `work_email`                                       | User's official GC work email address.                                     |                           | Unique; case-insensitively unique across email and work_email; verified via verifyUserEmails, which requires a government domain (`GovernmentEmailRegex`) and takes it from any other user holding it            |
+| `work_email_verified_at`                           | Timestamp when the work email was verified.                                |                           |                                                                                                                                                                                                                  |
+| `last_sign_in_at`                                  | Timestamp of the user's most recent login.                                 |                           |                                                                                                                                                                                                                  |
+| `career_planning_mentorship_status`                | Whether the user is currently a mentor, mentee, or neither.                |                           | Array of `Mentorship`: MENTOR, MENTEE                                                                                                                                                                            |
+| `career_planning_mentorship_interest`              | Whether the user is interested in a mentorship relationship.               |                           | Array of `Mentorship`: MENTOR, MENTEE                                                                                                                                                                            |
+| `career_planning_exec_interest`                    | Whether the user is interested in executive-level opportunities.           |                           |                                                                                                                                                                                                                  |
+| `career_planning_exec_coaching_status`             | Whether the user is currently receiving executive coaching.                |                           | Array of `ExecCoaching`: COACHING, LEARNING                                                                                                                                                                      |
+| `career_planning_exec_coaching_interest`           | Whether the user is interested in executive coaching.                      |                           | Array of `ExecCoaching`: COACHING, LEARNING                                                                                                                                                                      |
+| `career_planning_about_you`                        | Free-text self-description for career planning.                            |                           |                                                                                                                                                                                                                  |
+| `career_planning_learning_goals`                   | Description of the user's learning and development goals.                  |                           |                                                                                                                                                                                                                  |
+| `career_planning_work_style`                       | Description of the user's preferred working style.                         |                           |                                                                                                                                                                                                                  |
+| `computed_gov_position_type`                       | Computed position type based on most recent GC work experience.            |                           | Enum `GovPositionType`: SUBSTANTIVE, ACTING, SECONDMENT, ASSIGNMENT; Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                   |
+| `computed_gov_end_date`                            | Computed end date of the user's most recent GC term position.              |                           | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                                                                                        |
+| `next_role_classification_id`                      | FK to the classification the user is targeting for their next role.        | FK → `classifications.id` |                                                                                                                                                                                                                  |
+| `career_objective_classification_id`               | FK to the classification the user is targeting as a long-term career goal. | FK → `classifications.id` |                                                                                                                                                                                                                  |
+| `next_role_target_role`                            | Type of next role the user is seeking (e.g. same, promotion, lateral).     |                           | Enum `TargetRole`: INDIVIDUAL_CONTRIBUTOR, MANAGER, DIRECTOR, SENIOR_DIRECTOR, EXECUTIVE_DIRECTOR, DIRECTOR_GENERAL, ASSISTANT_DEPUTY_MINISTER, DEPUTY_MINISTER, OTHER                                           |
+| `career_objective_target_role`                     | Type of long-term career role the user is seeking.                         |                           | Enum `TargetRole`: INDIVIDUAL_CONTRIBUTOR, MANAGER, DIRECTOR, SENIOR_DIRECTOR, EXECUTIVE_DIRECTOR, DIRECTOR_GENERAL, ASSISTANT_DEPUTY_MINISTER, DEPUTY_MINISTER, OTHER                                           |
+| `next_role_target_role_other`                      | Free-text if next role type is not in the standard list.                   |                           | Required if next_role_target_role is OTHER, otherwise prohibited                                                                                                                                                 |
+| `career_objective_target_role_other`               | Free-text if career objective type is not in the standard list.            |                           | Required if career_objective_target_role is OTHER, otherwise prohibited                                                                                                                                          |
+| `next_role_job_title`                              | Plain-language title of the next role the user wants.                      |                           |                                                                                                                                                                                                                  |
+| `career_objective_job_title`                       | Plain-language title of the user's long-term target role.                  |                           |                                                                                                                                                                                                                  |
+| `next_role_community_id`                           | FK to the community the user wants to work in for their next role.         | FK → `communities.id`     | Mutually exclusive with next_role_community_other; if set, next role work streams must be provided                                                                                                               |
+| `career_objective_community_id`                    | FK to the community the user wants to work in long-term.                   | FK → `communities.id`     | Mutually exclusive with career_objective_community_other; if set, career objective work streams must be provided                                                                                                 |
+| `next_role_additional_information`                 | Additional notes about the user's next role preferences.                   |                           |                                                                                                                                                                                                                  |
+| `career_objective_additional_information`          | Additional notes about the user's long-term career objectives.             |                           |                                                                                                                                                                                                                  |
+| `career_planning_lateral_move_interest`            | Whether the user is interested in a lateral move.                          |                           |                                                                                                                                                                                                                  |
+| `career_planning_lateral_move_time_frame`          | Expected timeframe for a lateral move.                                     |                           | Enum `TimeFrame`: THIS_YEAR, ONE_TO_TWO_YEARS, THREE_OR_MORE_YEARS; required if lateral move interest is true                                                                                                    |
+| `career_planning_lateral_move_organization_type`   | Type of organization the user wants for a lateral move.                    |                           | Array of `OrganizationTypeInterest`: CURRENT, CPA, NON_CPA, CENTRAL_AGENCIES, SCIENCE_REGULATORY_AGENCY, MICRO, SMALL, MEDIUM, LARGE; required if lateral move interest is true                                  |
+| `career_planning_promotion_move_interest`          | Whether the user is interested in a promotion.                             |                           |                                                                                                                                                                                                                  |
+| `career_planning_promotion_move_time_frame`        | Expected timeframe for a promotion.                                        |                           | Enum `TimeFrame`: THIS_YEAR, ONE_TO_TWO_YEARS, THREE_OR_MORE_YEARS; required if promotion move interest is true                                                                                                  |
+| `career_planning_promotion_move_organization_type` | Type of organization the user wants for a promotion.                       |                           | Array of `OrganizationTypeInterest`: CURRENT, CPA, NON_CPA, CENTRAL_AGENCIES, SCIENCE_REGULATORY_AGENCY, MICRO, SMALL, MEDIUM, LARGE; required if promotion move interest is true                                |
+| `computed_gov_role`                                | Computed description of the user's current GC role.                        |                           | Computed from latest current government work experience (`ComputeGovEmployeeProfileData` listener); not directly editable                                                                                        |
+| `next_role_community_other`                        | Free-text if the next role community is not in the standard list.          |                           | Mutually exclusive with next_role_community_id                                                                                                                                                                   |
+| `career_objective_community_other`                 | Free-text if the career objective community is not in the standard list.   |                           | Mutually exclusive with career_objective_community_id                                                                                                                                                            |
+| `eligible_retirement_year_known`                   | Whether the user knows their eligible retirement year.                     |                           |                                                                                                                                                                                                                  |
+| `eligible_retirement_year`                         | Year the user becomes eligible to retire.                                  |                           | Required if eligible_retirement_year_known is true; must be from start of current year to < 35 years from now                                                                                                    |
+| `next_role_is_c_suite_role`                        | Whether the user's next role target is a C-suite executive position.       |                           |                                                                                                                                                                                                                  |
+| `career_objective_is_c_suite_role`                 | Whether the user's long-term goal is a C-suite executive position.         |                           |                                                                                                                                                                                                                  |
+| `next_role_c_suite_role_title`                     | Title of the C-suite role the user wants next.                             |                           | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if next_role_is_c_suite_role true, prohibited if false                    |
+| `career_objective_c_suite_role_title`              | Title of the C-suite role the user wants long-term.                        |                           | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if career_objective_is_c_suite_role true, prohibited if false             |
+| `career_planning_learning_opportunities_interest`  | Whether the user is interested in learning opportunities.                  |                           | Array of `LearningOpportunitiesInterest`: INTERCHANGE, ACADEMIC_PROGRAM, PEER_NETWORKING, PROFESSIONAL_ACCREDITATION                                                                                             |
+| `flexible_work_locations`                          | JSON array of flexible or remote work location preferences.                |                           | Array of `FlexibleWorkLocation`: REMOTE, HYBRID, ONSITE; default []                                                                                                                                              |
+| `last_sign_in_iss`                                 | OIDC issuer of the identity provider used at last sign-in.                 |                           |                                                                                                                                                                                                                  |
+| `email_backup`                                     | Backup email address for account recovery.                                 |                           | Holds email after soft delete; restored on user restore if no other user has that email                                                                                                                          |
+| `work_email_backup`                                | Backup GC work email address.                                              |                           | Holds work_email after soft delete or when another user verifies the same work email                                                                                                                             |
 
 **Referenced by:** `award_experiences.user_id`, `community_experiences.user_id`, `community_interests.user_id`, `department_user_career_objective.user_id`, `department_user_next_role.user_id`, `development_program_user.user_id`, `education_experiences.user_id`, `generic_job_title_user.user_id`, `off_platform_recruitment_processes.user_id`, `permission_user.user_id`, `personal_experiences.user_id`, `pool_candidate_search_requests.user_id`, `pool_candidate_user_bookmarks.user_id`, `pool_candidates.user_id`, `pool_user_bookmarks.user_id`, `role_user.user_id`, `talent_nomination_groups.nominee_id`, `talent_nominations.advancement_reference_id`, `talent_nominations.nominator_id`, `talent_nominations.nominee_id`, `talent_nominations.submitter_id`, `talent_request_tracked_users.user_id`, `talent_requests.user_id`, `user_search_indices.id`, `user_skills.user_id`, `user_work_stream_career_objective.user_id`, `user_work_stream_next_role.user_id`, `work_experiences.user_id`
 
@@ -1834,8 +1836,8 @@ Functional specializations within a community (e.g. 'Data Science', 'Cloud Opera
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the work stream. |  |  |
 | `key` | Human-readable slug for the work stream. |  | Unique |
-| `name` | Bilingual display name of the work stream. |  | Localized string {en, fr}; required on create; each language value must be unique across work streams |
-| `plain_language_name` | Bilingual plain-language label for non-specialist audiences. |  |  |
+| `name` | Bilingual display name of the work stream. |  | Localized string {en, fr}; required on create; each language value must be unique across work streams. Example: `{"en": "Security", "fr": "Sécurité"}` |
+| `plain_language_name` | Bilingual plain-language label for non-specialist audiences. |  | Example: `{"en": "IT security", "fr": "Sécurité des TI"}` |
 | `community_id` | FK to the community this work stream belongs to. | FK → `communities.id` | Required |
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
