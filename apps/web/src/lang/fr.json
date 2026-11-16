@@ -3615,7 +3615,8 @@
     "description": "Dialog body text for highlighting important programs, certifications or licenses"
   },
   "CaGMw5": {
-    "defaultMessage": "<strong>Les personnes employées nominées</strong> sont des personnes employées au GC qui ont été nominées pour un transfert latéral ou un avancement par leur ministère dans le cadre de la gestion des talents de la collectivité."
+    "defaultMessage": "<strong>Les personnes nominées</strong> sont des personnes employées au GC qui ont été nominées pour un transfert latéral ou un avancement par leur ministère dans le cadre de la gestion des talents de la collectivité.",
+    "description": "Description for nominated employees talent source filter in search form"
   },
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
