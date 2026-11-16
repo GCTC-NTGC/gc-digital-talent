@@ -3,7 +3,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { Checklist, localizedEnumToOptions } from "@gc-digital-talent/forms";
+import {
+  Checklist,
+  Input,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
 import {
   commonMessages,
   sortPoolPublishedRange,
@@ -14,6 +18,7 @@ import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 
 interface FormValues {
   advertisementTimings: string[];
+  processNumber: string | null;
 }
 
 interface Props {
@@ -28,11 +33,12 @@ const AdvancedFiltersDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const { getFilterValues, setFilters } =
+  const { getFilterValue, getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
   const getFormValuesFromFilters = (): FormValues => ({
     advertisementTimings: getFilterValues("advertisementTiming"),
+    processNumber: getFilterValue("processNumber"),
   });
 
   const formMethods = useForm<FormValues>({
@@ -52,12 +58,15 @@ const AdvancedFiltersDialog = ({
   };
 
   const handleSaveFilter = (formValues: FormValues) => {
-    setFilters({ advertisementTiming: formValues.advertisementTimings });
+    setFilters({
+      advertisementTiming: formValues.advertisementTimings,
+      processNumber: formValues.processNumber,
+    });
     setOpen(false);
   };
 
   const handleClearFilters = () => {
-    setFilters({ advertisementTiming: null });
+    setFilters({ advertisementTiming: null, processNumber: null });
     setOpen(false);
   };
 
@@ -93,6 +102,16 @@ const AdvancedFiltersDialog = ({
                   })}
                   items={advertisementTimingOptions}
                   name={"advertisementTimings"}
+                />
+                <Input
+                  type="text"
+                  id="processNumber"
+                  label={intl.formatMessage({
+                    defaultMessage: "Reference or selection process number",
+                    id: "m8vrqy",
+                    description: "Label for a process number input",
+                  })}
+                  name="processNumber"
                 />
               </div>
               <Dialog.Footer>

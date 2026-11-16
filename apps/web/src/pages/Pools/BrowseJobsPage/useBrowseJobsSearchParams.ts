@@ -11,6 +11,7 @@ export const filterOptions = [
   "advertisementTiming",
   "languageRequirement",
   "minimumSalary",
+  "processNumber",
 ] as const;
 export type FilterOption = (typeof filterOptions)[number];
 

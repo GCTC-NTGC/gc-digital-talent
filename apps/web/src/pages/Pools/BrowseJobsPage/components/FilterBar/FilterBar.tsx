@@ -152,15 +152,20 @@ const FilterBar = ({
       intl.formatMessage(commonMessages.notFound),
     handleRemove: () => removeFilterValue("organization", f),
   }));
-  const advancedFiltersFilters = getFilterValues("advertisementTiming").map(
-    (f) => ({
+  const advancedFiltersFilters = [
+    ...getFilterValues("advertisementTiming").map((f) => ({
       key: `advertisementTiming:${f}`,
       label:
         options?.poolPublishedRangeEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
       handleRemove: () => removeFilterValue("advertisementTiming", f),
-    }),
-  );
+    })),
+    ...getFilterValues("processNumber").map((f) => ({
+      key: `processNumber:${f}`,
+      label: f ?? intl.formatMessage(commonMessages.notFound),
+      handleRemove: () => removeFilterValue("processNumber", f),
+    })),
+  ];
 
   const keywordFormMethods = useForm<SearchByKeywordForm>();
 
