@@ -22,6 +22,7 @@ import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import OpportunityDetailsFilterDialog from "../filterDialogs/OpportunityDetailsFilterDialog";
 import OrganizationsFilterDialog from "../filterDialogs/OrganizationsFilterDialog";
 import AdvancedFiltersDialog from "../filterDialogs/AdvancedFiltersDialog";
+import LanguageRequirementsFilterDialog from "../filterDialogs/LanguageRequirementsFilterDialog";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
@@ -46,6 +47,12 @@ const Options_Fragment = graphql(/* GraphQL */ `
     poolPublishedRangeEnums: localizedEnumStrings(
       enumName: "PoolPublishedRange"
     ) {
+      value
+      label {
+        localized
+      }
+    }
+    languageAbilityEnums: localizedEnumStrings(enumName: "LanguageAbility") {
       value
       label {
         localized
@@ -107,6 +114,22 @@ const FilterBar = ({
         options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
       handleRemove: () => removeFilterValue("applicationEligibility", f),
+    })),
+    ...getFilterValues("classification").map((f) => ({
+      key: `classification:${f}`,
+      label:
+        options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
+        intl.formatMessage(commonMessages.notFound),
+      handleRemove: () => removeFilterValue("classification", f),
+    })),
+  ];
+  const languageRequirementsFilters = [
+    ...getFilterValues("languageRequirement").map((f) => ({
+      key: `languageRequirement:${f}`,
+      label:
+        options?.languageAbilityEnums?.find((e) => e.value === f)?.label
+          .localized ?? f,
+      handleRemove: () => removeFilterValue("languageRequirement", f),
     })),
     ...getFilterValues("classification").map((f) => ({
       key: `classification:${f}`,
@@ -241,6 +264,30 @@ const FilterBar = ({
             </OpportunityDetailsFilterDialog>
             {opportunityDetailsFilters.length ? (
               <Chips>{filtersToChips(opportunityDetailsFilters)}</Chips>
+            ) : (
+              filterNullMessage
+            )}
+          </div>
+          <div>
+            <LanguageRequirementsFilterDialog
+              languageAbilityEnums={options.languageAbilityEnums}
+            >
+              <Button
+                mode="inline"
+                className="mb-1.5"
+                icon={PlusCircleIcon}
+                color="black"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Language requirements",
+                  id: "nEE/Ds",
+                  description:
+                    "Title for a language requirements filter dialog",
+                })}
+              </Button>
+            </LanguageRequirementsFilterDialog>
+            {languageRequirementsFilters.length ? (
+              <Chips>{filtersToChips(languageRequirementsFilters)}</Chips>
             ) : (
               filterNullMessage
             )}

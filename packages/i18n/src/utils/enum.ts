@@ -25,6 +25,7 @@ import {
   TalentRequestReason,
   PoolAreaOfSelection,
   PoolPublishedRange,
+  LanguageAbility,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -420,6 +421,17 @@ export function sortPoolPublishedRange(
       PoolPublishedRange.Over_30Days,
     ],
     poolPublishedRange,
+  );
+}
+
+export function sortLanguageAbility(languageAbility?: MaybeLocalizedEnums) {
+  return sortLocalizedEnums(
+    [
+      LanguageAbility.English,
+      LanguageAbility.French,
+      LanguageAbility.Bilingual,
+    ],
+    languageAbility,
   );
 }
 

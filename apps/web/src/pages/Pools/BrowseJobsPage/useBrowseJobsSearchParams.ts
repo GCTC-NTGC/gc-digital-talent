@@ -9,6 +9,7 @@ export const filterOptions = [
   "organization",
   "classification",
   "advertisementTiming",
+  "languageRequirement",
 ] as const;
 export type FilterOption = (typeof filterOptions)[number];
 
