@@ -82,6 +82,7 @@ final class SubmitTalentNominationValidator extends Validator
             'nominee_id' => [
                 'required',
                 'different:nominator_id',
+                'different:submitter_id',
             ],
             'nominee_review' => [
                 'required',
