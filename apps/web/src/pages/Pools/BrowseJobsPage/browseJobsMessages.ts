@@ -11,6 +11,16 @@ const browseJobsMessages = defineMessages({
     id: "LxPFHG",
     description: "Name of closed opportunities page",
   },
+  saveFilters: {
+    defaultMessage: "Save filters",
+    id: "9yKptF",
+    description: "Command to save the filter set",
+  },
+  clearFilters: {
+    defaultMessage: "Clear filters",
+    id: "OVeNqb",
+    description: "Command to clear the filter set",
+  },
 });
 
 export default browseJobsMessages;
