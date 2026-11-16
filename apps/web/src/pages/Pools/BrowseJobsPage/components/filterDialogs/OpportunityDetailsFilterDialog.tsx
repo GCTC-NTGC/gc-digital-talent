@@ -7,10 +7,12 @@ import {
   Checklist,
   Combobox,
   localizedEnumToOptions,
+  RadioGroup,
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   sortPoolAreaOfSelection,
+  sortSalaryRange,
   type MaybeLocalizedEnums,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -20,6 +22,7 @@ import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 interface FormValues {
   applicationEligibility: string[];
   classifications: string[];
+  minimumSalary: string | null;
 }
 
 interface Props {
@@ -28,23 +31,26 @@ interface Props {
     id: string;
     groupAndLevel: string | null;
   } | null)[];
+  salaryRangeEnums: MaybeLocalizedEnums;
   children: ReactNode;
 }
 
 const OpportunityDetailsFilterDialog = ({
   poolAreaOfSelectionEnums,
   classifications,
+  salaryRangeEnums,
   children,
 }: Props) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const { resetFilter, getFilterValues, setFilterValues } =
+  const { getFilterValue, getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
   const getFormValuesFromFilters = (): FormValues => ({
     applicationEligibility: getFilterValues("applicationEligibility"),
     classifications: getFilterValues("classification"),
+    minimumSalary: getFilterValue("minimumSalary"),
   });
 
   const formMethods = useForm<FormValues>({
@@ -63,6 +69,11 @@ const OpportunityDetailsFilterDialog = ({
     }))
     .toSorted((a, b) => (a.label > b.label ? 1 : 0));
 
+  const minimumSalaryOptions = localizedEnumToOptions(
+    sortSalaryRange(salaryRangeEnums),
+    intl,
+  );
+
   const handleOpenChange = (newOpen: boolean) => {
     if (newOpen) {
       formMethods.reset(getFormValuesFromFilters());
@@ -71,17 +82,20 @@ const OpportunityDetailsFilterDialog = ({
   };
 
   const handleSaveFilter = (formValues: FormValues) => {
-    setFilterValues(
-      "applicationEligibility",
-      formValues.applicationEligibility,
-    );
-    setFilterValues("classification", formValues.classifications);
+    setFilters({
+      applicationEligibility: formValues.applicationEligibility,
+      classification: formValues.classifications,
+      minimumSalary: formValues.minimumSalary,
+    });
     setOpen(false);
   };
 
   const handleClearFilters = () => {
-    resetFilter("applicationEligibility");
-    resetFilter("classification");
+    setFilters({
+      applicationEligibility: null,
+      classification: null,
+      minimumSalary: null,
+    });
     setOpen(false);
   };
 
@@ -127,6 +141,12 @@ const OpportunityDetailsFilterDialog = ({
                   })}
                   name={"classifications"}
                   isMulti
+                />
+                <RadioGroup
+                  idPrefix="minimumSalary"
+                  legend={undefined}
+                  items={minimumSalaryOptions}
+                  name="minimumSalary"
                 />
               </div>
               <Dialog.Footer>

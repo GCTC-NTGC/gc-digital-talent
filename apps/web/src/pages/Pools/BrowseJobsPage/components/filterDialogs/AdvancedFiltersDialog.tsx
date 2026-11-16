@@ -28,7 +28,7 @@ const AdvancedFiltersDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const { resetFilter, getFilterValues, setFilterValues } =
+  const { getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
   const getFormValuesFromFilters = (): FormValues => ({
@@ -52,12 +52,12 @@ const AdvancedFiltersDialog = ({
   };
 
   const handleSaveFilter = (formValues: FormValues) => {
-    setFilterValues("advertisementTiming", formValues.advertisementTimings);
+    setFilters({ advertisementTiming: formValues.advertisementTimings });
     setOpen(false);
   };
 
   const handleClearFilters = () => {
-    resetFilter("advertisementTiming");
+    setFilters({ advertisementTiming: null });
     setOpen(false);
   };
 

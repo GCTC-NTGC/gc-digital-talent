@@ -22,7 +22,7 @@ const OrganizationsFilterDialog = ({ organizations, children }: Props) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const { resetFilter, getFilterValues, setFilterValues } =
+  const { getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
   const getFormValuesFromFilters = (): FormValues => ({
@@ -41,12 +41,12 @@ const OrganizationsFilterDialog = ({ organizations, children }: Props) => {
   };
 
   const handleSaveFilter = (formValues: FormValues) => {
-    setFilterValues("organization", formValues.organizations);
+    setFilters({ organization: formValues.organizations });
     setOpen(false);
   };
 
   const handleClearFilters = () => {
-    resetFilter("organization");
+    setFilters({ organization: null });
     setOpen(false);
   };
 

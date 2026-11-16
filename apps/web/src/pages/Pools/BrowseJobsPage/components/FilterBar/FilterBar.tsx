@@ -58,6 +58,12 @@ const Options_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    salaryRangeEnums: localizedEnumStrings(enumName: "SalaryRange") {
+      value
+      label {
+        localized
+      }
+    }
   }
 `);
 interface SearchByKeywordForm {
@@ -122,6 +128,13 @@ const FilterBar = ({
         intl.formatMessage(commonMessages.notFound),
       handleRemove: () => removeFilterValue("classification", f),
     })),
+    ...getFilterValues("minimumSalary").map((f) => ({
+      key: `minimumSalary:${f}`,
+      label:
+        options?.salaryRangeEnums?.find((e) => e.value === f)?.label
+          .localized ?? f,
+      handleRemove: () => removeFilterValue("minimumSalary", f),
+    })),
   ];
   const languageRequirementsFilters = [
     ...getFilterValues("languageRequirement").map((f) => ({
@@ -130,13 +143,6 @@ const FilterBar = ({
         options?.languageAbilityEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
       handleRemove: () => removeFilterValue("languageRequirement", f),
-    })),
-    ...getFilterValues("classification").map((f) => ({
-      key: `classification:${f}`,
-      label:
-        options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
-        intl.formatMessage(commonMessages.notFound),
-      handleRemove: () => removeFilterValue("classification", f),
     })),
   ];
   const organizationsFilters = getFilterValues("organization").map((f) => ({
@@ -248,6 +254,7 @@ const FilterBar = ({
             <OpportunityDetailsFilterDialog
               poolAreaOfSelectionEnums={options.poolAreaOfSelectionEnums}
               classifications={options.classifications}
+              salaryRangeEnums={options.salaryRangeEnums}
             >
               <Button
                 mode="inline"

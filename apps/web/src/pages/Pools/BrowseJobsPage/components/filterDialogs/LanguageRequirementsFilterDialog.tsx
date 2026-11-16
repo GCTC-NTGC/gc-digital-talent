@@ -28,7 +28,7 @@ const LanguageRequirementsFilterDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const { resetFilter, getFilterValues, setFilterValues } =
+  const { getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
   const getFormValuesFromFilters = (): FormValues => ({
@@ -52,12 +52,12 @@ const LanguageRequirementsFilterDialog = ({
   };
 
   const handleSaveFilter = (formValues: FormValues) => {
-    setFilterValues("languageRequirement", formValues.languageRequirements);
+    setFilters({ languageRequirement: formValues.languageRequirements });
     setOpen(false);
   };
 
   const handleClearFilters = () => {
-    resetFilter("languageRequirement");
+    setFilters({ languageRequirement: null });
     setOpen(false);
   };
 

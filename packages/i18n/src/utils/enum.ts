@@ -26,6 +26,7 @@ import {
   PoolAreaOfSelection,
   PoolPublishedRange,
   LanguageAbility,
+  SalaryRange,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -432,6 +433,20 @@ export function sortLanguageAbility(languageAbility?: MaybeLocalizedEnums) {
       LanguageAbility.Bilingual,
     ],
     languageAbility,
+  );
+}
+
+export function sortSalaryRange(salaryRange?: MaybeLocalizedEnums) {
+  return sortLocalizedEnums(
+    [
+      SalaryRange.Between_0_39999,
+      SalaryRange.Between_40000_59999,
+      SalaryRange.Between_60000_79999,
+      SalaryRange.Between_80000_99999,
+      SalaryRange.Between_100000_119999,
+      SalaryRange.Over_120000,
+    ],
+    salaryRange,
   );
 }
 
