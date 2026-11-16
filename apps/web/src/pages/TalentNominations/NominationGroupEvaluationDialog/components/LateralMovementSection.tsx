@@ -109,7 +109,7 @@ const LateralMovementSection = ({
       selectedLateralMovementDecision !== TalentNominationGroupDecision.Approved
     ) {
       resetDirtyField("lateralMovementApprovedNotes", null);
-      resetDirtyField("lateralMovementClassificationsAdditional", []);
+      resetDirtyField("lateralMovementClassifications", []);
       resetDirtyField("lateralMovementReferralExpiryDate", null);
     }
 
@@ -251,8 +251,8 @@ const LateralMovementSection = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "By default, the nominee will be referred for their current substantive classification. If the nominee’s substantive classification has eligible equivalencies that might be a good fit for lateral movement, please specify the equivalencies in the field provided.",
-              id: "hPq1v7",
+                "Please indicate the classifications for lateral movement this nominee should be referred for. This should include their substantive classification, plus any equivalent classifications that may also be a good fit.",
+              id: "i2qByM",
               description: "Lateral movement classifications introduction",
             })}
           </p>
@@ -263,18 +263,16 @@ const LateralMovementSection = ({
               description: "The substantive classification of the nominee",
             })}
           >
-            {/* this field exists in the form state as lateralMovementClassificationSubstantive
-                so it gets submitted with lateralMovementClassificationsAdditional */}
             {talentNominationGroup.nominee?.classification?.groupAndLevel ??
               intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <Combobox
-            id="lateralMovementClassificationsAdditional"
-            name="lateralMovementClassificationsAdditional"
+            id="lateralMovementClassifications"
+            name="lateralMovementClassifications"
             isMulti
             label={intl.formatMessage({
-              defaultMessage: "Relevant referral equivalencies",
-              id: "MwviYD",
+              defaultMessage: "Classifications for lateral movement",
+              id: "ZHxlL3",
               description: "Label for lateral movement classifications field",
             })}
             options={unpackMaybes(
@@ -285,10 +283,7 @@ const LateralMovementSection = ({
                 groupAndLevel ?? intl.formatMessage(commonMessages.notProvided),
             }))}
             rules={{
-              // only required if there's no nominee substantive classification registered already
-              required: talentNominationGroup.nominee?.classification?.id
-                ? undefined
-                : intl.formatMessage(errorMessages.required),
+              required: intl.formatMessage(errorMessages.required),
             }}
           />
           <DateInput
@@ -301,8 +296,8 @@ const LateralMovementSection = ({
             })}
             context={intl.formatMessage({
               defaultMessage:
-                "The nominee will be referred for lateral movement for opportunities in their current substantive classification as well as for classifications selected above until this date (inclusive).",
-              id: "TPFMK3",
+                "The nominee will be referred for lateral movement for opportunities in the classifications selected above until this date (inclusive).",
+              id: "mnOTAG",
               description:
                 "Help text for lateral movement referral expiry date field",
             })}

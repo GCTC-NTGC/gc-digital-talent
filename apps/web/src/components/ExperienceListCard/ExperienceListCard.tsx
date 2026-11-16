@@ -124,9 +124,7 @@ const ExperienceListCard = ({
     ["award"]: {
       title: intl.formatMessage(experienceMessages.award),
       description: intl.formatMessage(experienceMessages.awardDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
+      addLink: paths.createExperienceType("award", { applicationId }),
       addText: intl.formatMessage(experienceMessages.addAward),
       Icon: StarIcon,
       nullText: intl.formatMessage(experienceMessages.nullAward),
@@ -135,9 +133,7 @@ const ExperienceListCard = ({
     ["community"]: {
       title: intl.formatMessage(experienceMessages.community),
       description: intl.formatMessage(experienceMessages.communityDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
+      addLink: paths.createExperienceType("community", { applicationId }),
       addText: intl.formatMessage(experienceMessages.addCommunity),
       Icon: UserGroupIcon,
       nullText: intl.formatMessage(experienceMessages.nullCommunity),
@@ -146,9 +142,7 @@ const ExperienceListCard = ({
     ["education"]: {
       title: intl.formatMessage(experienceMessages.education),
       description: intl.formatMessage(experienceMessages.educationDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
+      addLink: paths.createExperienceType("education", { applicationId }),
       addText: intl.formatMessage(experienceMessages.addEducation),
       Icon: BookmarkSquareIcon,
       nullText: intl.formatMessage(experienceMessages.nullEducation),
@@ -157,9 +151,7 @@ const ExperienceListCard = ({
     ["personal"]: {
       title: intl.formatMessage(experienceMessages.personal),
       description: intl.formatMessage(experienceMessages.personalDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
+      addLink: paths.createExperienceType("personal", { applicationId }),
       addText: intl.formatMessage(experienceMessages.addPersonal),
       Icon: LightBulbIcon,
       nullText: intl.formatMessage(experienceMessages.nullPersonal),
@@ -168,9 +160,7 @@ const ExperienceListCard = ({
     ["work"]: {
       title: intl.formatMessage(experienceMessages.work),
       description: intl.formatMessage(experienceMessages.workDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
+      addLink: paths.createExperienceType("work", { applicationId }),
       addText: intl.formatMessage(experienceMessages.addWork),
       Icon: BriefcaseIcon,
       nullText: intl.formatMessage(experienceMessages.nullWork),
@@ -255,20 +245,21 @@ const ExperienceListCard = ({
         {title}
       </Heading>
       <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
-      {showEdit && addLink ? (
-        <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
-          {addText}
-        </Link>
-      ) : (
-        <AddExperienceDialog
-          trigger={
-            <Button color="primary" icon={PlusCircleIcon} mode="inline">
-              {addText}
-            </Button>
-          }
-          applicationId={applicationId}
-        />
-      )}
+      {showEdit &&
+        (addLink ? (
+          <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
+            {addText}
+          </Link>
+        ) : (
+          <AddExperienceDialog
+            trigger={
+              <Button color="primary" icon={PlusCircleIcon} mode="inline">
+                {addText}
+              </Button>
+            }
+            applicationId={applicationId}
+          />
+        ))}
       {Object.keys(groupedExperiences).length > 0 ? (
         Object.keys(groupedExperiences).map((organization) => (
           <Fragment key={organization}>
@@ -283,14 +274,9 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
-                      editPath={
-                        applicationId
-                          ? paths.applicationCareerTimelineEdit(
-                              applicationId,
-                              experience.id,
-                            )
-                          : paths.editExperience(experience.id)
-                      }
+                      editPath={paths.editExperience(experience.id, {
+                        applicationId,
+                      })}
                       showEdit={showEdit}
                     />
                   );
@@ -301,14 +287,9 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
-                      editPath={
-                        applicationId
-                          ? paths.applicationCareerTimelineEdit(
-                              applicationId,
-                              experience.id,
-                            )
-                          : paths.editExperience(experience.id)
-                      }
+                      editPath={paths.editExperience(experience.id, {
+                        applicationId,
+                      })}
                       showEdit={showEdit}
                     />
                   );
@@ -319,14 +300,9 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
-                      editPath={
-                        applicationId
-                          ? paths.applicationCareerTimelineEdit(
-                              applicationId,
-                              experience.id,
-                            )
-                          : paths.editExperience(experience.id)
-                      }
+                      editPath={paths.editExperience(experience.id, {
+                        applicationId,
+                      })}
                       showEdit={showEdit}
                     />
                   );
@@ -337,14 +313,9 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
-                      editPath={
-                        applicationId
-                          ? paths.applicationCareerTimelineEdit(
-                              applicationId,
-                              experience.id,
-                            )
-                          : paths.editExperience(experience.id)
-                      }
+                      editPath={paths.editExperience(experience.id, {
+                        applicationId,
+                      })}
                       showEdit={showEdit}
                     />
                   );
@@ -355,14 +326,9 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
-                      editPath={
-                        applicationId
-                          ? paths.applicationCareerTimelineEdit(
-                              applicationId,
-                              experience.id,
-                            )
-                          : paths.editExperience(experience.id)
-                      }
+                      editPath={paths.editExperience(experience.id, {
+                        applicationId,
+                      })}
                       showEdit={showEdit}
                     />
                   );

@@ -383,7 +383,7 @@ class TalentManagement extends AppPage {
       }),
       [FIELD.OPTION]: page.getByRole("option"),
       [FIELD.REFERRAL_EQUIVALENCIES]: page.getByRole("combobox", {
-        name: /relevant referral equivalencies/i,
+        name: /classifications for lateral movement/i,
       }),
       [FIELD.REFERRAL_EXPIRY_DATE]: page.getByRole("group", {
         name: /referral expiry date/i,
@@ -682,12 +682,6 @@ class TalentManagement extends AppPage {
 
   private async approveLateralMovement(referralExpiryDate: Locator) {
     await this.locators[FIELD.LATERAL_MOVEMENT_APPROVED].click();
-    const lateralClassificationsCombobox =
-      this.locators[FIELD.REFERRAL_EQUIVALENCIES];
-    await lateralClassificationsCombobox.click();
-    await lateralClassificationsCombobox.press("ArrowDown");
-    await lateralClassificationsCombobox.press("Enter");
-    await this.page.keyboard.press("Tab");
     await this.fillDate(referralExpiryDate, "2099-12-31");
   }
 
