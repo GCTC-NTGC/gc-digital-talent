@@ -19,6 +19,7 @@ import adminMessages from "~/messages/adminMessages";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import OpportunityDetailsFilterDialog from "../filterDialogs/OpportunityDetailsFilterDialog";
+import OrganizationsFilterDialog from "../filterDialogs/OrganizationsFilterDialog";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
@@ -27,6 +28,12 @@ const Options_Fragment = graphql(/* GraphQL */ `
     ) {
       value
       label {
+        localized
+      }
+    }
+    departments {
+      id
+      name {
         localized
       }
     }
@@ -74,6 +81,18 @@ const FilterBar = ({
       >
         {options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
           .localized ?? f}
+      </Chip>
+    )),
+    // classifications
+    // minimum salary
+  ];
+  const organizationsChips = [
+    ...getFilterValues("organization").map((f) => (
+      <Chip
+        key={`organization:${f}`}
+        onDismiss={() => removeFilterValue("organization", f)}
+      >
+        {options?.departments?.find((e) => e?.id === f)?.name.localized ?? f}
       </Chip>
     )),
   ];
@@ -186,6 +205,27 @@ const FilterBar = ({
             </OpportunityDetailsFilterDialog>
             {opportunityDetailsChips.length ? (
               <Chips>{opportunityDetailsChips}</Chips>
+            ) : (
+              filterNullMessage
+            )}
+          </div>
+          <div>
+            <OrganizationsFilterDialog organizations={options.departments}>
+              <Button
+                mode="inline"
+                className="mb-1.5"
+                icon={PlusCircleIcon}
+                color="black"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Organizations",
+                  id: "XmF74L",
+                  description: "Title for organizations filter dialog",
+                })}
+              </Button>
+            </OrganizationsFilterDialog>
+            {organizationsChips.length ? (
+              <Chips>{organizationsChips}</Chips>
             ) : (
               filterNullMessage
             )}
