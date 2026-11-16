@@ -408,7 +408,7 @@ Applicant-reported awards, recognitions, or honours on their GC Talent profile. 
 
 ## classification_community_development_program
 
-Junction table linking GC job classifications to community-specific development programs, allowing programs to express that they are only available to certain classifications. Owned by the [community_development_program](#community_development_programs) model.
+Junction table linking GC job classifications to ccommunity_develppment_programs, which is itself a junction table linking communities to development programs. This allows for multiple Communities to offer the same development programs, and for each community to have their own rules about which Classifications they are available to.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -420,7 +420,7 @@ Junction table linking GC job classifications to community-specific development 
 
 ## classification_development_program
 
-**This table is unused and planned for deletion.** Junction table linking GC job classifications to platform-wide development programs, allowing programs to express that they are only available to certain classifications Owned by the [development_program](#development_programs) model, which has been deprecated in favour of [community_development_program](#community_development_programs). 
+**This table is unused and planned for deletion.** Junction table linking GC job classifications to platform-wide development programs, allowing programs to express that they are only available to certain classifications. This table has been replaced by classification_community_development_program, and will be deleted.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -511,19 +511,19 @@ Reference table of GC occupational group and level classifications (e.g. EC-06, 
 
 ## communities
 
-Functional communities within the GC (e.g. Data Science, Digital, Finance). Communities group related work streams, pools, and development programs, and serve as the primary organizing unit for talent management, and related roles and permissions.
+Functional communities within the GC (e.g. Data Science, Digital, Finance). Communities group related work streams, pools, and development programs, and serve as the primary organizing unit for talent management. Communities are one of the entities which can function as a "team" in the roles and permissions framework.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the community. |  |  |
-| `created_at` | Timestamp when the community was created. |  |  |
-| `updated_at` | Timestamp when the community was last modified. |  |  |
-| `key` | Human-readable unique slug for the community. |  | Not null; unique |
-| `name` | Bilingual display name of the community. |  | Bilingual: en and fr required together. Example: `{"en": "Digital Community", "fr": "Communauté numérique"}` |
-| `description` | Bilingual description of the community's mandate and focus. |  | Bilingual: en and fr required together. Example: `{"en": "Supports the digital community across government.", "fr": "Soutient la communauté numérique du gouvernement."}` |
-| `mandate_authority` | The GC body or authority responsible for this community. |  | Bilingual: en and fr required together. Example: `{"en": "Office of the Chief Information Officer", "fr": "Bureau du dirigeant principal de l’information"}` |
-| `information_url` | Link to external information about the community. |  | Bilingual: en and fr required together; must be http/https URLs. Example: `{"en": "https://example.gc.ca/en/digital", "fr": "https://example.gc.ca/fr/numerique"}` |
-| `contact_email` | Contact email address for the community team. |  |  |
+| Column              | Description                                                                     | Relationship | Constraints                                                                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                | Unique identifier for the community.                                            |              |                                                                                                                                                                           |
+| `created_at`        | Timestamp when the community was created.                                       |              |                                                                                                                                                                           |
+| `updated_at`        | Timestamp when the community was last modified.                                 |              |                                                                                                                                                                           |
+| `key`               | Human-readable unique slug for the community.                                   |              | Not null; unique                                                                                                                                                          |
+| `name`              | Bilingual display name of the community.                                        |              | Bilingual: en and fr required together. Example: `{"en": "Digital Community", "fr": "Communauté numérique"}`                                                              |
+| `description`       | Bilingual description of the community's mandate and focus.                     |              | Bilingual: en and fr required together. Example: `{"en": "Supports the digital community across government.", "fr": "Soutient la communauté numérique du gouvernement."}` |
+| `mandate_authority` | The GC body or authority responsible for this community.                        |              | Bilingual: en and fr required together. Example: `{"en": "Office of the Chief Information Officer", "fr": "Bureau du dirigeant principal de l’information"}`              |
+| `information_url`   | Link to external information about the community.                               |              | Bilingual: en and fr required together; must be http/https URLs. Example: `{"en": "https://example.gc.ca/en/digital", "fr": "https://example.gc.ca/fr/numerique"}`        |
+| `contact_email`     | Contact email address for the community team. Not currently displayed anywhere. |              |                                                                                                                                                                           |
 
 **Referenced by:** `applicant_filters.community_id`, `community_development_program.community_id`, `community_interests.community_id`, `development_programs.community_id`, `pool_candidate_search_requests.community_id`, `pools.community_id`, `talent_nomination_events.community_id`, `talent_requests.community_id`, `users.career_objective_community_id`, `users.next_role_community_id`, `work_streams.community_id`
 
@@ -531,7 +531,7 @@ Functional communities within the GC (e.g. Data Science, Digital, Finance). Comm
 
 ## community_development_program
 
-Links a development program to a specific community, indicating that the program is offered or managed within that community context. Supports soft-delete.
+Junction table which links a development program to a specific community, indicating that the program is offered or managed within that community context. Different communities can offer the same development program, and each community can offer it to a different set of classifications (stored in classification_community_development_program). Supports soft-delete, which means it will no longer be offered, without disrupting existing records which link to this. 
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
