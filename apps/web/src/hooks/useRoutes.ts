@@ -232,7 +232,8 @@ const getRoutes = (lang: Locales) => {
     iapManager: () => [baseUrl, "indigenous-it-apprentice", "hire"].join("/"),
 
     // Jobs
-    jobs: () => `${baseUrl}/jobs`,
+    jobs: () => `${baseUrl}/jobs`, // tab group landing page
+    openOpportunities: () => `${baseUrl}/jobs`,
     closedJobs: () => `${baseUrl}/jobs/closed`,
     jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
 

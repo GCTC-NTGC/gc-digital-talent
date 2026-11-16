@@ -91,12 +91,14 @@ export default [
 
           // Browse jobs
           ...prefix("jobs", [
-            index("./pages/Pools/BrowseJobsPage/OpenJobsPage.tsx"),
+            layout("./pages/Pools/BrowseJobsPage/BrowseJobsLayout.tsx", [
+              index("./pages/Pools/BrowseJobsPage/OpenOpportunitiesPage.tsx"),
+            ]),
+            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
             route(
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
-            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
           // Job templates
