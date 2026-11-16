@@ -1,4 +1,4 @@
-import type { Ref } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler, Ref } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
@@ -30,12 +30,21 @@ const checkBtn = tv({
 
 type CheckButtonVariants = VariantProps<typeof checkBtn>;
 
-export interface CheckButtonProps extends CheckButtonVariants {
+// NOTE: Extra button props are passed through so it can be used
+// as a `render` element by Base UI (e.g. Toolbar.Button)
+export interface CheckButtonProps
+  extends
+    CheckButtonVariants,
+    Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      "color" | "onClick" | "children"
+    > {
   ref?: Ref<HTMLButtonElement | null>;
   checked: boolean;
   label: string;
   indeterminate?: boolean;
   onToggle: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }
 
@@ -44,9 +53,11 @@ const CheckButton = ({
   checked,
   label,
   onToggle,
+  onClick,
   indeterminate = false,
   color = "black",
   className,
+  ...rest
 }: CheckButtonProps) => {
   const intl = useIntl();
   const { btn, icon: iconStyles } = checkBtn({ color });
@@ -65,7 +76,11 @@ const CheckButton = ({
     <button
       ref={ref}
       type="button"
-      onClick={() => onToggle()}
+      {...rest}
+      onClick={(event) => {
+        onClick?.(event);
+        onToggle();
+      }}
       className={btn({ class: className })}
     >
       <span className="sr-only">

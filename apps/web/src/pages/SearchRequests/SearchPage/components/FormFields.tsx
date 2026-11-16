@@ -151,8 +151,8 @@ const FormFields = ({
         label: loc.label,
         contentBelow: intl.formatMessage({
           defaultMessage:
-            "Employee works for a minimum of 3 days per week on-site, with the rest being remote.",
-          id: "1yMApi",
+            "Employee works for a minimum of 4 days per week on-site, with the rest being remote.",
+          id: "FXmkyF",
           description: "Checklist option explanatory note",
         }),
       };

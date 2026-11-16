@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "urql";
 import { useState, useEffect, useMemo } from "react";
 import debounce from "lodash/debounce";
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
 import {
   Container,
@@ -204,7 +205,13 @@ export const SearchForm = ({
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <div className="grid gap-12 xs:grid-cols-[1fr_22rem]">
             <div>
-              <Heading rank="h2" size="h3" className="mb-6 font-normal">
+              <Heading
+                rank="h2"
+                size="h3"
+                icon={BuildingOffice2Icon}
+                color="secondary"
+                className="mt-0 mb-6 font-normal"
+              >
                 {intl.formatMessage({
                   defaultMessage: "About this tool",
                   id: "pS/eg+",

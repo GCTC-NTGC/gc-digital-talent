@@ -344,12 +344,19 @@ class UserBuilder extends Builder
             return $this->whereRaw('1 = 0');
         }
 
-        return $this->where(function ($query) use ($sources, $filters) {
-            foreach ($sources as $index => $source) {
-                $method = $source->matchMethod();
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->{$method}($filters));
-            }
-        });
+        // Combine each source's matching user ids into one list
+        // rather than OR-ing an EXISTS per source, which Postgres can't plan well (very slow once there are two or more sources)
+        $matchingUserIds = null;
+        foreach ($sources as $source) {
+            $relation = $this->getModel()->{$source->matchRelation()}();
+            $method = $source->matchMethod();
+            $sourceUserIds = $relation->getRelated()->newQuery()
+                ->{$method}($filters)
+                ->select($relation->getQualifiedForeignKeyName());
+            $matchingUserIds = $matchingUserIds ? $matchingUserIds->unionAll($sourceUserIds) : $sourceUserIds;
+        }
+
+        return $this->whereIn('users.id', $matchingUserIds);
     }
 
     // Only the request's user-level attribute and location filters.
