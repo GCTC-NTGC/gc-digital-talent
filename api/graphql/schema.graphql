@@ -1825,10 +1825,10 @@ type Query {
     @cache(maxAge: 86400)
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchPoolCount!]!
+  ): [TalentRequestMatchPoolCount!]! @cache(maxAge: 3600)
   countTalentRequestMatchesByCommunity(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchCommunityCount!]!
+  ): [TalentRequestMatchCommunityCount!]! @cache(maxAge: 3600)
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
