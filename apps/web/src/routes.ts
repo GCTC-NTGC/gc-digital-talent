@@ -99,6 +99,10 @@ export default [
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
+            route(
+              "closed/:poolId",
+              "./pages/Pools/JobPosterArchivePage/JobPosterArchivePage.tsx",
+            ),
           ]),
 
           // Job templates

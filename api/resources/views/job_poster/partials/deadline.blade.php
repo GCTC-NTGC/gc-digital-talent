@@ -1,8 +1,8 @@
 @php
     $locale = App::currentLocale();
-    $formattedDateVancouver = \Carbon\Carbon::executeWithLocale($locale,
+    $formattedDateVancouver = $pool->closing_date ? \Carbon\Carbon::executeWithLocale($locale,
         fn () => $pool->closing_date->setTimezone('America/Vancouver')->translatedFormat($locale === 'en' ? 'g:i A \G\M\TP F jS' : 'G:i \G\M\TP F jS')
-    );
+    ) : '';
 @endphp
 
 <x-footnote-item :heading="__('job_poster.deadline.title')" id="2">
