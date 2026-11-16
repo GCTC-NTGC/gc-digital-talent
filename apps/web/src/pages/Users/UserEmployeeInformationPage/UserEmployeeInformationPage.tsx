@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import TrophyIcon from "@heroicons/react/24/outline/TrophyIcon";
 import { useQuery } from "urql";
 
 import {
@@ -14,7 +15,7 @@ import {
 } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
@@ -24,6 +25,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 import EmployeeVerificationSection from "~/components/EmployeeVerificationSection/EmployeeVerificationSection";
+import TalentNominationHistory from "~/components/TalentNominationHistory/TalentNominationHistory";
+import permissionConstants from "~/constants/permissionConstants";
+import { checkRole } from "~/utils/teamUtils";
 
 import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
@@ -38,12 +42,14 @@ const SECTION_ID = {
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
+  TALENT_NOMINATIONS: "talent-nominations-section",
 };
 
 const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeInformationUser on User {
     ...UserEmployeeVerification
     ...NextRoleAndCareerObjective
+    ...TalentNominationHistory
   }
 `);
 
@@ -92,6 +98,12 @@ export const UserEmployeeInformation = ({
   );
 
   const user = getFragment(EmployeeInformationUser_Fragment, userQuery);
+
+  const { roleAssignments } = useAuthorization();
+  const canViewNominations = checkRole(
+    permissionConstants.viewEmployeeNominationHistory,
+    roleAssignments,
+  );
 
   return (
     <TableOfContents.Wrapper>
@@ -150,6 +162,18 @@ export const UserEmployeeInformation = ({
               </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.ListItem>
+          {canViewNominations && (
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={SECTION_ID.TALENT_NOMINATIONS}>
+                {intl.formatMessage({
+                  defaultMessage: "Nominations received",
+                  id: "OI/zOh",
+                  description:
+                    "Title for the nominations received section on the GC profile",
+                })}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          )}
         </TableOfContents.List>
         <Separator decorative orientation="horizontal" space="xs" />
         <DownloadButton id={userId} />
@@ -348,6 +372,37 @@ export const UserEmployeeInformation = ({
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
+
+          {canViewNominations && (
+            <TableOfContents.Section id={SECTION_ID.TALENT_NOMINATIONS}>
+              <Heading
+                rank="h2"
+                size="h3"
+                icon={TrophyIcon}
+                color="secondary"
+                className="font-normal sm:justify-start sm:text-left"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Nominations the employee has received",
+                  id: "RvEuTQ",
+                  description:
+                    "Title for the nominations received section on the GC profile",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "When the employee is nominated through a talent management event for advancement, lateral movement or development opportunities, a summary of the approved nomination will display here. Select a nomination to learn more.",
+                  id: "9hMoLz",
+                  description:
+                    "Description for the nominations received section on the GC profile",
+                })}
+              </p>
+              <div className="mt-6">
+                <TalentNominationHistory userQuery={user} />
+              </div>
+            </TableOfContents.Section>
+          )}
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>

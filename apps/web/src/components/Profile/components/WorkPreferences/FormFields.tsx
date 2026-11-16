@@ -107,8 +107,8 @@ const FormFields = ({
           label: loc.label.localized,
           contentBelow: intl.formatMessage({
             defaultMessage:
-              "I'm willing to work on-site at a department-designated location for a minimum of 3 days, with the rest being remote.",
-            id: "4BJrSM",
+              "I'm willing to work on-site at a department-designated location for a minimum of 4 days, with the rest being remote.",
+            id: "KDcgMh",
             description: "Checklist option explanatory note",
           }),
         };
