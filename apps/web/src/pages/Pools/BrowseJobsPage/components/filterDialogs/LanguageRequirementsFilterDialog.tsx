@@ -2,28 +2,47 @@ import { type ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import { Checklist, localizedEnumToOptions } from "@gc-digital-talent/forms";
+import { sortLanguageAbility } from "@gc-digital-talent/i18n";
 import {
-  sortLanguageAbility,
-  type MaybeLocalizedEnums,
-} from "@gc-digital-talent/i18n";
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";
+
+const LanguageRequirementsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment LanguageRequirementsFilterDialogOptions on Query {
+    languageAbilityEnums: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface FormValues {
   languageRequirements: string[];
 }
 
 interface Props {
-  languageAbilityEnums: MaybeLocalizedEnums;
+  optionsQuery: FragmentType<
+    typeof LanguageRequirementsFilterDialogOptions_Fragment
+  >;
   children: ReactNode;
 }
 
 const LanguageRequirementsFilterDialog = ({
-  languageAbilityEnums,
+  optionsQuery,
   children,
 }: Props) => {
   const intl = useIntl();
+  const { languageAbilityEnums } = getFragment(
+    LanguageRequirementsFilterDialogOptions_Fragment,
+    optionsQuery,
+  );
   const { getFilterValues, setFilters } = useBrowseJobsSearchParams();
 
   const languageRequirementOptions = localizedEnumToOptions(

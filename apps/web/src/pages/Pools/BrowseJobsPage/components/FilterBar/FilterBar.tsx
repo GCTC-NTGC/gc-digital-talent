@@ -27,6 +27,10 @@ import FilterChips from "./FilterChips";
 
 const Options_Fragment = graphql(/* GraphQL */ `
   fragment BrowseJobsFilterBarOptions on Query {
+    ...OpportunityDetailsFilterDialogOptions
+    ...LanguageRequirementsFilterDialogOptions
+    ...OrganizationsFilterDialogOptions
+    ...AdvancedFiltersDialogOptions
     poolAreaOfSelectionEnums: localizedEnumStrings(
       enumName: "PoolAreaOfSelection"
     ) {
@@ -231,11 +235,7 @@ const FilterBar = ({
             <FilterChips filters={keywordFilters} />
           </div>
           <div>
-            <OpportunityDetailsFilterDialog
-              poolAreaOfSelectionEnums={options.poolAreaOfSelectionEnums}
-              classifications={options.classifications}
-              salaryRangeEnums={options.salaryRangeEnums}
-            >
+            <OpportunityDetailsFilterDialog optionsQuery={options}>
               <Button
                 mode="inline"
                 className="mb-1.5"
@@ -252,9 +252,7 @@ const FilterBar = ({
             <FilterChips filters={opportunityDetailsFilters} />
           </div>
           <div>
-            <LanguageRequirementsFilterDialog
-              languageAbilityEnums={options.languageAbilityEnums}
-            >
+            <LanguageRequirementsFilterDialog optionsQuery={options}>
               <Button
                 mode="inline"
                 className="mb-1.5"
@@ -272,7 +270,7 @@ const FilterBar = ({
             <FilterChips filters={languageRequirementsFilters} />
           </div>
           <div>
-            <OrganizationsFilterDialog organizations={options.departments}>
+            <OrganizationsFilterDialog optionsQuery={options}>
               <Button
                 mode="inline"
                 className="mb-1.5"
@@ -289,9 +287,7 @@ const FilterBar = ({
             <FilterChips filters={organizationsFilters} />
           </div>
           <div>
-            <AdvancedFiltersDialog
-              poolPublishedRangeEnums={options.poolPublishedRangeEnums}
-            >
+            <AdvancedFiltersDialog optionsQuery={options}>
               <Button
                 mode="inline"
                 className="mb-1.5"

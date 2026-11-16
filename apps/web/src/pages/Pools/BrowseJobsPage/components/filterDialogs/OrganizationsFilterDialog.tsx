@@ -4,24 +4,44 @@ import { useIntl } from "react-intl";
 import { Combobox } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";
+
+const OrganizationsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment OrganizationsFilterDialogOptions on Query {
+    departments {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 interface FormValues {
   organizations: string[];
 }
 
 interface Props {
-  organizations: ({ id: string; name: { localized: string | null } } | null)[];
+  optionsQuery: FragmentType<typeof OrganizationsFilterDialogOptions_Fragment>;
   children: ReactNode;
 }
 
-const OrganizationsFilterDialog = ({ organizations, children }: Props) => {
+const OrganizationsFilterDialog = ({ optionsQuery, children }: Props) => {
   const intl = useIntl();
+  const { departments } = getFragment(
+    OrganizationsFilterDialogOptions_Fragment,
+    optionsQuery,
+  );
   const { getFilterValues, setFilters } = useBrowseJobsSearchParams();
 
-  const organizationOptions = unpackMaybes(organizations)
+  const organizationOptions = unpackMaybes(departments)
     .map((o) => ({
       value: o.id,
       label: o.name.localized ?? intl.formatMessage(commonMessages.notFound),

@@ -11,12 +11,39 @@ import {
   commonMessages,
   sortPoolAreaOfSelection,
   sortSalaryRange,
-  type MaybeLocalizedEnums,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";
+
+const OpportunityDetailsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment OpportunityDetailsFilterDialogOptions on Query {
+    poolAreaOfSelectionEnums: localizedEnumStrings(
+      enumName: "PoolAreaOfSelection"
+    ) {
+      value
+      label {
+        localized
+      }
+    }
+    classifications {
+      id
+      groupAndLevel
+    }
+    salaryRangeEnums: localizedEnumStrings(enumName: "SalaryRange") {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface FormValues {
   applicationEligibility: string[];
@@ -25,22 +52,16 @@ interface FormValues {
 }
 
 interface Props {
-  poolAreaOfSelectionEnums: MaybeLocalizedEnums;
-  classifications: ({
-    id: string;
-    groupAndLevel: string | null;
-  } | null)[];
-  salaryRangeEnums: MaybeLocalizedEnums;
+  optionsQuery: FragmentType<
+    typeof OpportunityDetailsFilterDialogOptions_Fragment
+  >;
   children: ReactNode;
 }
 
-const OpportunityDetailsFilterDialog = ({
-  poolAreaOfSelectionEnums,
-  classifications,
-  salaryRangeEnums,
-  children,
-}: Props) => {
+const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
   const intl = useIntl();
+  const { poolAreaOfSelectionEnums, classifications, salaryRangeEnums } =
+    getFragment(OpportunityDetailsFilterDialogOptions_Fragment, optionsQuery);
   const { getFilterValue, getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 

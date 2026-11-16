@@ -6,13 +6,28 @@ import {
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import { sortPoolPublishedRange } from "@gc-digital-talent/i18n";
 import {
-  sortPoolPublishedRange,
-  type MaybeLocalizedEnums,
-} from "@gc-digital-talent/i18n";
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";
+
+const AdvancedFiltersDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment AdvancedFiltersDialogOptions on Query {
+    poolPublishedRangeEnums: localizedEnumStrings(
+      enumName: "PoolPublishedRange"
+    ) {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 interface FormValues {
   advertisementTimings: string[];
@@ -20,15 +35,16 @@ interface FormValues {
 }
 
 interface Props {
-  poolPublishedRangeEnums: MaybeLocalizedEnums;
+  optionsQuery: FragmentType<typeof AdvancedFiltersDialogOptions_Fragment>;
   children: ReactNode;
 }
 
-const AdvancedFiltersDialog = ({
-  poolPublishedRangeEnums,
-  children,
-}: Props) => {
+const AdvancedFiltersDialog = ({ optionsQuery, children }: Props) => {
   const intl = useIntl();
+  const { poolPublishedRangeEnums } = getFragment(
+    AdvancedFiltersDialogOptions_Fragment,
+    optionsQuery,
+  );
   const { getFilterValue, getFilterValues, setFilters } =
     useBrowseJobsSearchParams();
 
