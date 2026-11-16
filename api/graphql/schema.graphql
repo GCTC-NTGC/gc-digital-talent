@@ -1820,7 +1820,9 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
+  # Cached for 24 hours
   countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
+    @cache(maxAge: 86400)
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
