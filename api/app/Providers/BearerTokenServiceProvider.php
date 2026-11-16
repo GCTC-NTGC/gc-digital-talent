@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\BearerTokenService;
-use App\Services\CanadaLoginBearerTokenService;
+use App\Services\OpenidBearerTokenService;
 use App\Services\TestBearerTokenService;
 use Illuminate\Support\ServiceProvider;
 use Psr\Clock\ClockInterface;
@@ -18,7 +18,7 @@ class BearerTokenServiceProvider extends ServiceProvider
         $this->app->singleton(BearerTokenService::class, function () {
             $clock = $this->app->make(ClockInterface::class);
 
-            $realService = new CanadaLoginBearerTokenService(
+            $realService = new OpenidBearerTokenService(
                 config('oauth.server_root').'/.well-known/openid-configuration',
                 $clock,
                 config('oauth.allowable_clock_skew')

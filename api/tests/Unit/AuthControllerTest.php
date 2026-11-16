@@ -414,10 +414,84 @@ class AuthControllerTest extends TestCase
     }
 
     /**
+     * Log in through the auth callback and split the redirect into its uri and query.
+     */
+    private function redirectAfterLogin(array $session, bool $newUser): array
+    {
+        $this->seed(RolePermissionSeeder::class);
+        User::factory()->create(['sub' => 'existing-sub']);
+
+        config([
+            'app.url' => 'https://app.test',
+            'app.dev_url' => 'https://dev.test',
+            'oauth.post_login_redirect' => 'https://app.test/after-login',
+            'oauth.post_login_registration_redirect' => 'https://app.test/register',
+            'oauth.dev_post_login_redirect' => 'https://dev.test/after-login',
+            'oauth.dev_post_login_registration_redirect' => 'https://dev.test/register',
+        ]);
+
+        $location = $this->loginWithIdTokenClaims([
+            'sub' => $newUser ? 'new-sub' : 'existing-sub',
+            'nonce' => 'abc',
+            'state' => 'abc',
+        ], $session)->headers->get('Location');
+
+        $uri = strtok($location, '?');
+        parse_str(parse_url($location, PHP_URL_QUERY), $query);
+
+        return [$uri, $query];
+    }
+
+    public function testExistingUserGoesToFromPath()
+    {
+        [$uri, $query] = $this->redirectAfterLogin(['from' => '/en/applicant'], false);
+
+        $this->assertSame('https://app.test/en/applicant', $uri);
+        $this->assertNotEmpty($query['id_token']);
+        $this->assertArrayNotHasKey('from', $query);
+    }
+
+    public function testExistingUserWithoutFromGoesToDefault()
+    {
+        [$uri] = $this->redirectAfterLogin([], false);
+
+        $this->assertSame('https://app.test/after-login', $uri);
+    }
+
+    public function testNewUserGoesToRegistrationWithFrom()
+    {
+        [$uri, $query] = $this->redirectAfterLogin(['from' => '/en/applicant'], true);
+
+        $this->assertSame('https://app.test/register', $uri);
+        $this->assertSame('/en/applicant', $query['from']);
+    }
+
+    public function testAbsoluteFromIsDiscarded()
+    {
+        [$uri] = $this->redirectAfterLogin(['from' => 'https://evil.test/'], false);
+
+        $this->assertSame('https://app.test/after-login', $uri);
+    }
+
+    public function testDevServerSendsExistingUserToDevApp()
+    {
+        [$uri] = $this->redirectAfterLogin(['devServer' => true, 'from' => '/en'], false);
+
+        $this->assertSame('https://dev.test/en', $uri);
+    }
+
+    public function testDevServerSendsNewUserToDevRegistration()
+    {
+        [$uri] = $this->redirectAfterLogin(['devServer' => true], true);
+
+        $this->assertSame('https://dev.test/register', $uri);
+    }
+
+    /**
      * Run the auth callback with an unsigned id_token built from the given claims.
      * The callback does not verify the token signature.
      */
-    private function loginWithIdTokenClaims(array $claims)
+    private function loginWithIdTokenClaims(array $claims, array $session = [])
     {
         $encode = fn (array $data) => rtrim(strtr(base64_encode(json_encode($data)), '+/', '-_'), '=');
         $idToken = $encode(['alg' => 'HS256', 'typ' => 'JWT']).'.'.$encode($claims).'.'.base64_encode('signature');
@@ -427,6 +501,7 @@ class AuthControllerTest extends TestCase
             ->whenEmpty(Http::response());
 
         return $this->withSession([
+            ...$session,
             'state' => $claims['state'],
             'nonce' => $claims['nonce'],
         ])->call('GET', '/auth-callback', [
