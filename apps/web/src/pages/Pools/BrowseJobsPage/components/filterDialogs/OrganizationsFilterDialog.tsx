@@ -87,7 +87,7 @@ const OrganizationsFilterDialog = ({ organizations, children }: Props) => {
                 })}
                 name={"organizations"}
                 isMulti
-              ></Combobox>
+              />
               <Dialog.Footer>
                 <Button type="submit" color="primary">
                   {intl.formatMessage({

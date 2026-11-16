@@ -3,26 +3,37 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { Checklist, localizedEnumToOptions } from "@gc-digital-talent/forms";
+import {
+  Checklist,
+  Combobox,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
 import {
   commonMessages,
   sortPoolAreaOfSelection,
   type MaybeLocalizedEnums,
 } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 
 interface FormValues {
   applicationEligibility: string[];
+  classifications: string[];
 }
 
 interface Props {
   poolAreaOfSelectionEnums: MaybeLocalizedEnums;
+  classifications: ({
+    id: string;
+    groupAndLevel: string | null;
+  } | null)[];
   children: ReactNode;
 }
 
 const OpportunityDetailsFilterDialog = ({
   poolAreaOfSelectionEnums,
+  classifications,
   children,
 }: Props) => {
   const intl = useIntl();
@@ -33,6 +44,7 @@ const OpportunityDetailsFilterDialog = ({
 
   const getFormValuesFromFilters = (): FormValues => ({
     applicationEligibility: getFilterValues("applicationEligibility"),
+    classifications: getFilterValues("classification"),
   });
 
   const formMethods = useForm<FormValues>({
@@ -43,6 +55,13 @@ const OpportunityDetailsFilterDialog = ({
     sortPoolAreaOfSelection(poolAreaOfSelectionEnums),
     intl,
   );
+
+  const classificationOptions = unpackMaybes(classifications)
+    .map((o) => ({
+      value: o.id,
+      label: o.groupAndLevel ?? intl.formatMessage(commonMessages.notFound),
+    }))
+    .toSorted((a, b) => (a.label > b.label ? 1 : 0));
 
   const handleOpenChange = (newOpen: boolean) => {
     if (newOpen) {
@@ -56,11 +75,13 @@ const OpportunityDetailsFilterDialog = ({
       "applicationEligibility",
       formValues.applicationEligibility,
     );
+    setFilterValues("classification", formValues.classifications);
     setOpen(false);
   };
 
   const handleClearFilters = () => {
     resetFilter("applicationEligibility");
+    resetFilter("classification");
     setOpen(false);
   };
 
@@ -85,16 +106,29 @@ const OpportunityDetailsFilterDialog = ({
         <Dialog.Body>
           <FormProvider {...formMethods}>
             <form onSubmit={formMethods.handleSubmit(handleSaveFilter)}>
-              <Checklist
-                idPrefix={"applicationEligibility"}
-                legend={intl.formatMessage({
-                  defaultMessage: "Application eligibility",
-                  id: "P3U7AV",
-                  description: "Title for an area of selection checklist",
-                })}
-                items={areaOfSelectionOptions}
-                name={"applicationEligibility"}
-              />
+              <div className="flex flex-col gap-6">
+                <Checklist
+                  idPrefix={"applicationEligibility"}
+                  legend={intl.formatMessage({
+                    defaultMessage: "Application eligibility",
+                    id: "P3U7AV",
+                    description: "Title for an area of selection checklist",
+                  })}
+                  items={areaOfSelectionOptions}
+                  name={"applicationEligibility"}
+                />
+                <Combobox
+                  options={classificationOptions}
+                  id={"classifications"}
+                  label={intl.formatMessage({
+                    defaultMessage: "Classifications",
+                    id: "jxRrxU",
+                    description: "Label for a classification picker",
+                  })}
+                  name={"classifications"}
+                  isMulti
+                />
+              </div>
               <Dialog.Footer>
                 <Button type="submit" color="primary">
                   {intl.formatMessage({

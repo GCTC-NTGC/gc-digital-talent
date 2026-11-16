@@ -14,6 +14,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -37,11 +38,30 @@ const Options_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    classifications {
+      id
+      groupAndLevel
+    }
   }
 `);
-interface searchByKeywordForm {
+interface SearchByKeywordForm {
   searchByKeyword: string;
 }
+
+interface FilterDefinition {
+  key: string;
+  label: string;
+  handleRemove: () => void;
+}
+
+const filtersToChips = (filters: FilterDefinition[]) =>
+  filters
+    .toSorted((f1, f2) => (f1.label > f2.label ? 1 : -1))
+    .map((f) => (
+      <Chip key={f.key} onDismiss={f.handleRemove}>
+        {f.label}
+      </Chip>
+    ));
 
 interface FilterBarProps extends ComponentPropsWithoutRef<"div"> {
   featureManageAlertButtons: boolean;
@@ -65,43 +85,42 @@ const FilterBar = ({
     resetFilters,
   } = useBrowseJobsSearchParams();
 
-  const keywordsChips = getFilterValues("keyword").map((f) => (
-    <Chip
-      key={`keyword:${f}`}
-      onDismiss={() => removeFilterValue("keyword", f)}
-    >
-      {f}
-    </Chip>
-  ));
-  const opportunityDetailsChips = [
-    ...getFilterValues("applicationEligibility").map((f) => (
-      <Chip
-        key={`applicationEligibility:${f}`}
-        onDismiss={() => removeFilterValue("applicationEligibility", f)}
-      >
-        {options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
-          .localized ?? f}
-      </Chip>
-    )),
-    // classifications
+  const keywordFilters = getFilterValues("keyword").map((f) => ({
+    key: `keyword:${f}`,
+    label: f ?? intl.formatMessage(commonMessages.notFound),
+    handleRemove: () => removeFilterValue("keyword", f),
+  }));
+
+  const opportunityDetailsFilters = [
+    ...getFilterValues("applicationEligibility").map((f) => ({
+      key: `applicationEligibility:${f}`,
+      label:
+        options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
+          .localized ?? f,
+      handleRemove: () => removeFilterValue("applicationEligibility", f),
+    })),
+    ...getFilterValues("classification").map((f) => ({
+      key: `classification:${f}`,
+      label:
+        options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
+        intl.formatMessage(commonMessages.notFound),
+      handleRemove: () => removeFilterValue("classification", f),
+    })),
     // minimum salary
   ];
-  const organizationsChips = [
-    ...getFilterValues("organization").map((f) => (
-      <Chip
-        key={`organization:${f}`}
-        onDismiss={() => removeFilterValue("organization", f)}
-      >
-        {options?.departments?.find((e) => e?.id === f)?.name.localized ?? f}
-      </Chip>
-    )),
-  ];
+  const organizationsFilters = getFilterValues("organization").map((f) => ({
+    key: `organization:${f}`,
+    label:
+      options?.departments?.find((e) => e?.id === f)?.name.localized ??
+      intl.formatMessage(commonMessages.notFound),
+    handleRemove: () => removeFilterValue("organization", f),
+  }));
 
-  const keywordFormMethods = useForm<searchByKeywordForm>();
+  const keywordFormMethods = useForm<SearchByKeywordForm>();
 
   const handleKeywordFormSubmit = ({
     searchByKeyword: keyword,
-  }: searchByKeywordForm) => {
+  }: SearchByKeywordForm) => {
     addFilterValue("keyword", keyword);
     keywordFormMethods.reset();
   };
@@ -180,8 +199,8 @@ const FilterBar = ({
               </form>
             </FormProvider>
 
-            {keywordsChips.length ? (
-              <Chips>{keywordsChips}</Chips>
+            {keywordFilters.length ? (
+              <Chips>{filtersToChips(keywordFilters)}</Chips>
             ) : (
               filterNullMessage
             )}
@@ -189,6 +208,7 @@ const FilterBar = ({
           <div>
             <OpportunityDetailsFilterDialog
               poolAreaOfSelectionEnums={options.poolAreaOfSelectionEnums}
+              classifications={options.classifications}
             >
               <Button
                 mode="inline"
@@ -203,8 +223,8 @@ const FilterBar = ({
                 })}
               </Button>
             </OpportunityDetailsFilterDialog>
-            {opportunityDetailsChips.length ? (
-              <Chips>{opportunityDetailsChips}</Chips>
+            {opportunityDetailsFilters.length ? (
+              <Chips>{filtersToChips(opportunityDetailsFilters)}</Chips>
             ) : (
               filterNullMessage
             )}
@@ -224,8 +244,8 @@ const FilterBar = ({
                 })}
               </Button>
             </OrganizationsFilterDialog>
-            {organizationsChips.length ? (
-              <Chips>{organizationsChips}</Chips>
+            {organizationsFilters.length ? (
+              <Chips>{filtersToChips(organizationsFilters)}</Chips>
             ) : (
               filterNullMessage
             )}
