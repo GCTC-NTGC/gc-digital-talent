@@ -1902,10 +1902,6 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
   },
-  "5bjzAS": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour avancement} other {<strong>#</strong> Nominés pour avancement} }",
-    "description": "Count of candidates nominated for advancement, on the community results card."
-  },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
     "description": "A date at which data will be published, in the UTC time standard"
@@ -3766,6 +3762,10 @@
     "defaultMessage": "Potentiel de leadership de la personne nominée",
     "description": "Label for the nominee's leadership potential field"
   },
+  "DBbbtY": {
+    "defaultMessage": "{count, plural, =0 {<strong>#</strong> Personne nominée pour avancement} one {<strong>#</strong> Personne nominée pour avancement} other {<strong>#</strong> Personnes nominées pour avancement} }",
+    "description": "Count of candidates nominated for advancement, on the community results card."
+  },
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
@@ -4664,10 +4664,6 @@
   "GkX/KN": {
     "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
-  },
-  "GkcCus": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour transfert latéral} other {<strong>#</strong> Nominés pour transfert latéral} }",
-    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "GmGDq8": {
     "defaultMessage": "Perfectionnement professionnel créé avec succès!",
@@ -11461,6 +11457,10 @@
   "i5/pKP": {
     "defaultMessage": "Vous n'avez pas encore ajouté de participation à la collectivité.",
     "description": "Text in community experience card when user has no community experiences"
+  },
+  "i8Bvxi": {
+    "defaultMessage": "{count, plural, =0 {<strong>#</strong> Personne nominée pour transfert latéral} one {<strong>#</strong> Personne nominée pour transfert latéral} other {<strong>#</strong> Personnes nominées pour transfert latéral} }",
+    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
