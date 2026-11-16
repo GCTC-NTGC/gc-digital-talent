@@ -1770,6 +1770,10 @@
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
   },
+  "5/P7D5": {
+    "defaultMessage": "Filtrer les emplois",
+    "description": "Heading for job filtering"
+  },
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
@@ -4069,6 +4073,10 @@
     "defaultMessage": "Êtes-vous sûr de vouloir ramener cette personne candidate à une étape précédente du processus?",
     "description": "Content for move to previous step in screening stage notice"
   },
+  "ENIwpZ": {
+    "defaultMessage": "{resultCount, plural, =0 {0 possibilité d'emploi correspondante} one {# possibilité d'emploi correspondante} other {# possibilités d'emploi correspondantes} }",
+    "description": "Number of matching job opportunities found"
+  },
   "ENdwj1": {
     "defaultMessage": "Parcourir les événements de gestion des talents actifs",
     "description": "Link to browse open talent events when an employee has not submitted any nominations"
@@ -4140,6 +4148,10 @@
   "Efdmb2": {
     "defaultMessage": "Informations sur le nominé ou la nominée",
     "description": "Heading for nominee step of a talent nomination"
+  },
+  "Efy/VY": {
+    "defaultMessage": "{resultCount, plural, =0 {0 possibilité d'emploi ouverte} one {# possibilité d'emploi ouverte} other {# possibilités d'emploi ouvertes} }",
+    "description": "Number of open job opportunities found"
   },
   "EgYtVO": {
     "defaultMessage": "Ajouter une collectivité à la plateforme.",
@@ -5491,6 +5503,10 @@
     "defaultMessage": "Si vos principales compétences mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Ces compétences ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
     "description": "Description of the skills to improve section and how to use it."
   },
+  "K7MAfs": {
+    "defaultMessage": "Date de publication",
+    "description": "Button to sort by date posted"
+  },
   "K7SjlM": {
     "defaultMessage": "Partenariat avec une collectivité",
     "description": "Community partnership label"
@@ -5945,6 +5961,10 @@
   "LxGqKt": {
     "defaultMessage": "Le processus d’enquête de sécurité peut prendre de quelques jours à plusieurs mois. Plus le niveau de filtrage est élevé et plus le dossier est complexe, plus le processus est long.",
     "description": "Second paragraph for the security clearance dialog"
+  },
+  "LxPFHG": {
+    "defaultMessage": "Possibilités d'emploi fermées",
+    "description": "Name of closed opportunities page"
   },
   "LxRoWB": {
     "defaultMessage": "Création de la collectivité réussie!",
@@ -7392,6 +7412,10 @@
     "defaultMessage": "Les tâches principales ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the key tasks"
   },
+  "Ri477F": {
+    "defaultMessage": "Possibilités d'emploi ouvertes",
+    "description": "Name of open opportunities page"
+  },
   "RjKlKz": {
     "defaultMessage": "Créer un volet de travail",
     "description": "Text to create a work stream"
@@ -7835,6 +7859,10 @@
   "Tq0ZKw": {
     "defaultMessage": "Votre interaction avec le gouvernement du Canada sur les médias sociaux est en partie régie par les modalités de services ou d’utilisation des tiers fournisseurs de plateformes de médias sociaux concernés, ainsi que par les modalités présentées ci-dessous. Le gouvernement du Canada n’a aucun contrôle sur les modalités de service ou d’utilisation des fournisseurs de plateformes de médias sociaux, d’où l’importance pour vous d’en prendre connaissance.",
     "description": "Paragraph describing social media section"
+  },
+  "Tqdczp": {
+    "defaultMessage": "Gérer mes alertes",
+    "description": "Button to manage job alerts"
   },
   "TrbPjE": {
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
@@ -9074,6 +9102,10 @@
   "YqutpD": {
     "defaultMessage": "Combien de temps à l'avance devrais-je commencer ma demande?",
     "description": "Button text to toggle the accordion for early application"
+  },
+  "YsHrTn": {
+    "defaultMessage": "Créer une alerte d'emploi",
+    "description": "Button to create a job alert"
   },
   "YswsoL": {
     "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez. Vous trouverez la définition de chaque compétence dans notre <link>bibliothèque de compétences</link>.",
@@ -13976,6 +14008,10 @@
     "defaultMessage": "Seuls les membres du personnel admissibles seront pris en considération pour les possibilités de coaching des cadres. L'admissibilité dépend de votre classification et de votre structure organisationnelle.",
     "description": "Context for an employee profile career development preference field"
   },
+  "sxFMPR": {
+    "defaultMessage": "Aucun filtre sélectionné",
+    "description": "null state for filter list"
+  },
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
     "description": "Learn more dialog question six paragraph one"
@@ -15165,6 +15201,10 @@
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
+  },
+  "yBV0YH": {
+    "defaultMessage": "Aucune possibilité d'emploi ouverte ne correspond à vos critères de recherche. Essayez de modifier vos filtres ou enregistrez-les sous forme d'alerte afin de recevoir une notification lorsqu'une possibilité d'emploi correspondant à vos critères est publiée.",
+    "description": "Null state for opportunity search"
   },
   "yBpua7": {
     "defaultMessage": "L'expérience professionnelle est un excellent endroit pour présenter vos expériences à temps partiel, à temps plein, de travail autonome, dans le secteur sans but lucratif ou de stage.",
