@@ -493,8 +493,10 @@ trait GeneratesUserDoc
             $section->addText($experience->getDateRange($this->lang));
             if ((bool) $experienceVersion && $experienceVersion === 1) {
                 // V1 Snapshot representation of a Personal Experience
-                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->description);
-                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+                // description and details no longer exist on the current model (replaced by learning_description),
+                // but V1 snapshots still hydrate them, so PHPStan's property check is ignored here
+                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->description); // @phpstan-ignore property.notFound
+                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details); // @phpstan-ignore property.notFound
             } else {
                 // V2 and onwards representation of a Personal Experience
                 // default rendering
@@ -1013,8 +1015,8 @@ trait GeneratesUserDoc
         }
 
         // Learning Opportunities
-        $section->addText($this->localize('gc_employee.learning_interest'));
         if (! empty($profile->career_planning_learning_opportunities_interest)) {
+            $section->addText($this->localize('gc_employee.learning_interest'));
             foreach ($profile->career_planning_learning_opportunities_interest as $interest) {
                 $section->addListItem(
                     $this->localizeEnum($interest, LearningOpportunitiesInterest::class)

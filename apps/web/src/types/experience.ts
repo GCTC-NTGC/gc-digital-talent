@@ -210,22 +210,14 @@ export interface ExperienceDetailsSubmissionData {
   relatedExperienceType?: string | null;
 }
 
-export type ExperienceMutationArgs = {
+export interface ExperienceMutationArgs {
   id: string;
   awardExperience: AwardExperienceInput;
-} & {
-  id: string;
   communityExperience: CommunityExperienceInput;
-} & {
-  id: string;
   educationExperience: EducationExperienceInput;
-} & {
-  id: string;
   personalExperience: PersonalExperienceInput;
-} & {
-  id: string;
   workExperience: WorkExperienceInput;
-};
+}
 
 export interface ExperienceDetailsDefaultValues {
   areaOfStudy?: string;

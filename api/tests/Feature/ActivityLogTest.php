@@ -6,6 +6,7 @@ use App\Enums\ActivityLog;
 use App\Enums\ApplicationStatus;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\WorkRegion;
 use App\Models\Activity;
 use App\Models\Community;
 use App\Models\Department;
@@ -209,6 +210,7 @@ class ActivityLogTest extends TestCase
                     'applicantFilter' => [
                         'create' => [
                             'hasDiploma' => true,
+                            'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
                             'community' => [
                                 'connect' => $testCommunity->id,
                             ],

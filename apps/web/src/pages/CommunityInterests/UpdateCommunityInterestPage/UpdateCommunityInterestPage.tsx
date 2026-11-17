@@ -48,10 +48,13 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
 
     communities {
       id
-      associatedDevelopmentPrograms {
+      communityDevelopmentPrograms {
         id
-        name {
-          localized
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
     }
@@ -125,7 +128,10 @@ const UpdateCommunityInterestForm = ({
   const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.associatedDevelopmentPrograms,
+    )?.communityDevelopmentPrograms,
+  ).map(
+    (communityDevelopmentProgram) =>
+      communityDevelopmentProgram.developmentProgram,
   );
 
   const developmentProgramCount: number =

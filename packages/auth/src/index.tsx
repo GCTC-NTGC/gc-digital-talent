@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated */
 import { AuthenticationContext } from "./components/AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,
@@ -13,7 +12,6 @@ import {
   type HasRequiredRolesArgs,
   type RoleRequirement,
 } from "./utils/hasRequiredRoles";
-import hasRole from "./utils/hasRole";
 import checkPermissions, {
   type PermissionRequirement,
 } from "./utils/checkPermissions";
@@ -56,7 +54,6 @@ export {
   useAuthorization,
   useApiRoutes,
   apiRoutes,
-  hasRole,
   hasRequiredRoles,
   checkPermissions,
   useHasPermissions,

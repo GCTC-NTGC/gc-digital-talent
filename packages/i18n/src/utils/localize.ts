@@ -59,6 +59,9 @@ export function localeRedirect(locale: Locales) {
   window.location.replace(localizePath(window.location, locale));
 }
 
+/**
+ * @deprecated Query for the localized property of localized strings and specify a context-specific fallback string.
+ */
 export const getLocalizedName = (
   name: LocalizedString | null | undefined,
   intl: IntlShape,

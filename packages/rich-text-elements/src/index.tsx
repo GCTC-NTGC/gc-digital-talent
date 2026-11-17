@@ -92,14 +92,6 @@ const heavyWarning = (text: ReactNode) => (
 );
 
 /**
- * Wraps text in tags to make it gray
- * @param text  text to wrap
- */
-const gray = (text: ReactNode) => (
-  <span className="text-gray-500 dark:text-gray-200">{text}</span>
-);
-
-/**
  * Wraps text in tags to make it underlined
  * @param text  text to wrap
  */
@@ -149,7 +141,6 @@ export default {
   heavyRed,
   warning,
   heavyWarning,
-  gray,
   underline,
   emphasize,
   softHyphen,

@@ -45,7 +45,7 @@ const Layout = ({
         <main
           id="main"
           // 10rem is header + nav height
-          className="flex min-h-[calc(100vh-10rem))] w-full grow flex-col"
+          className="min-h-[calc(100vh-10rem))] flex w-full grow flex-col"
         >
           <Outlet />
         </main>

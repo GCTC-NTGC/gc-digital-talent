@@ -138,6 +138,8 @@ class TalentRequestMatchesTest extends TestCase
                     community { id }
                     qualifiedInPoolCount
                     atLevelCount
+                    advancementCount
+                    lateralMovementCount
                     count
                 }
             }',
@@ -773,6 +775,54 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 3);
     }
 
+    public function testCountByCommunityCountsAdvancementAndLateralMovementBreakdown(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->advancementUser($community);
+        $this->lateralMovementUser($community);
+
+        // approved for both nomination types — should count once in the total
+        $bothUser = User::factory()->create([
+            'work_email' => 'both.nominations.user@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->for($bothUser)->for($community)->create();
+        $event = TalentNominationEvent::factory()->for($community)->create();
+        $bothGroup = TalentNominationGroup::create([
+            'nominee_id' => $bothUser->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $bothGroup->advancement_referral_expiry_date = now()->addMonths(6);
+        $bothGroup->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $bothGroup->save();
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [
+                    TalentRequestSource::ADVANCEMENT->name,
+                    TalentRequestSource::LATERAL_MOVEMENT->name,
+                ],
+            ],
+        ])->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByCommunity' => [
+                    [
+                        'community' => ['id' => $community->id],
+                        'qualifiedInPoolCount' => 0,
+                        'atLevelCount' => 0,
+                        'advancementCount' => 2,
+                        'lateralMovementCount' => 2,
+                        'count' => 3,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     public function testCountByCommunityDefaultsToAllSourcesWhenTalentSourcesOmitted(): void
     {
         $classification = Classification::factory()->create();
@@ -872,7 +922,7 @@ class TalentRequestMatchesTest extends TestCase
         ])->assertExactJson([
             'data' => [
                 'countTalentRequestMatchesByCommunity' => [
-                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'count' => 1],
+                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'advancementCount' => 0, 'lateralMovementCount' => 0, 'count' => 1],
                 ],
             ],
         ]);
@@ -1188,6 +1238,25 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
     }
 
+    public function testDeletedCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->create();
+        $matching = $this->matchingUser($pool);
+
+        $deletedUser = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $deletedUser->id,
+            'pool_id' => $pool->id,
+        ])->delete();
+
+        // one source, and all sources combined
+        foreach ([[TalentRequestSource::QUALIFIED_IN_POOL->name], []] as $talentSources) {
+            $this->runMatches(['applicantFilter' => ['talentSources' => $talentSources]])
+                ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+                ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+        }
+    }
+
     public function testAlreadyPlacedIndeterminateCandidacyDoesNotMatch(): void
     {
         $pool = Pool::factory()->create();
@@ -1458,6 +1527,48 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->assertContains($poolUser->id, $userIds);
         $this->assertContains($atLevelUser->id, $userIds);
+    }
+
+    public function testUserMatchingTwoSourcesIsOneRowAndCountedOnce(): void
+    {
+        $pool = Pool::factory()->create();
+        $community = Community::factory()->create();
+
+        // qualified in a pool and interested at level
+        $user = $this->matchingUser($pool, [
+            'work_email' => 'both.sources.user@gc.ca',
+            'work_email_verified_at' => now(),
+        ]);
+        // a current government job, so the user stays a verified employee whatever experience the application factory adds
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => Classification::factory()->create()->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        $where = ['applicantFilter' => ['talentSources' => [
+            TalentRequestSource::QUALIFIED_IN_POOL->name,
+            TalentRequestSource::AT_LEVEL->name,
+        ]]];
+
+        $sources = $this->runMatches($where)
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonCount(1, 'data.talentRequestMatches.data')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
+            ->json('data.talentRequestMatches.data.0.sources.*.value');
+        $this->assertEqualsCanonicalizing([
+            TalentRequestSource::QUALIFIED_IN_POOL->name,
+            TalentRequestSource::AT_LEVEL->name,
+        ], $sources);
+
+        $this->runCountMatches($where)
+            ->assertJson(['data' => ['countTalentRequestMatches' => 1]]);
     }
 
     protected string $advancementQuery = <<<'GRAPHQL'

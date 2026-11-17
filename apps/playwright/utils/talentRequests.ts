@@ -1,7 +1,10 @@
 import type {
+  CreateTalentRequestInput,
   LocalizedTalentRequestSource,
+  TalentRequest,
   TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
+  UpdateTalentRequestStatusInput,
   UpdateTalentRequestTrackedUserInput,
 } from "@gc-digital-talent/graphql/schema-types";
 
@@ -118,4 +121,56 @@ export const getTalentRequestSources: GraphQLRequestFunc<
       GraphQLResponse<"localizedEnumOptions", LocalizedTalentRequestSource[]>
     >(Test_TalentRequestSourcesQueryDocument)
     .then((res) => res.localizedEnumOptions);
+};
+
+const Test_CreateTalentRequestMutationDocument = /* GraphQL */ `
+  mutation Test_CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
+    createTalentRequest(talentRequest: $talentRequest) {
+      id
+    }
+  }
+`;
+
+/**
+ * Create a talent request using the graphql API
+ */
+export const createTalentRequest: GraphQLRequestFunc<
+  TalentRequest | undefined,
+  CreateTalentRequestInput
+> = async (ctx, talentRequest) => {
+  return ctx
+    .post<GraphQLResponse<"createTalentRequest", TalentRequest>>(
+      Test_CreateTalentRequestMutationDocument,
+      { variables: { talentRequest } },
+    )
+    .then((res) => res.createTalentRequest);
+};
+
+const Test_UpdateTalentRequestStatusMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateTalentRequestStatus(
+    $id: ID!
+    $talentRequest: UpdateTalentRequestStatusInput!
+  ) {
+    updateTalentRequestStatus(id: $id, talentRequest: $talentRequest) {
+      id
+    }
+  }
+`;
+
+/**
+ * Update a talent request's status (e.g. Completed) using the graphql API
+ */
+export const setTalentRequestStatus: GraphQLRequestFunc<
+  TalentRequest | undefined,
+  { id: string; talentRequest: UpdateTalentRequestStatusInput }
+> = async (ctx, { id, talentRequest }) => {
+  return ctx
+    .post<GraphQLResponse<"updateTalentRequestStatus", TalentRequest>>(
+      Test_UpdateTalentRequestStatusMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id, talentRequest },
+      },
+    )
+    .then((res) => res.updateTalentRequestStatus);
 };

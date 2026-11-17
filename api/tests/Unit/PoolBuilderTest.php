@@ -2,6 +2,12 @@
 
 namespace Tests\Unit;
 
+use App\Enums\LanguageAbility;
+use App\Enums\PoolAreaOfSelection;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolPublishedRange;
+use App\Enums\SalaryRange;
+use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
@@ -11,6 +17,7 @@ use Tests\TestCase;
 use Throwable;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
 class PoolBuilderTest extends TestCase
 {
@@ -170,5 +177,205 @@ class PoolBuilderTest extends TestCase
             return;
         }
         $this->fail('Expected exception');
+    }
+
+    // just exercises the name scope at the moment
+    public function testKeywordSearchScope(): void
+    {
+        $englishMatch = Pool::factory()->published()->create(
+            [
+                'name' => [
+                    'en' => 'english',
+                    'fr' => 'abc',
+                ],
+            ]
+        );
+        $frenchMatch = Pool::factory()->published()->create(
+            [
+                'name' => [
+                    'en' => 'def',
+                    'fr' => 'french',
+                ],
+            ]
+        );
+        $noMatch = Pool::factory()->published()->create(
+            [
+                'name' => [
+                    'en' => 'abc',
+                    'fr' => 'def',
+                ],
+            ]
+        );
+
+        // matches searching by name in English and French
+        // match english
+        $poolIds = Pool::query()->keywordSearch(['english'])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $englishMatch->id,
+        ], $poolIds);
+        // match french
+        $poolIds = Pool::query()->keywordSearch(['french'])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $frenchMatch->id,
+        ], $poolIds);
+        // match english AND french returns no one
+        $poolIds = Pool::query()->keywordSearch(['english', 'french'])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([], $poolIds);
+        // match both names of $english match returns it
+        $poolIds = Pool::query()->keywordSearch(['english', 'abc'])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $englishMatch->id,
+        ], $poolIds);
+    }
+
+    public function testAreaOfSelectionScope(): void
+    {
+        $publicPool = Pool::factory()->published()->create([
+            'area_of_selection' => PoolAreaOfSelection::PUBLIC->name,
+        ]);
+        $employeesPool = Pool::factory()->published()->create([
+            'area_of_selection' => PoolAreaOfSelection::EMPLOYEES->name,
+        ]);
+
+        // only public
+        $poolIds = Pool::query()->whereAreaOfSelectionIn([PoolAreaOfSelection::PUBLIC->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $publicPool->id,
+        ], $poolIds);
+
+        // OR matched
+        $poolIds = Pool::query()->whereAreaOfSelectionIn([
+            PoolAreaOfSelection::PUBLIC->name,
+            PoolAreaOfSelection::EMPLOYEES->name,
+        ])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $publicPool->id,
+            $employeesPool->id,
+        ], $poolIds);
+    }
+
+    public function testPublishedAtRangeScope(): void
+    {
+        $this->freezeTime();
+
+        $postedHoursAgo = Pool::factory()->published()->create([
+            'published_at' => now()->subHours(47),
+        ]);
+        $postedDaysAgo = Pool::factory()->published()->create([
+            'published_at' => now()->subDays(10),
+        ]);
+        $postedMonthsAgo = Pool::factory()->published()->create([
+            'published_at' => now()->subDays(40),
+        ]);
+
+        // returns the newest only
+        $poolIds = Pool::query()->wherePublishedAtIn([PoolPublishedRange::UNDER_48_HOURS->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $postedHoursAgo->id,
+        ], $poolIds);
+
+        // returns the one from 47 hours and 10 days
+        $poolIds = Pool::query()->wherePublishedAtIn([PoolPublishedRange::UNDER_30_DAYS->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $postedHoursAgo->id,
+            $postedDaysAgo->id,
+        ], $poolIds);
+
+        // only the 40 days ago
+        $poolIds = Pool::query()->wherePublishedAtIn([PoolPublishedRange::OVER_30_DAYS->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $postedMonthsAgo->id,
+        ], $poolIds);
+
+        // OR matched
+        $poolIds = Pool::query()->wherePublishedAtIn([
+            PoolPublishedRange::UNDER_48_HOURS->name,
+            PoolPublishedRange::OVER_30_DAYS->name,
+        ])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $postedHoursAgo->id,
+            $postedMonthsAgo->id,
+        ], $poolIds);
+    }
+
+    public function testLanguagesScope(): void
+    {
+        $englishPool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::ENGLISH->name,
+        ]);
+        $frenchPool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::FRENCH->name,
+        ]);
+        $variousPool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::VARIOUS->name,
+        ]);
+        $bilingualIntermediatePool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::BILINGUAL_INTERMEDIATE->name,
+        ]);
+        $bilingualAdvancedPool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::BILINGUAL_ADVANCED->name,
+        ]);
+        $variousBilingualPool = Pool::factory()->published()->create([
+            'advertisement_language' => PoolLanguage::VARIOUS_BILINGUAL->name,
+        ]);
+
+        // VARIOUS always matches
+        // english and various
+        $poolIds = Pool::query()->whereLanguagesIn([LanguageAbility::ENGLISH->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $englishPool->id,
+            $variousPool->id,
+        ], $poolIds);
+
+        // all three bilingual plus various
+        $poolIds = Pool::query()->whereLanguagesIn([LanguageAbility::BILINGUAL->name])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $bilingualIntermediatePool->id,
+            $bilingualAdvancedPool->id,
+            $variousBilingualPool->id,
+            $variousPool->id,
+        ], $poolIds);
+
+        // OR matched
+        $poolIds = Pool::query()->whereLanguagesIn([
+            LanguageAbility::ENGLISH->name,
+            LanguageAbility::FRENCH->name,
+        ])->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $englishPool->id,
+            $frenchPool->id,
+            $variousPool->id,
+        ], $poolIds);
+    }
+
+    public function testSalaryRangeScope(): void
+    {
+        $belowBoundary = Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create(['min_salary' => 39999, 'max_salary' => 49999])->id,
+        ]);
+        $onBoundary = Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create(['min_salary' => 40000, 'max_salary' => 50000])->id,
+        ]);
+        $onTopBoundary = Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create(['min_salary' => 120000, 'max_salary' => 130000])->id,
+        ]);
+
+        // match 39999 and below, inclusive on 39999
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::BETWEEN_0_39999->name)->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $belowBoundary->id,
+        ], $poolIds);
+
+        // match 40000-59999 inclusive on 40000
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::BETWEEN_40000_59999->name)->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $onBoundary->id,
+        ], $poolIds);
+
+        // match 120000 and above, inclusive on 120000
+        $poolIds = Pool::query()->whereSalaryRangeIn(SalaryRange::OVER_120000->name)->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $onTopBoundary->id,
+        ], $poolIds);
     }
 }

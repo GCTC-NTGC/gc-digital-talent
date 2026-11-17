@@ -2,12 +2,12 @@
 <p>
     @lang('job_poster.minimum_education.ex.professional_designation.description')
 </p>
-<p>@lang('job_poster.or')</p>
+<pre>@lang('job_poster.or')</pre>
 <h3>@lang('job_poster.minimum_education.ex.applied_work_experience.title')</h3>
 <p>
     @lang('job_poster.minimum_education.ex.applied_work_experience.description', ['url' => __('job_poster.minimum_education.ex.applied_work_experience.description_qualification_standards_url')])
 </p>
-<p>@lang('job_poster.or')</p>
+<pre>@lang('job_poster.or')</pre>
 <h3>@lang('job_poster.minimum_education.ex.graduation_with_degree.title')</h3>
 <p>
     @lang('job_poster.minimum_education.ex.graduation_with_degree.description', [

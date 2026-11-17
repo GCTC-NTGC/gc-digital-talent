@@ -126,7 +126,7 @@ export default defineConfig(
       "no-console": "error",
       "no-alert": "error",
       "prefer-promise-reject-errors": "off",
-      "@typescript-eslint/no-deprecated": "error",
+      "@typescript-eslint/no-deprecated": "warn",
       "@typescript-eslint/no-use-before-define": "error",
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/no-empty-function": "error",
