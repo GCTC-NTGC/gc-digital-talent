@@ -180,8 +180,6 @@ class TalentSearch extends AppPage {
     criteria: TalentRequestCandidateCriteria,
     talentSources: LocalizedTalentRequestSource[],
   ) {
-    const poolCard = await this.poolCardVisibility(poolName);
-
     for (const { value, label } of talentSources) {
       // Find talent labels the qualified in pool source "Pool candidates" instead of its API label
       await expect(
@@ -194,6 +192,18 @@ class TalentSearch extends AppPage {
         }),
       ).toBeChecked();
     }
+
+    // Counts are cached by filter, so set the skill before checking one.
+    const skillFilter = this.page.getByRole("combobox", {
+      name: /^skill$/i,
+    });
+
+    await skillFilter.fill(`${criteria.skill?.name.en}`);
+    await skillFilter.press("ArrowDown");
+    await skillFilter.press("Enter");
+
+    const poolCard = await this.poolCardVisibility(poolName);
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
@@ -244,14 +254,6 @@ class TalentSearch extends AppPage {
         })
         .click();
     }
-
-    const skillFilter = this.page.getByRole("combobox", {
-      name: /^skill$/i,
-    });
-
-    await skillFilter.fill(`${criteria.skill?.name.en}`);
-    await skillFilter.press("ArrowDown");
-    await skillFilter.press("Enter");
 
     await this.page
       .getByRole("radio", {
