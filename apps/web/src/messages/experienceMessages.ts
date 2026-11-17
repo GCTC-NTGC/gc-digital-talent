@@ -1,4 +1,3 @@
-import type { extend } from "lodash";
 import { defineMessage, type PrimitiveType } from "react-intl";
 
 const messages = {
