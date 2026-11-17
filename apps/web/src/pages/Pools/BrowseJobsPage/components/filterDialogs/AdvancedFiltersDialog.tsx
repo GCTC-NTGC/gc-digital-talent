@@ -57,8 +57,8 @@ const AdvancedFiltersDialog = ({ optionsQuery, children }: Props) => {
     <FilterDialog<FormValues>
       title={intl.formatMessage({
         defaultMessage: "Advanced filters",
-        id: "+D4k6z",
-        description: "Title for advanced filters dialog",
+        id: "eozWFc",
+        description: "Title for the additional filters",
       })}
       subtitle={intl.formatMessage({
         defaultMessage:

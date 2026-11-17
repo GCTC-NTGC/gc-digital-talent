@@ -19,6 +19,8 @@ import {
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 
+import adminMessages from "~/messages/adminMessages";
+
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";
 
@@ -129,11 +131,7 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
       <Combobox
         options={classificationOptions}
         id={"classifications"}
-        label={intl.formatMessage({
-          defaultMessage: "Classifications",
-          id: "jxRrxU",
-          description: "Label for a classification picker",
-        })}
+        label={intl.formatMessage(adminMessages.classifications)}
         name={"classifications"}
         isMulti
       />
@@ -141,8 +139,8 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
         idPrefix="minimumSalary"
         legend={intl.formatMessage({
           defaultMessage: "Minimum salary",
-          id: "P4sciG",
-          description: "label for a minimum salary picker",
+          id: "VWEwki",
+          description: "Label for classification minimum salary display",
         })}
         items={minimumSalaryOptions}
         name="minimumSalary"

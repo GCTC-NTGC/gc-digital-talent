@@ -75,8 +75,8 @@ const LanguageRequirementsFilterDialog = ({
         idPrefix={"languageRequirements"}
         legend={intl.formatMessage({
           defaultMessage: "Language requirements",
-          id: "hzJUl5",
-          description: "Title for a language requirement checklist",
+          id: "nEE/Ds",
+          description: "Title for a language requirements filter dialog",
         })}
         items={languageRequirementOptions}
         name={"languageRequirements"}
