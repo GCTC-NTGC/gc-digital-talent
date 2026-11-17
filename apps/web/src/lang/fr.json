@@ -8316,10 +8316,6 @@
     "defaultMessage": "Confirmer une adresse courriel professionnelle du GC",
     "description": "Link to update the work email"
   },
-  "VeYTqO": {
-    "defaultMessage": "Date de fin de la recommandation",
-    "description": "Label for referral expiry date field"
-  },
   "Vfa3Ek": {
     "defaultMessage": "Compétence mise à jour avec succès!",
     "description": "Message displayed when a user updates a skill"
@@ -12097,6 +12093,10 @@
     "defaultMessage": "Force militaire",
     "description": "Label for the military force radio group"
   },
+  "keX5Nz": {
+    "defaultMessage": "Date de fin de la recommandation de transfert latéral",
+    "description": "Label for lateral movement referral expiry date field"
+  },
   "kexYOS": {
     "defaultMessage": "Demande de candidats pour le bassin : <secondary>{candidateCountNumber, plural, =0 {aucun candidat} one {# candidat estimé} other {# candidats estimés}}</secondary>",
     "description": "Total estimated candidates message in summary of filters"
@@ -12632,6 +12632,10 @@
   "mt4AkL": {
     "defaultMessage": "Candidat(e) precedent(e)",
     "description": "Link label to view previous candidate on view pool candidate page"
+  },
+  "muDhw+": {
+    "defaultMessage": "Date de fin de la recommandation d'avancement",
+    "description": "Label for advancement referral expiry date field"
   },
   "mwVSMJ": {
     "defaultMessage": "Retourner au portfolio de compétences",
