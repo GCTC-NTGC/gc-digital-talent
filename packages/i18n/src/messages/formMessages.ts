@@ -111,12 +111,12 @@ const formMessages = {
     id: "Gz8vAO",
     description: "Button text to edit an item from repeatable fields",
   }),
-  repeaterDelete: defineMessage({
+  repeaterDelete: defineMessage<{ index: number; title: string }>({
     defaultMessage: "Delete item {index} - {title}",
     id: "NBTHzR",
     description: "Button text to delete an item from repeatable fields",
   }),
-  repeaterCardEdit: defineMessage({
+  repeaterCardEdit: defineMessage<{ index: number; title: string }>({
     defaultMessage: "Edit item {index} - {title}",
     id: "ogcCD3",
     description:

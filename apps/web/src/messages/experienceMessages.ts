@@ -1,3 +1,4 @@
+import type { extend } from "lodash";
 import { defineMessage, type PrimitiveType } from "react-intl";
 
 const messages = {
@@ -278,7 +279,7 @@ const messages = {
     description:
       "Text in experience timeline card when user has no experiences",
   }),
-  showDetails: defineMessage({
+  showDetails: defineMessage<{ experienceName: string }>({
     defaultMessage: "Show {experienceName} details",
     id: "ge40rv",
     description: "Button text to show a specific experience's details",
@@ -299,7 +300,7 @@ const messages = {
     id: "X3puDA",
     description: "Heading for how long an experience lasted",
   }),
-  skillCount: defineMessage({
+  skillCount: defineMessage<{ count?: number }>({
     defaultMessage: "{count, plural, one {# skill} other {# skills}}",
     id: "EQI4l2",
     description: "Number of skills on an experience",
