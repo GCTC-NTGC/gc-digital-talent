@@ -51,6 +51,7 @@ export interface AwardFormValues {
   projectName?: string | null;
   relatedExperienceId?: string | null;
   relatedExperienceType?: string | null;
+  details: string;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
@@ -60,6 +61,7 @@ export type CommunityFormValues = FormValueDateRange & {
   startDate: string;
   roleStatus: "active" | "past";
   endDate?: string;
+  details: string;
 };
 
 export type EducationFormValues = FormValueDateRange & {
@@ -80,6 +82,7 @@ export type EducationFormValues = FormValueDateRange & {
   expiryDate?: string;
   prospectiveExpiryDate?: string;
   expectedEndDate?: string;
+  details: string;
 };
 
 export type PersonalFormValues = FormValueDateRange & {
@@ -88,6 +91,7 @@ export type PersonalFormValues = FormValueDateRange & {
   learningDescription: string;
   organization: string;
   roleStatus: "active" | "past";
+  details: string;
 };
 
 export type WorkFormValues = FormValueDateRange & {
@@ -118,6 +122,7 @@ export type WorkFormValues = FormValueDateRange & {
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
+  details: string;
 };
 
 export type AllExperienceFormValues = AwardFormValues &
@@ -137,7 +142,6 @@ export interface FormSkill {
 export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
-  details: string;
   skills?: FormSkills | null;
 };
 
