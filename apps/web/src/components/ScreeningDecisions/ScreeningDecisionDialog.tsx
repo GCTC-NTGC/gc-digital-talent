@@ -22,6 +22,7 @@ import {
   DIALOG_TYPE,
   getDialogType,
   hasAttachedExperiences,
+  SUPPORTING_EVIDENCE_TYPES,
 } from "./utils";
 import { Trigger } from "./Trigger";
 import Header from "./Header";
@@ -196,9 +197,10 @@ const ScreeningDecisionDialog = ({
             poolSkillQuery={poolSkill}
             dialogType={dialogType}
           />
-          {dialogType === DIALOG_TYPE.ScreeningQuestions ? (
+          {dialogType === DIALOG_TYPE.ScreeningQuestions && (
             <ScreeningQuestions query={candidate} />
-          ) : (
+          )}
+          {SUPPORTING_EVIDENCE_TYPES.includes(dialogType) && (
             <SupportingEvidence
               query={candidate}
               experiences={unpackMaybes(snapshot?.experiences)}
