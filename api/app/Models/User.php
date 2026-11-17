@@ -1076,8 +1076,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         if ($existingUser) {
             $existingUser->email_backup = $existingUser->email;
-            $existingUser->email = null;
-            $existingUser->email_verified_at = null;
+            $existingUser->email = null; // the email() setter also clears email_verified_at
             $existingUser->save();
         }
     }
@@ -1094,8 +1093,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         if ($existingUser) {
             $existingUser->work_email_backup = $existingUser->work_email;
-            $existingUser->work_email = null;
-            $existingUser->work_email_verified_at = null;
+            $existingUser->work_email = null; // the workEmail() setter also clears work_email_verified_at
             $existingUser->save();
         }
     }
