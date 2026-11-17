@@ -1340,11 +1340,6 @@ enum EducationType {
   OTHER
 }
 
-enum EmailType {
-  CONTACT
-  WORK
-}
-
 enum EmployeeVerification {
   VERIFIED
   NOT_VERIFIED

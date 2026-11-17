@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
-use App\Enums\EmailType;
 use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
@@ -893,28 +892,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Determine if the user has verified their email address.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return bool
-     */
-    public function hasVerifiedEmail(EmailType $emailType)
-    {
-        // might be refined later, eg, must be verified within the last X months
-        if ($emailType == EmailType::CONTACT) {
-            return ! is_null($this->email_verified_at);
-        } else {
-            return ! is_null($this->work_email_verified_at);
-        }
-
-    }
-
-    /**
      * Is the contact email address currently considered verified?
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail(EmailType::CONTACT);
+        return ! is_null($this->email_verified_at);
     }
 
     /**
@@ -922,7 +904,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getIsWorkEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail(EmailType::WORK);
+        return ! is_null($this->work_email_verified_at);
     }
 
     /*
