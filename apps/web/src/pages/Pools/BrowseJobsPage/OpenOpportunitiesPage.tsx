@@ -6,11 +6,17 @@ import { useQuery } from "urql";
 import { Button, Heading, Notice, Pending, Ul } from "@gc-digital-talent/ui";
 import {
   graphql,
+  LanguageAbility,
+  PoolAreaOfSelection,
+  PoolPublishedRange,
   PoolStatus,
+  SalaryRange,
   PublishedPoolsSearchOrderByColumn,
   SortOrder,
+  type PublishedPoolsSearchInput,
+  type QueryPublishedPoolsSearchOrderByOrderByClause,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { isEnumValue, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import JobCard from "~/components/JobCard/JobCard";
@@ -42,6 +48,9 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
         id
         ...JobCard
       }
+      paginatorInfo {
+        total
+      }
     }
 
     ...BrowseJobsFilterBarOptions
@@ -51,9 +60,33 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 export const OpenOpportunitiesPage = () => {
   const intl = useIntl();
 
-  const { sortBy, resetAllFilters } = useBrowseJobsSearchParams();
+  const { sortBy, resetAllFilters, getFilterValue, getFilterValues } =
+    useBrowseJobsSearchParams();
 
-  const orderByVariable = {
+  const whereVariable: PublishedPoolsSearchInput = {
+    keywordSearch: getFilterValues("keyword"),
+    eligibility: getFilterValues("applicationEligibility").filter(
+      isEnumValue(PoolAreaOfSelection),
+    ),
+    departments: getFilterValues("organization"),
+    classifications: getFilterValues("classification"),
+    publishedAtRange: getFilterValues("advertisementTiming").filter(
+      isEnumValue(PoolPublishedRange),
+    ),
+    languages: getFilterValues("languageRequirement").filter(
+      isEnumValue(LanguageAbility),
+    ),
+    salaryRange: getFilterValues("minimumSalary").find(
+      isEnumValue(SalaryRange),
+    ),
+    processNumber: getFilterValue("processNumber"),
+    poolStatuses: [PoolStatus.Published], // this page doesn't show closed pools
+  } as const;
+
+  const orderByVariable: Record<
+    typeof sortBy,
+    QueryPublishedPoolsSearchOrderByOrderByClause
+  > = {
     datePosted: {
       column: PublishedPoolsSearchOrderByColumn.PublishedAt,
       order: SortOrder.Desc,
@@ -67,9 +100,7 @@ export const OpenOpportunitiesPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
     variables: {
-      where: {
-        poolStatuses: [PoolStatus.Published],
-      },
+      where: whereVariable,
       first: 20,
       page: 1,
       orderBy: [orderByVariable[sortBy]],
@@ -115,7 +146,10 @@ export const OpenOpportunitiesPage = () => {
               optionsFragment={data}
             />
             <div className="flex w-full flex-col">
-              <ResultsBar fetching={fetching} resultCount={pools.length} />
+              <ResultsBar
+                fetching={fetching}
+                resultCount={data.publishedPoolsSearch.paginatorInfo.total}
+              />
 
               {pools.length ? (
                 <Ul unStyled className="flex flex-col gap-1.5">
