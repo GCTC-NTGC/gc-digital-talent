@@ -36,6 +36,7 @@ import messages from "~/lang/frCompiled.json" with { type: "json" };
 import {
   categoryAccessor,
   familiesAccessor,
+  langCell,
   skillFamiliesCell,
 } from "./tableHelpers";
 import type { FormValues } from "./SkillFilterDialog";
@@ -207,7 +208,11 @@ const SkillTable = ({
         isRowTitle: locale === "en",
       },
       cell: ({ row: { original: skill } }) => {
-        const skillName = getLocalizedName(skill.name, intlEn);
+        const skillName = langCell(
+          getLocalizedName(skill.name, intlEn),
+          "en",
+          locale,
+        );
         return isPublic ? (
           skillName
         ) : (
@@ -230,7 +235,11 @@ const SkillTable = ({
         isRowTitle: locale !== "en",
       },
       cell: ({ row: { original: skill } }) => {
-        const skillName = getLocalizedName(skill.name, intlFr);
+        const skillName = langCell(
+          getLocalizedName(skill.name, intlFr),
+          "fr",
+          locale,
+        );
         return isPublic ? (
           skillName
         ) : (
@@ -249,6 +258,7 @@ const SkillTable = ({
         lang: "en",
         intl,
       }),
+      cell: ({ getValue }) => langCell(getValue(), "en", locale),
     },
   );
   const columnDescriptionFrenchAppended = columnHelper.accessor(
@@ -261,6 +271,7 @@ const SkillTable = ({
         lang: "fr",
         intl,
       }),
+      cell: ({ getValue }) => langCell(getValue(), "fr", locale),
     },
   );
 

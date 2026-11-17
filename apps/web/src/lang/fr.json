@@ -1902,10 +1902,6 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
   },
-  "5bjzAS": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour avancement} other {<strong>#</strong> Nominés pour avancement} }",
-    "description": "Count of candidates nominated for advancement, on the community results card."
-  },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
     "description": "A date at which data will be published, in the UTC time standard"
@@ -3615,7 +3611,8 @@
     "description": "Dialog body text for highlighting important programs, certifications or licenses"
   },
   "CaGMw5": {
-    "defaultMessage": "<strong>Les personnes employées nominées</strong> sont des personnes employées au GC qui ont été nominées pour un transfert latéral ou un avancement par leur ministère dans le cadre de la gestion des talents de la collectivité."
+    "defaultMessage": "<strong>Les personnes nominées</strong> sont des personnes employées au GC qui ont été nominées pour un transfert latéral ou un avancement par leur ministère dans le cadre de la gestion des talents de la collectivité.",
+    "description": "Description for nominated employees talent source filter in search form"
   },
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
@@ -3764,6 +3761,10 @@
   "DAOkQv": {
     "defaultMessage": "Potentiel de leadership de la personne nominée",
     "description": "Label for the nominee's leadership potential field"
+  },
+  "DBbbtY": {
+    "defaultMessage": "{count, plural, =0 {<strong>#</strong> Personne nominée pour avancement} one {<strong>#</strong> Personne nominée pour avancement} other {<strong>#</strong> Personnes nominées pour avancement} }",
+    "description": "Count of candidates nominated for advancement, on the community results card."
   },
   "DBczOG": {
     "defaultMessage": "Stratégie",
@@ -4663,10 +4664,6 @@
   "GkX/KN": {
     "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
-  },
-  "GkcCus": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour transfert latéral} other {<strong>#</strong> Nominés pour transfert latéral} }",
-    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "GmGDq8": {
     "defaultMessage": "Perfectionnement professionnel créé avec succès!",
@@ -6533,6 +6530,10 @@
   "OPbfwn": {
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
+  },
+  "ORrbTd": {
+    "defaultMessage": "Fermée : {title}",
+    "description": "Label for an item that has been closed"
   },
   "OTWd3v": {
     "defaultMessage": "Sélectionnez la collectivité",
@@ -11045,6 +11046,10 @@
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for Functional community value"
   },
+  "gWTDsl": {
+    "defaultMessage": "Vous consultez une version archivée de cette offre d’emploi. Nous n’acceptons plus de candidatures.",
+    "description": "Warning for a closed job poster"
+  },
   "gXBSoI": {
     "defaultMessage": "Vous trouverez ici des offres d'emploi qui ont été publiées sur la plateforme et qui n'acceptent plus de candidatures.",
     "description": "Description of the closed job section"
@@ -11460,6 +11465,10 @@
   "i5/pKP": {
     "defaultMessage": "Vous n'avez pas encore ajouté de participation à la collectivité.",
     "description": "Text in community experience card when user has no community experiences"
+  },
+  "i8Bvxi": {
+    "defaultMessage": "{count, plural, =0 {<strong>#</strong> Personne nominée pour transfert latéral} one {<strong>#</strong> Personne nominée pour transfert latéral} other {<strong>#</strong> Personnes nominées pour transfert latéral} }",
+    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
