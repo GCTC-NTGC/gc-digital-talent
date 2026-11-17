@@ -1,0 +1,43 @@
+# Pushes main and tags to the gc-digital-talent-fallback repo in Azure Repos,
+# so we can still build from Azure DevOps during a GitHub outage.
+# See documentation/github-outage-fallback.md
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+pr: none
+
+resources:
+  repositories:
+    - repository: fallback
+      type: git
+      name: gc-digital-talent-fallback
+
+pool:
+  vmImage: ubuntu-26.04
+
+jobs:
+  - job: push_to_fallback
+    displayName: Push to fallback repo
+    # Lets System.AccessToken write to the fallback repo without checking it out
+    uses:
+      repositories:
+        - fallback
+    steps:
+      - checkout: self
+        clean: true
+        fetchDepth: 0
+        fetchTags: true
+
+      # Not forced, so commits made in the fallback repo during an outage are never overwritten
+      - script: |
+          if ! git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" \
+            push "$(System.CollectionUri)$(System.TeamProjectId)/_git/gc-digital-talent-fallback" \
+            HEAD:refs/heads/main 'refs/tags/*:refs/tags/*'; then
+            echo "##vso[task.logissue type=error]Push to the fallback repo was rejected. If fixes were committed there during an outage, follow the recovery steps in documentation/github-outage-fallback.md"
+            exit 1
+          fi
+        displayName: Push main and tags

@@ -7,6 +7,16 @@ parameters:
     values:
       - default
       - dev
+  # Only used by the fallback pipeline that builds from the Azure Repos mirror
+  # during a GitHub outage. See documentation/github-outage-fallback.md
+  - name: fallback
+    displayName: Fallback build (GitHub outage)
+    type: boolean
+    default: false
+  - name: blockGitHub
+    displayName: Block GitHub on the agent (fallback drill)
+    type: boolean
+    default: false
 trigger:
   branches:
     include:
@@ -45,6 +55,24 @@ jobs:
           sudo apt-get install -y php${{ variables.phpVersion }} php${{ variables.phpVersion }}-mbstring php${{ variables.phpVersion }}-xml php${{ variables.phpVersion }}-pgsql php${{ variables.phpVersion }}-zip php${{ variables.phpVersion }}-curl php${{ variables.phpVersion }}-bcmath php${{ variables.phpVersion }}-gd php${{ variables.phpVersion }}-dom php${{ variables.phpVersion }}-intl
         displayName: "Setup PHP"
 
+      - ${{ if parameters.blockGitHub }}:
+          - script: echo "0.0.0.0 github.com api.github.com codeload.github.com objects.githubusercontent.com" | sudo tee -a /etc/hosts
+            displayName: "Block GitHub"
+
+      # Composer downloads most packages from GitHub, so the fallback build
+      # installs from the cache published by the latest main build instead.
+      - ${{ if parameters.fallback }}:
+          - task: DownloadPipelineArtifact@2
+            displayName: "Download composer cache"
+            inputs:
+              buildType: specific
+              project: $(System.TeamProjectId)
+              definition: $(mainPipelineDefinitionId)
+              buildVersionToDownload: latestFromBranch
+              branchName: refs/heads/main
+              artifactName: composer-cache
+              targetPath: $(Pipeline.Workspace)/composer-cache
+
       - script: |
           cd $(System.DefaultWorkingDirectory)/api
           if [ ! -f .env ]; then
@@ -66,6 +94,14 @@ jobs:
         env:
           # Required for bootstrap during lighthouse schema printing
           BROADCAST_CONNECTION: "null"
+          COMPOSER_CACHE_DIR: $(Pipeline.Workspace)/composer-cache
+
+      - ${{ if not(parameters.fallback) }}:
+          - task: PublishPipelineArtifact@1
+            displayName: "Publish composer cache"
+            inputs:
+              targetPath: $(Pipeline.Workspace)/composer-cache
+              artifact: composer-cache
 
       - script: |
           export NVM_DIR="$HOME/.nvm"
