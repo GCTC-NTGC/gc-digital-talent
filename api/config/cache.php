@@ -100,6 +100,12 @@ return [
             'lock_connection' => 'default',
         ],
 
+        // Redis, falling back to each instance's file cache if Redis is unreachable
+        'redis_failover' => [
+            'driver' => 'failover',
+            'stores' => ['redis', 'file'],
+        ],
+
         'dynamodb' => [
             'driver' => 'dynamodb',
             'key' => env('AWS_ACCESS_KEY_ID'),

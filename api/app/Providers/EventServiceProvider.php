@@ -11,10 +11,12 @@ use App\Listeners\BroadcastNotificationReceived;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeGovEmployeeProfileData;
 use App\Listeners\LogArtisanCommand;
+use App\Listeners\LogCacheFailedOver;
 use App\Listeners\LogTimedOutJob;
 use App\Listeners\SendFileGeneratedNotification;
 use App\Listeners\SendTalentNominationSubmittedNotifications;
 use BeyondCode\ServerTiming\Facades\ServerTiming;
+use Illuminate\Cache\Events\CacheFailedOver;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -54,6 +56,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         JobTimedOut::class => [
             LogTimedOutJob::class,
+        ],
+        CacheFailedOver::class => [
+            LogCacheFailedOver::class,
         ],
         CommandStarting::class => [
             LogArtisanCommand::class.'@starting',

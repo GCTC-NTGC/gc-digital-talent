@@ -147,7 +147,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
     private function getIntrospectionValues(string $accessToken): array
     {
-        $cacheKey = 'introspection_token_values_'.$accessToken;
+        // hashed so the raw token isn't stored as a cache key
+        $cacheKey = 'introspection_token_values_'.hash('sha256', $accessToken);
 
         if (Cache::has($cacheKey)) {
             // shortcut: use cached access token values if available
