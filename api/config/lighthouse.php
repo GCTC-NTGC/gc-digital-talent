@@ -86,9 +86,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | Should the `@cache` directive use a tagged cache?
+    | Needs a store that supports tags (e.g. redis, not file).
     |
     */
-    'cache_directive_tags' => false,
+    'cache_directive_tags' => (bool) env('LIGHTHOUSE_CACHE_DIRECTIVE_TAGS', false),
 
     /*
     |--------------------------------------------------------------------------

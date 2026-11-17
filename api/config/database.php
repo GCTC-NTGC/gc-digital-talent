@@ -122,6 +122,8 @@ return [
 
         'client' => env('REDIS_CLIENT', 'phpredis'),
 
+        // Seconds. Keep short so the redis_failover cache store falls back quickly when Redis is unreachable
+
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
@@ -133,6 +135,8 @@ return [
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
+            'timeout' => env('REDIS_TIMEOUT', 1),
+            'read_timeout' => env('REDIS_READ_TIMEOUT', 2),
         ],
 
         'cache' => [
@@ -141,6 +145,8 @@ return [
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
+            'timeout' => env('REDIS_TIMEOUT', 1),
+            'read_timeout' => env('REDIS_READ_TIMEOUT', 2),
         ],
 
     ],
