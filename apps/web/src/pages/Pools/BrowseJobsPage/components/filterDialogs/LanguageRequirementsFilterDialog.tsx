@@ -64,12 +64,12 @@ const LanguageRequirementsFilterDialog = ({
       })}
       trigger={children}
       getFormValues={() => ({
-        languageRequirements: getFilterValues("languageRequirement"),
+        languageRequirements: getFilterValues("languageRequirements"),
       })}
       onSave={(formValues) =>
-        setFilters({ languageRequirement: formValues.languageRequirements })
+        setFilters({ languageRequirements: formValues.languageRequirements })
       }
-      onClear={() => setFilters({ languageRequirement: null })}
+      onClear={() => setFilters({ languageRequirements: null })}
     >
       <Checklist
         idPrefix={"languageRequirements"}

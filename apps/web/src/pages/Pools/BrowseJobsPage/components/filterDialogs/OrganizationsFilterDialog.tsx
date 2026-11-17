@@ -62,12 +62,12 @@ const OrganizationsFilterDialog = ({ optionsQuery, children }: Props) => {
       })}
       trigger={children}
       getFormValues={() => ({
-        organizations: getFilterValues("organization"),
+        organizations: getFilterValues("organizations"),
       })}
       onSave={(formValues) =>
-        setFilters({ organization: formValues.organizations })
+        setFilters({ organizations: formValues.organizations })
       }
-      onClear={() => setFilters({ organization: null })}
+      onClear={() => setFilters({ organizations: null })}
     >
       <Combobox
         options={organizationOptions}

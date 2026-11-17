@@ -4,12 +4,12 @@ export const sortByOptions = ["datePosted", "deadline"] as const;
 export type SortBy = (typeof sortByOptions)[number];
 
 export const filterOptions = [
-  "keyword",
-  "applicationEligibility",
-  "organization",
-  "classification",
-  "advertisementTiming",
-  "languageRequirement",
+  "keywords",
+  "applicationEligibilities",
+  "organizations",
+  "classifications",
+  "advertisementTimings",
+  "languageRequirements",
   "minimumSalary",
   "processNumber",
 ] as const;

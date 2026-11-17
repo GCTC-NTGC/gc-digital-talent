@@ -17,7 +17,7 @@ interface FilterDialogProps<TFormValues extends FieldValues> {
   subtitle: string;
   trigger: ReactNode;
   // read the current filters into form values, each time the dialog opens
-  getFormValues: () => TFormValues;
+  getFormValues: () => DefaultValues<TFormValues>;
   onSave: (formValues: TFormValues) => void;
   onClear: () => void;
   // the form fields
@@ -41,7 +41,7 @@ const FilterDialog = <TFormValues extends FieldValues>({
   const [open, setOpen] = useState(false);
 
   const formMethods = useForm<TFormValues>({
-    defaultValues: getFormValues() as DefaultValues<TFormValues>,
+    defaultValues: getFormValues(),
   });
 
   const handleOpenChange = (newOpen: boolean) => {

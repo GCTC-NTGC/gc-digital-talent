@@ -45,7 +45,7 @@ const Options_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    classifications {
+    classifications(availableInSearch: true) {
       id
       groupAndLevel
     }
@@ -97,25 +97,25 @@ const FilterBar = ({
     resetAllFilters,
   } = useBrowseJobsSearchParams();
 
-  const keywordFilters = getFilterValues("keyword").map((f) => ({
-    key: `keyword:${f}`,
+  const keywordFilters = getFilterValues("keywords").map((f) => ({
+    key: `keywords:${f}`,
     label: f,
-    onRemove: () => removeFilterValue("keyword", f),
+    onRemove: () => removeFilterValue("keywords", f),
   }));
   const opportunityDetailsFilters = [
-    ...getFilterValues("applicationEligibility").map((f) => ({
-      key: `applicationEligibility:${f}`,
+    ...getFilterValues("applicationEligibilities").map((f) => ({
+      key: `applicationEligibilities:${f}`,
       label:
         options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      onRemove: () => removeFilterValue("applicationEligibility", f),
+      onRemove: () => removeFilterValue("applicationEligibilities", f),
     })),
-    ...getFilterValues("classification").map((f) => ({
-      key: `classification:${f}`,
+    ...getFilterValues("classifications").map((f) => ({
+      key: `classifications:${f}`,
       label:
         options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
         intl.formatMessage(commonMessages.notFound),
-      onRemove: () => removeFilterValue("classification", f),
+      onRemove: () => removeFilterValue("classifications", f),
     })),
     ...getFilterValues("minimumSalary").map((f) => ({
       key: `minimumSalary:${f}`,
@@ -126,28 +126,28 @@ const FilterBar = ({
     })),
   ];
   const languageRequirementsFilters = [
-    ...getFilterValues("languageRequirement").map((f) => ({
-      key: `languageRequirement:${f}`,
+    ...getFilterValues("languageRequirements").map((f) => ({
+      key: `languageRequirements:${f}`,
       label:
         options?.languageAbilityEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      onRemove: () => removeFilterValue("languageRequirement", f),
+      onRemove: () => removeFilterValue("languageRequirements", f),
     })),
   ];
-  const organizationsFilters = getFilterValues("organization").map((f) => ({
-    key: `organization:${f}`,
+  const organizationsFilters = getFilterValues("organizations").map((f) => ({
+    key: `organizations:${f}`,
     label:
       options?.departments?.find((e) => e?.id === f)?.name.localized ??
       intl.formatMessage(commonMessages.notFound),
-    onRemove: () => removeFilterValue("organization", f),
+    onRemove: () => removeFilterValue("organizations", f),
   }));
   const advancedFilters = [
-    ...getFilterValues("advertisementTiming").map((f) => ({
-      key: `advertisementTiming:${f}`,
+    ...getFilterValues("advertisementTimings").map((f) => ({
+      key: `advertisementTimings:${f}`,
       label:
         options?.poolPublishedRangeEnums?.find((e) => e.value === f)?.label
           .localized ?? f,
-      onRemove: () => removeFilterValue("advertisementTiming", f),
+      onRemove: () => removeFilterValue("advertisementTimings", f),
     })),
     ...getFilterValues("processNumber").map((f) => ({
       key: `processNumber:${f}`,
@@ -159,9 +159,10 @@ const FilterBar = ({
   const keywordFormMethods = useForm<SearchByKeywordForm>();
 
   const handleKeywordFormSubmit = ({
-    searchByKeyword: keyword,
+    searchByKeyword,
   }: SearchByKeywordForm) => {
-    addFilterValue("keyword", keyword);
+    const keyword = searchByKeyword?.trim();
+    if (keyword) addFilterValue("keywords", keyword);
     keywordFormMethods.reset();
   };
 

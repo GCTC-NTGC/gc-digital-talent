@@ -32,7 +32,7 @@ const OpportunityDetailsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    classifications {
+    classifications(availableInSearch: true) {
       id
       groupAndLevel
     }
@@ -46,7 +46,7 @@ const OpportunityDetailsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  applicationEligibility: string[];
+  applicationEligibilities: string[];
   classifications: string[];
   minimumSalary: string | null;
 }
@@ -97,34 +97,34 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
       })}
       trigger={children}
       getFormValues={() => ({
-        applicationEligibility: getFilterValues("applicationEligibility"),
-        classifications: getFilterValues("classification"),
+        applicationEligibilities: getFilterValues("applicationEligibilities"),
+        classifications: getFilterValues("classifications"),
         minimumSalary: getFilterValue("minimumSalary"),
       })}
       onSave={(formValues) =>
         setFilters({
-          applicationEligibility: formValues.applicationEligibility,
-          classification: formValues.classifications,
+          applicationEligibilities: formValues.applicationEligibilities,
+          classifications: formValues.classifications,
           minimumSalary: formValues.minimumSalary,
         })
       }
       onClear={() =>
         setFilters({
-          applicationEligibility: null,
-          classification: null,
+          applicationEligibilities: null,
+          classifications: null,
           minimumSalary: null,
         })
       }
     >
       <Checklist
-        idPrefix={"applicationEligibility"}
+        idPrefix={"applicationEligibilities"}
         legend={intl.formatMessage({
           defaultMessage: "Application eligibility",
           id: "P3U7AV",
           description: "Title for an area of selection checklist",
         })}
         items={areaOfSelectionOptions}
-        name={"applicationEligibility"}
+        name={"applicationEligibilities"}
       />
       <Combobox
         options={classificationOptions}

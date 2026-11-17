@@ -68,17 +68,17 @@ const AdvancedFiltersDialog = ({ optionsQuery, children }: Props) => {
       })}
       trigger={children}
       getFormValues={() => ({
-        advertisementTimings: getFilterValues("advertisementTiming"),
+        advertisementTimings: getFilterValues("advertisementTimings"),
         processNumber: getFilterValue("processNumber"),
       })}
       onSave={(formValues) =>
         setFilters({
-          advertisementTiming: formValues.advertisementTimings,
+          advertisementTimings: formValues.advertisementTimings,
           processNumber: formValues.processNumber,
         })
       }
       onClear={() =>
-        setFilters({ advertisementTiming: null, processNumber: null })
+        setFilters({ advertisementTimings: null, processNumber: null })
       }
     >
       <Checklist

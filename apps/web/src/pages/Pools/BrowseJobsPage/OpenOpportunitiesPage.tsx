@@ -30,7 +30,6 @@ import useBrowseJobsSearchParams from "./useBrowseJobsSearchParams";
 const featurePaginationButton = true;
 const featureManageAlertButtons = true;
 
-// this will soon be replaced with a new search query
 const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
   query OpenOpportunitiesPage(
     $where: PublishedPoolsSearchInput
@@ -64,16 +63,16 @@ export const OpenOpportunitiesPage = () => {
     useBrowseJobsSearchParams();
 
   const whereVariable: PublishedPoolsSearchInput = {
-    keywordSearch: getFilterValues("keyword"),
-    eligibility: getFilterValues("applicationEligibility").filter(
+    keywordSearch: getFilterValues("keywords"),
+    eligibility: getFilterValues("applicationEligibilities").filter(
       isEnumValue(PoolAreaOfSelection),
     ),
-    departments: getFilterValues("organization"),
-    classifications: getFilterValues("classification"),
-    publishedAtRange: getFilterValues("advertisementTiming").filter(
+    departments: getFilterValues("organizations"),
+    classifications: getFilterValues("classifications"),
+    publishedAtRange: getFilterValues("advertisementTimings").filter(
       isEnumValue(PoolPublishedRange),
     ),
-    languages: getFilterValues("languageRequirement").filter(
+    languages: getFilterValues("languageRequirements").filter(
       isEnumValue(LanguageAbility),
     ),
     salaryRange: getFilterValues("minimumSalary").find(
@@ -81,7 +80,7 @@ export const OpenOpportunitiesPage = () => {
     ),
     processNumber: getFilterValue("processNumber"),
     poolStatuses: [PoolStatus.Published], // this page doesn't show closed pools
-  } as const;
+  };
 
   const orderByVariable: Record<
     typeof sortBy,
@@ -95,7 +94,7 @@ export const OpenOpportunitiesPage = () => {
       column: PublishedPoolsSearchOrderByColumn.ClosingDate,
       order: SortOrder.Asc,
     },
-  } as const;
+  };
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
