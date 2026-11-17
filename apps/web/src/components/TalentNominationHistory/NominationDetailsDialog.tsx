@@ -14,7 +14,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
@@ -78,6 +78,7 @@ const NominationDetailsDialog = ({
   variant,
 }: NominationDetailsDialogProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const nominationGroup = getFragment(
     NominationDetailsDialog_Fragment,
     nominationGroupQuery,
@@ -211,7 +212,13 @@ const NominationDetailsDialog = ({
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
               {nominatedBy}
             </FieldDisplay>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div
+              className={
+                locale === "fr"
+                  ? "grid grid-cols-1 gap-6"
+                  : "grid grid-cols-1 gap-6 sm:grid-cols-2"
+              }
+            >
               <FieldDisplay
                 label={intl.formatMessage(messages.whatNominatedFor)}
               >
