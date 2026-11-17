@@ -405,9 +405,10 @@ const PoolNameSection = ({
                   </div>
                 ) : null}
 
-                {selectionLimitations?.includes(
-                  PoolSelectionLimitation.CanadianCitizens,
-                ) && <CitizensNote />}
+                {selectionLimitations &&
+                  selectionLimitations?.includes(
+                    PoolSelectionLimitation.CanadianCitizens,
+                  ) && <CitizensNote />}
 
                 <Select
                   id="classification"
