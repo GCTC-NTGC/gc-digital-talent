@@ -4,7 +4,12 @@ import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
 
 import { Button, Heading, Notice, Pending, Ul } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  PoolStatus,
+  PublishedPoolsSearchOrderByColumn,
+  SortOrder,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -21,11 +26,17 @@ const featureManageAlertButtons = true;
 
 // this will soon be replaced with a new search query
 const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
-  query OpenOpportunitiesPage {
-    poolsPaginated(
-      where: { statuses: [PUBLISHED], isHidden: false }
-      first: 500
-      orderBy: { column: CLOSING_DATE, order: ASC }
+  query OpenOpportunitiesPage(
+    $where: PublishedPoolsSearchInput
+    $first: Int!
+    $page: Int
+    $orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
+  ) {
+    publishedPoolsSearch(
+      where: $where
+      first: $first
+      page: $page
+      orderBy: $orderBy
     ) {
       data {
         id
@@ -40,13 +51,32 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
 export const OpenOpportunitiesPage = () => {
   const intl = useIntl();
 
-  const { resetAllFilters } = useBrowseJobsSearchParams();
+  const { sortBy, resetAllFilters } = useBrowseJobsSearchParams();
+
+  const orderByVariable = {
+    datePosted: {
+      column: PublishedPoolsSearchOrderByColumn.PublishedAt,
+      order: SortOrder.Desc,
+    },
+    deadline: {
+      column: PublishedPoolsSearchOrderByColumn.ClosingDate,
+      order: SortOrder.Asc,
+    },
+  } as const;
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
+    variables: {
+      where: {
+        poolStatuses: [PoolStatus.Published],
+      },
+      first: 20,
+      page: 1,
+      orderBy: [orderByVariable[sortBy]],
+    },
   });
 
-  const pools = unpackMaybes(data?.poolsPaginated?.data);
+  const pools = unpackMaybes(data?.publishedPoolsSearch?.data);
 
   return (
     <>
