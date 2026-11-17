@@ -304,6 +304,6 @@ const messages = {
     id: "EQI4l2",
     description: "Number of skills on an experience",
   }),
-});
+};
 
 export default messages;
