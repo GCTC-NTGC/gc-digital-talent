@@ -1063,6 +1063,9 @@ return [
             'talentRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
+            'talentNominationGroup' => [
+                'team' => ['view'],
+            ],
             'communityTeamMembers' => [
                 'team' => ['view'],
             ],

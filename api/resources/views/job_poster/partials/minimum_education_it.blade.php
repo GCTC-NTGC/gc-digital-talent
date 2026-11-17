@@ -8,7 +8,7 @@
     <li>@lang('job_poster.minimum_education.it.applied_work_experience.formal_education')</li>
     <li>@lang('job_poster.minimum_education.it.applied_work_experience.other_experience')</li>
 </ul>
-<p>@lang('job_poster.or')</p>
+<pre>@lang('job_poster.or')</pre>
 <h3>@lang('job_poster.minimum_education.it.post_secondary.title')</h3>
 <p>
     @lang('job_poster.minimum_education.it.post_secondary.description', [

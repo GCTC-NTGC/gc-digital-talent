@@ -47,11 +47,6 @@ const SidebarNotesForm = ({ values, onSave }: SidebarNotesFormProps) => {
           }),
         );
 
-        methods.resetField("notes", {
-          keepDirty: false,
-          defaultValue: formValues.notes,
-        });
-
         setIsEditing(false);
       })
       .catch(() => {

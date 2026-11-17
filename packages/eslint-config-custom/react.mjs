@@ -59,7 +59,6 @@ export default [
           ignoreList: [
             "cite",
             "emphasize",
-            "gray",
             "strong",
             "hidden",
             "primary",

@@ -1,5 +1,4 @@
 <x-footnote-item :heading="__('job_poster.work_location.title')" id="3">
-    <p>@lang('job_poster.work_location.subtitle')</p>
     <p>@lang('job_poster.work_location.paragraph_1')</p>
     <p>@lang('job_poster.work_location.paragraph_2')</p>
     <p>@lang('job_poster.work_location.paragraph_3')</p>

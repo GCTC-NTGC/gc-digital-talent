@@ -90,10 +90,10 @@ const PublishProcessDialog = ({
             <li>
               <strong>
                 {intl.formatMessage({
-                  defaultMessage: "Closing Date",
-                  id: "K+roYh",
+                  defaultMessage: "Closing date",
+                  id: "p4CGX2",
                   description:
-                    "Closing Date field label for publish pool dialog",
+                    "Closing date field label for publish pool dialog",
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </strong>
@@ -104,10 +104,10 @@ const PublishProcessDialog = ({
                 <li>
                   <strong>
                     {intl.formatMessage({
-                      defaultMessage: "Closing Date (Pacific time zone)",
-                      id: "hGlM9B",
+                      defaultMessage: "Closing date (Pacific time zone)",
+                      id: "L2Hilv",
                       description:
-                        "Closing Date field label for publish pool dialog in the Pacific time zone",
+                        "Closing date field label for publish pool dialog in the Pacific time zone",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </strong>

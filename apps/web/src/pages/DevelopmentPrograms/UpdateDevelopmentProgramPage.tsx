@@ -155,8 +155,8 @@ export const UpdateDevelopmentProgramForm = ({
           >
             {intl.formatMessage({
               defaultMessage: "Development program information",
-              id: "vAkaZH",
-              description: "Heading for the 'create a developmentProgram' form",
+              id: "B/tCpX",
+              description: "Heading for development program",
             })}
           </Heading>
           <FormFields />

@@ -7,11 +7,13 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 interface ConfirmationDialogProps {
   assessmentTitle?: string | null;
+  label: string;
   onRemove: () => Promise<void>;
 }
 
 const ConfirmationDialog = ({
   assessmentTitle,
+  label,
   onRemove,
 }: ConfirmationDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,7 +34,7 @@ const ConfirmationDialog = ({
   return (
     <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialog.Trigger>
-        <IconButton color="error" icon={TrashIcon} />
+        <IconButton color="error" icon={TrashIcon} label={label} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>{title}</AlertDialog.Title>

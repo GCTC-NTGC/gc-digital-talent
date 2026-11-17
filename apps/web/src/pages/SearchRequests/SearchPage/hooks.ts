@@ -71,6 +71,8 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
       }
       qualifiedInPoolCount
       atLevelCount
+      advancementCount
+      lateralMovementCount
       count
     }
   }

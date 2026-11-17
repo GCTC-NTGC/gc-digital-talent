@@ -220,6 +220,75 @@ const messages = {
     id: "NMo1VF",
     description: "Experience date range when end date is missing",
   }),
+  type: defineMessage({
+    defaultMessage: "Type",
+    id: "trerKD",
+    description: "Button to filter experiences by type",
+  }),
+  timeline: defineMessage({
+    defaultMessage: "Experience timeline",
+    id: "WRhqCk",
+    description: "Title of experience timeline card",
+  }),
+  timelineDescription: defineMessage({
+    defaultMessage:
+      "A chronological view of all of your experience across all 5 types, grouped by organization.",
+    id: "PpivFz",
+    description: "Description of experience timeline card",
+  }),
+  addExperience: defineMessage({
+    defaultMessage: "Add an experience",
+    id: "RcoCL+",
+    description:
+      "Button to open modal to choose a type of experience to add to the profile",
+  }),
+  nullWork: defineMessage({
+    defaultMessage: "You haven't added any work experience yet.",
+    id: "qBEpsi",
+    description:
+      "Text in work experience card when user has no work experiences",
+  }),
+  nullEducation: defineMessage({
+    defaultMessage: "You haven't added any education or certificates yet.",
+    id: "BO+Uwx",
+    description:
+      "Text in education experience card when user has no education experiences",
+  }),
+  nullCommunity: defineMessage({
+    defaultMessage: "You haven't added any community participation yet.",
+    id: "i5/pKP",
+    description:
+      "Text in community experience card when user has no community experiences",
+  }),
+  nullPersonal: defineMessage({
+    defaultMessage: "You haven't added any personal learning yet.",
+    id: "ddHZal",
+    description:
+      "Text in personal experience card when user has no personal experiences",
+  }),
+  nullAward: defineMessage({
+    defaultMessage: "You haven't added any awards or recognition yet.",
+    id: "LHBUjl",
+    description:
+      "Text in award experience card when user has no award experiences",
+  }),
+  nullTimeline: defineMessage({
+    defaultMessage: "You haven't added any experience yet.",
+    id: "oIfVFk",
+    description:
+      "Text in experience timeline card when user has no experiences",
+  }),
+  showDetails: defineMessage({
+    defaultMessage: "Show {experienceName} details",
+    id: "ge40rv",
+    description: "Button text to show a specific experience's details",
+  }),
+  governmentOfCanada: defineMessage({
+    defaultMessage: "Government of Canada",
+    id: "OKqOVT",
+    description:
+      "Label for goc employment category on work experience card metadata",
+  }),
   dates: defineMessage({
     defaultMessage: "Dates",
     id: "Bs00Yf",
@@ -230,6 +299,11 @@ const messages = {
     id: "X3puDA",
     description: "Heading for how long an experience lasted",
   }),
-};
+  skillCount: defineMessage({
+    defaultMessage: "{count, plural, one {# skill} other {# skills}}",
+    id: "EQI4l2",
+    description: "Number of skills on an experience",
+  }),
+});
 
 export default messages;

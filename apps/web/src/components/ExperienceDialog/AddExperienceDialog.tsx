@@ -13,6 +13,7 @@ interface ExperienceTypeDetails {
   title: string;
   description: string;
   linkText: string;
+  href: string;
 }
 
 interface AddExperienceDialogProps {
@@ -20,6 +21,7 @@ interface AddExperienceDialogProps {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  applicationId?: string;
 }
 
 const AddExperienceDialog = ({
@@ -27,35 +29,44 @@ const AddExperienceDialog = ({
   defaultOpen,
   open,
   onOpenChange,
+  applicationId,
 }: AddExperienceDialogProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const getHref = (type: ExperienceType) =>
+    paths.createExperienceType(type, { applicationId });
 
   const experienceTypes: Record<ExperienceType, ExperienceTypeDetails> = {
     work: {
       title: intl.formatMessage(experienceMessages.work),
       description: intl.formatMessage(experienceMessages.workDescription),
       linkText: intl.formatMessage(experienceMessages.addWork),
+      href: getHref("work"),
     },
     education: {
       title: intl.formatMessage(experienceMessages.education),
       description: intl.formatMessage(experienceMessages.educationDescription),
       linkText: intl.formatMessage(experienceMessages.addEducation),
+      href: getHref("education"),
     },
     community: {
       title: intl.formatMessage(experienceMessages.community),
       description: intl.formatMessage(experienceMessages.communityDescription),
       linkText: intl.formatMessage(experienceMessages.addCommunity),
+      href: getHref("community"),
     },
     personal: {
       title: intl.formatMessage(experienceMessages.personal),
       description: intl.formatMessage(experienceMessages.personalDescription),
       linkText: intl.formatMessage(experienceMessages.addPersonal),
+      href: getHref("personal"),
     },
     award: {
       title: intl.formatMessage(experienceMessages.award),
       description: intl.formatMessage(experienceMessages.awardDescription),
       linkText: intl.formatMessage(experienceMessages.addAward),
+      href: getHref("award"),
     },
   };
 
@@ -87,7 +98,7 @@ const AddExperienceDialog = ({
                   {details.description}
                 </p>
                 <Link
-                  href={paths.createExperience()}
+                  href={details.href}
                   icon={PlusCircleIcon}
                   className="font-bold"
                 >

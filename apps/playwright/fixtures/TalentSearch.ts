@@ -7,9 +7,11 @@ import type {
 } from "@gc-digital-talent/graphql";
 import type {
   Classification,
+  LocalizedTalentRequestSource,
   Skill,
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
+import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -176,9 +178,22 @@ class TalentSearch extends AppPage {
     classification: Classification,
     workStream: WorkStream,
     criteria: TalentRequestCandidateCriteria,
+    talentSources: LocalizedTalentRequestSource[],
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
 
+    for (const { value, label } of talentSources) {
+      // Find talent labels the qualified in pool source "Pool candidates" instead of its API label
+      await expect(
+        this.page.getByRole("checkbox", {
+          name:
+            value === TalentRequestSource.QualifiedInPool
+              ? "Pool candidates"
+              : (label.en ?? ""),
+          exact: true,
+        }),
+      ).toBeChecked();
+    }
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,

@@ -25,15 +25,8 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
           })}
         />
       </Dialog.Trigger>
-      <Dialog.Content hasSubtitle>
-        <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Learn more about how work locations are described in the context of recruitment opportunities.",
-            id: "5FXFyB",
-            description: "Subtitle for the pool work location dialog",
-          })}
-        >
+      <Dialog.Content>
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Work location and terminology",
             id: "kbMB6R",
@@ -82,8 +75,8 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Hybrid positions</strong> require in-office presence for 3 or more days per week, with the remainder allowing you to work from the location of your choice.",
-                  id: "1d2BaE",
+                    "<strong>Hybrid positions</strong> require in-office presence for 4 or more days per week, with the remainder allowing you to work from the location of your choice.",
+                  id: "PXSLET",
                   description: "Definition for 'hybrid positions'",
                 })}
               </li>

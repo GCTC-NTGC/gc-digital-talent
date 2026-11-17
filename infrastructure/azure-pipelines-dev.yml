@@ -16,7 +16,7 @@ variables:
   serviceConnectionName: "Talent Cloud Service Connection"
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
   # Fixed worker count instead of a "%" (playwright.config.ts reads this).
-  # Hosted ubuntu-24.04 agents have 2 vCPUs; "25%" of that rounds down to a
+  # Hosted Linux agents have 2 vCPUs; "25%" of that rounds down to a
   # single worker, which serializes the whole suite. Tests are network/UI
   # bound rather than CPU bound, so running more workers than cores is fine.
   # See "Hardware" at https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
@@ -30,7 +30,7 @@ variables:
     integrationArgs: "--project=chromium"
 
 pool:
-  vmImage: ubuntu-24.04
+  vmImage: ubuntu-26.04
 
 jobs:
   - ${{ if eq(parameters.vertical, 'uat') }}:

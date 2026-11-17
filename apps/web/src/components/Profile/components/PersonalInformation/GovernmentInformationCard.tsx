@@ -4,7 +4,7 @@ import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
 import { Button, Card, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 import RemoveWorkEmailDialog from "~/components/RemoveWorkEmailDialog/RemoveWorkEmailDialog";
@@ -133,7 +133,6 @@ const GovernmentInformationCard = ({
       <Card.Separator space="xs" />
       <div className="flex flex-col items-center gap-3 xs:flex-row">
         <EmailVerificationDialog
-          emailType={EmailType.Work}
           emailAddress={workEmailFragment.workEmail ?? null}
         >
           <Button mode="inline" className="text-center xs:text-left">

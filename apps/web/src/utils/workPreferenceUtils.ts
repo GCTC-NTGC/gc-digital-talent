@@ -22,7 +22,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "Qvep+v",
     description: "Label for current city field in About Me form",
   }),
-  workLocationPreferences: intl.formatMessage({
+  locationPreferences: intl.formatMessage({
     defaultMessage: "Work location preferences",
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
@@ -34,7 +34,7 @@ export const getLabels = (intl: IntlShape) => ({
     description:
       "Location Exemptions field label for work location preference form",
   }),
-  flexibleWorkLocationOptions: intl.formatMessage(
+  flexibleWorkLocations: intl.formatMessage(
     profileMessages.flexibleWorkLocationOptions,
   ),
   locationExclusions: intl.formatMessage({
