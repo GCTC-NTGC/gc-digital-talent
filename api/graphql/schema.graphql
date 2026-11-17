@@ -1053,6 +1053,7 @@ type TalentNominationGroupAsNominee
   nominatorNames: [String!]!
     @rename(attribute: "approved_nominator_names")
     @with(relation: "nominations.nominator")
+  classificationAtTimeOfLastApproval: Classification @belongsTo
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
