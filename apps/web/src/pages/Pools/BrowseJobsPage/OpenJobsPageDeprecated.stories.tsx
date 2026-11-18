@@ -7,7 +7,7 @@ import {
 import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import { PoolStatus } from "@gc-digital-talent/graphql";
 
-import OpenJobs from "./OpenJobsPage";
+import OpenJobs from "./OpenJobsPageDeprecated";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,

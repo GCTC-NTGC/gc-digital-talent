@@ -244,9 +244,9 @@ const AdvancementSection = ({
             id="advancementReferralExpiryDate"
             name="advancementReferralExpiryDate"
             legend={intl.formatMessage({
-              defaultMessage: "Referral expiry date",
-              id: "VeYTqO",
-              description: "Label for referral expiry date field",
+              defaultMessage: "Advancement referral expiry date",
+              id: "muDhw+",
+              description: "Label for advancement referral expiry date field",
             })}
             context={intl.formatMessage({
               defaultMessage:

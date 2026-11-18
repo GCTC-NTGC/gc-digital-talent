@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import type { MessageDescriptor } from "react-intl";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { EmailType, ErrorCode, graphql } from "@gc-digital-talent/graphql";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { ErrorCode, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
   notEmpty,
@@ -21,20 +20,9 @@ import {
 
 import { useEmailVerification } from "./EmailVerification";
 
-const labels: Record<EmailType, MessageDescriptor> = {
-  WORK: defineMessage({
-    defaultMessage: "Government work email",
-    id: "2SU37a",
-    description: "Label for work email in the verification form",
-  }),
-  CONTACT: commonMessages.email,
-};
-
-const SendUserEmailsVerification_Mutation = graphql(/* GraphQL */ `
-  mutation SendUserEmailsVerification(
-    $input: SendUserEmailsVerificationInput!
-  ) {
-    sendUserEmailsVerification(sendUserEmailsVerificationInput: $input) {
+const SendUserWorkEmailVerification_Mutation = graphql(/* GraphQL */ `
+  mutation SendUserWorkEmailVerification($emailAddress: String!) {
+    sendUserWorkEmailVerification(emailAddress: $emailAddress) {
       id
     }
   }
@@ -42,16 +30,13 @@ const SendUserEmailsVerification_Mutation = graphql(/* GraphQL */ `
 
 interface FormValues {
   emailAddress: string;
-  emailType: string;
 }
 
 interface RequestVerificationCodeFormProps {
-  emailType: EmailType;
   emailAddress: string | null;
 }
 
 const RequestVerificationCodeForm = ({
-  emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
 }: RequestVerificationCodeFormProps) => {
   const intl = useIntl();
@@ -68,11 +53,12 @@ const RequestVerificationCodeForm = ({
     },
   } = useEmailVerification();
 
-  const [, executeMutation] = useMutation(SendUserEmailsVerification_Mutation);
+  const [, executeMutation] = useMutation(
+    SendUserWorkEmailVerification_Mutation,
+  );
 
   const formMethods = useForm<FormValues>({
     defaultValues: {
-      emailType: dialogEmailType,
       emailAddress: initialEmailAddress ?? undefined,
     },
   });
@@ -81,48 +67,22 @@ const RequestVerificationCodeForm = ({
 
   const submitHandler: SubmitHandler<FormValues> = ({
     emailAddress,
-    emailType,
   }): Promise<void> => {
     setRequestCodeMessage(null);
     setSubmitCodeMessage(null);
     setEmailAddressContacted(emailAddress);
 
-    let emailTypes: EmailType[];
-    switch (emailType) {
-      case EmailType.Contact.toString():
-        if (workEmailDomainRegex.test(emailAddress)) {
-          // Appears to be a valid work email address.  We'll update both at the same time.
-          emailTypes = [EmailType.Contact, EmailType.Work];
-          setSubmitCodeMessage("contact-matches-work");
-        } else {
-          emailTypes = [EmailType.Contact];
-        }
-        break;
-      case EmailType.Work.toString():
-        emailTypes = [EmailType.Work];
-        break;
-      default:
-        throw new Error("Unexpected email type: " + emailType);
-    }
     const mutationResult = executeMutation({
-      input: {
-        emailAddress,
-        emailTypes,
-      },
+      emailAddress,
     }).then((result) => {
       // check for the email being already in use
-      const validationErrors =
-        result.error?.graphQLErrors
-          .map((e) => getValidationExtension(e.extensions))
-          .filter(notEmpty) ?? [];
+      const emailAddressInUse = result.error?.graphQLErrors.some((e) =>
+        getValidationExtension(e.extensions)?.emailAddress?.includes(
+          ErrorCode.EmailAddressInUse,
+        ),
+      );
 
-      if (
-        validationErrors.some((extension) =>
-          extension["sendUserEmailsVerificationInput.emailAddress"].includes(
-            ErrorCode.EmailAddressInUse,
-          ),
-        )
-      ) {
+      if (emailAddressInUse) {
         formMethods.setError(
           "emailAddress",
           {
@@ -150,7 +110,7 @@ const RequestVerificationCodeForm = ({
         });
       }
 
-      if (!result.data?.sendUserEmailsVerification?.id) {
+      if (!result.data?.sendUserWorkEmailVerification?.id) {
         throw new Error("Send email error");
       }
     });
@@ -199,22 +159,23 @@ const RequestVerificationCodeForm = ({
               id="emailAddress"
               name="emailAddress"
               type="email"
-              label={intl.formatMessage(labels[dialogEmailType])}
+              label={intl.formatMessage({
+                defaultMessage: "Government work email",
+                id: "2SU37a",
+                description: "Label for work email in the verification form",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                pattern:
-                  dialogEmailType == EmailType.Work
-                    ? {
-                        value: workEmailDomainRegex,
-                        message: intl.formatMessage({
-                          defaultMessage:
-                            "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
-                          id: "BLOt/e",
-                          description:
-                            "Description for rule pattern on work email field",
-                        }),
-                      }
-                    : undefined,
+                pattern: {
+                  value: workEmailDomainRegex,
+                  message: intl.formatMessage({
+                    defaultMessage:
+                      "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                    id: "BLOt/e",
+                    description:
+                      "Description for rule pattern on work email field",
+                  }),
+                },
               }}
             />
           </div>

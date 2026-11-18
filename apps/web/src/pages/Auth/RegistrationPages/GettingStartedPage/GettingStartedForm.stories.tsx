@@ -29,9 +29,9 @@ export default {
   component: GettingStartedForm,
   parameters: {
     apiResponses: {
-      SendUserEmailsVerification: {
+      SendUserWorkEmailVerification: {
         data: {
-          sendUserEmailsVerification: {
+          sendUserWorkEmailVerification: {
             id: 1,
           },
         },

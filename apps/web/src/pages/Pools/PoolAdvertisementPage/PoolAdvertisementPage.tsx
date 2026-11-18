@@ -10,6 +10,7 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { Navigate } from "react-router";
 
 import {
   ThrowNotFound,
@@ -1333,11 +1334,14 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
 export const Component = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId", true);
   const auth = useAuthorization();
+  const paths = useRoutes();
 
   const [{ data, fetching, error }] = useQuery({
     query: PoolAdvertisementPage_Query,
     variables: { id: poolId },
   });
+
+  const isClosed = data?.pool?.status?.value === PoolStatus.Closed;
 
   const isVisible = isAdvertisementVisible(
     auth?.roleAssignments?.filter(notEmpty) ?? [],
@@ -1348,6 +1352,10 @@ export const Component = () => {
   const application = data?.me?.poolCandidates?.find(
     (candidate) => candidate?.pool.id === data.pool?.id,
   );
+
+  if (isClosed) {
+    return <Navigate to={paths.jobPosterArchive(poolId)} replace />;
+  }
 
   return (
     <Pending fetching={fetching} error={error}>
