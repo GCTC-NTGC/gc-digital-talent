@@ -64,7 +64,7 @@ jobs:
         displayName: "Setup PHP"
 
       - ${{ if parameters.blockGitHub }}:
-          - script: echo "0.0.0.0 github.com api.github.com codeload.github.com objects.githubusercontent.com" | sudo tee -a /etc/hosts
+          - script: echo "0.0.0.0 github.com api.github.com codeload.github.com objects.githubusercontent.com raw.githubusercontent.com release-assets.githubusercontent.com" | sudo tee -a /etc/hosts
             displayName: "Block GitHub"
 
       # Composer downloads most packages from GitHub, so the fallback build
