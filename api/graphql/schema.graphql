@@ -1854,17 +1854,6 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
   ): [Pool]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 100
-      scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
-    )
-    @orderBy(column: "id", direction: DESC)
-  # duplicate of publishedPoolsSearch for trying out cursor pagination, see #18552
-  publishedPoolsSearchWithCursor(
-    where: PublishedPoolsSearchInput
-    orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
-  ): [Pool]!
     @cursorPaginate(
       maxCount: 100
       scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]

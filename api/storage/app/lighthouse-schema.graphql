@@ -567,16 +567,6 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
 
-    "Limits number of fetched items. Maximum allowed value: 100."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): PoolPaginator!
-  publishedPoolsSearchWithCursor(
-    where: PublishedPoolsSearchInput
-    orderBy: [QueryPublishedPoolsSearchWithCursorOrderByOrderByClause!]
-
     "Limits number of fetched items for forward pagination. Maximum allowed value: 100."
     first: Int
 
@@ -3561,15 +3551,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
 "Order by clause for Query.publishedPoolsSearch.orderBy."
 input QueryPublishedPoolsSearchOrderByOrderByClause {
-  "The column that is used for ordering."
-  column: PublishedPoolsSearchOrderByColumn!
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-}
-
-"Order by clause for Query.publishedPoolsSearchWithCursor.orderBy."
-input QueryPublishedPoolsSearchWithCursorOrderByOrderByClause {
   "The column that is used for ordering."
   column: PublishedPoolsSearchOrderByColumn!
 
