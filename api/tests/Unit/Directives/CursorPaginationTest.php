@@ -443,4 +443,25 @@ final class CursorPaginationTest extends TestCase
             'after' => Arr::get($response, 'data.classifications.pageInfo.endCursor'),
         ])->assertGraphQLErrorMessage('The cursor does not match the ordering of this query.');
     }
+
+    public function testPagesWithoutOrderBy(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(first: 3, after: $after) {
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $response1 = $this->graphQL($query)->assertGraphQLErrorFree();
+        $response2 = $this->graphQL($query, ['after' => $response1->json('data.classifications.pageInfo.endCursor')])
+            ->assertGraphQLErrorFree();
+
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], [
+            ...$response1->json('data.classifications.edges.*.node.level'),
+            ...$response2->json('data.classifications.edges.*.node.level'),
+        ]);
+    }
 }

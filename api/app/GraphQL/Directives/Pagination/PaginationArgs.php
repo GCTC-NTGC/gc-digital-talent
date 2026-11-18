@@ -98,7 +98,8 @@ class PaginationArgs
             $builder instanceof Relation => $builder->getQuery()->getQuery()
         };
         // Builder->ensureOrderForCursorPagination filters out any ordering that does not include a `direction` property.
-        if (! Arr::every($query->orders, fn ($o) => array_key_exists('direction', $o))) {
+        // orders is null when nothing was sorted; Laravel then sorts by the primary key
+        if (! Arr::every($query->orders ?? [], fn ($o) => array_key_exists('direction', $o))) {
             throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
