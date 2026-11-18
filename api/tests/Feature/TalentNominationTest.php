@@ -461,6 +461,34 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLValidationError('nominee_id', 'The nominee id field and nominator id must be different.');
     }
 
+    public function testCantNominateSelfViaFallbackNominator()
+    {
+        // the nominator with a fallback email is the same as the nominee, which is not allowed
+        $nomination = TalentNomination::factory()
+            ->state([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'submitter_id' => $this->employee1->id,
+                'nominator_id' => null,
+                'nominator_review' => null,
+                'nominator_fallback_work_email' => $this->employee2->work_email,
+                'nominator_fallback_name' => 'Fallback Name',
+                'nominator_fallback_classification_id' => Classification::factory()->create()->id,
+                'nominator_fallback_department_id' => Department::factory()->create()->id,
+                'nominee_id' => $this->employee2->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nominator_fallback_work_email', ErrorCode::NOMINEE_CANNOT_BE_NOMINATOR->name);
+    }
+
     public function testCannotCreateNominationsForClosedEvent()
     {
         $event = TalentNominationEvent::factory()->create([
