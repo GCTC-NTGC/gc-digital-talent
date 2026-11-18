@@ -9,12 +9,7 @@ trigger:
     include:
       - main
 pr: none
-
-resources:
-  repositories:
-    - repository: fallback
-      type: git
-      name: gc-digital-talent-fallback
+ 
 pool:
   vmImage: ubuntu-26.04
 
@@ -22,9 +17,7 @@ jobs:
   - job: push_to_fallback
     displayName: Push to fallback repo
     # Lets System.AccessToken write to the fallback repo without checking it out
-    uses:
-      repositories:
-        - fallback
+      
     steps:
       - checkout: self
         clean: true
