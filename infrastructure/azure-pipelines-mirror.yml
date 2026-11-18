@@ -15,7 +15,6 @@ resources:
     - repository: fallback
       type: git
       name: gc-digital-talent-fallback
-
 pool:
   vmImage: ubuntu-26.04
 
