@@ -1,0 +1,343 @@
+import { localizeSalaryRange } from "@gc-digital-talent/i18n";
+
+import { test, expect } from "~/fixtures";
+import JobPosterPage from "~/fixtures/JobPoster";
+import graphql from "~/utils/graphql";
+import { getClosedPool } from "~/utils/pools";
+
+test.describe("Job poster archive page", () => {
+  test("Job poster archive matches snapshot", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
+    const closedPool = await getClosedPool(adminCtx, {});
+    const salaryRange = localizeSalaryRange(
+      closedPool.classification?.minSalary,
+      closedPool.classification?.maxSalary,
+      "en",
+    );
+    const jobPosterPage = new JobPosterPage(appPage.page);
+    await jobPosterPage.goToArchived(closedPool.id);
+    await expect(appPage.page.locator("#main")).toMatchAriaSnapshot(`
+    - main:
+      - navigation "Breadcrumbs":
+        - list:
+          - listitem:
+            - link "Home":
+              - /url: /en
+          - listitem:
+            - link "Browse jobs":
+              - /url: /en/jobs/closed
+          - listitem:
+            - 'link "Closed: ${closedPool.name?.en}"':
+              - /url: /en/jobs/closed/${closedPool.id}
+      - paragraph: You’re viewing an archived version of this job opportunity. We're no longer accepting applications.
+      - 'heading "${closedPool.classification?.groupAndLevel}: ${closedPool.name?.en}" [level=1]'
+      - 'heading "This job opportunity is for internal employees with a classification of ${closedPool.classification?.groupAndLevel} or equivalent" [level=2]'
+      - paragraph: This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as ${closedPool.classification?.groupAndLevel} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.
+      - paragraph:
+        - link "Eligible veterans and Canadian Armed Forces members":
+          - /url: https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html
+        - text: may also apply.
+      - 'heading "Employment details" [level=2]'
+      - list:
+        - listitem:
+          - paragraph: "Work category: ${closedPool.workStream?.name?.en}"
+        - listitem:
+          - paragraph: "/Department: .+/"
+        - listitem:
+          - paragraph:
+            - text: "Salary range: ${salaryRange}"
+            - link "[1]":
+              - /url: /en/jobs/closed/${closedPool.id}#footnote-1
+        - listitem:
+          - paragraph:
+            - text "/Deadline November 12th, d+/"
+            - link "[2]":
+              - /url: /en/jobs/closed/${closedPool.id}#footnote-2
+        - listitem:
+          - paragraph:
+            - text: "Employment length: Indeterminate (Permanent)"
+            - link "Learn more about employment durations (opens in new tab)":
+              - /url: https://www.canada.ca/en/public-services-procurement/services/pay-pension/compensation-community/employer-support-procedures/employment-federal-public-service.html#a4
+        - listitem:
+          - paragraph:
+            - text: "/Work location: .+/"
+            - link "[3]":
+              - /url: /en/jobs/closed/${closedPool.id}#footnote-3
+        - listitem:
+          - paragraph:
+            - text: "/Language requirement: .+/"
+            - link "[4]":
+              - /url: /en/jobs/closed/${closedPool.id}#footnote-4
+        - listitem:
+          - paragraph:
+            - text: "/Security clearance: .+/"
+            - link "[5]":
+              - /url: /en/jobs/closed/${closedPool.id}#footnote-5
+        - listitem:
+          - paragraph: "Selection process number: ${closedPool.processNumber}"
+      - heading "Minimum education" [level=2]
+      - paragraph:
+        - text: This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you'll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the
+        - link "Government of Canada's qualification standard":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html
+        - text: .
+      - heading "Applied work experience" [level=3]
+      - paragraph: "Combined experience in computer science, information technology, information management or another specialty relevant to this advertisement, including any of the following:"
+      - list:
+        - listitem:
+          - paragraph: On-the-job learning
+        - listitem:
+          - paragraph: Non-conventional training
+        - listitem:
+          - paragraph: Formal education
+        - listitem:
+          - paragraph: Other related experience (e.g. personal, community, family)
+      - text: or
+      - heading "2-year post-secondary" [level=3]
+      - paragraph:
+        - text: Graduation from a program of 2 years or more offered by a
+        - link "recognized post-secondary institution":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi
+        - text: . The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.
+      - heading "Skill requirements" [level=2]
+      - paragraph: In order to apply for this job you will need to be able to demonstrate that you have all the skills marked "Required". If you have any of the "Optional" skills you are encouraged to include them because it will increase your chances of a job placement. To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.
+      - heading "Understanding skill levels" [level=3]
+      - paragraph: Skills are divided into technical and behavioural types, and each type has a unique 4 level scale.
+      - heading "Behavioural skill levels" [level=4]
+      - paragraph: "Behavioural skills refer to the key interpersonal and personal attributes that are necessary for specific jobs across the organization. These competencies generally refer to the way a person acts, communicates and interacts with others. They consist of the following levels:"
+      - list:
+        - listitem:
+          - paragraph: "In early development: Demonstrated, but consistency varies significantly by audience and circumstance. Intermittently demonstrated in daily situations and inconsistently demonstrated with certain audiences or under conditions of stress or in moderately challenging situations. Potential is there, but there is learning to be done."
+        - listitem:
+          - paragraph: "Moderately developed: Frequently demonstrated as well-developed in most daily situations with most audiences, and intermittently demonstrated under conditions of stress and in moderately challenging situations."
+        - listitem:
+          - paragraph: "Strongly developed: Consistently demonstrated as well-developed in daily conditions with all audiences, frequently demonstrated in situations of stress and in moderately challenging situations with most audiences, and intermittently demonstrated under conditions of significant stress and in challenging situations."
+        - listitem:
+          - paragraph: "Deep-level mastery: Consistently demonstrated as well-developed with all audiences, even under conditions of significant stress and in challenging situations. Behaviour is adapted and nuanced to the situation without drifting away from its core value."
+      - heading "Technical skill levels" [level=4]
+      - paragraph: "Technical skills refer to the technical knowledge and abilities that are relevant to specific jobs or roles across the organization. Technical skills are usually acquired through specific learning or work experience in applying the knowledge and skill. They consist of the following levels:"
+      - list:
+        - listitem:
+          - paragraph: "Entry-level: Demonstrated ability to consistently deliver on tasks of low complexity under minimal supervision and tasks of moderate complexity under strong supervision or with direct mentoring. Usually associated with junior or entry-level roles."
+        - listitem:
+          - paragraph: "Intermediate: Demonstrated ability to consistently deliver on tasks of low to moderate complexity under minimal supervision and tasks of higher-level complexity under moderate supervision and mentoring. Usually associated with intermediate roles."
+        - listitem:
+          - paragraph: "Advanced: Demonstrated ability to scope, undertake, and deliver on tasks of moderate to high complexity under minimal levels of supervision. Demonstrated ability to mentor others in lower levels of skill development, either through direct supervision or by setting examples and providing explanations. Usually associated with senior technical advisor or entry-level supervisory roles."
+        - listitem:
+          - paragraph: "Lead: Demonstrated ability to identify, scope, undertake, and deliver on tasks of significant complexity with wide areas of impact, even in challenging circumstances. Demonstrated ability to lead the development of tasks, and potentially teams, for the organization in this area. Usually associated with manager or technical lead roles."
+      - term: Governance - Senior Management Committees (Required)
+      - definition:
+        - paragraph: "/Level: .+/"
+        - paragraph: Demonstrated ability to actively participate in senior committees to contribute to decision-making processes and strategic direction. This may include providing input on policies, advising on organizational priorities, or collaborating with senior leadership.
+      - heading "About this role" [level=2]
+      - heading "Your impact" [level=3]
+      - paragraph: Enim omnis ab mollitia modi. Ut placeat voluptas consequatur facilis voluptatem. Unde molestias magni culpa expedita laborum minus animi. (en)
+      - heading "Common tasks in this role" [level=3]
+      - paragraph: Harum nesciunt modi est mollitia et dignissimos sed. Ut et nisi consequuntur est eum et quod non. (en)
+      - heading "About us" [level=3]
+      - paragraph: Assumenda dolorem nulla quia deserunt nisi inventore expedita. Id voluptatem quia est quae. Corporis quae enim quaerat ea accusamus. (en)
+      - heading "More information" [level=2]
+      - heading "Who can apply to this recruitment process?" [level=3]
+      - paragraph:
+        - text: /Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an IT-\\d+ classification or organizational equivalent in their substantive role\\./
+        - link "Eligible veterans and Canadian Armed Forces members":
+          - /url: https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html
+        - text: may also apply.
+      - heading "How are equity and inclusion considered in this recruitment process?" [level=3]
+      - paragraph:
+        - text: You can learn more about how our team uses employment equity information to shape equity and diversity in hiring by reading our
+        - link "Inclusivity and equity statement":
+          - /url: /inclusivity-equity
+        - text: . We also provide an
+        - link "Accessibility statement":
+          - /url: /accessibility-statement
+        - text: that outline how the platform considers and implements accessible best practices.
+      - heading "How early should I start my application?" [level=3]
+      - paragraph:
+        - text: We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to
+        - link "register":
+          - /url: /register-info
+        - text: /to start your application\\. Expect to spend approximately \\d+ minutes signing up for the first time\\. First-time users report spending between 2 to 3 hours on average on their first application\\. The second time you apply, it should take significantly less time since we'll reuse most of your information\\. Return users spend on average between \\d+ minutes to 1 hour on each application\\. Applying early also allows hiring managers to review your application sooner\\. They can begin assessing your application as soon as you submit it, even if the deadline hasn't passed yet\\./
+      - heading "What should I expect after I apply?" [level=3]
+      - paragraph: Nisi hic sit aut quidem ea voluptas amet. Qui cupiditate unde ullam iusto natus sit nisi. Sit similique labore sapiente nam et. (en)
+      - heading "What should I expect if I'm successful in the process?" [level=3]
+      - paragraph: Non est eveniet nobis odio quasi nemo vel aliquid. Voluptatibus ut perferendis cupiditate sed est deserunt praesentium. Tempore vel ipsam suscipit eum adipisci ullam. (en)
+      - heading "What should I do if I experience technical issues while applying?" [level=3]
+      - paragraph:
+        - link "Contact our support team":
+          - /url: /support
+        - text: as soon as possible when you encounter a technical issue that could prevent you from applying. You can submit a ticket at any time to let us know about the difficulties you're experiencing. It's important to do this as soon as the issue arises so we can keep a record of when it happened, even if it's outside of business hours. We review tickets during business hours. If you report an issue late at night, right before a job advertisement deadline, expect a response within 2 business days. To avoid last-minute issues, we encourage you to submit your application as early as possible. If you submit your ticket after the application deadline has passed, we won't be able to assist you, and your application won't be accepted.
+      - heading "What should I do if I have trouble signing up or signing in?" [level=3]
+      - paragraph:
+        - text: We’ve set up
+        - link "a guide explaining how to create a CanadaLogin and set up two-step verification":
+          - /url: /register-info
+        - text: . We also have
+        - link "instructions on how to sign in using CanadaLogin":
+          - /url: /login-info
+        - text: . If the issue persists,
+        - link "contact the CanadaLogin team":
+          - /url: https://login.canada.ca/en/users/contact-us/
+        - text: .
+      - heading "Who can I contact with questions or accommodation needs?" [level=3]
+      - paragraph:
+        - text: For accommodation requests or questions about this process, please contact the recruitment team at
+        - link "${closedPool.contactEmail}":
+          - /url: mailto:${closedPool.contactEmail}
+        - text: .
+      - heading "Footnotes" [level=2]
+      - heading "Salary range" [level=3]
+      - paragraph:
+        - text: The salary ranges for all federal public service positions are
+        - link "shared publicly":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-public-service-employees.html
+        - text: . The job advertisement shows the full range for this type of position.
+      - paragraph: "Most new hires will start at the lowest salary in the applicable range. To start at a higher rate, the hiring manager will need to justify why a salary above the minimum is considered necessary to obtain a suitably qualified person. They’ll need to explain how the position meets 1 of 3 conditions:"
+      - list:
+        - listitem:
+          - paragraph: There is a shortage of skilled workers in the field, based on local or regional labour market surveys from recognized institutions.
+        - listitem:
+          - paragraph: There are unusual difficulties in filling the role with qualified candidates, possibly because the minimum rate in the salary range isn’t competitive.
+        - listitem:
+          - paragraph: There is a need for a highly skilled or experienced employee who can immediately take on the full responsibilities of the position.
+      - paragraph: Once you’re hired, you’ll move up a step in the salary range each year on the anniversary of your start date. This will continue until you reach the maximum rate. Once you’re at the highest step, your salary will change only if your collective agreement changes or if you take a new job at a higher level.
+      - paragraph:
+        - text: You can find the salary ranges and steps for most Government of Canada jobs in
+        - link "the collective agreements":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/topics/pay/collective-agreements.html
+        - text: . For non-unionized positions, the salary range is available on the
+        - link "Treasury Board of Canada Secretariat’s website":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-unrepresented-senior-excluded-employees.html
+        - text: .
+      - paragraph:
+        - link "↩ Back to reference (Salary range)":
+          - /url: /en/jobs/closed/${closedPool.id}#footnote-ref-1
+      - heading "About application deadlines" [level=3]
+      - paragraph: In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at 11:59 PM Pacific Time on the date specified.
+      - paragraph /For this opportunity, applications must be submitted no later than .+/
+
+      - paragraph:
+        - text: Have questions?
+        - link "Get in touch":
+          - /url: /support
+        - text: .
+      - paragraph:
+        - link "↩ Back to reference (About application deadlines)":
+          - /url: /en/jobs/closed/${closedPool.id}#footnote-ref-2
+      - heading "Work location and terminology" [level=3]
+      - paragraph: "As a reminder, this opportunity requires the following:"
+      - paragraph: Recruitment opportunities on this platform have a variety of possible work location requirements. A single job advertisement often encompasses a wide breadth of available jobs, so you’ll often see combinations of location requirements provided. In theses cases, specific location information will be provided to you as job opportunities become available.
+      - paragraph: "The definitions for each location possibility are outlined here:"
+      - list:
+        - listitem:
+          - paragraph: Remote positions offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.
+        - listitem:
+          - paragraph: Hybrid positions require in-office presence for 4 or more days per week, with the remainder allowing you to work from the location of your choice.
+        - listitem:
+          - paragraph: On-site positions require full-time in-office work with no option to work remotely.
+      - paragraph:
+        - link "↩ Back to reference (Work location and terminology)":
+          - /url: /en/jobs/closed/${closedPool.id}#footnote-ref-3
+      - heading "Language requirements and second language proficiency" [level=3]
+      - heading "Language requirements on GC Digital Talent" [level=4]
+      - paragraph: "These are the language profiles that you can find on GC Digital Talent:"
+      - list:
+        - listitem:
+          - paragraph: English essential This position requires a working ability in English. The hiring manager is responsible for determining if you meet this language requirement.
+        - listitem:
+          - paragraph: French essential This position requires a working ability in French. The hiring manager is responsible for determining if you meet this language requirement.
+        - listitem:
+          - paragraph: Bilingual intermediate (B B B) This position requires that you are bilingual and pass a second language evaluation. The following section on Bilingual positions explains in detail.
+        - listitem:
+          - paragraph: Bilingual advanced (C B C) This position requires that you are bilingual and pass a second language evaluation. The following section on Bilingual positions explains in detail.
+        - listitem:
+          - paragraph: Bilingual advanced (C B C) This position requires that you are bilingual and pass a second language evaluation. The following section on Bilingual positions explains in detail.
+        - listitem:
+          - paragraph: Various (English or French) Multiple positions are expected to be staffed through this process. You may apply to this process if you meet any of the previous language profiles.
+        - listitem:
+          - paragraph: Various (Bilingual) Multiple positions are expected to be staffed through this process. You may apply to this process if you meet either the Bilingual intermediate (B B B) or the Bilingual advanced (C B C) language profiles.
+      - heading "Bilingual positions" [level=4]
+      - paragraph: You do not need to have your second language proficiency levels before applying for a bilingual position. You will be sent for testing as part of the hiring process.
+      - paragraph: If you are applying for a bilingual position, you must pass the language tests before you can be hired. If the position is bilingual, the manager cannot hire someone who does not meet the second language proficiency levels, no matter what other qualifications the candidate may have or how well they perform in the job competition. If you are interested in a bilingual job but are not bilingual, you are strongly encouraged to apply to other opportunities on the platform that meet your language abilities.
+      - paragraph:
+        - text: Try out the
+        - link "self-assessment":
+          - /url: https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html
+        - text: tests to get a sense of your current level.
+      - heading "Second language proficiency" [level=4]
+      - paragraph: "The Government of Canada uses letter codes to describe second language proficiency. There are three proficiency levels for general qualifications:"
+      - list:
+        - listitem:
+          - paragraph: "\\"A\\" is the lowest level of bilingual ability and indicates a beginner level."
+        - listitem:
+          - paragraph: "\\"B\\" indicates an intermediate level."
+        - listitem:
+          - paragraph: "\\"C\\" is the highest and indicates an advanced level."
+      - paragraph: "Second language proficiency is also determined for three related skills:"
+      - list:
+        - listitem:
+          - paragraph: Reading (or Written Comprehension)
+        - listitem:
+          - paragraph: Writing (or Written Expression)
+        - listitem:
+          - paragraph: Speaking (or Oral Proficiency)
+      - paragraph: Language requirements for bilingual positions are summarized using one of the letter codes for each of the skills. The first letter refers to the required level for Reading, the second Writing and the third Speaking.
+      - paragraph: In practice, most bilingual positions are either B B B (intermediate) or C B C (advanced).
+      - paragraph: "The Public Service Commission (PSC) is responsible for all second language evaluations for Government of Canada employment opportunities. You can read more about this topic on the PSC's website:"
+      - list:
+        - listitem:
+          - paragraph:
+            - link "Qualification Standards in Relation to Official Languages":
+              - /url: https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/relation-official-languages.html
+        - listitem:
+          - paragraph:
+            - link "Language requirements for candidates":
+              - /url: https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/language-requirements-candidates.html
+        - listitem:
+          - paragraph:
+            - link "Second language evaluation in the federal public service":
+              - /url: https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html
+        - listitem:
+          - paragraph:
+            - link "Assessment of official languages in the appointment process":
+              - /url: https://www.canada.ca/en/public-service-commission/services/appointment-framework/guides-tools-appointment-framework/assessment-official-languages-appointment-process.html
+      - paragraph:
+        - link "↩ Back to reference (Language requirements and second language proficiency)":
+          - /url: /en/jobs/closed/${closedPool.id}#footnote-ref-4
+      - heading "Security clearance" [level=3]
+      - paragraph: You don't need to have an existing security status or clearance to apply for positions listed on GC Digital Talent. You'll undergo security screening during the hiring process, usually after all other assessments are complete.
+      - paragraph: The time it takes to complete security screening can vary from a few days to several months. Higher levels of security screening and more complex cases tend to take longer.
+      - heading "Levels of security screening" [level=4]
+      - paragraph: "The required level of security screening depends on the job and is determined by the sensitivity of the information you'll handle and the location of your office. There are three levels of security screening, each with an enhanced option:"
+      - list:
+        - listitem:
+          - paragraph: reliability status
+        - listitem:
+          - paragraph: secret security clearance
+        - listitem:
+          - paragraph: top secret security clearance
+      - heading "Obtaining your security status or clearance" [level=4]
+      - paragraph:
+        - text: As part of a background check, you'll need to provide certain personal information by filling out sections of the
+        - link "Security Screening Application and Consent Form":
+          - /url: https://www.canada.ca/en/treasury-board-secretariat/corporate/forms/security-screening-application-consent-form.html
+        - text: .
+      - paragraph: Among the security screening activities, all levels require individuals to undergo a financial inquiry (credit check) and a criminal records check (fingerprinting).
+      - paragraph: Reliability status and secret clearance are valid for up to 10 years, while top secret clearance is valid for up to 5 years.
+      - heading "More information" [level=4]
+      - paragraph:
+        - text: Learn more about
+        - link "security screening":
+          - /url: https://www.canada.ca/en/government/publicservice/workforce/staffing/security-screening.html
+        - text: or have a look at the
+        - link "Directive on Security Screening":
+          - /url: https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32805
+        - text: .
+      - paragraph:
+        - link "↩ Back to reference (Security clearance)":
+          - /url: /en/jobs/closed/${closedPool.id}#footnote-ref-5
+    `);
+  });
+});

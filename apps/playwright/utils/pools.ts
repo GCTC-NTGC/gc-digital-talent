@@ -534,3 +534,41 @@ export const retirePublishedPool = async (ctx: GraphQLContext, id: string) => {
   await closePool(ctx, { id });
   await archivePool(ctx, { id });
 };
+
+const Test_GetPoolsDocument = /* GraphQL */ `
+  query Test_GetClosedPools {
+    poolsPaginated(
+      where: { statuses: [CLOSED], isHidden: false }
+      first: 1
+      orderBy: { column: CLOSING_DATE, order: DESC }
+    ) {
+      data {
+        id
+        name {
+          en
+        }
+        classification {
+          maxSalary
+          minSalary
+          groupAndLevel
+        }
+        workStream {
+          name {
+            en
+          }
+        }
+        processNumber
+        contactEmail
+      }
+    }
+  }
+`;
+
+export const getClosedPool: GraphQLRequestFunc<Pool> = async (ctx, {}) => {
+  return ctx
+    .post<GraphQLResponse<"poolsPaginated", { data: Pool[] }>>(
+      Test_GetPoolsDocument,
+      {},
+    )
+    .then((res) => res.poolsPaginated.data[0]);
+};
