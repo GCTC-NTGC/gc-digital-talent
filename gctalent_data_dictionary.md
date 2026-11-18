@@ -385,7 +385,9 @@ Defines the ordered stages of a pool's assessment process (e.g. application revi
 
 ## award_experiences
 
-Applicant-reported awards, recognitions, or honours on their GC Talent profile. Used as evidence of skills and competencies.
+Applicant-reported awards, recognitions, or honours on their GC Talent profile. One of the five Experience types, owned by the [user](#users) model.
+
+Together, a user's experiences make up their CV or résumé on the platform, replacing the uploaded CV or résumé another hiring system might ask for. Experiences are linked to the skills on the user's profile through [experience_skill](#experience_skill), where `details` holds the user's description of how they demonstrated that skill in that experience. Applications reuse these same links as evidence for the pool's required skills. An application can also link experiences to the pool's education requirement through [pool_candidate_education_requirement_experience](#pool_candidate_education_requirement_experience).
 
 | Column                    | Description                                                               | Relationship    | Constraints                                                                                                                         |
 | ------------------------- | ------------------------------------------------------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -393,7 +395,7 @@ Applicant-reported awards, recognitions, or honours on their GC Talent profile. 
 | `user_id`                 | FK to the user who received the award.                                    | FK → `users.id` | Not null                                                                                                                            |
 | `title`                   | Name or title of the award or recognition.                                |                 |                                                                                                                                     |
 | `issued_by`               | Organization or body that issued the award.                               |                 |                                                                                                                                     |
-| `awarded_date`            | Date the award was received.                                              |                 | Must be today or earlier                                                                               |
+| `awarded_date`            | Date the award was received.                                              |                 | Must be today or earlier                                                                                                            |
 | `awarded_to`              | Scope of who received the award (individual, team, organization).         |                 | Enum `AwardedTo`: ME, MY_TEAM, MY_PROJECT, MY_ORGANIZATION                                                                          |
 | `awarded_scope`           | Level or breadth of the award (local, national, international).           |                 | Enum `AwardedScope`: INTERNATIONAL, NATIONAL, PROVINCIAL, LOCAL, COMMUNITY, ORGANIZATIONAL, SUB_ORGANIZATIONAL                      |
 | `details`                 | Additional context or description of the award.                           |                 |                                                                                                                                     |
@@ -404,11 +406,13 @@ Applicant-reported awards, recognitions, or honours on their GC Talent profile. 
 | `related_experience_type` | Model class of another of the user's experiences this award is linked to. |                 | One of App\Models\WorkExperience, PersonalExperience, CommunityExperience, EducationExperience. Required with related_experience_id |
 | `related_experience_id`   | UUID of the linked experience (polymorphic with related_experience_type). |                 | Must be one of the current user's own experiences of related_experience_type                                                        |
 
+**Experience types:** [award_experiences](#award_experiences), [community_experiences](#community_experiences), [education_experiences](#education_experiences), [personal_experiences](#personal_experiences), [work_experiences](#work_experiences)
+
 ---
 
 ## classification_community_development_program
 
-Junction table linking GC job classifications to ccommunity_develppment_programs, which is itself a junction table linking communities to development programs. This allows for multiple Communities to offer the same development programs, and for each community to have their own rules about which Classifications they are available to.
+Junction table linking GC job classifications to community_development_programs, which is itself a junction table linking communities to development programs. This allows for multiple Communities to offer the same development programs, and for each community to have their own rules about which Classifications they are available to.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -573,21 +577,25 @@ Links a community development program to a talent nomination event, and stores t
 
 ## community_experiences
 
-Applicant-reported volunteer, community, or civic experiences on their GC Talent profile. Captures unpaid or non-employment activities that demonstrate skills.
+Applicant-reported volunteer, community, or civic experiences on their GC Talent profile. Captures unpaid or non-employment activities that demonstrate skills. One of the five Experience types, owned by the [user](#users) model, and unrelated to the [communities](#communities) model.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this experience. |  |  |
-| `user_id` | FK to the user who had this experience. | FK → `users.id` |  |
-| `title` | Role or title held during the experience. |  |  |
-| `organization` | Name of the organization or group. |  |  |
-| `project` | Specific project or initiative the user contributed to. |  |  |
-| `start_date` | Date when the experience began. |  |  |
-| `end_date` | Date when the experience ended; null if ongoing. |  |  |
-| `details` | Free-text description of the experience and contributions. |  |  |
-| `created_at` | Timestamp when the record was created. |  |  |
-| `updated_at` | Timestamp when the record was last modified. |  |  |
-| `deleted_at` | Soft-delete timestamp; null means the record is active. |  |  |
+Together, a user's experiences make up their CV or résumé on the platform, replacing the uploaded CV or résumé another hiring system might ask for. Experiences are linked to the skills on the user's profile through [experience_skill](#experience_skill), where `details` holds the user's description of how they demonstrated that skill in that experience. Applications reuse these same links as evidence for the pool's required skills. An application can also link experiences to the pool's education requirement through [pool_candidate_education_requirement_experience](#pool_candidate_education_requirement_experience).
+
+| Column         | Description                                                | Relationship    | Constraints |
+| -------------- | ---------------------------------------------------------- | --------------- | ----------- |
+| `id`           | Unique identifier for this experience.                     |                 |             |
+| `user_id`      | FK to the user who had this experience.                    | FK → `users.id` |             |
+| `title`        | Role or title held during the experience.                  |                 |             |
+| `organization` | Name of the organization or group.                         |                 |             |
+| `project`      | Specific project or initiative the user contributed to.    |                 |             |
+| `start_date`   | Date when the experience began.                            |                 |             |
+| `end_date`     | Date when the experience ended; null if ongoing.           |                 |             |
+| `details`      | Free-text description of the experience and contributions. |                 |             |
+| `created_at`   | Timestamp when the record was created.                     |                 |             |
+| `updated_at`   | Timestamp when the record was last modified.               |                 |             |
+| `deleted_at`   | Soft-delete timestamp; null means the record is active.    |                 |             |
+
+**Experience types:** [award_experiences](#award_experiences), [community_experiences](#community_experiences), [education_experiences](#education_experiences), [personal_experiences](#personal_experiences), [work_experiences](#work_experiences)
 
 ---
 
@@ -607,22 +615,22 @@ Junction table recording which work streams a user is interested in within a com
 
 Records a user's expressed interest in a specific community, including whether they want jobs, training, or development opportunities. Also captures community-specific profile fields (e.g. Finance Chief, Procurement SDO).
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this community interest record. |  |  |
-| `user_id` | FK to the interested user. | FK → `users.id` |  |
-| `community_id` | FK to the community they are interested in. | FK → `communities.id` | Unique per (user_id, community_id) |
-| `job_interest` | Whether the user is interested in job opportunities in this community. |  |  |
-| `training_interest` | Whether the user wants training opportunities from this community. |  |  |
-| `additional_information` | Free-text notes the user wants to share with the community. |  |  |
-| `created_at` | Timestamp when the record was created. |  |  |
-| `updated_at` | Timestamp when the record was last modified. |  |  |
-| `finance_is_chief` | Finance-specific: whether the user is currently a Chief-level finance officer. |  | Only allowed when community key is `finance` |
-| `additional_duties` | Community-specific additional roles or responsibilities. |  | Array of `CommunityInterestAdditionalDuty`: CORPORATE_COMMUNICATIONS, FACILITIES_MANAGEMENT_AND_SECURITY, HUMAN_RESOURCES, INFORMATION_TECHNOLOGY, MATERIEL_MANAGEMENT, PROCUREMENT, PROJECT_MANAGEMENT, REAL_PROPERTY_MANAGEMENT; distinct values; only allowed for `finance` or `procurement` communities |
-| `finance_other_roles` | Finance-specific: other finance roles held by the user. |  | Array of `FinanceChiefRole`: CHIEF_SECURITY_OFFICER, CHIEF_INFORMATION_OFFICER, HEAD_OF_HUMAN_RESOURCES, HEAD_OF_PROCUREMENT, OTHER; distinct values; only allowed for `finance` community |
-| `finance_other_roles_other` | Finance-specific: free-text for other finance roles not in the standard list. |  | Required if finance_other_roles includes OTHER; only allowed for `finance` community |
-| `consent_to_share_profile` | Whether the user consents to sharing their profile with the community. |  | Must be true (accepted) when creating/updating via API; DB default false |
-| `procurement_is_sdo` | Procurement-specific: whether the user is a Departmental Security Officer. |  | Only allowed when community key is `procurement` |
+| Column                      | Description                                                                    | Relationship          | Constraints                                                                                                                                                                                                                                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                        | Unique identifier for this community interest record.                          |                       |                                                                                                                                                                                                                                                                                                             |
+| `user_id`                   | FK to the interested user.                                                     | FK → `users.id`       |                                                                                                                                                                                                                                                                                                             |
+| `community_id`              | FK to the community they are interested in.                                    | FK → `communities.id` | Unique per (user_id, community_id)                                                                                                                                                                                                                                                                          |
+| `job_interest`              | Whether the user is interested in job opportunities in this community.         |                       |                                                                                                                                                                                                                                                                                                             |
+| `training_interest`         | Whether the user wants training opportunities from this community.             |                       |                                                                                                                                                                                                                                                                                                             |
+| `additional_information`    | Free-text notes the user wants to share with the community.                    |                       |                                                                                                                                                                                                                                                                                                             |
+| `created_at`                | Timestamp when the record was created.                                         |                       |                                                                                                                                                                                                                                                                                                             |
+| `updated_at`                | Timestamp when the record was last modified.                                   |                       |                                                                                                                                                                                                                                                                                                             |
+| `finance_is_chief`          | Finance-specific: whether the user is currently a Chief-level finance officer. |                       | Only allowed when community key is `finance`                                                                                                                                                                                                                                                                |
+| `additional_duties`         | Community-specific additional roles or responsibilities.                       |                       | Array of `CommunityInterestAdditionalDuty`: CORPORATE_COMMUNICATIONS, FACILITIES_MANAGEMENT_AND_SECURITY, HUMAN_RESOURCES, INFORMATION_TECHNOLOGY, MATERIEL_MANAGEMENT, PROCUREMENT, PROJECT_MANAGEMENT, REAL_PROPERTY_MANAGEMENT; distinct values; only allowed for `finance` or `procurement` communities |
+| `finance_other_roles`       | Finance-specific: other finance roles held by the user.                        |                       | Array of `FinanceChiefRole`: CHIEF_SECURITY_OFFICER, CHIEF_INFORMATION_OFFICER, HEAD_OF_HUMAN_RESOURCES, HEAD_OF_PROCUREMENT, OTHER; distinct values; only allowed for `finance` community                                                                                                                  |
+| `finance_other_roles_other` | Finance-specific: free-text for other finance roles not in the standard list.  |                       | Required if finance_other_roles includes OTHER; only allowed for `finance` community                                                                                                                                                                                                                        |
+| `consent_to_share_profile`  | Whether the user consents to sharing their profile with the community.         |                       | Must be true (accepted) when creating/updating via API; DB default false                                                                                                                                                                                                                                    |
+| `procurement_is_sdo`        | Procurement-specific: whether the user is a Departmental Security Officer.     |                       | Only allowed when community key is `procurement`                                                                                                                                                                                                                                                            |
 
 **Referenced by:** `community_interest_work_stream.community_interest_id`, `development_program_interests.community_interest_id`
 
@@ -755,7 +763,9 @@ Catalogue of GC talent development programs (e.g. leadership programs, interchan
 
 ## education_experiences
 
-Applicant-reported education on their GC Talent profile: degrees, diplomas, licenses, certifications, courses and fellowships. Used to verify education requirements and demonstrate skills.
+Applicant-reported education on their GC Talent profile: degrees, diplomas, licenses, certifications, courses and fellowships. Used to verify education requirements and demonstrate skills. One of the five Experience types, owned by the [user](#users) model.
+
+Together, a user's experiences make up their CV or résumé on the platform, replacing the uploaded CV or résumé another hiring system might ask for. Experiences are linked to the skills on the user's profile through [experience_skill](#experience_skill), where `details` holds the user's description of how they demonstrated that skill in that experience. Applications reuse these same links as evidence for the pool's required skills. An application can also link experiences to the pool's education requirement through [pool_candidate_education_requirement_experience](#pool_candidate_education_requirement_experience).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -780,6 +790,8 @@ Applicant-reported education on their GC Talent profile: degrees, diplomas, lice
 | `fellowship_type` | Kind of fellowship. |  | Enum `FellowshipType`: POST_DOCTORAL, INDUSTRY, OTHER. Required if education_type = FELLOWSHIP, otherwise prohibited |
 | `other_fellowship_type` | Free-text fellowship type when fellowship_type is OTHER. |  | Required if fellowship_type = OTHER |
 | `prospective_end_date` | Expected completion date for education still in progress. |  | On or after today and start_date. Required when status is IN_PROGRESS (except license/certification types); prohibited otherwise |
+
+**Experience types:** [award_experiences](#award_experiences), [community_experiences](#community_experiences), [education_experiences](#education_experiences), [personal_experiences](#personal_experiences), [work_experiences](#work_experiences)
 
 **Referenced by:** `development_program_user.education_experience_id`
 
@@ -1046,7 +1058,9 @@ Reference table of all defined platform permissions (e.g. view-pool, update-cand
 
 ## personal_experiences
 
-Applicant-reported personal life experiences on their GC Talent profile (e.g. caregiving, self-directed learning). Used as evidence of skills not captured through formal employment or education.
+Applicant-reported personal life experiences on their GC Talent profile (e.g. caregiving, self-directed learning). Used as evidence of skills not captured through formal employment or education. One of the five Experience types, owned by the [user](#users) model.
+
+Together, a user's experiences make up their CV or résumé on the platform, replacing the uploaded CV or résumé another hiring system might ask for. Experiences are linked to the skills on the user's profile through [experience_skill](#experience_skill), where `details` holds the user's description of how they demonstrated that skill in that experience. Applications reuse these same links as evidence for the pool's required skills. An application can also link experiences to the pool's education requirement through [pool_candidate_education_requirement_experience](#pool_candidate_education_requirement_experience).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1063,11 +1077,13 @@ Applicant-reported personal life experiences on their GC Talent profile (e.g. ca
 | `learning_description` | What the user learned from the experience (backfilled from description and details). |  |  |
 | `organization` | Organization associated with the experience, if any. |  |  |
 
+**Experience types:** [award_experiences](#award_experiences), [community_experiences](#community_experiences), [education_experiences](#education_experiences), [personal_experiences](#personal_experiences), [work_experiences](#work_experiences)
+
 ---
 
 ## pool_candidate_education_requirement_experience
 
-Links a pool candidate's application to the specific experience(s) they are using to meet the education requirement for a pool. Supports polymorphic experience types.
+Links a pool candidate's application to the specific experience(s) they are using to meet the education requirement for a pool. Supports polymorphic experience types. Which experience types can be selected depends on the candidate's `education_requirement_option`: for EDUCATION, only education experiences; for APPLIED_WORK or PROFESSIONAL_DESIGNATION, any of the five types. This restriction is only enforced in the frontend; the API accepts any experience type.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1787,7 +1803,9 @@ Junction table linking a work experience entry to one or more work streams, indi
 
 ## work_experiences
 
-Applicant-reported employment history on their GC Talent profile. Captures both GC and non-GC positions with rich metadata about employment type, seniority, classification, and supervisory scope. Used as primary evidence for skills and to compute current GC employee status.
+Applicant-reported employment history on their GC Talent profile. Captures both GC and non-GC positions with rich metadata about employment type, seniority, classification, and supervisory scope. Used as primary evidence for skills and to compute current GC employee status. One of the five Experience types, owned by the [user](#users) model, and unrelated to the [communities](#communities) model.
+
+Together, a user's experiences make up their CV or résumé on the platform, replacing the uploaded CV or résumé another hiring system might ask for. Experiences are linked to the skills on the user's profile through [experience_skill](#experience_skill), where `details` holds the user's description of how they demonstrated that skill in that experience. Applications reuse these same links as evidence for the pool's required skills. An application can also link experiences to the pool's education requirement through [pool_candidate_education_requirement_experience](#pool_candidate_education_requirement_experience).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1823,6 +1841,8 @@ Applicant-reported employment history on their GC Talent profile. Captures both 
 | `c_suite_role_title` | C-suite title if the role was at the executive level. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if supervisory_position and senior_management_status are true |
 | `other_c_suite_role_title` | Free-text C-suite title if not in the standard list. |  |  |
 | `annual_budget_allocation` | Approximate annual budget managed, if applicable. |  | bigint; required if supervisory_position and budget_management are true |
+
+**Experience types:** [award_experiences](#award_experiences), [community_experiences](#community_experiences), [education_experiences](#education_experiences), [personal_experiences](#personal_experiences), [work_experiences](#work_experiences)
 
 **Referenced by:** `work_experience_work_stream.work_experience_id`
 
