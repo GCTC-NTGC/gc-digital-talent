@@ -9,14 +9,14 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class FallbackNominatorIsNotNominee implements ValidationRule
 {
-    private User $nominee;
+    private ?User $nominee;
 
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct(User $nominee)
+    public function __construct(?User $nominee)
     {
         $this->nominee = $nominee;
     }
