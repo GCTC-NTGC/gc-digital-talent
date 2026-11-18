@@ -4134,9 +4134,9 @@ type Mutation {
   deleteNotification(id: UUID!): Notification @guard
   markAllNotificationsAsRead: [Notification] @guard
   updateEnabledNotifications(
-    enabledEmailNotifications: [NotificationFamily]
-    enabledInAppNotifications: [NotificationFamily]
-    enabledWorkEmailNotifications: [NotificationFamily]
+    enabledEmailNotifications: [NotificationFamily!]
+    enabledInAppNotifications: [NotificationFamily!]
+    enabledWorkEmailNotifications: [NotificationFamily!]
   ): User @guard @validator
   # UserSkill mutations
   createUserSkill(
