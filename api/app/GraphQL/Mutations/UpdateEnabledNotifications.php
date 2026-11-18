@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 final class UpdateEnabledNotifications
 {
@@ -21,7 +23,9 @@ final class UpdateEnabledNotifications
             $user->enabled_in_app_notifications = $args['enabledInAppNotifications'];
         }
         if (isset($args['enabledWorkEmailNotifications'])) {
-            // TODO: check for employee status if setting to true
+            throw_if(count($args['enabledWorkEmailNotifications']) > 0 && ! $user->has_a_verified_work_email_address,
+                ValidationException::withMessages(['code' => ErrorCode::NEED_VERIFIED_WORK_EMAIL->name]));
+
             $user->enabled_work_email_notifications = $args['enabledWorkEmailNotifications'];
         }
 

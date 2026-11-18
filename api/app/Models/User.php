@@ -103,6 +103,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Notification $unreadNotifications
  * @property Collection<Notification> $notifications
  * @property ?bool $is_verified_gov_employee
+ * @property ?bool $has_a_verified_work_email_address
  * @property ?WorkExperience $latest_current_government_work_experience
  * @property ?WorkExperience $current_substantive_experiences
  * @property ?Carbon $last_sign_in_at
@@ -907,6 +908,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function getIsWorkEmailVerifiedAttribute()
     {
         return ! is_null($this->work_email_verified_at);
+    }
+
+    /**
+     * Is the work email address populated and verified?
+     */
+    public function getHasAVerifiedWorkEmailAddressAttribute()
+    {
+        return ! empty($this->work_email) && ! is_null($this->work_email_verified_at);
     }
 
     /*
