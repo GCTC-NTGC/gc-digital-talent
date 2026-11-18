@@ -17,6 +17,14 @@ parameters:
     displayName: Block GitHub on the agent (fallback drill)
     type: boolean
     default: false
+  # "self" uses this pipeline's own latest run on the same branch, for testing before merge
+  - name: composerCacheSource
+    displayName: Composer cache source (fallback build)
+    type: string
+    default: main
+    values:
+      - main
+      - self
 trigger:
   branches:
     include:
@@ -67,9 +75,13 @@ jobs:
             inputs:
               buildType: specific
               project: $(System.TeamProjectId)
-              definition: $(mainPipelineDefinitionId)
               buildVersionToDownload: latestFromBranch
-              branchName: refs/heads/main
+              ${{ if eq(parameters.composerCacheSource, 'self') }}:
+                definition: $(System.DefinitionId)
+                branchName: $(Build.SourceBranch)
+              ${{ else }}:
+                definition: $(mainPipelineDefinitionId)
+                branchName: refs/heads/main
               artifactName: composer-cache
               targetPath: $(Pipeline.Workspace)/composer-cache
 

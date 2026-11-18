@@ -6,7 +6,7 @@ To cover that, every merge to `main` is pushed to the `gc-digital-talent-fallbac
 
 ## How it works
 
-- [`azure-pipelines-mirror.yml`](../infrastructure/azure-pipelines-mirror.yml) runs on every merge to `main` and pushes `main` and tags to the fallback repo. The push isn't forced, so it fails instead of overwriting fixes made there during an outage.
+- [`azure-pipelines-mirror.yml`](../infrastructure/azure-pipelines-mirror.yml) runs on every merge to `main` and pushes GitHub's `main` and tags to the fallback repo. The push isn't forced, so it fails instead of overwriting fixes made there during an outage. Run from any other branch, it also pushes that branch to `verify/<branch>`.
 - [`azure-pipelines.yml`](../infrastructure/azure-pipelines.yml) publishes a `composer-cache` artifact on every build. Composer downloads most packages from GitHub, so the fallback build installs from this cache instead.
 - The fallback pipeline runs the same `azure-pipelines.yml` from the fallback repo with `fallback` turned on.
 
@@ -15,8 +15,8 @@ A fix that changes `composer.lock` can't be built during an outage, since the ne
 ## One-time setup
 
 1. Create an Azure Repos repo named `gc-digital-talent-fallback` in the same project. Uncheck **Add a README** so it starts empty.
-2. In **Project settings → Repositories → gc-digital-talent-fallback → Security**, give `<project> Build Service` **Contribute** and **Create tag**. If the mirror push gets a 403, give them to `Project Collection Build Service` too.
-3. Create a pipeline named `gc-digital-talent-mirror` from `infrastructure/azure-pipelines-mirror.yml` in GitHub. Only run it on `main`, never on a feature branch. On the first run, **Permit** access to the fallback repo.
+2. In **Project settings → Repositories → gc-digital-talent-fallback → Security**, check `Talent Cloud Build Service` has **Contribute**, **Create branch** and **Create tag**. If the mirror push gets a 403, give them to `Project Collection Build Service` too.
+3. Create a pipeline named `gc-digital-talent-mirror` from `infrastructure/azure-pipelines-mirror.yml` in GitHub. On the first run, **Permit** access to the fallback repo, then check `main` is the fallback repo's default branch.
 4. Create a pipeline named `gc-digital-talent-fallback` from `infrastructure/azure-pipelines.yml` in the **fallback repo**.
    - Triggers: turn on **Override the YAML continuous integration trigger** and **Disable continuous integration**, otherwise it builds on every mirror push.
    - Variables: add `mainPipelineDefinitionId` set to the main build pipeline's definition ID (the `definitionId` in its URL).
@@ -46,3 +46,12 @@ Run this every few months, and after any big change to the build.
 
 1. Run the fallback pipeline with **Fallback build** and **Block GitHub on the agent** both checked. This blocks GitHub on the build agent, like a real outage.
 2. Deploy the artifact with `gc-digital-talent-fallback-release` to a non-prod slot, like the pilot slot, and check the site loads.
+
+## Testing a change to these pipelines
+
+Without merging to `main` first:
+
+1. Run the mirror pipeline on your branch. It pushes your branch to `verify/<branch>` in the fallback repo.
+2. Run the fallback pipeline on `verify/<branch>` with **Fallback build** off and **Composer cache source** set to `self`. This publishes a composer cache for the next run.
+3. Run it again with **Fallback build** and **Block GitHub on the agent** on, and **Composer cache source** `self`.
+4. Deploy that artifact with `gc-digital-talent-fallback-release` to the pilot slot.
