@@ -6,7 +6,7 @@ import AppPage from "./AppPage";
  * Page containing utilities for interacting with job posters
  */
 class JobPosterPage extends AppPage {
-  async closedJobPoster(id: string) {
+  async goToArchived(id: string) {
     await this.page.goto(`/jobs/closed/${id}`);
     await this.waitForGraphqlResponse("JobPosterArchive");
   }
