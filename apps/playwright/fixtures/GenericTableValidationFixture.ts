@@ -1,5 +1,5 @@
 import type { Locator, Page } from "playwright/test";
-import { expect } from "playwright/test";
+import { expect, test } from "playwright/test";
 
 import type {
   CandidateRemovalReason,
@@ -17,6 +17,8 @@ import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
+
+const MAX_PAGE_SIZE = 500;
 
 export function escapeRegExp(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -95,7 +97,9 @@ class GenericTableValidationFixture extends AppPage {
         name: /^Classification/,
       }),
       [FIELD.PAGE_SIZE]: page.getByRole("button", { name: /^show \d+$/i }),
-      [FIELD.PAGE_SIZE_500]: page.getByRole("menuitemradio", { name: "500" }),
+      [FIELD.PAGE_SIZE_500]: page.getByRole("menuitemradio", {
+        name: String(MAX_PAGE_SIZE),
+      }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
     this.assessmentPageFixture = new AssessmentPage(this.page);
@@ -330,12 +334,21 @@ class GenericTableValidationFixture extends AppPage {
     return Number(results?.split(" of ").pop());
   }
 
-  async showAllRows() {
+  async showFirst500Rows() {
     const total = await this.getTableTotal();
+    if (total > MAX_PAGE_SIZE) {
+      test.info().annotations.push({
+        type: "warning",
+        description: `The table has ${total} rows, more than the largest page size of ${MAX_PAGE_SIZE}`,
+      });
+    }
     await this.locators[FIELD.PAGE_SIZE].click();
     await this.locators[FIELD.PAGE_SIZE_500].click();
     await this.page.keyboard.press("Escape");
-    await expect(this.locators[FIELD.GENERIC_TABLE_ROW]).toHaveCount(total);
+    await expect(this.locators[FIELD.GENERIC_TABLE_ROW]).toHaveCount(
+      Math.min(total, MAX_PAGE_SIZE),
+    );
+    return total;
   }
 
   async verifyPlacementAndReferralStatus(

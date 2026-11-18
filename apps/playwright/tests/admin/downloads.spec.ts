@@ -21,6 +21,7 @@ import { getMyCommunity } from "~/utils/communities";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { getApplicationSnapshot } from "~/utils/applications";
+import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
 import { getPublishedPoolWithCandidates } from "~/utils/pools";
 import { getTalentNominationEventWithNominations } from "~/utils/talentNominations";
 import { getTalentRequestWithTrackedUsers } from "~/utils/talentRequests";
@@ -37,7 +38,7 @@ const contactInformation = "Contact information";
 const userProfile = "User profile";
 
 test.describe("Verify the downloads", { tag: "@uat" }, () => {
-  test.describe.configure({ mode: "serial" });
+  test.describe.configure({ mode: "default" });
   test.slow();
   let downloads: Downloads;
   let word: WordDocument;
@@ -45,7 +46,6 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
   let recruiterCtx: GraphQLContext;
   let adminCtx: GraphQLContext;
   let talentCoordinatorCtx: GraphQLContext;
-  let candidate: { applicationId: string; name: string; userId: string };
 
   test.beforeEach(async ({ appPage }) => {
     recruiterCtx = await graphql.newContext(recruiterSub);
@@ -67,7 +67,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
     const poolCandidatePage = new PoolCandidatePage(appPage.page);
     const pool = await getPublishedPoolWithCandidates(recruiterCtx, {});
     await poolPage.openPool(pool.id);
-    candidate = await poolCandidatePage.openFirstCandidate();
+    const candidate = await poolCandidatePage.openFirstCandidate();
     const { firstName, lastName, signature } = await getApplicationSnapshot(
       recruiterCtx,
       { id: candidate.applicationId },
@@ -179,15 +179,16 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       await tableValidation.filterCommunityTalentByClassification(
         await tableValidation.getFirstRowClassification(),
       );
-      await tableValidation.showAllRows();
+      const total = await tableValidation.showFirst500Rows();
       const tableNames = await downloads.getRowNames();
       const path = await downloads.downloadFromNotifications(
         DOWNLOAD_BUTTON.FULL_DATASET,
         "profiles_",
       );
       const fileNames = await excel.getFullNames(path);
-      expect(fileNames.sort()).toEqual([...new Set(tableNames)].sort());
-      await excel.validateUserRows(path, recruiterCtx);
+      expect(fileNames).toHaveLength(total);
+      expect(fileNames).toEqual(expect.arrayContaining(tableNames));
+      await excel.validateUserRows(path, recruiterCtx, tableNames.length);
     });
   });
 
@@ -274,6 +275,11 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
   test("Download users table and single user profile", async ({ appPage }) => {
     await loginBySub(appPage.page, adminSub);
     const userPage = new UserPage(appPage.page);
+    const pool = await getPublishedPoolWithCandidates(adminCtx, {});
+    const [{ user }] = await getPoolCandidatesTable(adminCtx, {
+      poolId: pool.id,
+    });
+    const name = `${user.firstName} ${user.lastName}`;
     await userPage.goToIndex();
 
     await test.step("Download users Excel", async () => {
@@ -287,17 +293,21 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
       await excel.validateUserRows(path, adminCtx);
     });
 
-    await test.step("Download full profile and profile without contact information in DOCx from the user page", async () => {
-      await userPage.goToUserProfile(candidate.userId);
+    await test.step("Download full profile in DOCx from the user page", async () => {
+      await userPage.goToUserProfile(user.id);
       await word.setContent(
         await downloads.downloadFile(
           DOWNLOAD_BUTTON.PROFILE,
           DOWNLOAD_OPTION.FULL_PROFILE,
         ),
       );
-      await expect(word.heading(candidate.name)).toBeVisible();
+      await expect(word.heading(name)).toBeVisible();
       await expect(word.heading(contactInformation)).toBeVisible();
-      await word.validateUserProfile(candidate.userId, adminCtx);
+      await word.validateUserProfile(user.id, adminCtx);
+      await word.close();
+    });
+
+    await test.step("Download profile without contact information in DOCx from the user page", async () => {
       await word.setContent(
         await downloads.downloadFile(
           DOWNLOAD_BUTTON.PROFILE,
@@ -305,7 +315,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         ),
       );
       await expect(word.heading(userProfile)).toBeVisible();
-      await expect(word.heading(candidate.name)).toBeHidden();
+      await expect(word.heading(name)).toBeHidden();
       await expect(word.heading(contactInformation)).toBeHidden();
       await word.close();
     });
