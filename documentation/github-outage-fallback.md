@@ -69,7 +69,7 @@ If you can still push to GitHub (only Actions or PRs are down, say), keep workin
 Run this every few months, and after any big change to the build.
 
 1. Run the fallback pipeline with **Fallback build** and **Block GitHub on the agent** both checked. This blocks GitHub on the build agent, like a real outage.
-2. Deploy the artifact with `gc-digital-talent-fallback-release` to a non-prod slot, like the pilot slot, and check the site loads.
+2. Deploy the artifact with `gc-digital-talent-fallback-release` to DEV, and check the site loads.
 
 ## Testing a change to these pipelines
 
@@ -78,4 +78,4 @@ Without merging to `main` first:
 1. Run the mirror pipeline on your branch with **Run pipeline** (not **Rerun**, which reuses the old commit). It pushes your branch to `verify/<branch>` in the fallback repo, listed under the **All** tab on the Branches page.
 2. Run the fallback pipeline on `verify/<branch>` with **Fallback build** off and **Composer cache source** set to `self`. This publishes a composer cache for the next run.
 3. Run it again with **Fallback build** and **Block GitHub on the agent** on, and **Composer cache source** `self`.
-4. Deploy that artifact with `gc-digital-talent-fallback-release` to the pilot slot.
+4. Deploy that artifact with `gc-digital-talent-fallback-release` to DEV.
