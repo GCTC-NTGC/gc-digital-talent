@@ -9,15 +9,14 @@ trigger:
     include:
       - main
 pr: none
- 
+
 pool:
   vmImage: ubuntu-26.04
 
 jobs:
   - job: push_to_fallback
     displayName: Push to fallback repo
-    # Lets System.AccessToken write to the fallback repo without checking it out
-      
+    # No repository resource for the fallback repo, it fails to resolve while the repo is still empty
     steps:
       - checkout: self
         clean: true

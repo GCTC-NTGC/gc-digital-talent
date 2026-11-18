@@ -16,7 +16,7 @@ A fix that changes `composer.lock` can't be built during an outage, since the ne
 
 1. Create an Azure Repos repo named `gc-digital-talent-fallback` in the same project. Uncheck **Add a README** so it starts empty.
 2. In **Project settings → Repositories → gc-digital-talent-fallback → Security**, check `Talent Cloud Build Service` has **Contribute**, **Create branch** and **Create tag**. If the mirror push gets a 403, give them to `Project Collection Build Service` too.
-3. Create a pipeline named `gc-digital-talent-mirror` from `infrastructure/azure-pipelines-mirror.yml` in GitHub. On the first run, **Permit** access to the fallback repo, then check `main` is the fallback repo's default branch.
+3. Create a pipeline named `gc-digital-talent-mirror` from `infrastructure/azure-pipelines-mirror.yml` in GitHub. After the first run, check `main` is the fallback repo's default branch.
 4. Create a pipeline named `gc-digital-talent-fallback` from `infrastructure/azure-pipelines.yml` in the **fallback repo**.
    - Triggers: turn on **Override the YAML continuous integration trigger** and **Disable continuous integration**, otherwise it builds on every mirror push.
    - Variables: add `mainPipelineDefinitionId` set to the main build pipeline's definition ID (the `definitionId` in its URL).
@@ -51,7 +51,7 @@ Run this every few months, and after any big change to the build.
 
 Without merging to `main` first:
 
-1. Run the mirror pipeline on your branch. It pushes your branch to `verify/<branch>` in the fallback repo.
+1. Run the mirror pipeline on your branch with **Run pipeline** (not **Rerun**, which reuses the old commit). It pushes your branch to `verify/<branch>` in the fallback repo, listed under the **All** tab on the Branches page.
 2. Run the fallback pipeline on `verify/<branch>` with **Fallback build** off and **Composer cache source** set to `self`. This publishes a composer cache for the next run.
 3. Run it again with **Fallback build** and **Block GitHub on the agent** on, and **Composer cache source** `self`.
 4. Deploy that artifact with `gc-digital-talent-fallback-release` to the pilot slot.
