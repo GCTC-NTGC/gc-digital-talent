@@ -91,9 +91,8 @@ const TalentNominationGroupProfile = ({
           <Heading
             icon={UserCircleIcon}
             rank="h2"
-            size="h4"
             color="secondary"
-            className="mt-0 font-normal"
+            className="mt-0"
           >
             {intl.formatMessage({
               defaultMessage: "Profile and career plan",

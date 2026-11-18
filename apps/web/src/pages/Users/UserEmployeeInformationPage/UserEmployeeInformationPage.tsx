@@ -186,10 +186,9 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               rank="h2"
-              size="h3"
               icon={FlagIcon}
               color="secondary"
-              className="font-normal sm:justify-start sm:text-left"
+              className="sm:justify-start sm:text-left"
             >
               {intl.formatMessage({
                 defaultMessage: "Community interest",
@@ -250,10 +249,9 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
               rank="h2"
-              size="h3"
               icon={ChartBarSquareIcon}
               color="secondary"
-              className="mt-0 font-normal sm:justify-start sm:text-left"
+              className="mt-0 sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.careerPlanning)}
             </Heading>
@@ -377,10 +375,9 @@ export const UserEmployeeInformation = ({
             <TableOfContents.Section id={SECTION_ID.TALENT_NOMINATIONS}>
               <Heading
                 rank="h2"
-                size="h3"
                 icon={TrophyIcon}
                 color="secondary"
-                className="font-normal sm:justify-start sm:text-left"
+                className="sm:justify-start sm:text-left"
               >
                 {intl.formatMessage({
                   defaultMessage: "Nominations the employee has received",

@@ -122,7 +122,6 @@ const ApplicationSnapshot = ({
           color="secondary"
           className="mb-0"
           rank="h2"
-          size="h3"
         >
           {intl.formatMessage({
             defaultMessage: "Application information",

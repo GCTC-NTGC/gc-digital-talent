@@ -92,7 +92,7 @@ export const Component = () => {
           })}
         </ScrollToLink>
 
-        <Heading color="primary" icon={FolderOpenIcon} className="font-normal">
+        <Heading color="primary" icon={FolderOpenIcon}>
           {intl.formatMessage({
             defaultMessage: "Purpose of the skills library",
             id: "vc9lfk",
@@ -155,7 +155,7 @@ export const Component = () => {
         <Heading
           color="primary"
           icon={WrenchScrewdriverIcon}
-          className="font-normal"
+
           id="platform-skills"
         >
           {intl.formatMessage({
@@ -218,7 +218,7 @@ export const Component = () => {
         </p>
 
         <div className="mb-3 flex flex-col flex-wrap items-baseline gap-x-6 gap-y-3 sm:flex-row sm:justify-between">
-          <Heading className="mb-0 font-normal">
+          <Heading className="mb-0">
             {intl.formatMessage({
               defaultMessage: "Defining and organizing skills",
               id: "YIszvd",
@@ -319,9 +319,7 @@ export const Component = () => {
           </Accordion.Item>
         </Accordion.Root>
 
-        <Heading className="font-normal" id="skills-library">
-          {formattedPageTitle}
-        </Heading>
+        <Heading id="skills-library">{formattedPageTitle}</Heading>
 
         <SkillTable
           title={formattedPageTitle}

@@ -70,7 +70,7 @@ const CareerTimelineSnapshot = ({
 
   return (
     <>
-      <Heading icon={UserCircleIcon} color="error" rank="h2" size="h3">
+      <Heading icon={UserCircleIcon} color="error" rank="h2">
         {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
       {featureFlags.careerExperience && !snapshotV1 ? (

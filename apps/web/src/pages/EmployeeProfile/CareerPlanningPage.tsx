@@ -226,7 +226,7 @@ export const CareerPlanning = ({
                     : LockClosedIcon
                 }
                 {...(user.isVerifiedGovEmployee && { color: "primary" })}
-                className="mt-0 font-normal sm:text-left"
+                className="mt-0 sm:text-left"
               >
                 {intl.formatMessage(commonMessages.careerPlanning)}
               </Heading>

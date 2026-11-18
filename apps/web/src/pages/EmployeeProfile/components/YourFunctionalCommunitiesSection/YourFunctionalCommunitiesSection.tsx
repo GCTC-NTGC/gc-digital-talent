@@ -62,7 +62,7 @@ const YourFunctionalCommunities = ({
         rank="h2"
         icon={isVerifiedGovEmployee ? UserGroupIcon : LockClosedIcon}
         {...(isVerifiedGovEmployee && { color: "primary" })}
-        className="mt-0 font-normal sm:text-left"
+        className="mt-0 sm:text-left"
       >
         {intl.formatMessage({
           defaultMessage: "Your functional communities",

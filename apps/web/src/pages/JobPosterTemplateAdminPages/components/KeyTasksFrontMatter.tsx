@@ -13,7 +13,7 @@ const KeyTasksFrontMatter = () => {
         rank="h2"
         icon={ClipboardDocumentCheckIcon}
         color="primary"
-        className="mx-0 mt-0 mb-6 font-normal"
+        className="mx-0 mt-0 mb-6"
       >
         {intl.formatMessage(messages.keyTasks)}
       </Heading>

@@ -86,7 +86,7 @@ export const Component = () => {
       <SEO title={pageTitle} description={desc} />
       <Hero title={pageTitle} subtitle={desc} crumbs={crumbs} />
       <Container>
-        <Heading icon={BriefcaseIcon} color="primary" className="font-normal">
+        <Heading icon={BriefcaseIcon} color="primary">
           {intl.formatMessage({
             defaultMessage: "Recruitment on GC Digital Talent",
             id: "o+07TS",
@@ -123,11 +123,7 @@ export const Component = () => {
             },
           )}
         </p>
-        <Heading
-          icon={WrenchScrewdriverIcon}
-          color="primary"
-          className="font-normal"
-        >
+        <Heading icon={WrenchScrewdriverIcon} color="primary">
           {intl.formatMessage({
             defaultMessage: "Tools",
             id: "sM+ImG",
@@ -177,11 +173,7 @@ export const Component = () => {
             </p>
           </CardFlat>
         </div>
-        <Heading
-          icon={PresentationChartBarIcon}
-          color="primary"
-          className="font-normal"
-        >
+        <Heading icon={PresentationChartBarIcon} color="primary">
           {intl.formatMessage({
             defaultMessage: "Analytics and planning support",
             id: "xhJI+V",
@@ -198,7 +190,7 @@ export const Component = () => {
               "Description of analytics and planning for HR professionals",
           })}
         </p>
-        <Heading icon={CloudIcon} color="primary" className="font-normal">
+        <Heading icon={CloudIcon} color="primary">
           {intl.formatMessage({
             defaultMessage: "Talent Cloud research",
             id: "/8hZcv",
@@ -235,7 +227,7 @@ export const Component = () => {
         <div className="mb-3 flex flex-col flex-wrap items-baseline gap-x-6 gap-y-3 sm:flex-row sm:justify-between">
           <Heading
             color="primary"
-            className="mb-0 font-normal"
+            className="mb-0"
             icon={QuestionMarkCircleIcon}
           >
             {intl.formatMessage({

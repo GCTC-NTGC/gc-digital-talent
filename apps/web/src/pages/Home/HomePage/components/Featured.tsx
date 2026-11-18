@@ -84,8 +84,7 @@ const Featured = () => {
     <FlourishContainer show={[]}>
       <Heading
         rank="h2"
-        size="h3"
-        className="mt-0 mb-12 font-normal"
+        className="mt-0 mb-12"
         color="primary"
         icon={MagnifyingGlassCircleIcon}
       >
@@ -100,13 +99,7 @@ const Featured = () => {
           <FeatureBlock key={item.key} content={item} />
         ))}
       </div>
-      <Heading
-        rank="h2"
-        size="h3"
-        icon={MegaphoneIcon}
-        color="primary"
-        className="mt-18 font-normal"
-      >
+      <Heading rank="h2" icon={MegaphoneIcon} color="primary" className="mt-18">
         {intl.formatMessage({
           defaultMessage: "Resources for employees in the Digital Community",
           id: "WcGmlt",

@@ -174,10 +174,9 @@ const FullCareerExperiences = ({
       <div className="flex items-center justify-between">
         <Heading
           rank="h2"
-          size="h4"
           icon={NewspaperIcon}
           color="warning"
-          className="mt-0 font-normal"
+          className="mt-0"
         >
           {intl.formatMessage({
             defaultMessage: "Full career",
