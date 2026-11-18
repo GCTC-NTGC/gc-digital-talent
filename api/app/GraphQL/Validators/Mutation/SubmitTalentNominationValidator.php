@@ -10,6 +10,7 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
+use App\Rules\FallbackNominatorIsNotNominee;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -65,6 +66,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:nominator_id,null',
                 'nullable',
                 new GovernmentEmailRegex(),
+                new FallbackNominatorIsNotNominee($this->nomination->nominee),
             ],
             'nominator_fallback_name' => [
                 'required_if:nominator_id,null',
