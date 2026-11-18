@@ -82,7 +82,7 @@ export type EducationFormValues = FormValueDateRange & {
   expiryDate?: string;
   prospectiveExpiryDate?: string;
   expectedEndDate?: string;
-  details: string;
+  details?: string;
 };
 
 export type PersonalFormValues = FormValueDateRange & {
@@ -91,7 +91,6 @@ export type PersonalFormValues = FormValueDateRange & {
   learningDescription: string;
   organization: string;
   roleStatus: "active" | "past";
-  details: string;
 };
 
 export type WorkFormValues = FormValueDateRange & {
