@@ -107,10 +107,11 @@ const CommunityResultCard = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{count, plural,
+                  =0 {<strong>#</strong> Nominated for advancement}
                   one {<strong>#</strong> Nominated for advancement}
                   other {<strong>#</strong> Nominated for advancement}
                 }`,
-                id: "5bjzAS",
+                id: "DBbbtY",
                 description:
                   "Count of candidates nominated for advancement, on the community results card.",
               },
@@ -123,10 +124,11 @@ const CommunityResultCard = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{count, plural,
+                  =0 {<strong>#</strong> Nominated for lateral movement}
                   one {<strong>#</strong> Nominated for lateral movement}
                   other {<strong>#</strong> Nominated for lateral movement}
                 }`,
-                id: "GkcCus",
+                id: "i8Bvxi",
                 description:
                   "Count of candidates nominated for lateral movement, on the community results card.",
               },
