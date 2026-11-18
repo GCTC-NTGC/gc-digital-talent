@@ -5,13 +5,13 @@ namespace App\GraphQL\Mutations;
 use App\Enums\ErrorCode;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Models\User;
-use App\Notifications\VerifyEmails;
+use App\Notifications\VerifyWorkEmail;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 
-final class SendUserEmailsVerification
+final class SendUserWorkEmailVerification
 {
     /**
      * Verify an email address with a code
@@ -21,18 +21,22 @@ final class SendUserEmailsVerification
         /** @var User | null */
         $user = Auth::user();
         $emailAddress = $args['emailAddress'];
-        $emailTypes = $args['emailTypes'];
-        $rateLimiterKey = 'send-user-emails-verification:'.$user->id;
+        $rateLimiterKey = 'send-user-email-verification:'.$user->id;
 
         try {
             $executed = RateLimiter::attempt(
                 $rateLimiterKey,
                 $maxAttempts = 1,
-                fn () => $user->notify(new VerifyEmails($emailAddress, $emailTypes)),
+                fn () => $user->notify(new VerifyWorkEmail($emailAddress)),
                 $decaySeconds = 30
             );
         } catch (\Throwable $e) {
-            Log::error('Problem sending email verification code '.$e);
+            Log::error('Problem sending email verification code',
+                [
+                    'message' => $e->getMessage(),
+                    'userId' => $user->id,
+                    'emailAddress' => $emailAddress,
+                ]);
 
             return new Error($e->getMessage());
         }

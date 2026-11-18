@@ -187,23 +187,8 @@ class AuthController extends Controller
             // if email is not null, check if existing users have this email and take it from them
             if (! empty($incomingEmailAddress)) {
                 try {
-                    $existingUser = User::where('id', '!=', $userMatch->id)
-                        ->where(fn ($subquery) => $subquery
-                            ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
-                            ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)]))
-                        ->withTrashed()
-                        ->first();
-                    if ($existingUser) {
-                        if (! empty($existingUser->email) && strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                            $existingUser->email_backup = $existingUser->email;
-                            $existingUser->email = null;
-                        }
-                        if (! empty($existingUser->work_email) && strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                            $existingUser->work_email_backup = $existingUser->work_email;
-                            $existingUser->work_email = null;
-                        }
-                        $existingUser->save();
-                    }
+                    User::releaseContactEmail($incomingEmailAddress, $userMatch->id);
+                    User::releaseWorkEmail($incomingEmailAddress, $userMatch->id);
                 } catch (Throwable $e) {
                     // log and continue - don't break log in for failure to take address
                     Log::error('Failed to take email address on log in.', [
@@ -217,9 +202,9 @@ class AuthController extends Controller
             // email should be clear now so save if possible
             if (User::where('sub', '!=', $sub)
                 ->where(fn ($subquery) => $subquery
-                    ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
-                    ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)])
-                )->count() == 0
+                    ->whereWorkEmailMatches($incomingEmailAddress)
+                    ->orWhere(fn ($q) => $q->whereContactEmailMatches($incomingEmailAddress))
+                )->doesntExist()
             ) {
                 $userMatch->setVerifiedContactEmail($incomingEmailAddress);
                 if (preg_match(GovernmentEmailRegex::PATTERN, $incomingEmailAddress)) {
