@@ -79,7 +79,6 @@ export const HomePage = ({ query }: HomePageProps) => {
       <HomeHero
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(subTitle)}
-        titleSize="h2"
         img={{
           sources: { sm: execHeroSquare },
           src: execHeroLandscape,
@@ -89,10 +88,9 @@ export const HomePage = ({ query }: HomePageProps) => {
       <SkewedContainer>
         <Heading
           rank="h2"
-          size="h3"
           icon={RocketLaunchIcon}
           color="primary"
-          className="mt-0 font-normal"
+          className="mt-0"
         >
           {intl.formatMessage({
             defaultMessage: "Executive recruitment processes",
@@ -142,10 +140,9 @@ export const HomePage = ({ query }: HomePageProps) => {
         <Container>
           <Heading
             rank="h2"
-            size="h3"
             icon={PuzzlePieceIcon}
             color="warning"
-            className="mt-0 font-normal"
+            className="mt-0"
           >
             {intl.formatMessage({
               defaultMessage: "What we can do for you",
@@ -282,8 +279,7 @@ export const HomePage = ({ query }: HomePageProps) => {
       >
         <Heading
           rank="h2"
-          size="h3"
-          className="mt-0 mb-3 font-normal"
+          className="mt-0 mb-3"
           icon={SparklesIcon}
           color="secondary"
         >

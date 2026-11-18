@@ -153,16 +153,11 @@ const Hero = (
               ref={headingRef}
               tabIndex={-1}
               rank="h1"
-              size="h2"
               className="mt-12 outline-none xs:m-0"
             >
               {title}
             </Heading>
-            {subtitle && (
-              <p className="mt-1.5 mb-7.5 text-xl/[1.4] lg:text-2xl/[1.4]">
-                {subtitle}
-              </p>
-            )}
+            {subtitle && <p className="mt-1.5 mb-7.5 text-xl">{subtitle}</p>}
             {buttonLinks ? (
               <ButtonLinksArray
                 buttonLinkArray={buttonLinks}
