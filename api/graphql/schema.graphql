@@ -1124,7 +1124,7 @@ type JobAlert {
   jobAlertFilter: JobAlertFilter! @belongsTo
 }
 
-# Mirrors PublishedPoolsSearchInput so a saved filter can be loaded back into the search
+# Matches PublishedPoolsSearchInput field names so a saved filter can be loaded back into the search
 type JobAlertFilter {
   id: UUID!
   keywordSearch: [String!] @rename(attribute: "keyword_search")
@@ -1135,8 +1135,6 @@ type JobAlertFilter {
     @rename(attribute: "published_at_range")
   languages: [LocalizedLanguageAbility!]
   salaryRange: LocalizedSalaryRange @rename(attribute: "salary_range")
-  processNumber: String @rename(attribute: "process_number")
-  poolStatuses: [LocalizedPoolStatus!] @rename(attribute: "pool_statuses")
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -2853,8 +2851,6 @@ input CreateJobAlertFilterInput {
     @rename(attribute: "published_at_range")
   languages: [LanguageAbility!]
   salaryRange: SalaryRange @rename(attribute: "salary_range")
-  processNumber: String @rename(attribute: "process_number")
-  poolStatuses: [PoolStatus!] @rename(attribute: "pool_statuses")
 }
 
 input JobAlertFilterBelongsTo {

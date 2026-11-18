@@ -12,7 +12,7 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        // columns mirror PublishedPoolsSearchInput so a saved filter converts straight back into search args
+        // columns match PublishedPoolsSearchInput fields so a saved filter converts straight back into search args
         Schema::create('job_alert_filters', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(new Expression('gen_random_uuid()'));
             $table->jsonb('keyword_search')->nullable();
@@ -20,8 +20,6 @@ return new class() extends Migration
             $table->jsonb('published_at_range')->nullable();
             $table->jsonb('languages')->nullable();
             $table->string('salary_range')->nullable();
-            $table->string('process_number')->nullable();
-            $table->jsonb('pool_statuses')->nullable();
             $table->timestamps();
         });
 

@@ -1633,8 +1633,6 @@ type JobAlertFilter {
   publishedAtRange: [LocalizedPoolPublishedRange!]
   languages: [LocalizedLanguageAbility!]
   salaryRange: LocalizedSalaryRange
-  processNumber: String
-  poolStatuses: [LocalizedPoolStatus!]
 }
 
 type ApplicantFilter {
@@ -2829,8 +2827,6 @@ input CreateJobAlertFilterInput {
   publishedAtRange: [PoolPublishedRange!]
   languages: [LanguageAbility!]
   salaryRange: SalaryRange
-  processNumber: String
-  poolStatuses: [PoolStatus!]
 }
 
 input JobAlertFilterBelongsTo {

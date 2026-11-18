@@ -16,8 +16,6 @@ use Illuminate\Support\Carbon;
  * @property ?array $published_at_range
  * @property ?array $languages
  * @property ?string $salary_range
- * @property ?string $process_number
- * @property ?array $pool_statuses
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  */
@@ -32,7 +30,6 @@ class JobAlertFilter extends Model
         'eligibility' => 'array',
         'published_at_range' => 'array',
         'languages' => 'array',
-        'pool_statuses' => 'array',
     ];
 
     /** @return BelongsToMany<Department, $this> */
@@ -58,8 +55,6 @@ class JobAlertFilter extends Model
             'publishedAtRange' => $this->published_at_range,
             'languages' => $this->languages,
             'salaryRange' => $this->salary_range,
-            'processNumber' => $this->process_number,
-            'poolStatuses' => $this->pool_statuses,
         ];
 
         return array_filter($args, fn ($value) => ! is_null($value) && $value !== []);
