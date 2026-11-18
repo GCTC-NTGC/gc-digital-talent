@@ -180,7 +180,7 @@ class TalentSearch extends AppPage {
     criteria: TalentRequestCandidateCriteria,
     talentSources: LocalizedTalentRequestSource[],
   ) {
-    // Results only show once a filter is added, so check the card after selecting a classification
+    // Result cards only show once a filter is added, so check the card after selecting a classification
     const poolCard = this.page.getByRole("article", {
       name: new RegExp(poolName, "i"),
     });

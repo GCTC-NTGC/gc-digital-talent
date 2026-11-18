@@ -96,7 +96,7 @@ describe("SearchForm", () => {
     expect(stored.applicantFilter?.community).toBeUndefined();
   });
 
-  it("skips the breakdowns and hides the results until a filter is added", async () => {
+  it("skips the breakdowns and asks for a filter until one is added", async () => {
     setInSessionStorage(TALENT_REQUEST_STATE_KEY, {});
     const executeQuery = vi.fn((_: { variables?: Variables }) =>
       fromValue({ data: { countTalentRequestMatches: 5 } }),
@@ -119,7 +119,10 @@ describe("SearchForm", () => {
       false,
     );
     expect(
-      screen.queryByRole("heading", { name: /^results/i }),
+      screen.getByText(/use the filters to get an estimated number/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/we may be able to help/i),
     ).not.toBeInTheDocument();
   });
 });

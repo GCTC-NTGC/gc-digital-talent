@@ -67,7 +67,7 @@ const SearchRequestOptions = {
 
 const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
 
-// Results only show once a filter is added, so seed one through the stored request state
+// Result cards only show once a filter is added, so seed one through the stored request state
 const requestStateLoader = (applicantFilter?: ApplicantFilterInput) => {
   return () => {
     setInSessionStorage(TALENT_REQUEST_STATE_KEY, {
