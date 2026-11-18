@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\PublishPoolValidator;
+use App\Models\JobPosterArchive;
 use App\Models\Pool;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -14,7 +15,8 @@ final class PublishPool
      */
     public function __invoke($_, array $args)
     {
-        $pool = Pool::find($args['id'])
+        $pool = Pool::with(JobPosterArchive::$generationEagerLoads)
+            ->find($args['id'])
             ->load([
                 'classification',
                 'essentialSkills' => function ($query) {
@@ -24,7 +26,6 @@ final class PublishPool
                     $query->withTrashed();
                 },
                 'assessmentSteps',
-                'poolSkills',
             ]);
         $poolValidation = new PublishPoolValidator();
         $validator = Validator::make($pool->toArray(), $poolValidation->rules(), $poolValidation->messages()); // First validate pool before updating.

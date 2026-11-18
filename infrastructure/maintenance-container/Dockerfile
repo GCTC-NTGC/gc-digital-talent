@@ -1,5 +1,5 @@
 # aliased image used in build
-FROM node:24.15.0 AS node
+FROM node:24.22.3 AS node
 
 # base
 FROM ubuntu:26.04

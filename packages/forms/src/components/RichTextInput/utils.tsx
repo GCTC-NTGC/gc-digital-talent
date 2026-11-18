@@ -2,6 +2,8 @@ import { CharacterCount } from "@tiptap/extensions";
 import { Heading } from "@tiptap/extension-heading";
 import { StarterKit } from "@tiptap/starter-kit";
 
+import descriptionList from "./descriptionList";
+
 const extensions = [
   // REF: https://tiptap.dev/api/extensions/starter-kit
   StarterKit.configure({
@@ -29,5 +31,6 @@ const extensions = [
 
 export const buildExtensions = (allowHeadings?: boolean) => [
   ...extensions,
+  ...descriptionList,
   ...(allowHeadings ? [Heading.configure({ levels: [3] })] : []),
 ];

@@ -654,8 +654,8 @@ type Mutation {
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
-  verifyUserEmails(code: String!): User
+  sendUserWorkEmailVerification(emailAddress: String!): User
+  verifyUserWorkEmail(code: String!): User
   removeUserWorkEmail(id: UUID!): User
   createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
@@ -918,6 +918,7 @@ type User {
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
   talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
+  talentNominationGroupsAsRecruiter: [TalentNominationGroupAsNominee!]
 }
 
 type CommunityInterest {
@@ -1557,6 +1558,7 @@ type TalentNominationGroupAsNominee {
   approvedForLateralMovement: Boolean!
   approvedForDevelopmentPrograms: Boolean!
   nominatorNames: [String!]!
+  classificationAtTimeOfLastApproval: Classification
   updatedAt: DateTime
 }
 
@@ -3302,11 +3304,6 @@ input UpdateJobPosterTemplateInput {
   jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
-input SendUserEmailsVerificationInput {
-  emailAddress: String!
-  emailTypes: [EmailType]
-}
-
 input CreateCommunityDevelopmentProgramInput {
   communityId: UUID!
   developmentProgramId: UUID!
@@ -4170,11 +4167,6 @@ enum EducationType {
   INDIVIDUAL_COURSE
   FELLOWSHIP
   OTHER
-}
-
-enum EmailType {
-  CONTACT
-  WORK
 }
 
 enum EmployeeVerification {

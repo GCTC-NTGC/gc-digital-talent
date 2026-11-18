@@ -10,7 +10,7 @@ import { PoolStatus } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
-import OpenJobs from "./OpenJobsPage";
+import OpenJobs from "./OpenJobsPageDeprecated";
 
 interface MockPool {
   id: string;
