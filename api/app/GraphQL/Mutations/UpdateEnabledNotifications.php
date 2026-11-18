@@ -20,6 +20,10 @@ final class UpdateEnabledNotifications
         if (isset($args['enabledInAppNotifications'])) {
             $user->enabled_in_app_notifications = $args['enabledInAppNotifications'];
         }
+        if (isset($args['enabledWorkEmailNotifications'])) {
+            // TODO: check for employee status if setting to true
+            $user->enabled_work_email_notifications = $args['enabledWorkEmailNotifications'];
+        }
 
         $user->save();
 

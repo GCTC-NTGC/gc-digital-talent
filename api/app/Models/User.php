@@ -99,6 +99,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $preferred_language_for_exam
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
+ * @property ?array $enabled_work_email_notifications
  * @property Notification $unreadNotifications
  * @property Collection<Notification> $notifications
  * @property ?bool $is_verified_gov_employee
@@ -138,6 +139,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
         'enabled_email_notifications' => 'array',
+        'enabled_work_email_notifications' => 'array',
         'enabled_in_app_notifications' => 'array',
         'preferred_lang' => LanguageCode::class,
         'preferred_language_for_interview' => LanguageCode::class,
