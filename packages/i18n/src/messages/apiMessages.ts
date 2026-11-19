@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from "react-intl";
+import type { TypedMessageDescriptor as TypedDescriptor } from "react-intl";
 import { defineMessage, defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
@@ -7,7 +7,7 @@ import { ErrorCode } from "@gc-digital-talent/graphql";
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
 // The object keys match their source in the api and return a MessageDescriptor object
 
-export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
+export const apiMessages: Record<string, TypedDescriptor> = defineMessages({
   "Internal server error": {
     defaultMessage: "Unknown error",
     id: "iqD8qE",
@@ -609,7 +609,7 @@ const firewallBlock = defineMessage({
 
 export const tryFindMessageDescriptor = (
   defaultMessage: string,
-): MessageDescriptor | null => {
+): TypedDescriptor | null => {
   // This is the title of the restricted.html page that is triggered by trying to use the /admin pages off-network
   if (defaultMessage.includes("Unauthorized | Non autorisé")) {
     return firewallBlock;

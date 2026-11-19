@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from "react-intl";
+import type { TypedMessageDescriptor } from "react-intl";
 import { defineMessage } from "react-intl";
 
 import { EstimatedLanguageAbility, graphql } from "@gc-digital-talent/graphql";
@@ -12,7 +12,7 @@ export const BasicInformationOptions_Fragment = graphql(/* GraphQL */ `
 
 const estimatedLanguageAbilityMessage = new Map<
   EstimatedLanguageAbility,
-  MessageDescriptor
+  TypedMessageDescriptor
 >([
   [
     EstimatedLanguageAbility.Beginner,

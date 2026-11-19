@@ -1,4 +1,4 @@
-import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, TypedMessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
@@ -406,7 +406,7 @@ export const getAdvertisementStatus = (
 
 interface StatusBadge {
   color: ChipProps["color"];
-  label?: MessageDescriptor | string;
+  label?: TypedMessageDescriptor | string;
   icon?: IconType;
 }
 

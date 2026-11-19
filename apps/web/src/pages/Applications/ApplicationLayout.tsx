@@ -1,4 +1,4 @@
-import { useIntl, defineMessage } from "react-intl";
+import { useIntl, defineMessage, type PrimitiveType } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
@@ -71,7 +71,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   };
   const title = poolTitle(intl, application.pool);
 
-  const pageTitle = defineMessage({
+  const pageTitle = defineMessage<{ poolName: PrimitiveType }>({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
     description: "Heading for the application page",

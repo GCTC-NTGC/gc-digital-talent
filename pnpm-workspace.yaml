@@ -1,6 +1,8 @@
 packages:
   - apps/*
   - packages/*
+overrides:
+  "react-intl": "^12.1.4"
 allowBuilds:
   "@parcel/watcher": true
   "@tailwindcss/oxide": true
