@@ -102,6 +102,7 @@ const AwardExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="award"
+      focusField="awardTitle"
       experienceQuery={experience}
       detailsDefaultValues={
         experience ? queryResultToDefaultValues("award", experience) : undefined

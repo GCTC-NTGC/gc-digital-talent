@@ -110,6 +110,7 @@ interface ExperienceFormLayoutProps extends ExperienceFormDataProps {
   detailsDefaultValues?: ExperienceDetailsDefaultValues;
   hasRelatedAwards?: boolean;
   experienceType: ExperienceType;
+  focusField: keyof AllExperienceFormValues;
   title: string;
   subtitle: string;
   heading: ReactNode;
@@ -126,6 +127,7 @@ const ExperienceFormLayout = ({
   hasRelatedAwards,
   experienceId,
   experienceType,
+  focusField,
   skillsQuery,
   userId,
   title,
@@ -164,6 +166,7 @@ const ExperienceFormLayout = ({
     watch,
     register,
     setValue,
+    setFocus,
     formState: { isSubmitSuccessful },
     reset,
   } = methods;
@@ -277,9 +280,10 @@ const ExperienceFormLayout = ({
 
   useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
-      reset({ experienceType });
+      setFocus(focusField);
+      reset();
     }
-  }, [isSubmitSuccessful, reset, action, experienceType]);
+  }, [isSubmitSuccessful, reset, action, setFocus, focusField]);
 
   const crumbs = useExperienceFormCrumbs({
     applicationId,
