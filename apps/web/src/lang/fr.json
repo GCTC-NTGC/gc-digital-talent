@@ -7565,6 +7565,10 @@
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
   },
+  "SRlyiJ": {
+    "defaultMessage": "Utilisez les filtres pour obtenir le nombre estimatif de personnes candidates correspondant à vos critères.",
+    "description": "Message shown in the results section of the search page before any filters are added"
+  },
   "SRnr1M": {
     "defaultMessage": "Code de confirmation du courriel",
     "description": "label for verification code input"
