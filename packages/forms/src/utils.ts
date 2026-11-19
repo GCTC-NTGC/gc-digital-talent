@@ -4,10 +4,12 @@ import { StarterKit } from "@tiptap/starter-kit";
 import type { FieldErrors, FieldValues } from "react-hook-form";
 
 import type {
-  LocalizedEnumString,
   LocalizedString,
 } from "@gc-digital-talent/graphql";
-import type { Locales } from "@gc-digital-talent/i18n";
+import type {
+  GenericLocalizedEnum,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
@@ -82,9 +84,9 @@ export function enumToOptions(
  * field options array
  */
 export function localizedEnumToOptions(
-  list: (LocalizedEnumString | null | undefined)[] | undefined | null,
+  list: (GenericLocalizedEnum<string> | null | undefined)[] | undefined | null,
   intl: IntlShape,
-  sortOrder?: LocalizedEnumString["value"][],
+  sortOrder?: readonly string[],
 ): Option[] {
   const localizedEnums = unpackMaybes(list);
   if (sortOrder) {

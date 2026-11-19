@@ -9,8 +9,8 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
-  sortPoolAreaOfSelection,
-  sortSalaryRange,
+  ENUM_SORT_ORDER,
+  narrowEnumType,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -26,22 +26,26 @@ import FilterDialog from "./FilterDialog";
 
 const OpportunityDetailsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
   fragment OpportunityDetailsFilterDialogOptions on Query {
-    poolAreaOfSelectionEnums: localizedEnumStrings(
+    poolAreaOfSelectionEnums: localizedEnumOptions(
       enumName: "PoolAreaOfSelection"
     ) {
-      value
-      label {
-        localized
+      ... on LocalizedPoolAreaOfSelection {
+        value
+        label {
+          localized
+        }
       }
     }
     classifications(availableInSearch: true) {
       id
       groupAndLevel
     }
-    salaryRangeEnums: localizedEnumStrings(enumName: "SalaryRange") {
-      value
-      label {
-        localized
+    salaryRangeEnums: localizedEnumOptions(enumName: "SalaryRange") {
+      ... on LocalizedSalaryRange {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -68,8 +72,12 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
     useBrowseJobsSearchParams();
 
   const areaOfSelectionOptions = localizedEnumToOptions(
-    sortPoolAreaOfSelection(poolAreaOfSelectionEnums),
+    narrowEnumType(
+      unpackMaybes(poolAreaOfSelectionEnums),
+      "PoolAreaOfSelection",
+    ),
     intl,
+    ENUM_SORT_ORDER.POOL_AREA_OF_SELECTION,
   );
 
   const classificationOptions = unpackMaybes(classifications)
@@ -80,8 +88,9 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
     .toSorted((a, b) => a.label.localeCompare(b.label));
 
   const minimumSalaryOptions = localizedEnumToOptions(
-    sortSalaryRange(salaryRangeEnums),
+    narrowEnumType(unpackMaybes(salaryRangeEnums), "SalaryRange"),
     intl,
+    ENUM_SORT_ORDER.SALARY_RANGE,
   );
 
   return (

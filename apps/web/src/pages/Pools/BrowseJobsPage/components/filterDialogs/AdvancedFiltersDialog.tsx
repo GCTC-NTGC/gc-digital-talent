@@ -6,7 +6,8 @@ import {
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { sortPoolPublishedRange } from "@gc-digital-talent/i18n";
+import { ENUM_SORT_ORDER, narrowEnumType } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getFragment,
   graphql,
@@ -18,12 +19,14 @@ import FilterDialog from "./FilterDialog";
 
 const AdvancedFiltersDialogOptions_Fragment = graphql(/* GraphQL */ `
   fragment AdvancedFiltersDialogOptions on Query {
-    poolPublishedRangeEnums: localizedEnumStrings(
+    poolPublishedRangeEnums: localizedEnumOptions(
       enumName: "PoolPublishedRange"
     ) {
-      value
-      label {
-        localized
+      ... on LocalizedPoolPublishedRange {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -49,8 +52,9 @@ const AdvancedFiltersDialog = ({ optionsQuery, children }: Props) => {
     useBrowseJobsSearchParams();
 
   const advertisementTimingOptions = localizedEnumToOptions(
-    sortPoolPublishedRange(poolPublishedRangeEnums),
+    narrowEnumType(unpackMaybes(poolPublishedRangeEnums), "PoolPublishedRange"),
     intl,
+    ENUM_SORT_ORDER.POOL_PUBLISHED_RANGE,
   );
 
   return (

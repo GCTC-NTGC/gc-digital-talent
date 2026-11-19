@@ -14,7 +14,8 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, narrowEnumType } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -31,12 +32,14 @@ const Options_Fragment = graphql(/* GraphQL */ `
     ...LanguageRequirementsFilterDialogOptions
     ...OrganizationsFilterDialogOptions
     ...AdvancedFiltersDialogOptions
-    poolAreaOfSelectionEnums: localizedEnumStrings(
+    poolAreaOfSelectionEnums: localizedEnumOptions(
       enumName: "PoolAreaOfSelection"
     ) {
-      value
-      label {
-        localized
+      ... on LocalizedPoolAreaOfSelection {
+        value
+        label {
+          localized
+        }
       }
     }
     departments {
@@ -49,24 +52,30 @@ const Options_Fragment = graphql(/* GraphQL */ `
       id
       groupAndLevel
     }
-    poolPublishedRangeEnums: localizedEnumStrings(
+    poolPublishedRangeEnums: localizedEnumOptions(
       enumName: "PoolPublishedRange"
     ) {
-      value
-      label {
-        localized
+      ... on LocalizedPoolPublishedRange {
+        value
+        label {
+          localized
+        }
       }
     }
-    languageAbilityEnums: localizedEnumStrings(enumName: "LanguageAbility") {
-      value
-      label {
-        localized
+    languageAbilityEnums: localizedEnumOptions(enumName: "LanguageAbility") {
+      ... on LocalizedLanguageAbility {
+        value
+        label {
+          localized
+        }
       }
     }
-    salaryRangeEnums: localizedEnumStrings(enumName: "SalaryRange") {
-      value
-      label {
-        localized
+    salaryRangeEnums: localizedEnumOptions(enumName: "SalaryRange") {
+      ... on LocalizedSalaryRange {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -89,6 +98,36 @@ const FilterBar = ({
   const intl = useIntl();
   const options = getFragment(Options_Fragment, optionsFragment);
 
+  const poolAreaOfSelectionLabels = new Map(
+    narrowEnumType(
+      unpackMaybes(options.poolAreaOfSelectionEnums),
+      "PoolAreaOfSelection",
+    ).map((e) => [e.value.toString(), e.label.localized]),
+  );
+  const classificationLabels = new Map(
+    unpackMaybes(options.classifications).map((c) => [c.id, c.groupAndLevel]),
+  );
+  const salaryRangeLabels = new Map(
+    narrowEnumType(unpackMaybes(options.salaryRangeEnums), "SalaryRange").map(
+      (e) => [e.value.toString(), e.label.localized],
+    ),
+  );
+  const languageAbilityLabels = new Map(
+    narrowEnumType(
+      unpackMaybes(options.languageAbilityEnums),
+      "LanguageAbility",
+    ).map((e) => [e.value.toString(), e.label.localized]),
+  );
+  const departmentLabels = new Map(
+    unpackMaybes(options.departments).map((d) => [d.id, d.name.localized]),
+  );
+  const poolPublishedRangeLabels = new Map(
+    narrowEnumType(
+      unpackMaybes(options.poolPublishedRangeEnums),
+      "PoolPublishedRange",
+    ).map((e) => [e.value.toString(), e.label.localized]),
+  );
+
   const {
     getFilterValues,
     addFilterValue,
@@ -105,48 +144,39 @@ const FilterBar = ({
   const opportunityDetailsFilters = [
     ...getFilterValues("applicationEligibilities").map((f) => ({
       key: `applicationEligibilities:${f}`,
-      label:
-        options?.poolAreaOfSelectionEnums?.find((e) => e.value === f)?.label
-          .localized ?? f,
+      label: poolAreaOfSelectionLabels.get(f) ?? f,
       onRemove: () => removeFilterValue("applicationEligibilities", f),
     })),
     ...getFilterValues("classifications").map((f) => ({
       key: `classifications:${f}`,
       label:
-        options?.classifications?.find((c) => c?.id === f)?.groupAndLevel ??
+        classificationLabels.get(f) ??
         intl.formatMessage(commonMessages.notFound),
       onRemove: () => removeFilterValue("classifications", f),
     })),
     ...getFilterValues("minimumSalary").map((f) => ({
       key: `minimumSalary:${f}`,
-      label:
-        options?.salaryRangeEnums?.find((e) => e.value === f)?.label
-          .localized ?? f,
+      label: salaryRangeLabels.get(f) ?? f,
       onRemove: () => removeFilterValue("minimumSalary", f),
     })),
   ];
   const languageRequirementsFilters = [
     ...getFilterValues("languageRequirements").map((f) => ({
       key: `languageRequirements:${f}`,
-      label:
-        options?.languageAbilityEnums?.find((e) => e.value === f)?.label
-          .localized ?? f,
+      label: languageAbilityLabels.get(f) ?? f,
       onRemove: () => removeFilterValue("languageRequirements", f),
     })),
   ];
   const organizationsFilters = getFilterValues("organizations").map((f) => ({
     key: `organizations:${f}`,
     label:
-      options?.departments?.find((e) => e?.id === f)?.name.localized ??
-      intl.formatMessage(commonMessages.notFound),
+      departmentLabels.get(f) ?? intl.formatMessage(commonMessages.notFound),
     onRemove: () => removeFilterValue("organizations", f),
   }));
   const advancedFilters = [
     ...getFilterValues("advertisementTimings").map((f) => ({
       key: `advertisementTimings:${f}`,
-      label:
-        options?.poolPublishedRangeEnums?.find((e) => e.value === f)?.label
-          .localized ?? f,
+      label: poolPublishedRangeLabels.get(f) ?? f,
       onRemove: () => removeFilterValue("advertisementTimings", f),
     })),
     ...getFilterValues("processNumber").map((f) => ({

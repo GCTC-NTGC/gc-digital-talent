@@ -2,7 +2,8 @@ import { type ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import { Checklist, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { sortLanguageAbility } from "@gc-digital-talent/i18n";
+import { ENUM_SORT_ORDER, narrowEnumType } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getFragment,
   graphql,
@@ -14,10 +15,12 @@ import FilterDialog from "./FilterDialog";
 
 const LanguageRequirementsFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
   fragment LanguageRequirementsFilterDialogOptions on Query {
-    languageAbilityEnums: localizedEnumStrings(enumName: "LanguageAbility") {
-      value
-      label {
-        localized
+    languageAbilityEnums: localizedEnumOptions(enumName: "LanguageAbility") {
+      ... on LocalizedLanguageAbility {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -46,8 +49,9 @@ const LanguageRequirementsFilterDialog = ({
   const { getFilterValues, setFilters } = useBrowseJobsSearchParams();
 
   const languageRequirementOptions = localizedEnumToOptions(
-    sortLanguageAbility(languageAbilityEnums),
+    narrowEnumType(unpackMaybes(languageAbilityEnums), "LanguageAbility"),
     intl,
+    ENUM_SORT_ORDER.LANGUAGE_ABILITY,
   );
 
   return (
