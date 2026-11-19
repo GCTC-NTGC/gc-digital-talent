@@ -149,7 +149,7 @@ class PoolCandidatePolicy
         $isOwn = $user->id === $poolCandidate->user_id;
         $isDraft = $poolCandidate->isDraft();
 
-        return $isOwn && ! $isDraft && $user->isAbleTo('archive-own-submittedApplication');
+        return $isOwn && (! $isDraft || $poolCandidate->is_expired) && $user->isAbleTo('archive-own-submittedApplication');
     }
 
     /**
