@@ -86,6 +86,8 @@ export const ApplicationDate = ({
       >
         {expired && (
           <ExclamationCircleIcon
+            // The svg needs role="img" to expose its aria-label name
+            // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
             role="img"
             aria-hidden="false"
             aria-label={intl.formatMessage(commonMessages.warning)}

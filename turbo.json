@@ -182,8 +182,7 @@
         "typegen"
       ],
       "inputs": [
-        "../../packages/eslint-config-custom/index.js",
-        "../../packages/eslint-config-custom/react.js",
+        "$TURBO_ROOT$/.oxlintrc.json",
         "**/*.{ts,tsx}",
         "!node_modules"
       ]
@@ -193,8 +192,7 @@
         "typegen"
       ],
       "inputs": [
-        "../../packages/eslint-config-custom/index.js",
-        "../../packages/eslint-config-custom/react.js",
+        "$TURBO_ROOT$/.oxlintrc.json",
         "**/*.{ts,tsx}",
         "!node_modules"
       ]

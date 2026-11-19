@@ -61,7 +61,7 @@ const WipeWorkEmailDialog = ({
           setIsOpen(false);
           onSuccess?.();
         } else {
-          void handleError();
+          handleError();
         }
       })
       .catch(handleError);

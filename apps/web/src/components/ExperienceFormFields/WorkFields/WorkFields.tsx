@@ -30,6 +30,7 @@ import type {
 } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import CafFields from "./CafFields";
 import ExternalFields from "./ExternalFields";
@@ -119,7 +120,7 @@ const WorkFields = ({
 
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   // to toggle whether End date is required, the state of the role status radio must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch<WorkFormValues>({ name: "roleStatus" }) !== "past";
   // ensuring end date isn't before the start date, using this as a minimum value

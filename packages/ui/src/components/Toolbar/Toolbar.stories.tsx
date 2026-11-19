@@ -47,7 +47,6 @@ export const Default: StoryFn<typeof Toolbar.Root> = () => (
         <IconButton color="black" icon={ArrowDownTrayIcon} label="Download" />
       }
     />
-    <Toolbar.Separator />
     <Toolbar.Group aria-label="Mark as">
       <Toolbar.Button
         render={
