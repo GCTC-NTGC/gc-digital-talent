@@ -38,7 +38,7 @@ import {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
-import { createSkill } from "~/utils/skills";
+import { createSkill, deleteSkill } from "~/utils/skills";
 import {
   createAndSubmitApplication,
   pauseCandidateReferral,
@@ -273,6 +273,9 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     }
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
+    }
+    if (technicalSkill) {
+      await deleteSkill(adminCtx, { id: technicalSkill.id });
     }
   });
 

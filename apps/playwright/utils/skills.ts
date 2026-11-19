@@ -75,3 +75,35 @@ export const createSkill: GraphQLRequestFunc<Skill, CreateSkillInput> = async (
     )
     .then((res) => res.createSkill);
 };
+
+const Test_DeleteSkillMutationDocument = /* GraphQL */ `
+  mutation Test_DeleteSkill($id: UUID!) {
+    deleteSkill(id: $id) {
+      id
+    }
+  }
+`;
+
+interface DeleteSkillArgs {
+  id: string;
+}
+
+/**
+ * Delete Skill
+ *
+ * Delete a skill directly through the API.
+ */
+export const deleteSkill: GraphQLRequestFunc<Skill, DeleteSkillArgs> = async (
+  ctx,
+  id,
+) => {
+  return ctx
+    .post<GraphQLResponse<"deleteSkill", Skill>>(
+      Test_DeleteSkillMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then((res) => res.deleteSkill);
+};
