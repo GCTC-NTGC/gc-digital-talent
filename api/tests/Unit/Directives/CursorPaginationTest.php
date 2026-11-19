@@ -529,4 +529,10 @@ final class CursorPaginationTest extends TestCase
             }
         ', ['after' => $cursor])->assertGraphQLErrorMessage('The cursor holds an empty sort value, so no more items can be loaded.');
     }
+
+    public function testLastNeedsBefore(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '{ classifications(last: 2) { edges { node { level } } } }')
+            ->assertGraphQLErrorMessage('Paginating backward with last needs a before cursor.');
+    }
 }

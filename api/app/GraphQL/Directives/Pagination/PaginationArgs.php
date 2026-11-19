@@ -42,6 +42,10 @@ class PaginationArgs
             // reverse pagination
             $perPageArg = $args['last'];
             $cursorArg = $args['before'] ?? null;
+            // without a cursor, Laravel would return the first items, not the last
+            if ($cursorArg === null) {
+                throw new Error('Paginating backward with last needs a before cursor.');
+            }
         } else {
             throw new Error('Missing pagination arguments.'); // Calling validateArgs first should prevent this from ever hitting.
         }
