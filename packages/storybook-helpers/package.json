@@ -17,10 +17,10 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^6.0.3",
-    "chromatic": "^18.14.1",
+    "chromatic": "^18.14.4",
     "graphql": "^16.15.0",
     "lodash": "^4.18.1",
-    "motion": "^14.9.1",
+    "motion": "^14.12.0",
     "react-router": "^8.5.0",
     "urql": "^5.0.4",
     "wonka": "^6.3.6"
