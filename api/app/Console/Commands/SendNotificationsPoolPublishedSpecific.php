@@ -69,6 +69,7 @@ class SendNotificationsPoolPublishedSpecific extends Command
         if ($notifications->count() > 0) {
             User::whereJsonContains('enabled_email_notifications', NotificationFamily::JOB_ALERT->name)
                 ->orWhereJsonContains('enabled_in_app_notifications', NotificationFamily::JOB_ALERT->name)
+                ->orWhereJsonContains('enabled_work_email_notifications', NotificationFamily::JOB_ALERT->name)
                 ->chunk(200, function (Collection $users) use ($notifications, &$successCount, &$failureCount) {
                     foreach ($users as $user) {
                         foreach ($notifications as $notification) {
