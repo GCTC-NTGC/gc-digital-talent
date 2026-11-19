@@ -26,6 +26,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import type { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
@@ -44,6 +45,7 @@ interface QualifiedFieldsProps {
 
 export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
   const intl = useIntl();
+  const todayDate = useStableDate();
   const { userAuthInfo } = useAuthorization();
   const { watch } = useFormContext<FormValues>();
   const options = getFragment(QualifiedFieldsOptions_Fragment, query);
@@ -77,7 +79,7 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
         rules={{
           required: intl.formatMessage(errorMessages.required),
           min: {
-            value: strToFormDate(new Date().toISOString()),
+            value: strToFormDate(todayDate.toISOString()),
             message: intl.formatMessage(errorMessages.futureDate),
           },
         }}

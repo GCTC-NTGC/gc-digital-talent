@@ -64,7 +64,7 @@ const useRequiredParams = <
 >(
   keys: K | K[],
   enforceUUID = true,
-  message: string | undefined = undefined,
+  message?: string,
 ): Record<K, string> => {
   const intl = useIntl();
   const logger = getLogger();

@@ -68,7 +68,7 @@ interface UpdateJobPosterTemplateProps {
 }
 
 const UpdateJobPosterTemplate = ({
-  initialDataQuery: initialDataQuery,
+  initialDataQuery,
   optionsQuery,
 }: UpdateJobPosterTemplateProps) => {
   const intl = useIntl();

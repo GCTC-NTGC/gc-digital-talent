@@ -69,7 +69,7 @@ jobs:
           pnpm store prune
           df -h
 
-      - name: "Run ESlint: all workspaces"
+      - name: "Run oxlint: all workspaces"
         working-directory: ./
         run: pnpm run lint
 

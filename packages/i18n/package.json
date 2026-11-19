@@ -13,8 +13,8 @@
   "scripts": {
     "prettier": "prettier --check . --ignore-path=../../.prettierignore",
     "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "tsc": "tsc --project tsconfig.json",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

@@ -28,7 +28,13 @@ const StepLink = ({
     return (
       // NOTE: This is a custom disabled link component
       // eslint-disable-next-line react/forbid-elements
-      <a role="link" aria-disabled="true" {...rest}>
+      <a
+        // The anchor has no href, so it has no implicit link role
+        // oxlint-disable-next-line jsx-a11y/no-redundant-roles
+        role="link"
+        aria-disabled="true"
+        {...rest}
+      >
         {children}
       </a>
     );

@@ -21,6 +21,7 @@ import {
   hasEmptyRequiredFields,
   hasInvalidRequiredFields,
 } from "~/validators/process/closingDate";
+import { useStableDate } from "~/hooks/useStableDate";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
@@ -63,6 +64,7 @@ const ClosingDateSection = ({
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
+  const todayDate = useStableDate();
   const pool = getFragment(EditPoolClosingDate_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const invalidRequired = hasInvalidRequiredFields(pool);
@@ -167,7 +169,7 @@ const ClosingDateSection = ({
                   rules={{
                     min: {
                       value: formatDate({
-                        date: new Date(),
+                        date: todayDate,
                         formatString: DATE_FORMAT_STRING,
                         intl,
                       }),

@@ -9,8 +9,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
   },
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.3.2",

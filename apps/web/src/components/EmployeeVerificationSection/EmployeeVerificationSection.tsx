@@ -116,6 +116,8 @@ const EmployeeVerificationSection = ({
       <div className={grid({ context })}>
         <Card
           className="grid gap-3"
+          // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+          // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
           role="group"
           aria-labelledby={workEmailCardHeadingId}
         >
@@ -209,6 +211,8 @@ const EmployeeVerificationSection = ({
         </Card>
         <Card
           className="grid gap-3"
+          // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+          // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
           role="group"
           aria-labelledby={workExperienceCardHeadingId}
         >
@@ -291,6 +295,8 @@ const EmployeeVerificationSection = ({
         {context === "applicant" && (
           <Card
             className="grid gap-3"
+            // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+            // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
             role="group"
             aria-labelledby={communityCardHeadingId}
           >

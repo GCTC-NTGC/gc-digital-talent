@@ -10,8 +10,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "tsc": "tsc --project tsconfig.json",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
