@@ -52,6 +52,14 @@ class PaginationArgs
         if ($cursorArg !== null && $cursor === null) {
             throw new Error('The cursor is not valid.');
         }
+        // the cursor's own flag decides the direction, so a cursor for the other direction would page the wrong way
+        if ($cursor !== null && $cursor->pointsToNextItems() !== array_key_exists('first', $args)) {
+            throw new Error('The cursor is for the other direction. Use endCursor with after, and startCursor with before.');
+        }
+        // Laravel can't compare against a null sort value, so the next page would fail
+        if ($cursor !== null && in_array(null, Arr::except($cursor->toArray(), '_pointsToNextItems'), true)) {
+            throw new Error('The cursor holds an empty sort value, so no more items can be loaded.');
+        }
 
         if ($perPage < 0) {
             throw new Error(self::requestedLessThanZeroItems($perPage));

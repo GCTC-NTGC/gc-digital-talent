@@ -4,6 +4,7 @@ namespace Tests\Unit\Directives;
 
 use App\Models\Classification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -486,5 +487,46 @@ final class CursorPaginationTest extends TestCase
         }
 
         $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], $levels);
+    }
+
+    public function testCursorForOtherDirectionIsRejected(): void
+    {
+        $edges = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(orderBy: { column: "level", order: ASC }, first: 2) {
+                edges { nextCursor previousCursor }
+            }
+        }')->json('data.classifications.edges');
+        $message = 'The cursor is for the other direction. Use endCursor with after, and startCursor with before.';
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "level", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', ['after' => $edges[1]['previousCursor']])->assertGraphQLErrorMessage($message);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($before: String) {
+                classifications(orderBy: { column: "level", order: ASC }, last: 2, before: $before) {
+                    edges { node { level } }
+                }
+            }
+        ', ['before' => $edges[0]['nextCursor']])->assertGraphQLErrorMessage($message);
+    }
+
+    public function testCursorWithEmptySortValueIsRejected(): void
+    {
+        // the cursor a page hands out when it ends on a row with no value in the sort column
+        $cursor = (new Cursor(['level' => null, 'classifications.id' => Classification::first()->id]))->encode();
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "level", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', ['after' => $cursor])->assertGraphQLErrorMessage('The cursor holds an empty sort value, so no more items can be loaded.');
     }
 }
