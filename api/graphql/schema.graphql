@@ -1820,15 +1820,15 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-  # Cached for 24 hours
+  # Cached for 15mins
   countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
-    @cache(maxAge: 86400)
+    @cache(maxAge: 900)
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchPoolCount!]! @cache(maxAge: 86400)
+  ): [TalentRequestMatchPoolCount!]! @cache(maxAge: 900)
   countTalentRequestMatchesByCommunity(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchCommunityCount!]! @cache(maxAge: 86400)
+  ): [TalentRequestMatchCommunityCount!]! @cache(maxAge: 900)
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
