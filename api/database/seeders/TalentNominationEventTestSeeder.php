@@ -19,6 +19,7 @@ class TalentNominationEventTestSeeder extends Seeder
     {
         $faker = Faker::create();
         $digital = Community::where('key', 'digital')->first();
+        $atip = Community::where('key', 'atip')->first();
 
         TalentNominationEvent::factory(10)
             ->withDevelopmentPrograms()
@@ -53,6 +54,10 @@ class TalentNominationEventTestSeeder extends Seeder
                         'close_date' => $faker->dateTimeBetween($openDate, 'now'),
                     ];
                 }
+            ))
+            ->state(new Sequence(
+                ['community_id' => $digital],
+                ['community_id' => $atip],
             ))
             ->create();
 

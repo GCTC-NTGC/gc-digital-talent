@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import type { MessageDescriptor } from "react-intl";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
@@ -19,55 +18,23 @@ import WipeWorkEmailDialog from "../RemoveWorkEmailDialog/RemoveWorkEmailDialog"
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
-    verifyUserEmails(code: $code) {
+    verifyUserWorkEmail(code: $code) {
       id
     }
   }
 `);
-
-const subtitles: Record<EmailType, MessageDescriptor> = {
-  WORK: defineMessage({
-    defaultMessage:
-      "Verify your Government of Canada work email to confirm your status as an employee.",
-    id: "UoTwQ8",
-    description: "Work email subtitle",
-  }),
-  CONTACT: defineMessage({
-    defaultMessage:
-      "Add and verify a contact email that will be used for communication and notifications.",
-    id: "upuqPk",
-    description: "Contact email subtitle",
-  }),
-};
-
-const descriptions: Record<EmailType, MessageDescriptor> = {
-  WORK: defineMessage({
-    defaultMessage:
-      "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
-    id: "cw6MTQ",
-    description: "Work email title paragraph",
-  }),
-  CONTACT: defineMessage({
-    defaultMessage:
-      "This email will be used by recruitment and HR teams to contact you about opportunities, as well as to send notifications about your applications and other platform details.",
-    id: "fa+z9W",
-    description: "Contact email title paragraph",
-  }),
-};
 
 interface FormValues {
   verificationCode: string;
 }
 
 interface EmailVerificationFormProps {
-  formEmailType: EmailType;
   initialEmailAddress: string | null;
   onFormSubmit: (formValues: FormValues) => Promise<void>;
   onClose: () => void;
 }
 
 const EmailVerificationForm = ({
-  formEmailType,
   initialEmailAddress,
   onFormSubmit,
   onClose,
@@ -116,10 +83,16 @@ const EmailVerificationForm = ({
   return (
     <>
       {/* "Request a code" part of dialog */}
-      <p className="mb-6">{intl.formatMessage(descriptions[formEmailType])}</p>
+      <p className="mb-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
+          id: "cw6MTQ",
+          description: "Work email title paragraph",
+        })}
+      </p>
       <div className="mb-6">
         <EmailVerification.RequestVerificationCodeForm
-          emailType={formEmailType}
           emailAddress={initialEmailAddress}
         />
       </div>
@@ -160,9 +133,7 @@ const EmailVerificationForm = ({
                 description: "Button to save and add email",
               })}
             />
-            {formEmailType === EmailType.Work &&
-            auth.userAuthInfo?.id &&
-            initialEmailAddress ? (
+            {auth.userAuthInfo?.id && initialEmailAddress ? (
               <WipeWorkEmailDialog
                 id={auth.userAuthInfo.id}
                 workEmail={initialEmailAddress}
@@ -180,7 +151,6 @@ const EmailVerificationForm = ({
 };
 
 interface EmailVerificationDialogProps {
-  emailType: EmailType;
   emailAddress: string | null;
   onVerificationSuccess?: () => void;
   children?: ReactNode;
@@ -188,7 +158,6 @@ interface EmailVerificationDialogProps {
 }
 
 const EmailVerificationDialog = ({
-  emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
   onVerificationSuccess,
   children,
@@ -214,7 +183,7 @@ const EmailVerificationDialog = ({
       ) {
         throw new Error(API_CODE_VERIFICATION_FAILED);
       }
-      if (!result.data?.verifyUserEmails?.id) {
+      if (!result.data?.verifyUserWorkEmail?.id) {
         throw new Error("Verify code error");
       }
       // close the dialog
@@ -240,7 +209,12 @@ const EmailVerificationDialog = ({
       </Dialog.Trigger>
       <Dialog.Content hasSubtitle>
         <Dialog.Header
-          subtitle={intl.formatMessage(subtitles[dialogEmailType])}
+          subtitle={intl.formatMessage({
+            defaultMessage:
+              "Verify your Government of Canada work email to confirm your status as an employee.",
+            id: "UoTwQ8",
+            description: "Work email subtitle",
+          })}
         >
           {intl.formatMessage({
             defaultMessage: "Email verification",
@@ -253,7 +227,6 @@ const EmailVerificationDialog = ({
             // reset everything on close as it is removed from the DOM
             <EmailVerification.Provider>
               <EmailVerificationForm
-                formEmailType={dialogEmailType}
                 initialEmailAddress={initialEmailAddress}
                 onFormSubmit={handleFormSubmit}
                 onClose={() => setOpen(false)}

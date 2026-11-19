@@ -14,7 +14,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
@@ -33,6 +33,7 @@ const variantMessages: Record<
     subtitle: MessageDescriptor;
     whoNominated: MessageDescriptor;
     whatNominatedFor: MessageDescriptor;
+    classificationAtTimeOfLastApproval: MessageDescriptor;
   }
 > = {
   nominee: nomineeMessages,
@@ -61,6 +62,9 @@ export const NominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
     approvedForLateralMovement
     approvedForDevelopmentPrograms
     nominatorNames
+    classificationAtTimeOfLastApproval {
+      groupAndLevel
+    }
   }
 `);
 
@@ -74,6 +78,7 @@ const NominationDetailsDialog = ({
   variant,
 }: NominationDetailsDialogProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const nominationGroup = getFragment(
     NominationDetailsDialog_Fragment,
     nominationGroupQuery,
@@ -98,6 +103,8 @@ const NominationDetailsDialog = ({
   const nominatedBy =
     nominatorNames.length > 0 ? intl.formatList(nominatorNames) : notProvided;
 
+  const classificationAtTimeOfApproval =
+    nominationGroup.classificationAtTimeOfLastApproval?.groupAndLevel;
   // Filter and build the nomination options list only showing what they were approved for
   const nominationOptionsList = [
     nominationGroup.approvedForAdvancement
@@ -205,21 +212,37 @@ const NominationDetailsDialog = ({
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
               {nominatedBy}
             </FieldDisplay>
-
-            <FieldDisplay label={intl.formatMessage(messages.whatNominatedFor)}>
-              {nominationOptionsList.length > 0 ? (
-                <ul className="space-y-1">
-                  {nominationOptionsList.map((option, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckIcon className="h-5 w-5 text-success" />
-                      <span>{option}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
+            <div
+              className={
+                locale === "fr"
+                  ? "grid grid-cols-1 gap-6"
+                  : "grid grid-cols-1 gap-6 sm:grid-cols-2"
+              }
+            >
+              <FieldDisplay
+                label={intl.formatMessage(messages.whatNominatedFor)}
+              >
+                {nominationOptionsList.length > 0 ? (
+                  <ul className="space-y-1">
+                    {nominationOptionsList.map((option, index) => (
+                      <li key={index} className="flex items-center gap-2">
+                        <CheckIcon className="h-5 w-5 text-success" />
+                        <span>{option}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  notProvided
+                )}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  messages.classificationAtTimeOfLastApproval,
+                )}
+              >
+                {classificationAtTimeOfApproval ?? notProvided}
+              </FieldDisplay>
+            </div>
             {nominationMeanings.length > 0
               ? nominationMeanings.map((nominationMeaning) => (
                   <FieldDisplay

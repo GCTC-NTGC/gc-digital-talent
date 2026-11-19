@@ -2271,6 +2271,55 @@ class UserTest extends TestCase
         $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
     }
 
+    // When a user is restored, LIKE wildcards in their backed up emails don't match other users' emails
+    public function testUserRestoreEmailWithLikeWildcardsIgnoresSimilarEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'a_b@example.com',
+            'work_email' => 'c_d@gc.ca',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        // "_" would match any single character in a LIKE pattern
+        User::factory()->create([
+            'email' => 'axb@example.com',
+            'work_email' => 'cxd@gc.ca',
+        ]);
+
+        $user->restore();
+        $user->refresh();
+
+        $this->assertEquals('a_b@example.com', $user->email);
+        $this->assertEquals('c_d@gc.ca', $user->work_email);
+        $this->assertNull($user->email_backup);
+        $this->assertNull($user->work_email_backup);
+    }
+
+    // When a user is restored, a backed up email used by another user with different casing is not restored
+    public function testUserDoesntRestoreEmailUsedWithDifferentCase()
+    {
+        $user = User::factory()->create([
+            'email' => 'used@example.com',
+            'work_email' => 'usedwork@gc.ca',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        User::factory()->create([
+            'email' => 'USED@Example.com',
+            'work_email' => 'UsedWork@GC.ca',
+        ]);
+
+        $user->restore();
+        $user->refresh();
+
+        $this->assertNull($user->email);
+        $this->assertNull($user->work_email);
+        $this->assertEquals('used@example.com', $user->email_backup);
+        $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
+    }
+
     public function testUpdateUserAsAdminUnrelatedFieldChangeDoesNotResetVerifiedEmail(): void
     {
         $user = User::factory()->create([

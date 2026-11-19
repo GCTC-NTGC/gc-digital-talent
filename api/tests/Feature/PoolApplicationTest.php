@@ -121,6 +121,14 @@ class PoolApplicationTest extends TestCase
         }
     GRAPHQL;
 
+    protected $toggleDashboardVisibilityMutationDocument = <<<'GRAPHQL'
+        mutation toggleDashboardVisibility($id: UUID!) {
+            togglePoolCandidateDashboardVisibility(id: $id) {
+                isDashboardViewable
+            }
+        }
+    GRAPHQL;
+
     protected $govEmployee;
 
     protected $nonGovEmployee;
@@ -1098,5 +1106,39 @@ class PoolApplicationTest extends TestCase
         } else {
             $res->assertGraphQLValidationError('user_id', ErrorCode::APPLICATION_MISSING_LANGUAGE_REQUIREMENTS->name);
         }
+    }
+
+    public function testApplicantTogglesDashboardVisibilityOfExpiredApplication(): void
+    {
+        $pool = Pool::factory()->published()->create();
+        $expiredApplication = PoolCandidate::factory()
+            ->for($this->applicantUser)
+            ->for($pool)
+            ->create([
+                'submitted_at' => null,
+                'expiry_date' => config('constants.past_date'),
+            ]);
+
+        $variables = ['id' => $expiredApplication->id];
+
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->toggleDashboardVisibilityMutationDocument, $variables)
+            ->assertJson([
+                'data' => [
+                    'togglePoolCandidateDashboardVisibility' => [
+                        'isDashboardViewable' => false,
+                    ],
+                ],
+            ]);
+
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->toggleDashboardVisibilityMutationDocument, $variables)
+            ->assertJson([
+                'data' => [
+                    'togglePoolCandidateDashboardVisibility' => [
+                        'isDashboardViewable' => true,
+                    ],
+                ],
+            ]);
     }
 }
