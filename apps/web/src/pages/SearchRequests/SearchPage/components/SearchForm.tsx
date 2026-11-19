@@ -10,6 +10,7 @@ import {
   Container,
   Heading,
   Loading,
+  Notice,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
@@ -100,7 +101,7 @@ export const SearchForm = ({
   );
   const [filterPending, setFilterPending] = useState(false);
 
-  const { fetching, candidateCount, results, communities } =
+  const { fetching, hasFilters, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
@@ -264,7 +265,21 @@ export const SearchForm = ({
                 }) + intl.formatMessage(commonMessages.dividingColon)}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
-              {communities.length || results?.length ? (
+              {!hasFilters ? (
+                <Notice.Root color="warning" className="mt-2">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Use the filters to get an estimated number of candidates matching your criteria.",
+                        id: "SRlyiJ",
+                        description:
+                          "Message shown in the results section of the search page before any filters are added",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              ) : communities.length || results?.length ? (
                 <>
                   {communities.length ? (
                     <div className="flex flex-col gap-y-6">
