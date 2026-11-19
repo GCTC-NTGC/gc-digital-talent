@@ -441,6 +441,7 @@ class TalentNominationTest extends TestCase
 
     public function testCantNominateSelf()
     {
+        // can't submit a nomination where the nominee is the same as the nominator
         $nomination = TalentNomination::factory()
             ->state([
                 'talent_nomination_event_id' => $this->nominationEvent->id,
@@ -458,7 +459,29 @@ class TalentNominationTest extends TestCase
                 'id' => $nomination->id,
             ]);
 
-        $response->assertGraphQLValidationError('nominee_id', 'The nominee id field and nominator id must be different.');
+        $response->assertGraphQLValidationError('nominee_id', ErrorCode::NOMINEE_CANNOT_BE_NOMINATOR->name);
+    }
+
+    public function testCantSubmitWithSelfAsNominee()
+    {
+        // can't submit a nomination where the nominee is the same as the submitter
+        $nomination = TalentNomination::factory()
+            ->state([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'submitter_id' => $this->employee1->id,
+                'nominator_id' => $this->employee2->id,
+                'nominee_id' => $this->employee1->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+        $response->assertGraphQLValidationError('submitter_id', ErrorCode::NOMINEE_CANNOT_BE_SUBMITTER->name);
     }
 
     public function testCantNominateSelfViaFallbackNominator()
