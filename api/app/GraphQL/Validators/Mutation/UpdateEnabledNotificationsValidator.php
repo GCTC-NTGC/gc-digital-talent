@@ -18,12 +18,16 @@ final class UpdateEnabledNotificationsValidator extends Validator
     {
         // only some notification families can be enabled
         $validFamilies = [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name];
+        // work email notifications are opt-in for every family, including system messages
+        $validWorkEmailFamilies = array_column(NotificationFamily::cases(), 'name');
 
         return [
             'enabledEmailNotifications' => ['array'],
             'enabledEmailNotifications.*' => ['distinct', Rule::in($validFamilies)],
             'enabledInAppNotifications' => ['array'],
             'enabledInAppNotifications.*' => ['distinct', Rule::in($validFamilies)],
+            'enabledWorkEmailNotifications' => ['array'],
+            'enabledWorkEmailNotifications.*' => ['distinct', Rule::in($validWorkEmailFamilies)],
         ];
     }
 

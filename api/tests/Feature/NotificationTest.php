@@ -237,7 +237,7 @@ class NotificationTest extends TestCase
         // Ignoring the SYSTEM_MESSAGE family is not allowed
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation updateEnabledNotifications($enabledEmailNotifications: [NotificationFamily]) {
+                mutation updateEnabledNotifications($enabledEmailNotifications: [NotificationFamily!]) {
                     updateEnabledNotifications(enabledEmailNotifications: $enabledEmailNotifications) {
                         id
                         enabledEmailNotifications
@@ -249,7 +249,7 @@ class NotificationTest extends TestCase
         // Other families can be enabled
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation ignoreNotifications($enabledEmailNotifications: [NotificationFamily]) {
+                mutation ignoreNotifications($enabledEmailNotifications: [NotificationFamily!]) {
                     updateEnabledNotifications(enabledEmailNotifications: $enabledEmailNotifications) {
                         id
                         enabledEmailNotifications
@@ -262,5 +262,76 @@ class NotificationTest extends TestCase
         $updatedIgnoreList = $response->json('data.updateEnabledNotifications.enabledEmailNotifications');
 
         $this->assertNotNull($updatedIgnoreList);
+    }
+
+    protected $updateWorkEmailNotificationsMutation = /** GraphQL */ '
+        mutation updateEnabledNotifications($enabledWorkEmailNotifications: [NotificationFamily!]) {
+            updateEnabledNotifications(enabledWorkEmailNotifications: $enabledWorkEmailNotifications) {
+                id
+                enabledWorkEmailNotifications
+            }
+        }
+    ';
+
+    public function testSystemMessageCannotBeEnabledForInApp(): void
+    {
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation updateEnabledNotifications($enabledInAppNotifications: [NotificationFamily!]) {
+                    updateEnabledNotifications(enabledInAppNotifications: $enabledInAppNotifications) {
+                        id
+                    }
+                }
+            ', ['enabledInAppNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
+            ->assertGraphQLValidationError('enabledInAppNotifications.0', ErrorCode::CANNOT_ENABLE_NOTIFICATION_FAMILY->name);
+    }
+
+    public function testAllFamiliesCanBeEnabledForWorkEmail(): void
+    {
+        $this->candidateUser->work_email = 'candidate-user@gc.ca';
+        $this->candidateUser->work_email_verified_at = Carbon::now();
+        $this->candidateUser->save();
+
+        $allFamilies = array_column(NotificationFamily::cases(), 'name');
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL($this->updateWorkEmailNotificationsMutation, ['enabledWorkEmailNotifications' => $allFamilies])
+            ->assertJsonPath('data.updateEnabledNotifications.enabledWorkEmailNotifications', $allFamilies);
+    }
+
+    public function testWorkEmailFamiliesMustBeDistinct(): void
+    {
+        $this->candidateUser->work_email = 'candidate-user@gc.ca';
+        $this->candidateUser->work_email_verified_at = Carbon::now();
+        $this->candidateUser->save();
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL($this->updateWorkEmailNotificationsMutation, ['enabledWorkEmailNotifications' => [
+                NotificationFamily::JOB_ALERT->name,
+                NotificationFamily::JOB_ALERT->name,
+            ]])
+            ->assertGraphQLValidationKeys(['enabledWorkEmailNotifications.0', 'enabledWorkEmailNotifications.1']);
+    }
+
+    public function testWorkEmailNotificationsRequireVerifiedWorkEmail(): void
+    {
+        // no work email
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL($this->updateWorkEmailNotificationsMutation, ['enabledWorkEmailNotifications' => [NotificationFamily::JOB_ALERT->name]])
+            ->assertGraphQLValidationError('code', ErrorCode::NEED_VERIFIED_WORK_EMAIL->name);
+
+        // unverified work email
+        $this->candidateUser->work_email = 'candidate-user@gc.ca';
+        $this->candidateUser->work_email_verified_at = null;
+        $this->candidateUser->save();
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL($this->updateWorkEmailNotificationsMutation, ['enabledWorkEmailNotifications' => [NotificationFamily::JOB_ALERT->name]])
+            ->assertGraphQLValidationError('code', ErrorCode::NEED_VERIFIED_WORK_EMAIL->name);
+
+        // clearing the list is always allowed
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL($this->updateWorkEmailNotificationsMutation, ['enabledWorkEmailNotifications' => []])
+            ->assertJsonPath('data.updateEnabledNotifications.enabledWorkEmailNotifications', []);
     }
 }
