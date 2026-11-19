@@ -1858,7 +1858,6 @@ type Query {
       maxCount: 100
       scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
     )
-    @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

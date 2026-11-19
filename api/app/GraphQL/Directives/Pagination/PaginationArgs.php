@@ -103,11 +103,38 @@ class PaginationArgs
             throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
+        $this->ensureUniqueOrder($builder, $query);
+
         try {
             return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
         } catch (UnexpectedValueException) {
-            // the cursor was issued for a different ordering and lacks one of this query's columns
+            // the cursor lacks one of this query's sort columns
+            // a cursor for the same columns sorted the other way isn't caught: cursors don't record the direction
             throw new Error('The cursor does not match the ordering of this query.');
+        }
+    }
+
+    /**
+     * Sort by the primary key last, unless it's already sorted on
+     *
+     * Rows that tie on every sort column can be skipped or repeated between pages otherwise.
+     */
+    private function ensureUniqueOrder(QueryBuilder|EloquentBuilder|Relation $builder, QueryBuilder $query): void
+    {
+        // with no sort at all, Laravel already sorts by the primary key
+        if (empty($query->orders)) {
+            return;
+        }
+
+        $model = match (true) {
+            $builder instanceof EloquentBuilder => $builder->getModel(),
+            $builder instanceof Relation => $builder->getRelated(),
+            default => throw new Exception('Cursor pagination of a plain query builder needs a unique column in its sort.'),
+        };
+
+        $keyColumns = [$model->getKeyName(), $model->getQualifiedKeyName()];
+        if (! Arr::first($query->orders, fn ($order) => in_array($order['column'], $keyColumns, true))) {
+            $query->orderBy($model->getQualifiedKeyName(), Arr::last($query->orders)['direction']);
         }
     }
 

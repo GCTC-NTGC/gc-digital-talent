@@ -464,4 +464,27 @@ final class CursorPaginationTest extends TestCase
             ...$response2->json('data.classifications.edges.*.node.level'),
         ]);
     }
+
+    public function testTiesAcrossPagesAreNotSkipped(): void
+    {
+        // 3 classifications are available in search and 2 aren't, so pages break inside a tie
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "is_available_in_search", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $levels = [];
+        $after = null;
+        foreach (range(1, 3) as $_) {
+            $response = $this->graphQL($query, ['after' => $after])->assertGraphQLErrorFree();
+            array_push($levels, ...$response->json('data.classifications.edges.*.node.level'));
+            $after = $response->json('data.classifications.pageInfo.endCursor');
+        }
+
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], $levels);
+    }
 }
