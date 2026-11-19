@@ -290,9 +290,10 @@ const LateralMovementSection = ({
             id="lateralMovementReferralExpiryDate"
             name="lateralMovementReferralExpiryDate"
             legend={intl.formatMessage({
-              defaultMessage: "Referral expiry date",
-              id: "VeYTqO",
-              description: "Label for referral expiry date field",
+              defaultMessage: "Lateral movement referral expiry date",
+              id: "keX5Nz",
+              description:
+                "Label for lateral movement referral expiry date field",
             })}
             context={intl.formatMessage({
               defaultMessage:

@@ -180,7 +180,10 @@ class TalentSearch extends AppPage {
     criteria: TalentRequestCandidateCriteria,
     talentSources: LocalizedTalentRequestSource[],
   ) {
-    const poolCard = await this.poolCardVisibility(poolName);
+    // Result cards only show once a filter is added, so check the card after selecting a classification
+    const poolCard = this.page.getByRole("article", {
+      name: new RegExp(poolName, "i"),
+    });
 
     for (const { value, label } of talentSources) {
       // Find talent labels the qualified in pool source "Pool candidates" instead of its API label
@@ -204,6 +207,7 @@ class TalentSearch extends AppPage {
     await classificationFilter.selectOption({
       value: selectedClassification,
     });
+    await this.poolCardVisibility(poolName);
 
     const streamFilter = this.page.getByRole("combobox", {
       name: /stream/i,

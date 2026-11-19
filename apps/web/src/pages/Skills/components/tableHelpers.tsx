@@ -1,4 +1,5 @@
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
 
 export function categoryAccessor(categoryLabel: string | null | undefined) {
   return categoryLabel ?? "";
@@ -22,4 +23,18 @@ export function familiesAccessor(
   familyNames: (string | null | undefined)[] | null | undefined,
 ) {
   return unpackMaybes(familyNames).sort().join(", ");
+}
+
+export function langCell(
+  value: string | null | undefined,
+  valueLocale: Locales,
+  currentLocale: Locales,
+) {
+  if (!value) return null;
+
+  return (
+    <span {...(valueLocale !== currentLocale ? { lang: valueLocale } : {})}>
+      {value}
+    </span>
+  );
 }

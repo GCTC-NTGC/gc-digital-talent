@@ -1,22 +1,22 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Button } from "@gc-digital-talent/ui";
+import { Button, type ButtonProps } from "@gc-digital-talent/ui";
 
 import experienceMessages from "~/messages/experienceMessages";
 
 export type SortValue = "type" | "timeline";
 
-const selectedFilterStyle: Record<string, string> = {
+const selectedFilterStyle: ButtonProps = {
   mode: "inline",
   color: "black",
   className: "[&_*]:no-underline pointer-events-none",
 };
 
-const unselectedFilterStyle: Record<string, string> = {
+const unselectedFilterStyle: ButtonProps = {
   mode: "inline",
   color: "black",
-  className: "font-normal text-gray-500",
+  className: "font-normal",
 };
 
 interface ExperienceListSortSelectorProps {
@@ -34,7 +34,7 @@ const ExperienceListSortSelector = ({
     <fieldset className="mt-6 mb-1.5 flex items-center gap-3">
       <legend
         id="sortFilter"
-        className="float-left text-gray-500 dark:text-gray-200"
+        className="float-left text-gray-600 dark:text-gray-200"
       >
         {intl.formatMessage(formMessages.sortBy)}
         {intl.formatMessage(commonMessages.dividingColon)}

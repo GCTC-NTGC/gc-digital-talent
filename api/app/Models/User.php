@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
-use App\Enums\EmailType;
 use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
@@ -791,8 +790,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if (is_null($user->email) && ! is_null($user->email_backup)) {
                 $existingUserCount = User::where('id', '!=', $user->id)
                     ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $user->email_backup)
-                        ->orWhere('work_email', 'ilike', $user->email_backup))
+                        ->whereContactEmailMatches($user->email_backup)
+                        ->orWhere(fn ($q) => $q->whereWorkEmailMatches($user->email_backup)))
                     ->withTrashed()
                     ->count();
 
@@ -806,8 +805,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if (is_null($user->work_email) && ! is_null($user->work_email_backup)) {
                 $existingUserCount = User::where('id', '!=', $user->id)
                     ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $user->work_email_backup)
-                        ->orWhere('work_email', 'ilike', $user->work_email_backup))
+                        ->whereContactEmailMatches($user->work_email_backup)
+                        ->orWhere(fn ($q) => $q->whereWorkEmailMatches($user->work_email_backup)))
                     ->withTrashed()
                     ->count();
 
@@ -893,28 +892,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Determine if the user has verified their email address.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return bool
-     */
-    public function hasVerifiedEmail(EmailType $emailType)
-    {
-        // might be refined later, eg, must be verified within the last X months
-        if ($emailType == EmailType::CONTACT) {
-            return ! is_null($this->email_verified_at);
-        } else {
-            return ! is_null($this->work_email_verified_at);
-        }
-
-    }
-
-    /**
      * Is the contact email address currently considered verified?
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail(EmailType::CONTACT);
+        return ! is_null($this->email_verified_at);
     }
 
     /**
@@ -922,7 +904,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getIsWorkEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail(EmailType::WORK);
+        return ! is_null($this->work_email_verified_at);
     }
 
     /*
@@ -1062,5 +1044,39 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 return $updatedAttributes;
             }
         );
+    }
+
+    /**
+     * Clear the contact email address from any user who has it (except the user we are releasing it for)
+     */
+    public static function releaseContactEmail(string $emailAddress, string $exceptUserId): void
+    {
+        $existingUser = User::where('id', '!=', $exceptUserId)
+            ->whereContactEmailMatches($emailAddress)
+            ->withTrashed()
+            ->first();
+
+        if ($existingUser) {
+            $existingUser->email_backup = $existingUser->email;
+            $existingUser->email = null; // the email() setter also clears email_verified_at
+            $existingUser->save();
+        }
+    }
+
+    /**
+     * Clear the work email address from any user who has it (except the user we are releasing it for)
+     */
+    public static function releaseWorkEmail(string $emailAddress, string $exceptUserId): void
+    {
+        $existingUser = User::where('id', '!=', $exceptUserId)
+            ->whereWorkEmailMatches($emailAddress)
+            ->withTrashed()
+            ->first();
+
+        if ($existingUser) {
+            $existingUser->work_email_backup = $existingUser->work_email;
+            $existingUser->work_email = null; // the workEmail() setter also clears work_email_verified_at
+            $existingUser->save();
+        }
     }
 }
