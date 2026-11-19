@@ -273,6 +273,38 @@ const Test_GetUserByIdDocument = /* GraphQL */ `
   query Test_GetUserById($id: UUID!) {
     user(id: $id) {
       id
+      firstName
+      lastName
+      email
+      telephone
+      currentCity
+      currentProvince {
+        label {
+          en
+        }
+      }
+      preferredLang {
+        label {
+          en
+        }
+      }
+      armedForcesStatus {
+        label {
+          en
+        }
+      }
+      citizenship {
+        label {
+          en
+        }
+      }
+      department {
+        name {
+          en
+        }
+      }
+      workEmail
+      priorityNumber
       experiences {
         id
         __typename

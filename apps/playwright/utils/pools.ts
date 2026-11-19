@@ -534,3 +534,39 @@ export const retirePublishedPool = async (ctx: GraphQLContext, id: string) => {
   await closePool(ctx, { id });
   await archivePool(ctx, { id });
 };
+
+const Test_PublishedPoolsQueryDocument = /* GraphQL */ `
+  query Test_PublishedPools {
+    poolsPaginated(
+      first: 100
+      where: { statuses: [PUBLISHED], canAdmin: true }
+    ) {
+      data {
+        id
+        poolCandidatesCount
+      }
+    }
+  }
+`;
+
+/**
+ * Get a published process the user manages that has at least one candidate
+ */
+export const getPublishedPoolWithCandidates: GraphQLRequestFunc<Pool> = async (
+  ctx,
+) => {
+  const pool = await ctx
+    .post<GraphQLResponse<"poolsPaginated", { data: Pool[] }>>(
+      Test_PublishedPoolsQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) =>
+      res.poolsPaginated.data.find(
+        ({ poolCandidatesCount }) => (poolCandidatesCount ?? 0) > 0,
+      ),
+    );
+  if (!pool) {
+    throw new Error("No published process with candidates");
+  }
+  return pool;
+};
