@@ -8,9 +8,7 @@
   "sortPackageJson": false,
   "sortTailwindcss": {
     "stylesheet": "./apps/web/src/assets/css/tailwind.css",
-    "functions": [
-      "tv"
-    ]
+    "functions": ["tv"]
   },
   "ignorePatterns": [
     "pnpm-lock.yaml",
