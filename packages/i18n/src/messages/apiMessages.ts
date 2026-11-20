@@ -598,6 +598,20 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "NXyprm",
     description: "Error message for talent request completion details required",
   },
+  [ErrorCode.NomineeCannotBeNominator]: {
+    defaultMessage:
+      "You've selected the same person as the nominee and the nominator, so you can't submit this nomination. Select a different nominee or nominator.",
+    id: "sJ/m5l",
+    description:
+      "Error message that a nominator cannot nominate themselves as the nominee in a nomination submission.",
+  },
+  [ErrorCode.NomineeCannotBeSubmitter]: {
+    defaultMessage:
+      "You've selected yourself as the nominee, so you can't submit this nomination. Select a different nominee, or ask someone else to submit it.",
+    id: "xiqIc+",
+    description:
+      "Error message that the submitter cannot nominate themselves as the nominee in a nomination submission.",
+  },
 });
 
 // This is the message of the restricted.html page that is triggered by trying to use the /admin pages off-network
