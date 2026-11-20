@@ -57,7 +57,7 @@ lint:
 	$(DOCKER_API) "php ./vendor/bin/pint"
 	$(DOCKER_PNPM) lint
 	$(DOCKER_PNPM) run tsc
-	$(DOCKER_PNPM) run prettier -- --write
+	$(DOCKER_PNPM) run fmt:fix
 
 lint-php:
 	$(DOCKER_API) "vendor/bin/pint"
@@ -65,8 +65,8 @@ lint-php:
 tsc:
 	$(DOCKER_PNPM) run tsc
 
-prettier:
-	$(DOCKER_PNPM) run prettier -- --write
+fmt:
+	$(DOCKER_PNPM) run fmt:fix
 
 phpstan:
 	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"

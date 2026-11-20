@@ -13,8 +13,6 @@
     "e2e:playwright:report": "pnpm exec playwright show-report",
     "lint": "oxlint",
     "lint:fix": "oxlint ./ --fix",
-    "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json"
   },
   "devDependencies": {
