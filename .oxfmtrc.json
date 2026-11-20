@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": true,
+  "trailingComma": "all",
+  "singleQuote": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "sortPackageJson": false,
+  "sortTailwindcss": {
+    "stylesheet": "./apps/web/src/assets/css/tailwind.css",
+    "functions": ["tv"]
+  },
+  "ignorePatterns": [
+    "pnpm-lock.yaml",
+    "**/*Compiled.json",
+    "dist",
+    "**/src/gql/**",
+    "packages/graphql/src/index.ts",
+    ".react-router"
+  ]
+}
