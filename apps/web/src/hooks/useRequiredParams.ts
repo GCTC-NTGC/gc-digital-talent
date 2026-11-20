@@ -7,17 +7,10 @@ import {
   type Logger,
   getLogger,
 } from "@gc-digital-talent/logger";
-import { notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
+import { isUUID, notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
-
-const uuidRegEx =
-  /^[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}$/;
-
-const isUUID = (str: string): boolean => {
-  return !!uuidRegEx.exec(str);
-};
 
 /**
  * Assert Param
