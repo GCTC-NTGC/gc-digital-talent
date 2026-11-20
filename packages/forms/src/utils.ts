@@ -3,13 +3,8 @@ import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import type { FieldErrors, FieldValues } from "react-hook-form";
 
-import type {
-  LocalizedString,
-} from "@gc-digital-talent/graphql";
-import type {
-  GenericLocalizedEnum,
-  Locales,
-} from "@gc-digital-talent/i18n";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
