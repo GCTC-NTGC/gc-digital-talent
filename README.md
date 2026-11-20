@@ -22,7 +22,7 @@ Each subproject has its own `README.md`, with advice on how to contribute to tha
 We do several types of testing: (internal documentation linked when available)
 
 - code style checks (aka _linting_)
-  - **ESLint** feat. **Prettier** (JavaScript)
+  - **oxc** (oxlint, oxfmt) 
   - **Pint** (PHP)
 - _unit_ testing
   - **Vitest** (ReactJS)
