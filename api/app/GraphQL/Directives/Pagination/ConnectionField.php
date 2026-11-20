@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Directives\Pagination;
 
+use Closure;
+use Exception;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ObjectType;
@@ -12,9 +14,42 @@ use Illuminate\Pagination\AbstractCursorPaginator;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use WeakMap;
 
 class ConnectionField
 {
+    /**
+     * How to count each paginator's full result set. The cursor paginator can't count for itself.
+     *
+     * @var \WeakMap<CursorPaginator<*, *>, \Closure(): int>|null
+     */
+    private static ?WeakMap $totalCounters = null;
+
+    /**
+     * @param  \Illuminate\Contracts\Pagination\CursorPaginator<*, *>  $paginator
+     * @param  Closure(): int  $counter
+     */
+    public static function countTotalWith(CursorPaginator $paginator, Closure $counter): void
+    {
+        self::$totalCounters ??= new WeakMap();
+        self::$totalCounters[$paginator] = $counter;
+    }
+
+    /**
+     * Runs the count query only when a client selects totalCount.
+     *
+     * @param  \Illuminate\Contracts\Pagination\CursorPaginator<*, *>  $paginator
+     */
+    public function totalCountResolver(CursorPaginator $paginator): int
+    {
+        $counter = self::$totalCounters[$paginator] ?? null;
+        if ($counter === null) {
+            throw new Exception('totalCount is not supported when the paginator comes from a resolver.');
+        }
+
+        return $counter();
+    }
+
     /**
      * @param  \Illuminate\Contracts\Pagination\CursorPaginator<*, *>  $paginator
      * @return array{

@@ -132,7 +132,15 @@ GRAPHQL;
                 $resolveInfo,
             );
 
-            return $paginationArgs->applyToBuilder($query);
+            // copy before paginating, which adds the cursor's conditions to the query
+            $countQuery = clone $query;
+            $paginator = $paginationArgs->applyToBuilder($query);
+            ConnectionField::countTotalWith(
+                $paginator,
+                fn (): int => ($countQuery instanceof QueryBuilder ? $countQuery : $countQuery->toBase())->getCountForPagination(),
+            );
+
+            return $paginator;
         };
     }
 

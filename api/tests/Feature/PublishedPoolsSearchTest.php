@@ -47,9 +47,11 @@ class PublishedPoolsSearchTest extends TestCase
             /** @lang GraphQL */
             '
         query publishedPoolsSearch {
-            publishedPoolsSearch {
-                data {
-                    id
+            publishedPoolsSearch(first: 10) {
+                edges {
+                    node {
+                        id
+                    }
                 }
             }
         }
@@ -60,8 +62,42 @@ class PublishedPoolsSearchTest extends TestCase
         // 2 pools total, so no draft or archived or hidden
         assertEqualsCanonicalizing(
             [$publishedPool->id, $closedPool->id],
-            $response->json('data.publishedPoolsSearch.data.*.id')
+            $response->json('data.publishedPoolsSearch.edges.*.node.id')
         );
+    }
+
+    // the reason for cursor pagination: with offsets, a pool published between pages pushes a card onto the next page
+    public function testPoolPublishedBetweenPagesIsNotRepeated(): void
+    {
+        // newest first, the order the query returns them in
+        $poolIds = collect(range(1, 4))
+            ->map(fn ($daysAgo) => Pool::factory()->published()->create(['published_at' => now()->subDays($daysAgo)])->id)
+            ->all();
+        $query = /** @lang GraphQL */ '
+            query publishedPoolsSearch($after: String) {
+                publishedPoolsSearch(first: 2, after: $after, orderBy: [{ column: PUBLISHED_AT, order: DESC }]) {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                    pageInfo {
+                        endCursor
+                    }
+                }
+            }
+        ';
+
+        $firstPage = $this->graphQL($query);
+        Pool::factory()->published()->create(['published_at' => now()]);
+        $secondPage = $this->graphQL($query, [
+            'after' => $firstPage->json('data.publishedPoolsSearch.pageInfo.endCursor'),
+        ]);
+
+        assertEquals($poolIds, [
+            ...$firstPage->json('data.publishedPoolsSearch.edges.*.node.id'),
+            ...$secondPage->json('data.publishedPoolsSearch.edges.*.node.id'),
+        ]);
     }
 
     // every filter input through the API, so a field wired to the wrong scope or type fails here
@@ -108,9 +144,11 @@ class PublishedPoolsSearchTest extends TestCase
             /** @lang GraphQL */
             '
             query publishedPoolsSearch($where: PublishedPoolsSearchInput) {
-                publishedPoolsSearch(where: $where) {
-                    data {
-                        id
+                publishedPoolsSearch(where: $where, first: 10) {
+                    edges {
+                        node {
+                            id
+                        }
                     }
                 }
             }
@@ -132,7 +170,7 @@ class PublishedPoolsSearchTest extends TestCase
 
         assertEquals(
             [$matchingPool->id],
-            array_column($response['data']['publishedPoolsSearch']['data'], 'id')
+            $response->json('data.publishedPoolsSearch.edges.*.node.id')
         );
     }
 }

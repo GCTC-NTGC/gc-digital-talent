@@ -1856,12 +1856,10 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
   ): [Pool]!
-    @paginate(
-      defaultCount: 10
+    @cursorPaginate(
       maxCount: 100
       scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
     )
-    @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

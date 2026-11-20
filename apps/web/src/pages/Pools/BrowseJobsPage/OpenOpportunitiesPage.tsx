@@ -34,22 +34,16 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
   query OpenOpportunitiesPage(
     $where: PublishedPoolsSearchInput
     $first: Int!
-    $page: Int
     $orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
   ) {
-    publishedPoolsSearch(
-      where: $where
-      first: $first
-      page: $page
-      orderBy: $orderBy
-    ) {
-      data {
-        id
-        ...JobCard
+    publishedPoolsSearch(where: $where, first: $first, orderBy: $orderBy) {
+      edges {
+        node {
+          id
+          ...JobCard
+        }
       }
-      paginatorInfo {
-        total
-      }
+      totalCount
     }
 
     ...BrowseJobsFilterBarOptions
@@ -101,12 +95,13 @@ export const OpenOpportunitiesPage = () => {
     variables: {
       where: whereVariable,
       first: 20,
-      page: 1,
       orderBy: [orderByVariable[sortBy]],
     },
   });
 
-  const pools = unpackMaybes(data?.publishedPoolsSearch?.data);
+  const pools = unpackMaybes(data?.publishedPoolsSearch?.edges).map(
+    (edge) => edge.node,
+  );
 
   return (
     <>
@@ -147,7 +142,7 @@ export const OpenOpportunitiesPage = () => {
             <div className="flex w-full flex-col">
               <ResultsBar
                 fetching={fetching}
-                resultCount={data.publishedPoolsSearch.paginatorInfo.total}
+                resultCount={data.publishedPoolsSearch.totalCount}
               />
 
               {pools.length ? (
