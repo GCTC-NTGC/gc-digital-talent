@@ -1,7 +1,7 @@
-import { test, expect } from "~/fixtures";
-import { loginBySub } from "~/utils/auth";
-import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 import AUTH from "~/constants/auth";
+import { test, expect } from "~/fixtures";
+import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
+import { loginBySub } from "~/utils/auth";
 
 const sub =
   process.env.PLAYWRIGHT_APPLICANT_SUB ??

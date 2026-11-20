@@ -1,3 +1,8 @@
+import {
+  FAR_PAST_DATE,
+  PAST_DATE,
+  nowUTCDateTime,
+} from "@gc-digital-talent/date-helpers";
 import type {
   PoolCandidate,
   User,
@@ -14,33 +19,28 @@ import {
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
-import {
-  FAR_PAST_DATE,
-  PAST_DATE,
-  nowUTCDateTime,
-} from "@gc-digital-talent/date-helpers";
 
-import type { GraphQLContext } from "~/utils/graphql";
-import graphql from "~/utils/graphql";
-import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
-import UserPage from "~/fixtures/UserPage";
-import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
+import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
-import { getSkills } from "~/utils/skills";
-import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
-import { createAndSubmitApplication } from "~/utils/applications";
 import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
+import UserPage from "~/fixtures/UserPage";
+import { createAndSubmitApplication } from "~/utils/applications";
+import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
-import { getDepartments } from "~/utils/departments";
-import { defaultWorkExperience } from "~/utils/experiences";
 import {
   createCommunityInterest,
   deleteCommunityInterest,
   getCommunities,
 } from "~/utils/communities";
-import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import { getDepartments } from "~/utils/departments";
+import { defaultWorkExperience } from "~/utils/experiences";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
+import { getSkills } from "~/utils/skills";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Location Preference Validation", { tag: "@uat" }, () => {

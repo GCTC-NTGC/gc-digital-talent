@@ -2,13 +2,13 @@ import type { Pool } from "@gc-digital-talent/graphql/schema-types";
 import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
+import type AppPage from "~/fixtures/AppPage";
+import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
+import { getSkills } from "~/utils/skills";
 import { me } from "~/utils/user";
-import { loginBySub } from "~/utils/auth";
-import type AppPage from "~/fixtures/AppPage";
 
 const UPDATE_PUBLISHED_MUTATION = "UpdatePublishedPool";
 

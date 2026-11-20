@@ -1,19 +1,19 @@
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import type {
   Community,
   User,
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
-import CommunityInterest from "~/fixtures/CommunityInterest";
-import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";
 import { test, expect } from "~/fixtures";
+import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";
+import CommunityInterest from "~/fixtures/CommunityInterest";
+import { createCommunity } from "~/utils/communities";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createCommunity } from "~/utils/communities";
-import { createWorkStream } from "~/utils/workStreams";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
 import { generateUniqueTestId } from "~/utils/id";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createWorkStream } from "~/utils/workStreams";
 
 import { loginBySub } from "../../utils/auth";
 
