@@ -11,8 +11,6 @@
     "./frCompiled.json": "./src/lang/frCompiled.json"
   },
   "scripts": {
-    "prettier": "prettier --check . --ignore-path=../../.prettierignore",
-    "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "tsc": "tsc --project tsconfig.json",
