@@ -1,0 +1,47 @@
+# Pushes main and tags to the gc-digital-talent-fallback repo in Azure Repos,
+# so we can still build from Azure DevOps during a GitHub outage.
+# See documentation/github-outage-fallback.md
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+pr: none
+
+pool:
+  vmImage: ubuntu-26.04
+
+jobs:
+  - job: push_to_fallback
+    displayName: Push to fallback repo
+    # No repository resource for the fallback repo, it fails to resolve while the repo is still empty
+    steps:
+      - checkout: self
+        clean: true
+        fetchDepth: 0
+        fetchTags: true
+
+      # Not forced, so commits made in the fallback repo during an outage are never overwritten.
+      # The fallback repo's main is always GitHub's main, even when run from another branch.
+      # Runs from other branches also push to verify/<branch>, for testing before merge.
+      - script: |
+          fallback="$(System.CollectionUri)$(System.TeamProjectId)/_git/gc-digital-talent-fallback"
+          push() {
+            git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push "$fallback" "$@"
+          }
+
+          git fetch origin +refs/heads/main:refs/remotes/origin/main || exit 1
+
+          if ! push refs/remotes/origin/main:refs/heads/main 'refs/tags/*:refs/tags/*'; then
+            echo "##vso[task.logissue type=error]Push to the fallback repo was rejected. If fixes were committed there during an outage, follow the recovery steps in documentation/github-outage-fallback.md"
+            exit 1
+          fi
+
+          if [ "$BRANCH" != "refs/heads/main" ]; then
+            push "HEAD:refs/heads/verify/${BRANCH#refs/heads/}" || exit 1
+          fi
+        displayName: Push main and tags
+        env:
+          BRANCH: $(Build.SourceBranch)
