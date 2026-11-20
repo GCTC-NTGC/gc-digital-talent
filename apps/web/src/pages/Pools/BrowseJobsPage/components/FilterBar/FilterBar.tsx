@@ -255,6 +255,8 @@ const FilterBar = ({
                           id: "aTcy3P",
                           description: "Button to submit a keyword",
                         })}
+                        // The svg needs role="img" to expose its aria-label name
+                        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
                         role="img"
                         aria-hidden="false"
                       />
