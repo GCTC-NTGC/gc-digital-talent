@@ -1442,6 +1442,10 @@
     "defaultMessage": "De quelle façon avez-vous démontré cette compétence dans ce rôle?",
     "description": "Question for clarifying skill details"
   },
+  "3f0YY3": {
+    "defaultMessage": "Période de publication de l'annonce",
+    "description": "Title for a timing of advertisement checklist"
+  },
   "3fHWz1": {
     "defaultMessage": "Modifier une participation à la collectivité",
     "description": "Title for the edit community participation experience page"
@@ -2962,6 +2966,10 @@
     "defaultMessage": "Outils d'assistance",
     "description": "Title of admin user support tools section"
   },
+  "9yKptF": {
+    "defaultMessage": "Enregistrer les filtres",
+    "description": "Command to save the filter set"
+  },
   "9zjyN4": {
     "defaultMessage": "Action",
     "description": "Label for the action filter for activity log"
@@ -3317,6 +3325,10 @@
   "BGC19+": {
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
+  },
+  "BH2C9x": {
+    "defaultMessage": "Filtrer les possibilités d'emploi selon la période de publication de l'annonce ou le numéro du processus.",
+    "description": "Subtitle for advanced filters dialog"
   },
   "BH5pJe": {
     "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
@@ -4733,6 +4745,10 @@
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
   },
+  "H3mgnz": {
+    "defaultMessage": "Filtrer les offres d'emploi selon les critères d'admissibilité, la classification et l'échelle salariale.",
+    "description": "Subtitle for opportunity details dialog"
+  },
   "H5EXEi": {
     "defaultMessage": "Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.",
     "description": "Subtitle for a pool advertisement page"
@@ -5692,6 +5708,10 @@
     "defaultMessage": "Définissez les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
   },
+  "KyyLUM": {
+    "defaultMessage": "Détails de l'offre d'emploi",
+    "description": "Title for opportunities filter dialog"
+  },
   "Kzbu79": {
     "defaultMessage": "Perfectionnement",
     "description": "Label for the development nomination type"
@@ -5851,6 +5871,10 @@
   "LQpod/": {
     "defaultMessage": "Souhaitez-vous vraiment retirer <underline>{workEmail}</underline>? Si vous la retirez alors que vous êtes un membre du personnel vérifié, l'accès aux outils du personnel sera suspendu jusqu'à ce que vous confirmiez une nouvelle adresse courriel professionnelle.",
     "description": "Text to confirm deletion action"
+  },
+  "LRR7iu": {
+    "defaultMessage": "Organisations d'embauche",
+    "description": "Label for an organization picker"
   },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
@@ -6335,6 +6359,10 @@
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
   },
+  "NSowez": {
+    "defaultMessage": "Filtrer les possibilités d'emploi selon les exigences linguistiques.",
+    "description": "Subtitle for a language requirements filters dialog"
+  },
   "NT3jrI": {
     "defaultMessage": "Ce champ accepte les mots-clés associés à la compétence, séparés par des virgules.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
@@ -6551,6 +6579,10 @@
     "defaultMessage": "Statut d'ancien combattant",
     "description": "Title for Veteran status"
   },
+  "OVeNqb": {
+    "defaultMessage": "Effacer les filtres",
+    "description": "Command to clear the filter set"
+  },
   "OWYrdr": {
     "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}.",
     "description": "Label for the application deadline approaching notification"
@@ -6665,6 +6697,10 @@
   "P/DHOG": {
     "defaultMessage": "Modèles d'emplois",
     "description": "Text for the breadcrumb navigation link"
+  },
+  "P3U7AV": {
+    "defaultMessage": "Admissibilité de la candidature",
+    "description": "Title for an area of selection checklist"
   },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
@@ -7664,6 +7700,10 @@
   "SojYxS": {
     "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
     "description": "Description displayed on the job poster template 'essential technical skills' section."
+  },
+  "St94tY": {
+    "defaultMessage": "Filtrer les possibilités d'emploi selon l'organisation d'embauche.",
+    "description": "Subtitle for organizations filter dialog"
   },
   "Sth/c4": {
     "defaultMessage": "Prochain type de poste",
@@ -8844,6 +8884,10 @@
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
   },
+  "XmF74L": {
+    "defaultMessage": "Organisations",
+    "description": "Title for organizations filter dialog"
+  },
   "XnXcun": {
     "defaultMessage": "Renseignements sur l’utilisateur",
     "description": "Labels for user details block"
@@ -9455,6 +9499,10 @@
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
+  },
+  "aTcy3P": {
+    "defaultMessage": "Ajouter un mot‑clé",
+    "description": "Button to submit a keyword"
   },
   "aXKkrb": {
     "defaultMessage": "Vue candidat(e)",
@@ -12405,6 +12453,10 @@
     "defaultMessage": "Langue de préférence pour l’entrevue",
     "description": "Title for preferred spoken interview language"
   },
+  "m8vrqy": {
+    "defaultMessage": "Numéro de référence ou du processus de sélection",
+    "description": "Label for a process number input"
+  },
   "mBaKVv": {
     "defaultMessage": "Informations sur les volets de travail",
     "description": "Nav tab label for work stream information"
@@ -12688,6 +12740,10 @@
   "nCqQlv": {
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
+  },
+  "nEE/Ds": {
+    "defaultMessage": "Exigences linguistiques",
+    "description": "Title for a language requirements filter dialog"
   },
   "nF3JZd": {
     "defaultMessage": "J'occupe actuellement ce rôle.",
