@@ -17,16 +17,16 @@ import { tv } from "tailwind-variants";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { IconType } from "../../types";
+import { UNICODE_CHAR } from "../../utils/unicode";
+import type { ButtonProps } from "../Button";
 import type { ChipVariants } from "../Chip/Chip";
 import Chip from "../Chip/Chip";
+import type { HeadingRank } from "../Heading";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
+import MetaDataButton from "./MetaDataButton";
 import type { MetaDataStatusItemProps } from "./MetaDataStatusItem";
 import MetaDataStatusItem from "./MetaDataStatusItem";
-import MetaDataButton from "./MetaDataButton";
-import type { ButtonProps } from "../Button";
-import { UNICODE_CHAR } from "../../utils/unicode";
-import type { HeadingRank } from "../Heading";
 
 const root = tv({
   base: "group flex flex-col",

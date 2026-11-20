@@ -1,5 +1,5 @@
-import { useState } from "react";
 import type { StoryFn, Meta } from "@storybook/react-vite";
+import { useState } from "react";
 
 import {
   GLOBAL_A11Y_EXCLUDES,

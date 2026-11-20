@@ -1,6 +1,4 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { useIntl } from "react-intl";
-import { tv, type VariantProps } from "tailwind-variants";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
@@ -9,6 +7,8 @@ import type {
   KeyboardEvent,
 } from "react";
 import { useRef } from "react";
+import { useIntl } from "react-intl";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

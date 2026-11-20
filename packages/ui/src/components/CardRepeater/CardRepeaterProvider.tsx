@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 import { createContext, useMemo, useContext } from "react";
+import { useIntl } from "react-intl";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import useControllableState from "../../hooks/useControllableState";
-import type { BaseItem, CardRepeaterContextProps, ItemWithId } from "./types";
 import { useAnnouncer } from "../Announcer/Announcer";
+import type { BaseItem, CardRepeaterContextProps, ItemWithId } from "./types";
 
 const CardRepeaterContext = createContext<CardRepeaterContextProps | undefined>(
   undefined,

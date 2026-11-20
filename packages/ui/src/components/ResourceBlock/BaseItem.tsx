@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 const stateIcon = tv({
