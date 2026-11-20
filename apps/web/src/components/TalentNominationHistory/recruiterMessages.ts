@@ -22,6 +22,12 @@ const recruiterMessages = defineMessages({
     description:
       "Label for the nominee's classification at the time their nomination was approved",
   },
+  noticeTitle: {
+    defaultMessage: "This employee was nominated for {eventName}",
+    id: "y9M/D2",
+    description:
+      "Notice Title for nomination details dialog for recruiter view on the GC profile",
+  },
 });
 
 export default recruiterMessages;

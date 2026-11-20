@@ -15303,6 +15303,10 @@
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
   },
+  "y9M/D2": {
+    "defaultMessage": "Cette personne a été nominée pour {eventName}",
+    "description": "Notice Title for nomination details dialog for recruiter view on the GC profile"
+  },
   "yBV0YH": {
     "defaultMessage": "Aucune possibilité d'emploi ouverte ne correspond à vos critères de recherche. Essayez de modifier vos filtres ou enregistrez-les sous forme d'alerte afin de recevoir une notification lorsqu'une possibilité d'emploi correspondant à vos critères est publiée.",
     "description": "Null state for opportunity search"
