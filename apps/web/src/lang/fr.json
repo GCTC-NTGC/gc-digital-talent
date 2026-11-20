@@ -3326,10 +3326,6 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
-  "jgp03N": {
-    "defaultMessage": "Filtrer les possibilités d'emploi selon la période de publication de l'annonce ou le numéro du processus.",
-    "description": "Subtitle for advanced filters dialog"
-  },
   "BH5pJe": {
     "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
     "description": "Button label to collapse all nominations"
@@ -4744,10 +4740,6 @@
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
-  },
-  "YfUnG2": {
-    "defaultMessage": "Filtrer les offres d'emploi selon les critères d'admissibilité, la classification et l'échelle salariale.",
-    "description": "Subtitle for opportunity details dialog"
   },
   "H5EXEi": {
     "defaultMessage": "Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.",
@@ -9092,6 +9084,10 @@
     "defaultMessage": "<strong>Remarque</strong> : si le programme ou la certification est accessible à toutes les classifications gérées par votre collectivité, veuillez laisser ce champ vide.",
     "description": "Additional context for classification restrictions checkbox"
   },
+  "YfUnG2": {
+    "defaultMessage": "Filtrer les offres d'emploi selon les critères d'admissibilité, la classification et l'échelle salariale.",
+    "description": "Subtitle for opportunity details dialog"
+  },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
     "description": "Heading for updating a users individual roles"
@@ -11932,6 +11928,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jgp03N": {
+    "defaultMessage": "Filtrer les possibilités d'emploi selon la période de publication de l'annonce ou le numéro du processus.",
+    "description": "Subtitle for advanced filters dialog"
   },
   "jgysHD": {
     "defaultMessage": "Lier l’expérience",
