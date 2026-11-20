@@ -23,8 +23,8 @@ const recruiterMessages = defineMessages({
       "Label for the nominee's classification at the time their nomination was approved",
   },
   noticeTitle: {
-    defaultMessage: "This employee has been nominated for {eventName}",
-    id: "ASUqiz",
+    defaultMessage: "This employee was nominated for {eventName}",
+    id: "7MBInm",
     description: "Title for important update notice",
   },
 });
