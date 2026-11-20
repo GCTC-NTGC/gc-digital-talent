@@ -795,7 +795,7 @@
     "description": "Button text to mark all notifications as read"
   },
   "1G1iMu": {
-    "defaultMessage": "Supprimez cette expérience",
+    "defaultMessage": "Supprimer cette expérience",
     "description": "Button to remove the link between experience and skill"
   },
   "1HPhji": {
@@ -1815,7 +1815,7 @@
     "description": "Null message for job details form"
   },
   "5DfpAy": {
-    "defaultMessage": "Supprimez cette expérience",
+    "defaultMessage": "Supprimer cette expérience",
     "description": "Label on button to delete the current experience"
   },
   "5DwxBX": {
@@ -6352,7 +6352,7 @@
     "description": "Paragraph two, description of the managers community"
   },
   "NVEnZS": {
-    "defaultMessage": "Type d'études ou de formation",
+    "defaultMessage": "Type d'études ou de certificat",
     "description": "Label displayed on Education form for education type input"
   },
   "NVKfLp": {
@@ -8145,7 +8145,7 @@
     "description": "Title for the what to expect post admission section"
   },
   "Uy5Dg2": {
-    "defaultMessage": "Participation de la collectivité",
+    "defaultMessage": "Participation à la collectivité",
     "description": "Title for community experience section"
   },
   "V+cJvn": {
@@ -10967,7 +10967,7 @@
     "description": "Button to submit an evaluation form"
   },
   "gBPQ/R": {
-    "defaultMessage": "Veuillez sélectionner un type d'études ou de formation pour continuer.",
+    "defaultMessage": "Veuillez sélectionner un type d'études ou de certificat pour continuer.",
     "description": "Text displayed on the education experience form when a user has not selected an education type."
   },
   "gChYmW": {
