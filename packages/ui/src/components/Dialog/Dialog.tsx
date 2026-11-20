@@ -1,9 +1,8 @@
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/dialog
  */
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { useIntl } from "react-intl";
 import type {
   ComponentRef,
   ComponentPropsWithoutRef,
@@ -11,6 +10,7 @@ import type {
   HTMLProps,
 } from "react";
 import { forwardRef } from "react";
+import { useIntl } from "react-intl";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 

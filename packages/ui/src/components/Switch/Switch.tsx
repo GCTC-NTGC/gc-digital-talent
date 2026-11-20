@@ -1,11 +1,11 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import type { VariantProps } from "tailwind-variants";
-import { tv } from "tailwind-variants";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import type { IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";
+import type { IconType } from "../../types";
 
 const switchStyles = tv({
   slots: {

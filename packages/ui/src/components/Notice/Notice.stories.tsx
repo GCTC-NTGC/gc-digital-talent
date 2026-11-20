@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
+import Button from "../Button";
+import { Container } from "../Container/Container";
+import Link from "../Link";
 import type { NoticeProps } from "./Notice";
 import Notice from "./Notice";
-import Button from "../Button";
-import Link from "../Link";
-import { Container } from "../Container/Container";
 
 faker.seed(0);
 

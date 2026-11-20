@@ -1,16 +1,16 @@
-import { m, useReducedMotion } from "motion/react";
-import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import { m, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import { useCardRepeaterContext } from "./CardRepeaterProvider";
-import { Action, Edit, Remove } from "./Button";
 import { UNICODE_CHAR } from "../../utils/unicode";
+import { Action, Edit, Remove } from "./Button";
+import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 interface ActionsProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
-import type { ComponentPropsWithoutRef } from "react";
 import { composeStories } from "@storybook/react-vite";
+import type { ComponentPropsWithoutRef } from "react";
 
 import {
   expectNoAccessibilityErrors,
