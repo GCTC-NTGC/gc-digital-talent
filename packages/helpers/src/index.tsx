@@ -8,7 +8,7 @@ import nodeToString from "./utils/nodeToString";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import { compareStrings, sortAlphaBy } from "./utils/sort";
-import isUuidError from "./utils/uuid";
+import { isUuidError, isUUID } from "./utils/uuid";
 import {
   assertUnreachable,
   notEmpty,
@@ -23,6 +23,7 @@ import {
   groupBy,
   pickMap,
   unpackMaybes,
+  isEnumValue,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import type { GraphqlType } from "./types/graphql";
@@ -49,10 +50,12 @@ export {
   compareStrings,
   sortAlphaBy,
   isUuidError,
+  isUUID,
   useIsSmallScreen,
   groupBy,
   pickMap,
   unpackMaybes,
+  isEnumValue,
   NotFoundError,
   UnauthorizedError,
 };

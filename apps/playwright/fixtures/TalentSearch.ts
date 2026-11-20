@@ -197,6 +197,16 @@ class TalentSearch extends AppPage {
         }),
       ).toBeChecked();
     }
+
+    // Counts are cached by filter, so set the skill before checking one.
+    const skillFilter = this.page.getByRole("combobox", {
+      name: /^skill$/i,
+    });
+
+    await skillFilter.fill(`${criteria.skill?.name.en}`);
+    await skillFilter.press("ArrowDown");
+    await skillFilter.press("Enter");
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
@@ -248,14 +258,6 @@ class TalentSearch extends AppPage {
         })
         .click();
     }
-
-    const skillFilter = this.page.getByRole("combobox", {
-      name: /^skill$/i,
-    });
-
-    await skillFilter.fill(`${criteria.skill?.name.en}`);
-    await skillFilter.press("ArrowDown");
-    await skillFilter.press("Enter");
 
     await this.page
       .getByRole("radio", {

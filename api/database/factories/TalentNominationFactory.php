@@ -110,6 +110,7 @@ class TalentNominationFactory extends Factory
                 return [
                     'submitted_steps' => $stepsArray,
                     'nominee_id' => User::where('id', '!=', $attributes['nominator_id'])
+                        ->where('id', '!=', $attributes['submitter_id'])
                         ->whereIsVerifiedGovEmployee()
                         ->inRandomOrder()
                         ->firstOr(fn () => User::factory()->withGovEmployeeProfile()->create()),

@@ -10,6 +10,7 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
+use App\Rules\FallbackNominatorIsNotNominee;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -42,7 +43,10 @@ final class SubmitTalentNominationValidator extends Validator
         return [
             'talent_nomination_event_id' => ['required'],
             'submitted_at' => ['prohibited'],
-            'submitter_id' => ['required'],
+            'submitter_id' => [
+                'required',
+                'different:nominee_id',
+            ],
             'submitter_relationship_to_nominator' => [
                 'required_unless:submitter_id,'.$this->nomination->nominator?->id,
                 'prohibited_if:submitter_id,'.$this->nomination->nominator?->id,
@@ -65,6 +69,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:nominator_id,null',
                 'nullable',
                 new GovernmentEmailRegex(),
+                new FallbackNominatorIsNotNominee($this->nomination->nominee),
             ],
             'nominator_fallback_name' => [
                 'required_if:nominator_id,null',
@@ -201,6 +206,8 @@ final class SubmitTalentNominationValidator extends Validator
             'nine_box_performance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
             'nine_box_leadership_potential.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
             'nine_box_leadership_potential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nominee_id.different' => ErrorCode::NOMINEE_CANNOT_BE_NOMINATOR->name,
+            'submitter_id.different' => ErrorCode::NOMINEE_CANNOT_BE_SUBMITTER->name,
         ];
     }
 }

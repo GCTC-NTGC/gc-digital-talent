@@ -1563,6 +1563,10 @@
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
   },
+  "sJ/m5l": {
+    "defaultMessage": "Vous avez sélectionné la même personne comme nominé ou nominée et comme nominateur ou nominatrice. Vous ne pouvez donc pas soumettre cette nomination. Sélectionnez une autre personne pour l’un de ces rôles.",
+    "description": "Error message that a nominator cannot nominate themselves as the nominee in a nomination submission."
+  },
   "sMi0QI": {
     "defaultMessage": "Gouvernement du Canada",
     "description": "Full name of abbreviation for GC"
@@ -1738,6 +1742,10 @@
   "xUhyIU": {
     "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
     "description": "Description for rule pattern on work email field"
+  },
+  "xiqIc+": {
+    "defaultMessage": "Vous figurez comme nominé ou nominée. Vous ne pouvez donc pas soumettre cette nomination. Sélectionnez un autre nominé ou une autre nominée, ou demandez à quelqu’un d’autre de la soumettre.",
+    "description": "Error message that the submitter cannot nominate themselves as the nominee in a nomination submission."
   },
   "xmzq/b": {
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",

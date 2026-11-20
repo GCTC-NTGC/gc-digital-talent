@@ -38,7 +38,7 @@ import {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
+import { createSkill, deleteSkill } from "~/utils/skills";
 import {
   createAndSubmitApplication,
   pauseCandidateReferral,
@@ -56,7 +56,11 @@ import {
 import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
-import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
+import {
+  fetchIdentificationNumber,
+  generateUniqueNumber,
+  generateUniqueTestId,
+} from "~/utils/id";
 import TalentSearch from "~/fixtures/TalentSearch";
 import type {
   TalentRequestCandidateCriteria,
@@ -176,8 +180,13 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     ).filter(({ value }) => value !== TalentRequestSource.AtLevel);
 
     await test.step("Create a test pool", async () => {
-      technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
-        return skills.find((s) => s.category.value === SkillCategory.Technical);
+      technicalSkill = await createSkill(platformAdminCtx, {
+        key: `pw_skill_${generateUniqueNumber()}`,
+        name: {
+          en: `Playwright skill ${uniqueTestId}`,
+          fr: `Playwright skill ${uniqueTestId} (FR)`,
+        },
+        category: SkillCategory.Technical,
       });
       skill = technicalSkill;
       community = await getMyCommunity(adminCtx, {});
@@ -264,6 +273,9 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     }
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
+    }
+    if (technicalSkill) {
+      await deleteSkill(adminCtx, technicalSkill.id);
     }
   });
 
