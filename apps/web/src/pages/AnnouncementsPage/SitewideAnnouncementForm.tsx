@@ -103,7 +103,9 @@ const formValuesToApiData = (
 
 interface SitewideAnnouncementFormProps {
   query:
-    FragmentType<typeof SitewideAnnouncementForm_Fragment> | null | undefined;
+    | FragmentType<typeof SitewideAnnouncementForm_Fragment>
+    | null
+    | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   onOpenChange: (isOpen: boolean) => void;
   isSubmitting: boolean;

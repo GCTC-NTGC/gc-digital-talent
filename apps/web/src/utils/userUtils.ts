@@ -44,11 +44,17 @@ export function positionDurationToEmploymentDuration(
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
   comprehensionLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
   writtenLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
   verbalLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
 ): ReactNode => {
   return [
     comprehensionLevel?.label
