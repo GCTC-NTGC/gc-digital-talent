@@ -1,11 +1,5 @@
 {
-  "plugins": [
-    "typescript",
-    "react",
-    "jsx-a11y",
-    "import",
-    "vitest"
-  ],
+  "plugins": ["typescript", "react", "jsx-a11y", "import", "vitest"],
   "jsPlugins": [
     "eslint-plugin-turbo",
     "eslint-plugin-no-only-tests",
@@ -60,9 +54,7 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "__typename"
-        ]
+        "allow": ["__typename"]
       }
     ],
     "no-use-before-define": "error",
@@ -108,10 +100,7 @@
       {
         "patterns": [
           {
-            "group": [
-              "lodash",
-              "!lodash/"
-            ],
+            "group": ["lodash", "!lodash/"],
             "message": "Please import the individual function, not the entire library."
           },
           {
@@ -131,10 +120,7 @@
             "message": "Please use the native javascript function instead."
           },
           {
-            "group": [
-              "date-fns",
-              "!date-fns/"
-            ],
+            "group": ["date-fns", "!date-fns/"],
             "message": "Please import the individual function, not the entire library."
           },
           {
@@ -151,22 +137,15 @@
             "message": "Please import the individual icons, not the entire set."
           },
           {
-            "group": [
-              "*.jpg",
-              "*.png"
-            ],
+            "group": ["*.jpg", "*.png"],
             "message": "Please use WebP as the image format."
           },
           {
-            "group": [
-              "~/pages"
-            ],
+            "group": ["~/pages"],
             "message": "Please move to central location."
           },
           {
-            "group": [
-              "@gc-digital-talent/graphql/schema-types"
-            ],
+            "group": ["@gc-digital-talent/graphql/schema-types"],
             "message": "Full schema object types are for fake-data only. Use a GraphQL fragment or the small utility types from @gc-digital-talent/graphql."
           }
         ]
@@ -177,10 +156,7 @@
     "vitest/expect-expect": [
       "error",
       {
-        "assertFunctionNames": [
-          "expect",
-          "expectNoAccessibilityErrors"
-        ],
+        "assertFunctionNames": ["expect", "expectNoAccessibilityErrors"],
         "additionalTestBlockFunctions": []
       }
     ],
@@ -189,33 +165,21 @@
     "react/forbid-elements": [
       "warn",
       {
-        "forbid": [
-          "a",
-          "hr"
-        ]
+        "forbid": ["a", "hr"]
       }
     ],
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".jsx",
-          ".tsx"
-        ]
+        "extensions": [".jsx", ".tsx"]
       }
     ],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
-        "labelComponents": [
-          "CustomInputLabel"
-        ],
-        "labelAttributes": [
-          "label"
-        ],
-        "controlComponents": [
-          "CustomInput"
-        ],
+        "labelComponents": ["CustomInputLabel"],
+        "labelAttributes": ["label"],
+        "controlComponents": ["CustomInput"],
         "depth": 3
       }
     ],
@@ -241,19 +205,9 @@
           "treegrid",
           "progressbar"
         ],
-        "li": [
-          "menuitem",
-          "option",
-          "row",
-          "tab",
-          "treeitem"
-        ],
-        "table": [
-          "grid"
-        ],
-        "td": [
-          "gridcell"
-        ]
+        "li": ["menuitem", "option", "row", "tab", "treeitem"],
+        "table": ["grid"],
+        "td": ["gridcell"]
       }
     ],
     "typescript/no-restricted-types": [
@@ -279,18 +233,13 @@
     "testing-library/no-await-sync-events": [
       "error",
       {
-        "eventModules": [
-          "fire-event"
-        ]
+        "eventModules": ["fire-event"]
       }
     ],
     "testing-library/no-await-sync-queries": "error",
     "testing-library/no-container": "error",
     "testing-library/no-debugging-utils": "warn",
-    "testing-library/no-dom-import": [
-      "error",
-      "react"
-    ],
+    "testing-library/no-dom-import": ["error", "react"],
     "testing-library/no-global-regexp-flag-in-query": "error",
     "testing-library/no-manual-cleanup": "error",
     "testing-library/no-node-access": "error",
@@ -306,14 +255,8 @@
     "testing-library/prefer-screen-queries": "error",
     "testing-library/render-result-naming-convention": "error",
     "formatjs/no-offset": "error",
-    "formatjs/enforce-default-message": [
-      "error",
-      "literal"
-    ],
-    "formatjs/enforce-description": [
-      "error",
-      "literal"
-    ],
+    "formatjs/enforce-default-message": ["error", "literal"],
+    "formatjs/enforce-description": ["error", "literal"],
     "formatjs/enforce-placeholders": [
       "error",
       {
@@ -357,29 +300,17 @@
       "warn",
       {
         "props": {
-          "include": [
-            [
-              "*",
-              "{label,placeholder,title}"
-            ]
-          ]
+          "include": [["*", "{label,placeholder,title}"]]
         }
       }
     ],
-    "formatjs/blocklist-elements": [
-      "error",
-      [
-        "selectordinal"
-      ]
-    ],
+    "formatjs/blocklist-elements": ["error", ["selectordinal"]],
     "formatjs/prefer-full-sentence": "error",
     "formatjs/enforce-id": [
       "error",
       {
         "idInterpolationPattern": "[sha512:contenthash:base64:6]",
-        "idWhitelist": [
-          "\\."
-        ]
+        "idWhitelist": ["\\."]
       }
     ]
   },
@@ -389,35 +320,23 @@
         "packages/{app-insights,auth,client,date-helpers,env,fake-data,forms,helpers,logger,storage,theme,toast,ui,vitest-helpers}/**"
       ],
       "rules": {
-        "formatjs/blocklist-elements": [
-          "error",
-          [
-            "literal"
-          ]
-        ]
+        "formatjs/blocklist-elements": ["error", ["literal"]]
       }
     },
     {
-      "files": [
-        "**/*.stories.ts*",
-        "**/*.test.ts*"
-      ],
+      "files": ["**/*.stories.ts*", "**/*.test.ts*"],
       "rules": {
         "formatjs/no-literal-string-in-jsx": "off"
       }
     },
     {
-      "files": [
-        "packages/fake-data/**"
-      ],
+      "files": ["packages/fake-data/**"],
       "rules": {
         "no-restricted-imports": "off"
       }
     },
     {
-      "files": [
-        "packages/vitest-helpers/src/config/**/*.ts"
-      ],
+      "files": ["packages/vitest-helpers/src/config/**/*.ts"],
       "rules": {
         "import/extensions": [
           "error",
@@ -429,12 +348,8 @@
       }
     },
     {
-      "files": [
-        "apps/playwright/**"
-      ],
-      "jsPlugins": [
-        "eslint-plugin-playwright"
-      ],
+      "files": ["apps/playwright/**"],
+      "jsPlugins": ["eslint-plugin-playwright"],
       "rules": {
         "no-restricted-imports": "off",
         "no-empty-pattern": "off",

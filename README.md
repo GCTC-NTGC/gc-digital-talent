@@ -22,7 +22,7 @@ Each subproject has its own `README.md`, with advice on how to contribute to tha
 We do several types of testing: (internal documentation linked when available)
 
 - code style checks (aka _linting_)
-  - **oxc** (oxlint, oxfmt) 
+  - **oxc** (oxlint, oxfmt)
   - **Pint** (PHP)
 - _unit_ testing
   - **Vitest** (ReactJS)
@@ -70,6 +70,7 @@ make down ENV=dev
 ```
 
 This development setup uses separate containers:
+
 - **api**: Laravel's built-in dev server (auto-reloads on PHP changes)
 - **web**: Vite dev server with HMR (instant UI updates)
 - **nginx-proxy**: Routes requests to the appropriate container
