@@ -34,6 +34,7 @@ const variantMessages: Record<
     whoNominated: MessageDescriptor;
     whatNominatedFor: MessageDescriptor;
     classificationAtTimeOfLastApproval: MessageDescriptor;
+    noticeTitle: MessageDescriptor;
   }
 > = {
   nominee: nomineeMessages,
@@ -180,39 +181,16 @@ const NominationDetailsDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          {variant === "nominee" ? (
-            <Notice.Root mode="inline" className="mb-6" color="success">
-              <Notice.Title>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Congratulations on being nominated to {eventName}!",
-                    id: "ZlD1Sv",
-                    description: "Title for important update notice",
-                  },
-                  { eventName },
-                )}
-              </Notice.Title>
-              {eventDescription ? (
-                <Notice.Content>
-                  <p>{eventDescription}</p>
-                </Notice.Content>
-              ) : null}
-            </Notice.Root>
-          ) : (
-            <Notice.Root mode="inline" className="mb-6" color="success">
-              <Notice.Title>
-                {intl.formatMessage(recruiterMessages.noticeTitle, {
-                  eventName,
-                })}
-              </Notice.Title>
-              {eventDescription ? (
-                <Notice.Content>
-                  <p>{eventDescription}</p>
-                </Notice.Content>
-              ) : null}
-            </Notice.Root>
-          )}
+          <Notice.Root mode="inline" className="mb-6" color="success">
+            <Notice.Title>
+              {intl.formatMessage(messages.noticeTitle, { eventName })}
+            </Notice.Title>
+            {eventDescription ? (
+              <Notice.Content>
+                <p>{eventDescription}</p>
+              </Notice.Content>
+            ) : null}
+          </Notice.Root>
 
           <div className="flex flex-col gap-6">
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
