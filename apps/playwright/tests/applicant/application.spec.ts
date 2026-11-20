@@ -1,3 +1,4 @@
+import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import type { Skill, User } from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
@@ -8,18 +9,17 @@ import {
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
-import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import ApplicationPage from "~/fixtures/ApplicationPage";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { getClassifications } from "~/utils/classification";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
-import ApplicationPage from "~/fixtures/ApplicationPage";
-import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
-import { getClassifications } from "~/utils/classification";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
+import { getSkills } from "~/utils/skills";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
 test.describe("Application", () => {
   let uniqueTestId: string;

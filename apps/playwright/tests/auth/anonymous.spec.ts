@@ -1,5 +1,5 @@
-import { test, expect } from "~/fixtures";
 import AUTH from "~/constants/auth";
+import { test, expect } from "~/fixtures";
 import { expectAuthCookies, getAuthCookies, getAuthTokens } from "~/utils/auth";
 
 test.describe("Anonymous user", () => {
