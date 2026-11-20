@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import type { HeadingProps, IconType } from "@gc-digital-talent/ui";
@@ -24,7 +23,7 @@ type GetToggleSectionIconFn = (args: GetToggleSectionIconArgs) => SectionIcon;
 
 const getToggleSectionIcon: GetToggleSectionIconFn = ({
   isEditing,
-  fallback = InformationCircleIcon,
+  fallback,
   completed,
   error,
   optional,

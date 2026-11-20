@@ -10,8 +10,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
   },
   "dependencies": {
     "@gc-digital-talent/app-insights": "workspace:*",

@@ -7593,6 +7593,10 @@
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
   },
+  "SRlyiJ": {
+    "defaultMessage": "Utilisez les filtres pour obtenir le nombre estimatif de personnes candidates correspondant à vos critères.",
+    "description": "Message shown in the results section of the search page before any filters are added"
+  },
   "SRnr1M": {
     "defaultMessage": "Code de confirmation du courriel",
     "description": "label for verification code input"
@@ -7872,6 +7876,10 @@
   "TgjkyB": {
     "defaultMessage": "Après votre embauche, vous monterez d’un échelon dans l’échelle salariale chaque année, à la date anniversaire de votre entrée en fonction. Vous changerez d’échelon jusqu’à ce que vous atteigniez l’échelon maximal. Une fois que vous aurez atteint l’échelon le plus élevé, votre salaire ne changera que si votre convention collective change ou si vous acceptez un nouveau poste à un niveau supérieur.",
     "description": "Third paragraph for the pool application salary ranges dialog"
+  },
+  "ThOac9": {
+    "defaultMessage": "Classification de son poste d’attache au moment de sa nomination",
+    "description": "Label for the nominee's classification at the time their nomination was approved"
   },
   "TiDfH2": {
     "defaultMessage": "Classification de la personne de référence",
@@ -14212,6 +14220,10 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
+  },
+  "tP4ulX": {
+    "defaultMessage": "Votre classification au moment de la nomination",
+    "description": "Label for the nominee's classification at the time their nomination was approved"
   },
   "tPCmUl": {
     "defaultMessage": "Date de clôture",

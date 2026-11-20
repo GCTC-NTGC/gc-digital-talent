@@ -99,7 +99,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <ExclamationCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-warning-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -113,7 +112,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <CheckCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-success-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -126,7 +124,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <CheckCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-success-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -144,7 +141,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <ExclamationCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-warning-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -158,7 +154,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <CheckCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-success-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -175,7 +170,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <ExclamationCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-warning-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({
@@ -189,7 +183,6 @@ const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
             <div className="flex items-start gap-1.5">
               <ExclamationCircleIcon
                 className={"mt-1 size-4.5 shrink-0 text-warning-500"}
-                role="img"
               />
               <span>
                 {intl.formatMessage({

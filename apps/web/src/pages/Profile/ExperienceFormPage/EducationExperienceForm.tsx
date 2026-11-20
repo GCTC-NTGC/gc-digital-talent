@@ -111,6 +111,7 @@ const EducationExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="education"
+      focusField="educationType"
       experienceQuery={experience}
       hasRelatedAwards={!!experience?.awardExperiences?.length}
       detailsDefaultValues={

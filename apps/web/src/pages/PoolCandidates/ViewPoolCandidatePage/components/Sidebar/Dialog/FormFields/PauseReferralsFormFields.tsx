@@ -27,6 +27,7 @@ import {
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import type { FormValues } from "../types";
 
@@ -67,6 +68,7 @@ const PauseReferralsFormFields = ({
   required = false,
 }: PauseReferralsFormFieldsProps) => {
   const intl = useIntl();
+  const todayDate = useStableDate();
   const locale = getLocale(intl);
   const options = getFragment(PauseReferralsFormFields_Fragment, optionsQuery);
 
@@ -163,7 +165,7 @@ const PauseReferralsFormFields = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 min: {
-                  value: strToFormDate(new Date().toISOString()),
+                  value: strToFormDate(todayDate.toISOString()),
                   message: intl.formatMessage(errorMessages.invalidDate),
                 },
                 max: {

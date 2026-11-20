@@ -247,6 +247,11 @@ export const DIALOG_TYPE = {
 type ObjectValues<T> = T[keyof T];
 export type DialogType = ObjectValues<typeof DIALOG_TYPE>;
 
+export const SUPPORTING_EVIDENCE_TYPES: DialogType[] = [
+  DIALOG_TYPE.ApplicationScreening,
+  DIALOG_TYPE.Education,
+];
+
 export function getDialogType(
   type?: AssessmentStepType | null,
   poolSkillId?: string | null,

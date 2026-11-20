@@ -26,15 +26,14 @@ interface BaseItemProps {
 }
 
 const BaseItem = ({ title, content }: BaseItemProps) => (
-  <div
+  <li
     className={
       "relative flex flex-col gap-1 p-6 not-last:border-b not-last:border-b-gray-300 sm:px-8 dark:not-last:border-b-gray-100"
     }
-    role="listitem"
   >
     <div className="pr-3">{title}</div>
     {content}
-  </div>
+  </li>
 );
 
 export interface DepartmentWithRolesObject {
@@ -91,7 +90,6 @@ const ResourcesDepartmentLink = ({
               <div className="flex items-start gap-1.5">
                 <UserCircleIcon
                   className={"mt-1 size-4.5 shrink-0 text-primary-500"}
-                  role="img"
                 />
                 <span>{departmentAdminObject.roleDisplayName}</span>
               </div>
@@ -100,7 +98,6 @@ const ResourcesDepartmentLink = ({
               <div className="flex items-start gap-1.5">
                 <UserCircleIcon
                   className={"mt-1 size-4.5 shrink-0 text-primary-500"}
-                  role="img"
                 />
                 <span>{departmentAdvisorObject.roleDisplayName}</span>
               </div>
