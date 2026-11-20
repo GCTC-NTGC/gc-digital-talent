@@ -3,6 +3,7 @@
 namespace Tests\Unit\Directives;
 
 use App\Models\Classification;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Arr;
@@ -48,6 +49,10 @@ final class CursorPaginationTest extends TestCase
                 @cursorPaginate(
                     maxCount: 10,
                 )
+                classificationsFromQueryBuilder(
+                    orderBy: [OrderByClause!] @orderBy
+                ): [Classification!]!
+                @cursorPaginate(builder: "Tests\\\\Unit\\\\Directives\\\\ClassificationsQueryBuilder")
             }
         ';
 
@@ -534,5 +539,37 @@ final class CursorPaginationTest extends TestCase
     {
         $this->graphQL(/** @lang GraphQL */ '{ classifications(last: 2) { edges { node { level } } } }')
             ->assertGraphQLErrorMessage('Paginating backward with last needs a before cursor.');
+    }
+
+    public function testPagesAQueryBuilder(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classificationsFromQueryBuilder(orderBy: { column: "level", order: ASC }, first: 3, after: $after) {
+                    totalCount
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $response1 = $this->graphQL($query)->assertGraphQLErrorFree();
+        $response2 = $this->graphQL($query, ['after' => $response1->json('data.classificationsFromQueryBuilder.pageInfo.endCursor')])
+            ->assertGraphQLErrorFree();
+
+        $response1->assertJsonPath('data.classificationsFromQueryBuilder.totalCount', 5);
+        $this->assertEquals([1, 2, 3, 4, 5], [
+            ...$response1->json('data.classificationsFromQueryBuilder.edges.*.node.level'),
+            ...$response2->json('data.classificationsFromQueryBuilder.edges.*.node.level'),
+        ]);
+    }
+}
+
+// a field backed by a plain query builder, which has no model to find the primary key from
+final class ClassificationsQueryBuilder
+{
+    public function __invoke(): QueryBuilder
+    {
+        return DB::table('classifications');
     }
 }

@@ -133,16 +133,13 @@ class PaginationArgs
      */
     private function ensureUniqueOrder(QueryBuilder|EloquentBuilder|Relation $builder, QueryBuilder $query): void
     {
-        // with no sort at all, Laravel already sorts by the primary key
-        if (empty($query->orders)) {
+        // with no sort at all, Laravel already sorts models by the primary key
+        // a plain query builder has no model to find the primary key from, so its own sort has to be unique
+        if (empty($query->orders) || $builder instanceof QueryBuilder) {
             return;
         }
 
-        $model = match (true) {
-            $builder instanceof EloquentBuilder => $builder->getModel(),
-            $builder instanceof Relation => $builder->getRelated(),
-            default => throw new Exception('Cursor pagination of a plain query builder needs a unique column in its sort.'),
-        };
+        $model = $builder instanceof Relation ? $builder->getRelated() : $builder->getModel();
 
         $keyColumns = [$model->getKeyName(), $model->getQualifiedKeyName()];
         if (! Arr::first($query->orders, fn ($order) => in_array($order['column'], $keyColumns, true))) {
