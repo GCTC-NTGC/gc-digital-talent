@@ -8,7 +8,9 @@
   "sortPackageJson": false,
   "sortTailwindcss": {
     "stylesheet": "./apps/web/src/assets/css/tailwind.css",
-    "functions": ["tv"]
+    "functions": [
+      "tv"
+    ]
   },
   "ignorePatterns": [
     "pnpm-lock.yaml",
@@ -16,6 +18,8 @@
     "dist",
     "**/src/gql/**",
     "packages/graphql/src/index.ts",
-    ".react-router"
+    ".react-router",
+    "tc-report",
+    "__snapshots__"
   ]
 }
