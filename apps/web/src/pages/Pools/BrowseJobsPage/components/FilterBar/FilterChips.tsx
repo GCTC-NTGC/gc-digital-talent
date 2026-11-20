@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Chip, Chips } from "@gc-digital-talent/ui";
+import { Chip, Chips, wrapQuotes } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 interface Props {
   filters: {
@@ -8,30 +9,37 @@ interface Props {
     label: string;
     onRemove: () => void;
   }[];
+  wrapChipLabelsInQuotes?: boolean;
+  enableNullMessage?: boolean;
 }
 
-const FilterChips = ({ filters }: Props) => {
+const FilterChips = ({
+  filters,
+  wrapChipLabelsInQuotes = false,
+  enableNullMessage = true,
+}: Props) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   if (!filters.length) {
-    return (
-      <div className="text-sm text-gray-500 dark:text-gray-200">
+    return enableNullMessage ? (
+      <div className="mt-1.5 text-sm text-gray-500 dark:text-gray-200">
         {intl.formatMessage({
           defaultMessage: "No filters selected",
           id: "sxFMPR",
           description: "null state for filter list",
         })}
       </div>
-    );
+    ) : null;
   }
 
   return (
-    <Chips>
+    <Chips className="mt-1.5">
       {filters
         .toSorted((f1, f2) => f1.label.localeCompare(f2.label))
         .map((f) => (
           <Chip key={f.key} onDismiss={f.onRemove}>
-            {f.label}
+            {wrapChipLabelsInQuotes ? wrapQuotes(f.label, locale) : f.label}
           </Chip>
         ))}
     </Chips>

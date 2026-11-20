@@ -237,7 +237,7 @@ const FilterBar = ({
                   handleKeywordFormSubmit,
                 )}
               >
-                <div className="mb-1.5 flex flex-row items-end gap-1">
+                <div className="flex flex-row items-end gap-1">
                   <div className="min-w-0 flex-1">
                     <Input
                       type="text"
@@ -263,16 +263,15 @@ const FilterBar = ({
                 </div>
               </form>
             </FormProvider>
-            <FilterChips filters={keywordFilters} />
+            <FilterChips
+              filters={keywordFilters}
+              wrapChipLabelsInQuotes={true}
+              enableNullMessage={false}
+            />
           </div>
           <div>
             <OpportunityDetailsFilterDialog optionsQuery={options}>
-              <Button
-                mode="inline"
-                className="mb-1.5"
-                icon={PlusCircleIcon}
-                color="black"
-              >
+              <Button mode="inline" icon={PlusCircleIcon} color="black">
                 {intl.formatMessage({
                   defaultMessage: "Opportunity details",
                   id: "KyyLUM",
@@ -284,12 +283,7 @@ const FilterBar = ({
           </div>
           <div>
             <LanguageRequirementsFilterDialog optionsQuery={options}>
-              <Button
-                mode="inline"
-                className="mb-1.5"
-                icon={PlusCircleIcon}
-                color="black"
-              >
+              <Button mode="inline" icon={PlusCircleIcon} color="black">
                 {intl.formatMessage({
                   defaultMessage: "Language requirements",
                   id: "nEE/Ds",
@@ -302,12 +296,7 @@ const FilterBar = ({
           </div>
           <div>
             <OrganizationsFilterDialog optionsQuery={options}>
-              <Button
-                mode="inline"
-                className="mb-1.5"
-                icon={PlusCircleIcon}
-                color="black"
-              >
+              <Button mode="inline" icon={PlusCircleIcon} color="black">
                 {intl.formatMessage({
                   defaultMessage: "Organizations",
                   id: "XmF74L",
@@ -319,12 +308,7 @@ const FilterBar = ({
           </div>
           <div>
             <AdvancedFiltersDialog optionsQuery={options}>
-              <Button
-                mode="inline"
-                className="mb-1.5"
-                icon={PlusCircleIcon}
-                color="black"
-              >
+              <Button mode="inline" icon={PlusCircleIcon} color="black">
                 {intl.formatMessage({
                   defaultMessage: "Advanced filters",
                   id: "eozWFc",
