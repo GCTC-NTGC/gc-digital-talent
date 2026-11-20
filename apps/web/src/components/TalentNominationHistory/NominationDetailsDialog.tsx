@@ -199,14 +199,20 @@ const NominationDetailsDialog = ({
                 </Notice.Content>
               ) : null}
             </Notice.Root>
-          ) : eventDescription ? (
+          ) : (
             <Notice.Root mode="inline" className="mb-6" color="success">
-              <Notice.Title>{eventName}</Notice.Title>
-              <Notice.Content>
-                <p>{eventDescription}</p>
-              </Notice.Content>
+              <Notice.Title>
+                {intl.formatMessage(recruiterMessages.noticeTitle, {
+                  eventName,
+                })}
+              </Notice.Title>
+              {eventDescription ? (
+                <Notice.Content>
+                  <p>{eventDescription}</p>
+                </Notice.Content>
+              ) : null}
             </Notice.Root>
-          ) : null}
+          )}
 
           <div className="flex flex-col gap-6">
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
