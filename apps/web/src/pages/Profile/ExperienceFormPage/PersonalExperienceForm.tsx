@@ -80,6 +80,7 @@ const PersonalExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="personal"
+      focusField="experienceTitle"
       experienceQuery={experience}
       hasRelatedAwards={!!experience?.awardExperiences?.length}
       detailsDefaultValues={

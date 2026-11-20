@@ -90,11 +90,9 @@ function createSubscription(
           fetchOptions = fetchOptions();
         } else fetchOptions ??= {};
 
-        const headers = {
-          ...fetchOptions.headers,
-          "Content-Type": "application/json",
-          "X-Subscription-ID": subscriptionId,
-        };
+        const headers = new Headers(fetchOptions.headers);
+        headers.set("Content-Type", "application/json");
+        headers.set("X-Subscription-ID", subscriptionId);
 
         const mergedFetchOptions: RequestInit = {
           method: "POST",

@@ -12,7 +12,6 @@ const renderToolbar = () =>
   renderWithProviders(
     <Toolbar.Root aria-label="Bulk actions">
       <Toolbar.Button>One</Toolbar.Button>
-      <Toolbar.Separator />
       <Toolbar.Button>Two</Toolbar.Button>
       <Toolbar.Button>Three</Toolbar.Button>
     </Toolbar.Root>,

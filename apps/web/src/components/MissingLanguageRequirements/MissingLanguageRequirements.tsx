@@ -34,7 +34,7 @@ const MissingLanguageRequirementsBlock = ({
   languageRequirementsBlurb,
   icon,
   missingLanguageRequirements,
-  headingRank = "h2",
+  headingRank,
   className,
   ...rest
 }: MissingLanguageRequirementsBlockProps) => {

@@ -9,6 +9,7 @@ import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   FlexibleWorkLocation,
+  TalentRequestSource,
 } from "@gc-digital-talent/graphql";
 
 import type {
@@ -91,6 +92,49 @@ export const applicantFilterToQueryArgs = (
         : unpackMaybes(filter?.pools).flatMap(({ id }) => ({ id })),
     },
   };
+};
+
+const selectableTalentSources = Object.values(TalentRequestSource).filter(
+  (source) => source !== TalentRequestSource.AtLevel,
+);
+
+/**
+ * Whether the user has narrowed the search with at least one filter.
+ *
+ * Talent sources only count when some, but not all, are selected,
+ * since none selected and all selected both mean "all sources".
+ * hasDiploma is ignored because it is not sent with the query,
+ * and pools/community are only set on submit.
+ */
+export const hasSearchFilters = (filter?: ApplicantFilterInput): boolean => {
+  if (empty(filter)) {
+    return false;
+  }
+
+  const talentSources = unpackMaybes(filter.talentSources);
+  const hasPartialTalentSources =
+    talentSources.length > 0 &&
+    selectableTalentSources.some((source) => !talentSources.includes(source));
+
+  return (
+    hasPartialTalentSources ||
+    !!filter.languageAbility ||
+    !!(
+      filter.equity?.hasDisability ||
+      filter.equity?.isIndigenous ||
+      filter.equity?.isVisibleMinority ||
+      filter.equity?.isWoman
+    ) ||
+    [
+      filter.qualifiedInClassifications,
+      filter.qualifiedInWorkStreams,
+      filter.skills,
+      filter.positionDuration,
+      filter.locationPreferences,
+      filter.flexibleWorkLocations,
+      filter.operationalRequirements,
+    ].some((list) => !!list?.some(notEmpty))
+  );
 };
 
 /**

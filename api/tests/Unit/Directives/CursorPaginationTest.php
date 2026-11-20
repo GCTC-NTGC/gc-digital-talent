@@ -3,8 +3,11 @@
 namespace Tests\Unit\Directives;
 
 use App\Models\Classification;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
@@ -46,6 +49,10 @@ final class CursorPaginationTest extends TestCase
                 @cursorPaginate(
                     maxCount: 10,
                 )
+                classificationsFromQueryBuilder(
+                    orderBy: [OrderByClause!] @orderBy
+                ): [Classification!]!
+                @cursorPaginate(builder: "Tests\\\\Unit\\\\Directives\\\\ClassificationsQueryBuilder")
             }
         ';
 
@@ -364,5 +371,205 @@ final class CursorPaginationTest extends TestCase
         $edgesBack = Arr::get($responseBack, 'data.classifications.edges');
         $this->assertCount(1, $edgesBack);
         $this->assertEquals(1, $edgesBack[0]['node']['level']);
+    }
+
+    public function testTotalCountIgnoresPageAndCursor(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(
+                    where: { availableInSearch: true }
+                    orderBy: { column: "level", order: ASC }
+                    first: 2
+                    after: $after
+                ) {
+                    totalCount
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        // 3 of the 5 are available in search, whichever page is requested
+        $response1 = $this->graphQL($query);
+        $response1->assertJsonPath('data.classifications.totalCount', 3);
+        $this->assertEquals([1, 3], Arr::pluck(Arr::get($response1, 'data.classifications.edges'), 'node.level'));
+
+        $response2 = $this->graphQL($query, ['after' => Arr::get($response1, 'data.classifications.pageInfo.endCursor')]);
+        $response2->assertJsonPath('data.classifications.totalCount', 3);
+        $this->assertEquals([5], Arr::pluck(Arr::get($response2, 'data.classifications.edges'), 'node.level'));
+
+        // and when no items are requested
+        $this->graphQL(/** @lang GraphQL */ '{ classifications(first: 0) { totalCount } }')
+            ->assertJsonPath('data.classifications.totalCount', 5);
+    }
+
+    public function testTotalCountOnlyQueriedWhenSelected(): void
+    {
+        $countQueries = function (string $selection): int {
+            DB::flushQueryLog();
+            DB::enableQueryLog();
+            $this->graphQL("{ classifications(orderBy: { column: \"level\", order: ASC }, first: 2) { $selection } }")
+                ->assertGraphQLErrorFree();
+            DB::disableQueryLog();
+
+            return count(array_filter(DB::getQueryLog(), fn ($entry) => str_contains($entry['query'], 'count(*)')));
+        };
+
+        $this->assertEquals(0, $countQueries('edges { node { level } }'));
+        $this->assertEquals(1, $countQueries('totalCount edges { node { level } }'));
+    }
+
+    public function testInvalidCursorIsRejected(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(first: 2, after: "not-a-cursor") {
+                edges { node { level } }
+            }
+        }')->assertGraphQLErrorMessage('The cursor is not valid.');
+    }
+
+    public function testCursorFromAnotherOrderingIsRejected(): void
+    {
+        $response = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(orderBy: { column: "level", order: ASC }, first: 2) {
+                pageInfo { endCursor }
+            }
+        }');
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "min_salary", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', [
+            'after' => Arr::get($response, 'data.classifications.pageInfo.endCursor'),
+        ])->assertGraphQLErrorMessage('The cursor does not match the ordering of this query.');
+    }
+
+    public function testPagesWithoutOrderBy(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(first: 3, after: $after) {
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $response1 = $this->graphQL($query)->assertGraphQLErrorFree();
+        $response2 = $this->graphQL($query, ['after' => $response1->json('data.classifications.pageInfo.endCursor')])
+            ->assertGraphQLErrorFree();
+
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], [
+            ...$response1->json('data.classifications.edges.*.node.level'),
+            ...$response2->json('data.classifications.edges.*.node.level'),
+        ]);
+    }
+
+    public function testTiesAcrossPagesAreNotSkipped(): void
+    {
+        // 3 classifications are available in search and 2 aren't, so pages break inside a tie
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "is_available_in_search", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $levels = [];
+        $after = null;
+        foreach (range(1, 3) as $_) {
+            $response = $this->graphQL($query, ['after' => $after])->assertGraphQLErrorFree();
+            array_push($levels, ...$response->json('data.classifications.edges.*.node.level'));
+            $after = $response->json('data.classifications.pageInfo.endCursor');
+        }
+
+        $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5], $levels);
+    }
+
+    public function testCursorForOtherDirectionIsRejected(): void
+    {
+        $edges = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(orderBy: { column: "level", order: ASC }, first: 2) {
+                edges { nextCursor previousCursor }
+            }
+        }')->json('data.classifications.edges');
+        $message = 'The cursor is for the other direction. Use endCursor with after, and startCursor with before.';
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "level", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', ['after' => $edges[1]['previousCursor']])->assertGraphQLErrorMessage($message);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($before: String) {
+                classifications(orderBy: { column: "level", order: ASC }, last: 2, before: $before) {
+                    edges { node { level } }
+                }
+            }
+        ', ['before' => $edges[0]['nextCursor']])->assertGraphQLErrorMessage($message);
+    }
+
+    public function testCursorWithEmptySortValueIsRejected(): void
+    {
+        // the cursor a page hands out when it ends on a row with no value in the sort column
+        $cursor = (new Cursor(['level' => null, 'classifications.id' => Classification::first()->id]))->encode();
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "level", order: ASC }, first: 2, after: $after) {
+                    edges { node { level } }
+                }
+            }
+        ', ['after' => $cursor])->assertGraphQLErrorMessage('The cursor holds an empty sort value, so no more items can be loaded.');
+    }
+
+    public function testLastNeedsBefore(): void
+    {
+        $this->graphQL(/** @lang GraphQL */ '{ classifications(last: 2) { edges { node { level } } } }')
+            ->assertGraphQLErrorMessage('Paginating backward with last needs a before cursor.');
+    }
+
+    public function testPagesAQueryBuilder(): void
+    {
+        $query = /** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classificationsFromQueryBuilder(orderBy: { column: "level", order: ASC }, first: 3, after: $after) {
+                    totalCount
+                    edges { node { level } }
+                    pageInfo { endCursor }
+                }
+            }
+        ';
+
+        $response1 = $this->graphQL($query)->assertGraphQLErrorFree();
+        $response2 = $this->graphQL($query, ['after' => $response1->json('data.classificationsFromQueryBuilder.pageInfo.endCursor')])
+            ->assertGraphQLErrorFree();
+
+        $response1->assertJsonPath('data.classificationsFromQueryBuilder.totalCount', 5);
+        $this->assertEquals([1, 2, 3, 4, 5], [
+            ...$response1->json('data.classificationsFromQueryBuilder.edges.*.node.level'),
+            ...$response2->json('data.classificationsFromQueryBuilder.edges.*.node.level'),
+        ]);
+    }
+}
+
+// a field backed by a plain query builder, which has no model to find the primary key from
+final class ClassificationsQueryBuilder
+{
+    public function __invoke(): QueryBuilder
+    {
+        return DB::table('classifications');
     }
 }

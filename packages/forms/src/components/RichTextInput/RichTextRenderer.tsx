@@ -18,23 +18,16 @@ const DocNode: NodeRenderer = ({ children }) => (
 const TextNode: NodeRenderer = ({ node }) => {
   const content = String(node.text);
 
-  let linkProps: LinkProps = { href: "" };
-  const isLink = node?.marks?.find((mark) => {
-    if (mark.type === "link") {
-      const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
-      linkProps = {
-        href: attrs?.href ? String(attrs.href) : "",
-        id: attrs?.id ? String(attrs.id) : undefined,
-        newTab:
-          attrs?.target === "_blank" &&
-          !attrs?.href?.startsWith("#") &&
-          !attrs?.href?.startsWith("/"),
-      };
-      return true;
-    }
-
-    return false;
-  });
+  const isLink = node?.marks?.find((mark) => mark.type === "link");
+  const attrs = isLink?.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
+  const linkProps: LinkProps = {
+    href: attrs?.href ? String(attrs.href) : "",
+    id: attrs?.id ? String(attrs.id) : undefined,
+    newTab:
+      attrs?.target === "_blank" &&
+      !attrs?.href?.startsWith("#") &&
+      !attrs?.href?.startsWith("/"),
+  };
 
   return isLink ? (
     <Link href={linkProps.href} id={linkProps.id} newTab={linkProps.newTab}>

@@ -81,6 +81,7 @@ const CommunityExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="community"
+      focusField="role"
       experienceQuery={experience}
       hasRelatedAwards={!!experience?.awardExperiences?.length}
       detailsDefaultValues={

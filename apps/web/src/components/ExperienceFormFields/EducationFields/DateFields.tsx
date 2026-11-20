@@ -12,10 +12,11 @@ import type {
   EducationFormValues,
   SubExperienceFormProps,
 } from "~/types/experience";
+import { useStableDate } from "~/hooks/useStableDate";
 
 const DateFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = new Date();
+  const todayDate = useStableDate();
 
   const { resetField, formState } = useFormContext<EducationFormValues>();
 

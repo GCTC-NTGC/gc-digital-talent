@@ -171,6 +171,7 @@ const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   } = formValues;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -212,6 +213,7 @@ const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   };
 
   return mappedData;

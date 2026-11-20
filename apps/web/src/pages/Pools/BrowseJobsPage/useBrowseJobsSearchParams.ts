@@ -3,7 +3,16 @@ import { useSearchParams } from "react-router";
 export const sortByOptions = ["datePosted", "deadline"] as const;
 export type SortBy = (typeof sortByOptions)[number];
 
-export const filterOptions = ["exampleFilter"] as const;
+export const filterOptions = [
+  "keywords",
+  "applicationEligibilities",
+  "organizations",
+  "classifications",
+  "advertisementTimings",
+  "languageRequirements",
+  "minimumSalary",
+  "processNumber",
+] as const;
 export type FilterOption = (typeof filterOptions)[number];
 
 const SORT_BY_PARAM = "sortBy";
@@ -31,13 +40,38 @@ const useBrowseJobsSearchParams = () => {
     });
   };
 
+  const getFilterValue = (filter: FilterOption): string | null =>
+    searchParams.get(filter);
+
   const getFilterValues = (filter: FilterOption): string[] =>
     searchParams.getAll(filter);
 
   const addFilterValue = (filter: FilterOption, value: string) =>
     setSearchParams((prev) => {
+      if (prev.has(filter, value)) return prev;
       const next = new URLSearchParams(prev);
       next.append(filter, value);
+      return next;
+    });
+
+  /**
+   * Update several filters in a single navigation.
+   * setSearchParams doesn't chain like useState, so separate calls in the
+   * same tick overwrite each other. A string or array replaces the filter's
+   * values, null or an empty array clears it, and omitted filters are untouched.
+   */
+  const setFilters = (
+    updates: Partial<Record<FilterOption, string | string[] | null>>,
+  ) =>
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      Object.entries(updates).forEach(([filter, value]) => {
+        next.delete(filter);
+        const values = Array.isArray(value) ? value : value ? [value] : [];
+        [...new Set(values)].forEach((v) => next.append(filter, v));
+      });
+      // unchanged, avoid pushing a duplicate history entry
+      if (next.toString() === prev.toString()) return prev;
       return next;
     });
 
@@ -48,7 +82,7 @@ const useBrowseJobsSearchParams = () => {
       return next;
     });
 
-  const resetFilters = () =>
+  const resetAllFilters = () =>
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
       filterOptions.forEach((filter) => next.delete(filter));
@@ -62,10 +96,12 @@ const useBrowseJobsSearchParams = () => {
   return {
     sortBy,
     setSortBy,
+    getFilterValue,
     getFilterValues,
     addFilterValue,
+    setFilters,
     removeFilterValue,
-    resetFilters,
+    resetAllFilters,
     getEnabledFilterCount,
   };
 };
