@@ -760,6 +760,9 @@ type Mutation {
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
   updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily], enabledInAppNotifications: [NotificationFamily]): User
+  createJobAlert(jobAlert: CreateJobAlertInput!): JobAlert
+  updateJobAlert(id: UUID!, jobAlert: UpdateJobAlertInput!): JobAlert
+  deleteJobAlert(id: UUID!): JobAlert
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -919,6 +922,7 @@ type User {
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
+  jobAlerts: [JobAlert!]
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
@@ -1617,6 +1621,24 @@ type PoolCandidateFilter {
   operationalRequirements: [LocalizedOperationalRequirement]
   workRegions: [LocalizedWorkRegion]
   pools: [Pool]
+}
+
+type JobAlert {
+  id: UUID!
+  name: String!
+  isPaused: Boolean!
+  jobAlertFilter: JobAlertFilter!
+}
+
+type JobAlertFilter {
+  id: UUID!
+  keywordSearch: [String!]
+  eligibility: [LocalizedPoolAreaOfSelection!]
+  departments: [Department!]
+  classifications: [Classification!]
+  publishedAtRange: [LocalizedPoolPublishedRange!]
+  languages: [LocalizedLanguageAbility!]
+  salaryRange: LocalizedSalaryRange
 }
 
 type ApplicantFilter {
@@ -2801,6 +2823,30 @@ input CreateApplicantFilterInput {
 
 input ApplicantFilterBelongsTo {
   create: CreateApplicantFilterInput!
+}
+
+input CreateJobAlertFilterInput {
+  keywordSearch: [String!]
+  eligibility: [PoolAreaOfSelection!]
+  departments: DepartmentBelongsToMany
+  classifications: ClassificationBelongsToMany
+  publishedAtRange: [PoolPublishedRange!]
+  languages: [LanguageAbility!]
+  salaryRange: SalaryRange
+}
+
+input JobAlertFilterBelongsTo {
+  create: CreateJobAlertFilterInput!
+}
+
+input CreateJobAlertInput {
+  name: String!
+  jobAlertFilter: JobAlertFilterBelongsTo!
+}
+
+input UpdateJobAlertInput {
+  name: String!
+  isPaused: Boolean!
 }
 
 input CreateTalentRequestInput {
@@ -4275,6 +4321,9 @@ enum ErrorCode {
   DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED
+  JOB_ALERT_LIMIT_REACHED
+  JOB_ALERT_FILTER_REQUIRED
+  JOB_ALERT_INVALID_PUBLISHED_RANGE
   ESSENTIAL_SKILL_REQUIRES_LEVEL
   NONESSENTIAL_SKILL_PROHIBITS_LEVEL
   CANNOT_ENABLE_NOTIFICATION_FAMILY
