@@ -1,12 +1,12 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import Button from "../Button";
 import Accordion from "../Accordion/Accordion";
-import Notice from "../Notice/Notice";
-import TreeView from "./TreeView";
+import Button from "../Button";
 import Card from "../Card/Card";
 import Heading from "../Heading";
+import Notice from "../Notice/Notice";
+import TreeView from "./TreeView";
 
 faker.seed(0);
 

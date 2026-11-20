@@ -12,9 +12,9 @@ import type {
 import { forwardRef, useCallback, useId } from "react";
 import { tv } from "tailwind-variants";
 
+import useControllableState from "../../hooks/useControllableState";
 import type { HeadingProps } from "../Heading";
 import Heading from "../Heading";
-import useControllableState from "../../hooks/useControllableState";
 import {
   ToggleSectionProvider,
   useToggleSectionContext,

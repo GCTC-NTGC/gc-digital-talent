@@ -1,7 +1,7 @@
-import type { LinkProps, Location } from "react-router";
-import { useLocation, Link } from "react-router";
 import type { MouseEvent, KeyboardEvent } from "react";
 import { useEffect } from "react";
+import type { LinkProps, Location } from "react-router";
+import { useLocation, Link } from "react-router";
 
 import type { BaseButtonLinkProps } from "../../utils/btnStyles";
 import { btn } from "../../utils/btnStyles";

@@ -1,15 +1,15 @@
-import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn } from "@storybook/react-vite";
 import type { ChangeEventHandler, SubmitEvent } from "react";
 import { useState } from "react";
+import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import CardRepeater from "./CardRepeater";
-import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import Button from "../Button/Button";
 import Dialog from "../Dialog/Dialog";
+import CardRepeater from "./CardRepeater";
+import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 faker.seed(0);
 

@@ -1,11 +1,11 @@
 import { useId } from "react";
 
+import { hrefToString } from "../../utils";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import type { BaseItemProps } from "./BaseItem";
 import BaseItem from "./BaseItem";
-import { hrefToString } from "../../utils";
 
 interface LinkMenuItemProps {
   links: {

@@ -1,6 +1,6 @@
-import type { ComponentPropsWithoutRef } from "react";
-import type { StoryObj, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryObj, Meta } from "@storybook/react-vite";
+import type { ComponentPropsWithoutRef } from "react";
 
 import {
   OverlayOrDialogDecorator,

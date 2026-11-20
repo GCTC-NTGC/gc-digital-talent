@@ -1,6 +1,6 @@
+import Content from "./Content";
 import Sidebar, { type SidebarProps } from "./Sidebar";
 import Wrapper from "./Wrapper";
-import Content from "./Content";
 
 const SidebarPackage = {
   Sidebar,

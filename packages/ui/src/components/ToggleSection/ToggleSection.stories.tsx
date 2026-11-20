@@ -1,5 +1,5 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import Button from "../Button";

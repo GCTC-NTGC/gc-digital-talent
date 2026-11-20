@@ -4,19 +4,19 @@ import { forwardRef, Fragment } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
+import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
+import { UNICODE_CHAR } from "../../utils/unicode";
 import type {
   IconButtonProps as BaseButtonProps,
   IconButtonProps,
 } from "../Button/IconButton";
 import BaseButton from "../Button/IconButton";
-import type { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
-import BaseLink from "../Link/IconLink";
 import type { ChipProps } from "../Chip/Chip";
 import Chip from "../Chip/Chip";
 import type { HeadingRank } from "../Heading";
 import Heading from "../Heading";
-import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
-import { UNICODE_CHAR } from "../../utils/unicode";
+import type { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
+import BaseLink from "../Link/IconLink";
 import { deriveTimelinePlacement } from "./utils";
 
 const listItem = tv({
