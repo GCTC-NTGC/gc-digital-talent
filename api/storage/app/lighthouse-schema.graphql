@@ -759,7 +759,7 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
-  updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily], enabledInAppNotifications: [NotificationFamily]): User
+  updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily!], enabledInAppNotifications: [NotificationFamily!], enabledWorkEmailNotifications: [NotificationFamily!]): User
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -918,6 +918,7 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
+  enabledWorkEmailNotifications: [NotificationFamily]
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
@@ -4278,6 +4279,7 @@ enum ErrorCode {
   ESSENTIAL_SKILL_REQUIRES_LEVEL
   NONESSENTIAL_SKILL_PROHIBITS_LEVEL
   CANNOT_ENABLE_NOTIFICATION_FAMILY
+  NEED_VERIFIED_WORK_EMAIL
   CLOSING_DATE_REQUIRED
   CLOSING_DATE_FUTURE
   LOCATION_REQUIRED

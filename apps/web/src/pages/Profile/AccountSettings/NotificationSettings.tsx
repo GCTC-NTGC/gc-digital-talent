@@ -128,8 +128,8 @@ interface NotificationSettingsProps {
 
 const UpdateEnabledNotifications_Mutation = graphql(/* GraphQL */ `
   mutation UpdateEnabledNotifications(
-    $enabledEmailNotifications: [NotificationFamily]
-    $enabledInAppNotifications: [NotificationFamily]
+    $enabledEmailNotifications: [NotificationFamily!]
+    $enabledInAppNotifications: [NotificationFamily!]
   ) {
     updateEnabledNotifications(
       enabledEmailNotifications: $enabledEmailNotifications

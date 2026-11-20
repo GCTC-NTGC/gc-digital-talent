@@ -6,12 +6,14 @@ use App\Contracts\LowPriorityJob;
 use App\Enums\Language;
 use App\Enums\NotificationFamily;
 use App\Models\User;
+use App\Notifications\Concerns\HasNotificationFamilyChannels;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
 class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail, LowPriorityJob
 {
+    use HasNotificationFamilyChannels;
     use Queueable;
 
     /**
@@ -32,18 +34,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail, Lo
      */
     public function via(User $notifiable): array
     {
-        $notificationFamily = NotificationFamily::JOB_ALERT->name;
-        $enabledChannels = [];
-
-        if (in_array($notificationFamily, $notifiable->enabled_email_notifications ?? [])) {
-            array_push($enabledChannels, GcNotifyEmailChannel::class);
-        }
-
-        if (in_array($notificationFamily, $notifiable->enabled_in_app_notifications ?? [])) {
-            array_push($enabledChannels, 'database');
-        }
-
-        return $enabledChannels;
+        return $this->channelsForFamily($notifiable, NotificationFamily::JOB_ALERT);
     }
 
     /**

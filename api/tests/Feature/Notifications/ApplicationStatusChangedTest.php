@@ -7,8 +7,10 @@ use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\ApplicationStatusChanged;
 use App\Notifications\GcNotifyEmailChannel;
+use App\Notifications\GcNotifyWorkEmailChannel;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
@@ -33,6 +35,88 @@ class ApplicationStatusChangedTest extends TestCase
             'poolNameEn',
             'poolNameFr',
         );
+    }
+
+    private function createUserWithWorkEmail(array $attributes): User
+    {
+        return User::factory()->create([
+            'email' => 'contact@example.com',
+            'work_email' => 'work@gc.ca',
+            'work_email_verified_at' => Carbon::now(),
+            'enabled_email_notifications' => [],
+            'enabled_in_app_notifications' => [],
+            'enabled_work_email_notifications' => [],
+            ...$attributes,
+        ]);
+    }
+
+    public function testWorkEmailOnly(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEquals([GcNotifyWorkEmailChannel::class], $this->fixtureNotification->via($user));
+    }
+
+    public function testWorkEmailWithContactEmailAndInApp(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEqualsCanonicalizing(
+            [GcNotifyEmailChannel::class, GcNotifyWorkEmailChannel::class, 'database'],
+            $this->fixtureNotification->via($user)
+        );
+    }
+
+    public function testWorkEmailOtherFamilyOnly(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'enabled_work_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+        ]);
+        assertEquals([], $this->fixtureNotification->via($user));
+    }
+
+    public function testWorkEmailUnverified(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'work_email_verified_at' => null,
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEquals([], $this->fixtureNotification->via($user));
+    }
+
+    public function testWorkEmailMissing(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'work_email' => null,
+            'work_email_verified_at' => null,
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEquals([], $this->fixtureNotification->via($user));
+    }
+
+    public function testWorkEmailSameAsContactEmailIsSkipped(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'email' => 'Same@gc.ca',
+            'work_email' => 'same@GC.ca',
+            'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEquals([GcNotifyEmailChannel::class], $this->fixtureNotification->via($user));
+    }
+
+    public function testWorkEmailSameAsContactEmailSentWhenContactDisabled(): void
+    {
+        $user = $this->createUserWithWorkEmail([
+            'email' => 'same@gc.ca',
+            'work_email' => 'same@gc.ca',
+            'enabled_work_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+        ]);
+        assertEquals([GcNotifyWorkEmailChannel::class], $this->fixtureNotification->via($user));
     }
 
     // respects each user's notification preferences

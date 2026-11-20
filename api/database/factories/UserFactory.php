@@ -222,6 +222,7 @@ class UserFactory extends Factory
                 'computed_gov_position_type' => $this->faker->randomElement(GovPositionType::cases())->name,
                 'computed_gov_end_date' => $this->faker->dateTimeBetween('2030-01-01', '2039-12-31')->format('Y-m-d'),
                 'computed_gov_role' => $this->faker->jobTitle(),
+                'enabled_work_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name')),
             ];
         })->afterCreating(function (User $user) {
             // Government employee counts as an user who has a work experience with
