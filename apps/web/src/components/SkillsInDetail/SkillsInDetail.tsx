@@ -83,7 +83,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 })}
               />
               <TextArea
-                id={`skill-in-detail-${id}`}
+                id={`skills.${index}.details`}
                 name={`skills.${index}.details`}
                 wordLimit={wordCountLimits[locale]}
                 aria-label={intl.formatMessage(

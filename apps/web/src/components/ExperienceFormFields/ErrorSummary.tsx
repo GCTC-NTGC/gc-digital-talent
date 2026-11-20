@@ -24,7 +24,14 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
     name: "experienceType",
   }) as ExperienceType;
   const derivedType: ExperienceType = type ?? experienceType ?? "personal";
-  const labels = getExperienceFormLabels(intl, derivedType);
+  const labels = {
+    ...getExperienceFormLabels(intl, derivedType),
+    "skills.*.details": intl.formatMessage({
+      defaultMessage: "Describe how this skill featured in this role",
+      id: "8kMPLB",
+      description: "Label for the textarea in the skills in detail section.",
+    }),
+  };
   const {
     formState: { errors, submitCount },
   } = useFormContext();
