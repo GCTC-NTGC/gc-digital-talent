@@ -27,14 +27,12 @@ trait HasNotificationFamilyChannels
         }
 
         if (in_array($family->name, $notifiable->enabled_work_email_notifications ?? [])) {
-            // only a verified work email is routable
-            $workEmail = $notifiable->routeNotificationFor(GcNotifyWorkEmailChannel::ROUTE);
             // don't send the same email twice when the work email is also the contact email
             $duplicatesContactEmail = $contactEmailEnabled
-                && is_string($workEmail)
-                && mb_strtolower($workEmail) === mb_strtolower((string) $notifiable->email);
+                && mb_strtolower((string) $notifiable->work_email) === mb_strtolower((string) $notifiable->email);
 
-            if (! empty($workEmail) && ! $duplicatesContactEmail) {
+            // only a verified work email is sendable
+            if ($notifiable->has_a_verified_work_email_address && ! $duplicatesContactEmail) {
                 $enabledChannels[] = GcNotifyWorkEmailChannel::class;
             }
         }

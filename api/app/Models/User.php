@@ -918,16 +918,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return ! empty($this->work_email) && ! is_null($this->work_email_verified_at);
     }
 
-    /**
-     * Address used by GcNotifyWorkEmailChannel.
-     * Called by Laravel via $user->routeNotificationFor('gcNotifyWorkEmail').
-     * Only a verified work email is returned; null means don't send.
-     */
-    public function routeNotificationForGcNotifyWorkEmail(): ?string
-    {
-        return $this->has_a_verified_work_email_address ? $this->work_email : null;
-    }
-
     /*
     * Set the contact email address and verified_at together at the same time
     */

@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 
 /**
@@ -10,19 +11,10 @@ use App\Notifications\Messages\GcNotifyEmailMessage;
  */
 class GcNotifyWorkEmailChannel extends GcNotifyEmailChannel
 {
-    /**
-     * Route key used to look up the work email address on the notifiable
-     * (resolves to User::routeNotificationForGcNotifyWorkEmail).
-     */
-    public const ROUTE = 'gcNotifyWorkEmail';
-
     protected function buildMessage(object $notifiable, CanBeSentViaGcNotifyEmail $notification): ?GcNotifyEmailMessage
     {
-        $address = method_exists($notifiable, 'routeNotificationFor')
-            ? $notifiable->routeNotificationFor(self::ROUTE, $notification)
-            : null;
-
-        if (! is_string($address) || $address === '') {
+        // only a verified work email is sendable
+        if (! $notifiable instanceof User || ! $notifiable->has_a_verified_work_email_address) {
             return null;
         }
 
@@ -31,7 +23,7 @@ class GcNotifyWorkEmailChannel extends GcNotifyEmailChannel
             return null;
         }
 
-        $message->emailAddress = $address;
+        $message->emailAddress = $notifiable->work_email;
 
         return $message;
     }
