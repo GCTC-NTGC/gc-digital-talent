@@ -20,7 +20,8 @@ trait HasNotificationFamilyChannels
     {
         $enabledChannels = [];
 
-        $contactEmailEnabled = in_array($family->name, $notifiable->enabled_email_notifications ?? []);
+        $contactEmailEnabled = $family->isAlwaysEnabledForContactEmailAndInApp()
+            || in_array($family->name, $notifiable->enabled_email_notifications ?? []);
         if ($contactEmailEnabled) {
             $enabledChannels[] = GcNotifyEmailChannel::class;
         }
@@ -38,7 +39,9 @@ trait HasNotificationFamilyChannels
             }
         }
 
-        if (in_array($family->name, $notifiable->enabled_in_app_notifications ?? [])) {
+        $inAppEnabled = $family->isAlwaysEnabledForContactEmailAndInApp()
+            || in_array($family->name, $notifiable->enabled_in_app_notifications ?? []);
+        if ($inAppEnabled) {
             $enabledChannels[] = 'database';
         }
 
