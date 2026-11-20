@@ -1,17 +1,17 @@
 import type { Page } from "@playwright/test";
 
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import type { User } from "@gc-digital-talent/graphql/schema-types";
 import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import type AppPage from "~/fixtures/AppPage";
 import { loginBySub } from "~/utils/auth";
-import { getSkills } from "~/utils/skills";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
-import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";
+import { getSkills } from "~/utils/skills";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 
 test.describe("User information", { tag: "@uat" }, () => {
   let platformAdminCtx: GraphQLContext;

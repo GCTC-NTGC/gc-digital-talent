@@ -32,9 +32,15 @@ import TalentManagement, {
   OtherTalentNominationDetails,
 } from "~/fixtures/TalentManagement";
 import type { TalentNominationDetails } from "~/fixtures/TalentManagement";
+import { loginBySub } from "~/utils/auth";
+import { getClassifications } from "~/utils/classification";
+import { getMyCommunity } from "~/utils/communities";
+import { getDepartments } from "~/utils/departments";
+import { defaultWorkExperience } from "~/utils/experiences";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { generateUniqueTestId } from "~/utils/id";
+import { getSkills } from "~/utils/skills";
 import {
   createTalentNominationEvent,
   getTalentNominationEvent,
@@ -42,14 +48,7 @@ import {
   submitTalentNomination,
   updateTalentNomination,
 } from "~/utils/talentNominations";
-import { getMyCommunity } from "~/utils/communities";
-import { getClassifications } from "~/utils/classification";
-import { getDepartments } from "~/utils/departments";
-import { defaultWorkExperience } from "~/utils/experiences";
-import { getSkills } from "~/utils/skills";
-import { generateUniqueTestId } from "~/utils/id";
-
-import { loginBySub } from "../../utils/auth";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
 const nominationTestData = {
   submitterRelationship:

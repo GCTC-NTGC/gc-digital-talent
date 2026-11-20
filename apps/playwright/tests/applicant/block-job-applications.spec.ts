@@ -13,20 +13,20 @@ import {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
+import ApplicationPage from "~/fixtures/ApplicationPage";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { getClassifications } from "~/utils/classification";
+import { getMyCommunity } from "~/utils/communities";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 import {
   createAndPublishInternalPool,
   createAndPublishPool,
   retirePublishedPool,
 } from "~/utils/pools";
-import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
-import { generateUniqueTestId } from "~/utils/id";
-import { getClassifications } from "~/utils/classification";
-import { getMyCommunity } from "~/utils/communities";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { getWorkStreams } from "~/utils/workStreams";
 
 interface UserInfo {

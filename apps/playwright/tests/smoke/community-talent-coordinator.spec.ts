@@ -1,5 +1,5 @@
-import { test, expect } from "~/fixtures";
 import AUTH from "~/constants/auth";
+import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 
 test.describe("Community talent coordinator user", { tag: "@uat" }, () => {

@@ -5,13 +5,6 @@ import type {
   EquitySelectionsInput,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import type {
-  Classification,
-  LocalizedTalentRequestSource,
-  Skill,
-  WorkStream,
-} from "@gc-digital-talent/graphql/schema-types";
-import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -19,6 +12,13 @@ import {
   PositionDuration,
   TalentRequestReason,
 } from "@gc-digital-talent/graphql";
+import type {
+  Classification,
+  LocalizedTalentRequestSource,
+  Skill,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
+import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 
 import { generateUniqueTestId } from "~/utils/id";
 
