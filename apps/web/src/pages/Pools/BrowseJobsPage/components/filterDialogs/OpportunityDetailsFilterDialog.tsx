@@ -102,8 +102,8 @@ const OpportunityDetailsFilterDialog = ({ optionsQuery, children }: Props) => {
       })}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Filter jobs by eligibility criteria, employment length, salary range, and more.",
-        id: "H3mgnz",
+          "Filter jobs by eligibility criteria, classification, and salary range.",
+        id: "YfUnG2",
         description: "Subtitle for opportunity details dialog",
       })}
       trigger={children}

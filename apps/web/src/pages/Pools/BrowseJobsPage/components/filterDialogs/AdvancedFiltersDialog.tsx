@@ -66,8 +66,8 @@ const AdvancedFiltersDialog = ({ optionsQuery, children }: Props) => {
       })}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "Filter jobs by equity groups, employment conditions and more.",
-        id: "BH2C9x",
+          "Filter jobs by when the advertisement was posted or by process number.",
+        id: "jgp03N",
         description: "Subtitle for advanced filters dialog",
       })}
       trigger={children}
