@@ -84,16 +84,12 @@ const Test_DeleteSkillMutationDocument = /* GraphQL */ `
   }
 `;
 
-interface DeleteSkillArgs {
-  id: string;
-}
-
 /**
  * Delete Skill
  *
  * Delete a skill directly through the API.
  */
-export const deleteSkill: GraphQLRequestFunc<Skill, DeleteSkillArgs> = async (
+export const deleteSkill: GraphQLRequestFunc<Skill, string> = async (
   ctx,
   id,
 ) => {

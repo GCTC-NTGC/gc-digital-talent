@@ -275,7 +275,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       await retirePublishedPool(adminCtx, poolId);
     }
     if (technicalSkill) {
-      await deleteSkill(adminCtx, { id: technicalSkill.id });
+      await deleteSkill(adminCtx, technicalSkill.id);
     }
   });
 
