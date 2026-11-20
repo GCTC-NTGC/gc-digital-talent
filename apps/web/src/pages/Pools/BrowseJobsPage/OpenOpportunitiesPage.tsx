@@ -16,7 +16,7 @@ import {
   type PublishedPoolsSearchInput,
   type QueryPublishedPoolsSearchOrderByOrderByClause,
 } from "@gc-digital-talent/graphql";
-import { isEnumValue, unpackMaybes } from "@gc-digital-talent/helpers";
+import { isEnumValue, isUUID, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import JobCard from "~/components/JobCard/JobCard";
@@ -67,8 +67,8 @@ export const OpenOpportunitiesPage = () => {
     eligibility: getFilterValues("applicationEligibilities").filter(
       isEnumValue(PoolAreaOfSelection),
     ),
-    departments: getFilterValues("organizations"),
-    classifications: getFilterValues("classifications"),
+    departments: getFilterValues("organizations").filter(isUUID),
+    classifications: getFilterValues("classifications").filter(isUUID),
     publishedAtRange: getFilterValues("advertisementTimings").filter(
       isEnumValue(PoolPublishedRange),
     ),

@@ -8,7 +8,7 @@ import nodeToString from "./utils/nodeToString";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import { compareStrings, sortAlphaBy } from "./utils/sort";
-import isUuidError from "./utils/uuid";
+import { isUuidError, isUUID } from "./utils/uuid";
 import {
   assertUnreachable,
   notEmpty,
@@ -50,6 +50,7 @@ export {
   compareStrings,
   sortAlphaBy,
   isUuidError,
+  isUUID,
   useIsSmallScreen,
   groupBy,
   pickMap,
