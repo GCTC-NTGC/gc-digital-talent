@@ -33,7 +33,9 @@ export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
   areaOfSelection: formValues.areaOfSelection,
-  selectionLimitations: formValues.selectionLimitations ?? [],
+  selectionLimitations: formValues
+    ? (formValues.selectionLimitations ?? [])
+    : [],
   classification: formValues.classification
     ? {
         connect: formValues.classification,
