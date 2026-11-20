@@ -66,12 +66,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
 
   return (
     <>
-      <Heading
-        icon={QueueListIcon}
-        size="h2"
-        color="secondary"
-        className="mt-0 mb-6"
-      >
+      <Heading icon={QueueListIcon} color="secondary" className="mt-0 mb-6">
         {intl.formatMessage(sections.basicDetails.title)}
       </Heading>
       <Card space="lg">

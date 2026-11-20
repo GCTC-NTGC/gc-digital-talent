@@ -163,7 +163,7 @@ const CommunityForm = ({
             color="primary"
             icon={QueueListIcon}
             center
-            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+            className="mt-0 mb-9 xs:justify-start xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage: "Community information",

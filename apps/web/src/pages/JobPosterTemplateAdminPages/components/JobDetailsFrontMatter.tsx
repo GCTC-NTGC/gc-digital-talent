@@ -13,7 +13,7 @@ const JobDetailsFrontMatter = () => {
         rank="h2"
         icon={PuzzlePieceIcon}
         color="secondary"
-        className="mx-0 mt-0 mb-6 font-normal"
+        className="mx-0 mt-0 mb-6"
       >
         {intl.formatMessage(messages.jobDetails)}
       </Heading>

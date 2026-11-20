@@ -91,7 +91,7 @@ const CreateTrainingOpportunityForm = ({
             rank="h2"
             color="secondary"
             icon={IdentificationIcon}
-            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+            className="mt-0 mb-9 xs:justify-start xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage: "Training opportunity information",

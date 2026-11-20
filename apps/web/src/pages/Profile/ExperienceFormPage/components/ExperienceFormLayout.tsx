@@ -302,10 +302,9 @@ const ExperienceFormLayout = ({
           <Card>
             <Heading
               rank="h2"
-              size="h3"
               color="secondary"
               icon={icon}
-              className="mt-0 mb-6 font-normal"
+              className="mt-0 mb-6"
             >
               {heading}
             </Heading>

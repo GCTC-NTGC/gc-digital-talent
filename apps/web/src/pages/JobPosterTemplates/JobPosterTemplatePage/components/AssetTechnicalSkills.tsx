@@ -79,7 +79,7 @@ const AssetTechnicalSkills = ({
 
   return (
     <>
-      <Heading icon={BoltIcon} size="h2" color="success" className="mt-0 mb-6">
+      <Heading icon={BoltIcon} color="success" className="mt-0 mb-6">
         {intl.formatMessage(sections.assetTechnicalSkills.longTitle)}
       </Heading>
       <div className="flex flex-col gap-6">

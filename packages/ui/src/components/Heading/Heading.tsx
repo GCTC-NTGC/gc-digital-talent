@@ -16,27 +16,27 @@ const heading = tv({
     },
     size: {
       h1: {
-        base: "text-5xl/[1.1] font-bold lg:text-6xl/[1.1]",
+        base: "text-5xl font-bold",
         icon: "size-12 stroke-[1.5]",
       },
       h2: {
-        base: "mt-12 mb-3 text-4xl/[1.1] font-bold lg:text-5xl/[1.1]",
+        base: "mt-12 mb-3 text-4xl",
         icon: "size-10 stroke-[1.6]",
       },
       h3: {
-        base: "mt-9 mb-1.5 text-3xl/[1.1] lg:text-4xl/[1.1]",
+        base: "mt-9 mb-1.5 text-3xl",
         icon: "size-8 stroke-[1.6]",
       },
       h4: {
-        base: "mt-9 mb-1.5 text-2xl/[1.1] lg:text-3xl/[1.1]",
+        base: "mt-9 mb-1.5 text-2xl",
         icon: "size-7 stroke-[1.6]",
       },
       h5: {
-        base: "mt-6 mb-1.5 text-xl/[1.1] lg:text-2xl/[1.1]",
+        base: "mt-6 mb-1.5 text-xl",
         icon: "size-6 stroke-[1.6]",
       },
       h6: {
-        base: "mt-6 mb-1.5 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
+        base: "mt-6 mb-1.5 text-lg font-bold",
         icon: "size-5 stroke-[1.6]",
       },
     },

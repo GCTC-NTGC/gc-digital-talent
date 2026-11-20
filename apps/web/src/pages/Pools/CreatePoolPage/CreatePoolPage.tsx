@@ -187,7 +187,6 @@ export const CreatePoolForm = ({
     <Card space="lg" className="mb-18">
       <Heading
         rank="h2"
-        size="h3"
         color="primary"
         icon={IdentificationIcon}
         className="mt-0 xs:justify-start xs:text-left"

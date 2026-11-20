@@ -78,8 +78,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           color="primary"
           icon={QueueListIcon}
           center
-          className="mt-1 mb-6 font-normal xs:justify-start xs:text-left"
-          size="h3"
+          className="mt-1 mb-6 xs:justify-start xs:text-left"
         >
           {intl.formatMessage(adminMessages.communityDetails)}
         </Heading>

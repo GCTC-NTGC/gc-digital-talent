@@ -96,13 +96,7 @@ const EducationRequirementsSection = ({
 
   return (
     <div>
-      <Heading
-        icon={icon.icon}
-        color={icon.color}
-        rank="h2"
-        size="h3"
-        className="mt-0"
-      >
+      <Heading icon={icon.icon} color={icon.color} rank="h2" className="mt-0">
         {sectionMetadata.title}
       </Heading>
       <p className="my-6">

@@ -159,9 +159,8 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
       <Container>
         <Heading
           icon={InformationCircleIcon}
-          size="h2"
           color="primary"
-          className="mt-18 mb-6 font-normal"
+          className="mt-18 mb-6"
         >
           {intl.formatMessage({
             defaultMessage: "Course details",

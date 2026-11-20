@@ -160,7 +160,6 @@ export const ViewPoolCandidate = ({
               color="warning"
               className="mt-0 mb-6 items-center"
               rank="h2"
-              size="h3"
             >
               {intl.formatMessage(screeningAndAssessmentTitle)}
             </Heading>

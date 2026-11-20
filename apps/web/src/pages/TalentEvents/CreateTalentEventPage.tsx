@@ -194,7 +194,7 @@ const CreateTalentEventPage = () => {
                 color="primary"
                 icon={QueueListIcon}
                 center
-                className="mt-0 mb-6 font-normal xs:justify-start xs:text-left"
+                className="mt-0 mb-6 xs:justify-start xs:text-left"
               >
                 {intl.formatMessage(adminMessages.eventDetails)}
               </Heading>

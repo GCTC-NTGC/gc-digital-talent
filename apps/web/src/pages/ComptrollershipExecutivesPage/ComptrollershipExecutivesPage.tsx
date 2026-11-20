@@ -93,10 +93,9 @@ export const Component = () => {
       <Container className="my-18">
         <Heading
           icon={UserCircleIcon}
-          size="h2"
           color="secondary"
           center
-          className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+          className="mt-0 mb-9 xs:justify-start xs:text-left"
         >
           {intl.formatMessage({
             defaultMessage: "Who is this for?",
@@ -213,10 +212,9 @@ export const Component = () => {
         </Ul>
         <Heading
           icon={ArrowTrendingUpIcon}
-          size="h2"
           color="primary"
           center
-          className="mt-18 mb-9 font-normal xs:justify-start xs:text-left"
+          className="mt-18 mb-9 xs:justify-start xs:text-left"
         >
           {intl.formatMessage({
             defaultMessage: "Manage your career",
@@ -253,10 +251,9 @@ export const Component = () => {
         <div className="flex flex-col gap-9">
           <Heading
             icon={UserGroupIcon}
-            size="h2"
             color="secondary"
             center
-            className="mt-18 mb-0 font-normal xs:justify-start xs:text-left"
+            className="mt-18 mb-0 xs:justify-start xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -317,12 +314,7 @@ export const Component = () => {
           </div>
         </div>
         <div className="flex flex-col gap-9">
-          <Heading
-            icon={BookOpenIcon}
-            size="h2"
-            color="primary"
-            className="mt-18 mb-0 font-normal"
-          >
+          <Heading icon={BookOpenIcon} color="primary" className="mt-18 mb-0">
             {intl.formatMessage({
               defaultMessage: "The Financial Management Community",
               id: "y5xvLj",
@@ -496,9 +488,8 @@ export const Component = () => {
         <div className="flex flex-col gap-9">
           <Heading
             icon={BriefcaseIcon}
-            size="h2"
             color="secondary"
-            className="mt-18 mb-0 font-normal"
+            className="mt-18 mb-0"
           >
             {intl.formatMessage({
               defaultMessage: "The Procurement Community",

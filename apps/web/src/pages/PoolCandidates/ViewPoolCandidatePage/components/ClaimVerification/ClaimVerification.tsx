@@ -70,7 +70,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
 
   return (
     <>
-      <Heading icon={InformationCircleIcon} color="warning" rank="h2" size="h3">
+      <Heading icon={InformationCircleIcon} color="warning" rank="h2">
         {intl.formatMessage({
           defaultMessage: "Other information",
           id: "blGYmQ",

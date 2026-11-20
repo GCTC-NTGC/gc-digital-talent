@@ -276,7 +276,7 @@ const TrainingAndDevelopmentOpportunities = ({
           rank="h2"
           icon={RectangleGroupIcon}
           color="primary"
-          className="mt-0 mb-0 font-normal"
+          className="mt-0 mb-0"
         >
           {intl.formatMessage({
             defaultMessage: "Training and development opportunities",

@@ -49,10 +49,9 @@ export const OpenOpportunitiesPage = () => {
     <>
       <Heading
         rank="h2"
-        size="h3"
         icon={RocketLaunchIcon}
         color="primary"
-        className="mt-0 mb-6 font-normal"
+        className="mt-0 mb-6"
       >
         {intl.formatMessage(browseJobsMessages.openOpportunities)}
       </Heading>

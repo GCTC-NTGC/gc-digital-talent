@@ -85,10 +85,9 @@ export const EmployeeInformationForm = ({
       <Heading
         id={ADD_WORK_EXPERIENCE_FORM_ID}
         rank="h2"
-        size="h3"
         icon={BriefcaseIcon}
         color="secondary"
-        className="mt-0 mb-6 font-normal"
+        className="mt-0 mb-6"
       >
         {intl.formatMessage(addWorkExperienceSectionTitle)}
       </Heading>

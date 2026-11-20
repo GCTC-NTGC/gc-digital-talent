@@ -53,7 +53,7 @@ export const IndexJobPosterTemplatePage = () => {
               icon={Cog8ToothIcon}
               color="secondary"
               rank="h2"
-              className="m-0 font-normal"
+              className="m-0"
             >
               {intl.formatMessage({
                 defaultMessage: "Create or view job advertisement templates",

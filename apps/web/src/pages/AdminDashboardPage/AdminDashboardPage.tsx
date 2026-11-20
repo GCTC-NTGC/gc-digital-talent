@@ -292,7 +292,6 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
           {recruitmentCollectionSorted.length > 0 && (
             <div>
               <Heading
-                size="h4"
                 className="mt-0 mb-6"
                 icon={RocketLaunchIcon}
                 color="secondary"
@@ -317,12 +316,7 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
             </div>
           )}
           <div>
-            <Heading
-              size="h4"
-              icon={BookOpenIcon}
-              color="primary"
-              className="mt-0 mb-6"
-            >
+            <Heading icon={BookOpenIcon} color="primary" className="mt-0 mb-6">
               {intl.formatMessage({
                 defaultMessage: "Resources",
                 id: "nGSUzp",
@@ -344,7 +338,6 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
           {administrationCollectionSorted.length > 0 && (
             <div>
               <Heading
-                size="h4"
                 icon={ComputerDesktopIcon}
                 color="error"
                 className="mt-0 mb-6"
@@ -370,12 +363,7 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
           )}
         </div>
         <div className="mt-18 mb-12">
-          <Heading
-            size="h4"
-            icon={CogIcon}
-            color="warning"
-            className="mt-0 mb-6"
-          >
+          <Heading icon={CogIcon} color="warning" className="mt-0 mb-6">
             {intl.formatMessage({
               defaultMessage: "Your roles",
               id: "IJlJF1",
