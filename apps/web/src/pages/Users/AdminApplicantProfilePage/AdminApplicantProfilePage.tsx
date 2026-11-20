@@ -58,7 +58,8 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
 interface AdminApplicantProfileProps {
   query: FragmentType<typeof AdminApplicantProfile_Fragment>;
   optionsQuery:
-    FragmentType<typeof FlexibleWorkLocationOptions_Fragment> | undefined;
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 const AdminApplicantProfile = ({

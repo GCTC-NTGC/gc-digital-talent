@@ -206,7 +206,8 @@ export type PoolCandidateFilterDialogProps =
     hidePoolFilter?: boolean;
     query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
     availableSteps?:
-      FragmentType<typeof PoolCandidateFilterDialog_StepFragment>[] | null;
+      | FragmentType<typeof PoolCandidateFilterDialog_StepFragment>[]
+      | null;
   };
 
 const PoolCandidateFilterDialog = ({

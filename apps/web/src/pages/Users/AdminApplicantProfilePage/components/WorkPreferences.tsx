@@ -17,7 +17,8 @@ const WorkPreferences_Fragment = graphql(/** GraphQL */ `
 interface WorkPreferencesProps {
   query: FragmentType<typeof WorkPreferences_Fragment>;
   optionsQuery:
-    FragmentType<typeof FlexibleWorkLocationOptions_Fragment> | undefined;
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 export const WORK_PREFERENCES_ID = "work-preferences";

@@ -24,7 +24,8 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 interface EquityOptionsProps {
   hasDisability?: boolean | null;
   indigenousCommunities?:
-    (GenericLocalizedEnum<IndigenousCommunity> | null | undefined)[] | null;
+    | (GenericLocalizedEnum<IndigenousCommunity> | null | undefined)[]
+    | null;
   indigenousDeclarationSignature?: string | null;
   isVisibleMinority?: boolean | null;
   isWoman?: boolean | null;

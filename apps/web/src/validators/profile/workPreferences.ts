@@ -13,9 +13,11 @@ export interface PartialUser {
   locationExemptions?: string | null;
   currentCity?: string | null;
   locationPreferences?:
-    (LocalizedEnumValue<WorkRegion> | null | undefined)[] | null;
+    | (LocalizedEnumValue<WorkRegion> | null | undefined)[]
+    | null;
   flexibleWorkLocations?:
-    (LocalizedEnumValue<FlexibleWorkLocation> | null | undefined)[] | null;
+    | (LocalizedEnumValue<FlexibleWorkLocation> | null | undefined)[]
+    | null;
   currentProvince?: LocalizedEnumValue<ProvinceOrTerritory> | null;
 }
 
