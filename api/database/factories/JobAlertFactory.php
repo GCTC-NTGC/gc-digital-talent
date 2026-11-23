@@ -27,7 +27,7 @@ class JobAlertFactory extends BaseFactory
         ];
     }
 
-    public function configure(): self
+    public function configure()
     {
         return $this->afterCreating(function (JobAlert $jobAlert) {
             JobAlertFilter::factory()->for($jobAlert)->create();
