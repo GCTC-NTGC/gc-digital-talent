@@ -7,6 +7,7 @@ namespace App\GraphQL\Validators\Mutation;
 use App\Enums\ErrorCode;
 use App\Models\User;
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -36,15 +37,10 @@ final class CreateJobAlertValidator extends Validator
             // an empty filter would match every new job
             'jobAlert.jobAlertFilter.create' => [
                 function (string $attribute, mixed $value, Closure $fail) {
-                    $filters = [
-                        $value['keywordSearch'] ?? null,
-                        $value['eligibility'] ?? null,
-                        $value['departments']['sync'] ?? null,
-                        $value['classifications']['sync'] ?? null,
-                        $value['languages'] ?? null,
-                        $value['salaryRange'] ?? null,
-                    ];
-                    if (empty(array_filter($filters))) {
+                    $hasFilter = collect($value)->contains(
+                        fn ($filter) => ! blank(is_array($filter) ? Arr::flatten($filter) : $filter)
+                    );
+                    if (! $hasFilter) {
                         $fail(ErrorCode::JOB_ALERT_FILTER_REQUIRED->name);
                     }
                 },
