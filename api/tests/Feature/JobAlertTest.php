@@ -189,6 +189,41 @@ class JobAlertTest extends TestCase
             ]);
     }
 
+    public function testOwnerCanUpdateFieldsIndependently(): void
+    {
+        $jobAlert = JobAlert::factory()->for($this->applicant)->create(['name' => 'Original']);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $jobAlert->id,
+                'jobAlert' => ['isPaused' => true],
+            ])
+            ->assertJsonPath('data.updateJobAlert.name', 'Original')
+            ->assertJsonPath('data.updateJobAlert.isPaused', true);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $jobAlert->id,
+                'jobAlert' => ['name' => 'Renamed'],
+            ])
+            ->assertJsonPath('data.updateJobAlert.name', 'Renamed')
+            ->assertJsonPath('data.updateJobAlert.isPaused', true);
+    }
+
+    public function testUpdateRejectsNullOrBlankFields(): void
+    {
+        $jobAlert = JobAlert::factory()->for($this->applicant)->create();
+
+        foreach ([['name' => null], ['name' => ''], ['isPaused' => null]] as $input) {
+            $this->actingAs($this->applicant, 'api')
+                ->graphQL($this->updateMutation, [
+                    'id' => $jobAlert->id,
+                    'jobAlert' => $input,
+                ])
+                ->assertGraphQLValidationKeys(['jobAlert.'.array_key_first($input)]);
+        }
+    }
+
     public function testOtherUserCannotUpdateJobAlert(): void
     {
         $jobAlert = JobAlert::factory()->for($this->applicant)->create();

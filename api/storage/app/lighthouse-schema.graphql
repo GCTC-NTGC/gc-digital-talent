@@ -2843,8 +2843,8 @@ input CreateJobAlertInput {
 }
 
 input UpdateJobAlertInput {
-  name: String!
-  isPaused: Boolean!
+  name: String
+  isPaused: Boolean
 }
 
 input CreateTalentRequestInput {

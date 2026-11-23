@@ -2859,8 +2859,8 @@ input CreateJobAlertInput {
 }
 
 input UpdateJobAlertInput {
-  name: String!
-  isPaused: Boolean! @rename(attribute: "is_paused")
+  name: String
+  isPaused: Boolean @rename(attribute: "is_paused")
 }
 
 input CreateTalentRequestInput {
@@ -4191,6 +4191,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id")
+    @validator
   deleteJobAlert(id: UUID! @whereKey): JobAlert
     @delete
     @guard
