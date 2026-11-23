@@ -169,6 +169,23 @@ class JobAlertTest extends TestCase
             ->assertGraphQLValidationError('jobAlert.jobAlertFilter.create', ErrorCode::JOB_ALERT_FILTER_REQUIRED->name);
     }
 
+    public function testCreateRejectsUnknownDepartmentsAndClassifications(): void
+    {
+        $unknownId = '00000000-0000-0000-0000-000000000000';
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->createMutation, $this->createInput([
+                'departments' => ['sync' => [$unknownId]],
+            ]))
+            ->assertGraphQLValidationError('jobAlert.jobAlertFilter.create.departments.sync.0', ErrorCode::DEPARTMENT_NOT_FOUND->name);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->createMutation, $this->createInput([
+                'classifications' => ['sync' => [$unknownId]],
+            ]))
+            ->assertGraphQLValidationError('jobAlert.jobAlertFilter.create.classifications.sync.0', ErrorCode::CLASSIFICATION_NOT_FOUND->name);
+    }
+
     public function testOwnerCanUpdateJobAlert(): void
     {
         $jobAlert = JobAlert::factory()->for($this->applicant)->create();

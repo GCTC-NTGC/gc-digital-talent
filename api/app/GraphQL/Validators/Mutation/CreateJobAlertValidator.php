@@ -45,6 +45,16 @@ final class CreateJobAlertValidator extends Validator
                     }
                 },
             ],
+            'jobAlert.jobAlertFilter.create.departments.sync.*' => ['uuid', 'exists:departments,id'],
+            'jobAlert.jobAlertFilter.create.classifications.sync.*' => ['uuid', 'exists:classifications,id'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'jobAlert.jobAlertFilter.create.departments.sync.*.exists' => ErrorCode::DEPARTMENT_NOT_FOUND->name,
+            'jobAlert.jobAlertFilter.create.classifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
         ];
     }
 }
