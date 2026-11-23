@@ -12,9 +12,22 @@ return new class() extends Migration
      */
     public function up(): void
     {
+        Schema::create('job_alerts', function (Blueprint $table) {
+            $table->uuid('id')->primary()->default(new Expression('gen_random_uuid()'));
+            $table->foreignUuid('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->string('name');
+            $table->boolean('is_paused')->default(false);
+            $table->timestamps();
+        });
+
         // columns match PublishedPoolsSearchInput fields so a saved filter converts straight back into search args
         Schema::create('job_alert_filters', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(new Expression('gen_random_uuid()'));
+            $table->foreignUuid('job_alert_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->jsonb('keyword_search')->nullable();
             $table->jsonb('eligibility')->nullable();
             $table->jsonb('languages')->nullable();
@@ -43,18 +56,6 @@ return new class() extends Migration
                 ->onDelete('cascade');
             $table->unique(['classification_id', 'job_alert_filter_id'], 'classification_job_alert_filter_unique');
         });
-
-        Schema::create('job_alerts', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(new Expression('gen_random_uuid()'));
-            $table->foreignUuid('user_id')
-                ->constrained()
-                ->onDelete('cascade');
-            $table->string('name');
-            $table->boolean('is_paused')->default(false);
-            $table->foreignUuid('job_alert_filter_id')
-                ->constrained();
-            $table->timestamps();
-        });
     }
 
     /**
@@ -62,9 +63,9 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_alerts');
         Schema::dropIfExists('classification_job_alert_filter');
         Schema::dropIfExists('department_job_alert_filter');
         Schema::dropIfExists('job_alert_filters');
+        Schema::dropIfExists('job_alerts');
     }
 };

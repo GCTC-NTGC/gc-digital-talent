@@ -204,6 +204,7 @@ class JobAlertTest extends TestCase
     public function testOwnerCanDeleteJobAlertAndItsFilter(): void
     {
         $jobAlert = JobAlert::factory()->for($this->applicant)->create();
+        $filterId = $jobAlert->jobAlertFilter->id;
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->deleteMutation, ['id' => $jobAlert->id])
@@ -214,7 +215,7 @@ class JobAlertTest extends TestCase
             ]);
 
         $this->assertDatabaseMissing('job_alerts', ['id' => $jobAlert->id]);
-        $this->assertDatabaseMissing('job_alert_filters', ['id' => $jobAlert->job_alert_filter_id]);
+        $this->assertDatabaseMissing('job_alert_filters', ['id' => $filterId]);
     }
 
     public function testOtherUserCannotDeleteJobAlert(): void

@@ -2833,13 +2833,13 @@ input CreateJobAlertFilterInput {
   salaryRange: SalaryRange
 }
 
-input JobAlertFilterBelongsTo {
+input JobAlertFilterHasOne {
   create: CreateJobAlertFilterInput!
 }
 
 input CreateJobAlertInput {
   name: String!
-  jobAlertFilter: JobAlertFilterBelongsTo!
+  jobAlertFilter: JobAlertFilterHasOne!
 }
 
 input UpdateJobAlertInput {

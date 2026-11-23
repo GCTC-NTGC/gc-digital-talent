@@ -24,8 +24,14 @@ class JobAlertFactory extends BaseFactory
             'user_id' => fn () => User::factory(),
             'name' => $this->faker->words(3, true),
             'is_paused' => false,
-            'job_alert_filter_id' => fn () => JobAlertFilter::factory(),
         ];
+    }
+
+    public function configure(): self
+    {
+        return $this->afterCreating(function (JobAlert $jobAlert) {
+            JobAlertFilter::factory()->for($jobAlert)->create();
+        });
     }
 
     public function paused(): self

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
@@ -11,6 +12,7 @@ use Illuminate\Support\Carbon;
  * Class JobAlertFilter
  *
  * @property string $id
+ * @property string $job_alert_id
  * @property ?array $keyword_search
  * @property ?array $eligibility
  * @property ?array $languages
@@ -29,6 +31,12 @@ class JobAlertFilter extends Model
         'eligibility' => 'array',
         'languages' => 'array',
     ];
+
+    /** @return BelongsTo<JobAlert, $this> */
+    public function jobAlert(): BelongsTo
+    {
+        return $this->belongsTo(JobAlert::class);
+    }
 
     /** @return BelongsToMany<Department, $this> */
     public function departments(): BelongsToMany

@@ -1121,7 +1121,7 @@ type JobAlert {
   id: UUID!
   name: String!
   isPaused: Boolean! @rename(attribute: "is_paused")
-  jobAlertFilter: JobAlertFilter! @belongsTo
+  jobAlertFilter: JobAlertFilter! @hasOne
 }
 
 # Matches PublishedPoolsSearchInput field names so a saved filter can be loaded back into the search
@@ -2849,13 +2849,13 @@ input CreateJobAlertFilterInput {
   salaryRange: SalaryRange @rename(attribute: "salary_range")
 }
 
-input JobAlertFilterBelongsTo {
+input JobAlertFilterHasOne {
   create: CreateJobAlertFilterInput!
 }
 
 input CreateJobAlertInput {
   name: String!
-  jobAlertFilter: JobAlertFilterBelongsTo!
+  jobAlertFilter: JobAlertFilterHasOne!
 }
 
 input UpdateJobAlertInput {
