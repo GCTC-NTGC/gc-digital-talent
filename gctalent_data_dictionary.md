@@ -865,7 +865,7 @@ Optional open-ended questions added by pool administrators to a job advertisemen
 
 ## generic_job_title_user
 
-Links users to standardized generic job titles that describe their current or target role in plain language (e.g. 'Data Scientist', 'Policy Analyst'). Supports soft-delete.
+Allowed users to record the type of roles they were interested (eg Technician IT-01, Technical Advisor IT-03, Team Leader IT-03). This feature was removed from application in 2023, but legacy data remains. 
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -880,7 +880,7 @@ Links users to standardized generic job titles that describe their current or ta
 
 ## generic_job_titles
 
-Reference table of standardized plain-language job titles (e.g. 'Data Scientist', 'Cloud Architect') mapped to GC classifications. Allows users to self-identify with a recognizable role title rather than a classification code.
+Reference table of standardized plain-language job titles mapped to GC classifications. Allows a single classification to be associated with multiple recognizable job titles for display on a job poster, eg IT-03 with Team Leader and Technical Advisor.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -898,7 +898,7 @@ Reference table of standardized plain-language job titles (e.g. 'Data Scientist'
 
 ## job_poster_archives
 
-Point-in-time snapshots of a pool's rendered job poster HTML (English and French), captured at a lifecycle stage such as publishing or closing. Exposed via Pool.archives in GraphQL so the advertisement as it appeared can be retrieved later.
+Point-in-time snapshots of a pool's rendered job poster HTML (English and French), captured at a lifecycle stage such as publishing or closing. Exposed via Pool.archives in GraphQL so the advertisement as it appeared can be retrieved later. This ensures that even if a job poster template changes over time, or if reference data (like skills, or department names) changes, a record of how the poster originally appeared is retained for audit or investigation purposes.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -913,7 +913,7 @@ Point-in-time snapshots of a pool's rendered job poster HTML (English and French
 
 ## job_poster_template_skill
 
-Junction table linking a job poster template to required skills, specifying whether each skill is essential or asset and the expected proficiency level.
+Junction table linking skills to a job job poster template, specifying whether each skill is essential or asset and the expected proficiency level. Owned by [job_poster_tempkates](#job_poster_templates).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -927,25 +927,25 @@ Junction table linking a job poster template to required skills, specifying whet
 
 ## job_poster_templates
 
-Reusable templates for job advertisements, pre-populated with role descriptions, tasks, and skills for a given classification and work stream. Administrators use these as starting points when creating new pools.
+Reference templates of job advertisements, pre-populated with role descriptions, tasks, keywords, and skills for a given role, classification, and work stream. Recruiters can use these as a starting point, or example, when creating new pools. The library of templates is maintained by platform administrators and is visible to the public.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the template. |  |  |
-| `created_at` | Timestamp when the template was created. |  |  |
-| `updated_at` | Timestamp when the template was last modified. |  |  |
-| `reference_id` | External reference identifier for the template. |  | Required; unique (enforced by API validator, not DB) |
-| `supervisory_status` | Whether this role involves supervisory responsibilities. |  | Enum `SupervisoryStatus`: INDIVIDUAL_CONTRIBUTOR, SUPERVISOR; required on create |
-| `name` | Bilingual name of the template. |  | Localized JSON (en, fr); required on create. Example: `{"en": "Web Developer", "fr": "Développeur(-euse) Web"}` |
-| `description` | Bilingual description of the role for this template. |  | Localized JSON (en, fr); required on create. Example: `{"en": "As an IT-02 Web Developer, you will…", "fr": "En tant que développeur(-euse) Web IT-02, vous…"}` |
-| `work_description` | Bilingual description of the work environment and context. |  | Example: `{"en": "https://www.gcpedia.gc.ca/…_EN.docx", "fr": "https://www.gcpedia.gc.ca/…_FR.docx"}` |
-| `tasks` | Bilingual list of typical tasks for this role. |  | Localized JSON (en, fr); required on create. Example: `{"en": "<ul><li><p>Writes new code…</p></li></ul>", "fr": "<ul><li><p>Écrit du nouveau code…</p></li></ul>"}` |
-| `keywords` | Bilingual keywords to aid discovery and search. |  | Localized arrays of strings (en: [], fr: []). Example: `{"en": ["Programmer", "Developer"], "fr": ["Programmeur", "Développeur"]}` |
-| `essential_technical_skills_notes` | Bilingual notes about essential technical skill requirements. |  | Example: `{"en": "Web Development Languages may be replaced with…", "fr": "Les langages de développement Web peuvent être remplacés par…"}` |
-| `essential_behavioural_skills_notes` | Bilingual notes about essential behavioural competencies. |  | Example: `{"en": "Collaboration may be replaced with…", "fr": "La collaboration peut être remplacée par…"}` |
-| `nonessential_technical_skills_notes` | Bilingual notes about asset technical skills. |  | Example: `{"en": "Project management tools may be replaced with…", "fr": "Les outils de gestion de projet peuvent être remplacés par…"}` |
-| `classification_id` | FK to the GC classification this template targets. | FK → `classifications.id` | Required on create (NOT NULL) |
-| `work_stream_id` | FK to the work stream this template is designed for. | FK → `work_streams.id` | Required on create via API (nullable in DB) |
+| Column                                | Description                                                                                                                                                                                                                                         | Relationship              | Constraints                                                                                                                                                          |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                  | Unique identifier for the template.                                                                                                                                                                                                                 |                           |                                                                                                                                                                      |
+| `created_at`                          | Timestamp when the template was created.                                                                                                                                                                                                            |                           |                                                                                                                                                                      |
+| `updated_at`                          | Timestamp when the template was last modified.                                                                                                                                                                                                      |                           |                                                                                                                                                                      |
+| `reference_id`                        | Admin-assigned reference code, by convention `<group>-<level>-<work stream code>-<IC or SU>-<sequence>` (e.g. `IT-03-06-SU-029`); shown on the public job template page and printed on the template download. Free text; the format isn't enforced. |                           | Required; unique (enforced by API validator, not DB)                                                                                                                 |
+| `supervisory_status`                  | Whether this role involves supervisory responsibilities.                                                                                                                                                                                            |                           | Enum `SupervisoryStatus`: INDIVIDUAL_CONTRIBUTOR, SUPERVISOR; required on create                                                                                     |
+| `name`                                | Bilingual name of the template.                                                                                                                                                                                                                     |                           | Localized JSON (en, fr); required on create. Example: `{"en": "Web Developer", "fr": "Développeur(-euse) Web"}`                                                      |
+| `description`                         | Bilingual description of the role for this template.                                                                                                                                                                                                |                           | Localized JSON (en, fr); required on create. Example: `{"en": "As an IT-02 Web Developer, you will…", "fr": "En tant que développeur(-euse) Web IT-02, vous…"}`      |
+| `work_description`                    | Bilingual link to the generic work description document on GCPedia (a `.docx` per language), shown as "View on GCPedia" on the public job template page. Templates with the same work stream, level and role often share a document.                |                           | Example: `{"en": "https://www.gcpedia.gc.ca/…_EN.docx", "fr": "https://www.gcpedia.gc.ca/…_FR.docx"}`                                                                |
+| `tasks`                               | Bilingual list of typical tasks for this role. Saved as HTML, captured from a rich-text-editor form.                                                                                                                                                |                           | Localized JSON (en, fr); required on create; up to 200 words EN / 200 × `FRENCH_WORDS_PER_ENGLISH_WORD` FR (frontend only). Example: `{"en": "<ul><li><p>Writes new code…</p></li></ul>", "fr": "<ul><li><p>Écrit du nouveau code…</p></li></ul>"}` |
+| `keywords`                            | Bilingual keywords to aid discovery and search.                                                                                                                                                                                                     |                           | Localized arrays of strings (en: [], fr: []). Example: `{"en": ["Programmer", "Developer"], "fr": ["Programmeur", "Développeur"]}`                                   |
+| `essential_technical_skills_notes`    | Bilingual notes about essential technical skill requirements.                                                                                                                                                                                       |                           | Example: `{"en": "Web Development Languages may be replaced with…", "fr": "Les langages de développement Web peuvent être remplacés par…"}`                          |
+| `essential_behavioural_skills_notes`  | Bilingual notes about essential behavioural competencies.                                                                                                                                                                                           |                           | Example: `{"en": "Collaboration may be replaced with…", "fr": "La collaboration peut être remplacée par…"}`                                                          |
+| `nonessential_technical_skills_notes` | Bilingual notes about asset technical skills.                                                                                                                                                                                                       |                           | Example: `{"en": "Project management tools may be replaced with…", "fr": "Les outils de gestion de projet peuvent être remplacés par…"}`                             |
+| `classification_id`                   | FK to the GC classification this template targets.                                                                                                                                                                                                  | FK → `classifications.id` | Required on create (NOT NULL)                                                                                                                                        |
+| `work_stream_id`                      | FK to the work stream this template is designed for.                                                                                                                                                                                                | FK → `work_streams.id`    | Required on create via API (nullable in DB)                                                                                                                          |
 
 **Referenced by:** `job_poster_template_skill.job_poster_template_id`
 
@@ -992,41 +992,54 @@ Laravel database migrations tracking table. Records which migration files have b
 
 Laravel notifications table storing in-app and email notifications sent to users (e.g. application status updates, nomination events). Supports read/unread state and soft-delete.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the notification. |  |  |
-| `type` | Fully qualified class name of the notification type. |  | Notification class name, e.g. App\Notifications\ApplicationStatusChanged, NewJobPosted, VerifyEmails |
-| `notifiable_type` | The model class of the recipient (e.g. App\Models\User). |  | Polymorphic model class (App\Models\User); indexed with notifiable_id |
-| `notifiable_id` | UUID of the recipient record. |  |  |
-| `data` | JSON payload containing the notification content and metadata. |  | jsonb, NOT NULL |
-| `read_at` | Timestamp when the notification was read; null if unread. |  |  |
-| `created_at` | Timestamp when the notification was created. |  |  |
-| `updated_at` | Timestamp when the notification was last modified. |  |  |
-| `deleted_at` | Soft-delete timestamp; null means the notification is active. |  |  |
+| Column            | Description                                                                                                                                                                                                                                                                                             | Relationship | Constraints                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
+| `id`              | Unique identifier for the notification.                                                                                                                                                                                                                                                                 |              |                                                                                                      |
+| `type`            | Fully qualified class name of the notification type.                                                                                                                                                                                                                                                    |              | Notification class name, e.g. App\Notifications\ApplicationStatusChanged, NewJobPosted, VerifyEmails |
+| `notifiable_type` | The model class of the recipient. Always App\Models\User in practice: only users receive in-app (database) notifications. PoolCandidate is notifiable too, but only receives the email-only ApplicationReceived, and on-demand recipients (e.g. talent request and nomination emails) are never stored. |              | Polymorphic model class (App\Models\User); indexed with notifiable_id                                |
+| `notifiable_id`   | UUID of the recipient record.                                                                                                                                                                                                                                                                           |              |                                                                                                      |
+| `data`            | JSON payload with the notification's content, from the notification class's `toArray()`. Its structure depends on `type`; see the list of database notifications below the table.                                                                                                                       |              | jsonb, NOT NULL                                                                                      |
+| `read_at`         | Timestamp when the notification was read; null if unread.                                                                                                                                                                                                                                               |              |                                                                                                      |
+| `created_at`      | Timestamp when the notification was created.                                                                                                                                                                                                                                                            |              |                                                                                                      |
+| `updated_at`      | Timestamp when the notification was last modified.                                                                                                                                                                                                                                                      |              |                                                                                                      |
+| `deleted_at`      | Soft-delete timestamp; null means the notification is active.                                                                                                                                                                                                                                           |              |                                                                                                      |
+
+**Database notifications:** These are the notification classes that write rows to this table (all in `App\Notifications`). Most respect the user's preferences: a row is only stored when the notification's family is in `users.enabled_in_app_notifications`.
+
+| `type` | Sent when | Stored when | `data` structure |
+| --- | --- | --- | --- |
+| `System` | Admin-sent system message (`SendNotificationsSystem` command); always delivered, ignores user preferences | In-app channel chosen when sent | `{"message": {"en": "You've added your current position…", "fr": "Vous avez ajouté votre poste actuel…"}, "href": {"en": "/en/applicant/personal-information#government-section", "fr": "/fr/applicant/personal-information#government-section"}}` |
+| `NewJobPosted` | A pool is published; sent to every user with job alerts enabled (`SendNotificationsPoolPublished` command) | JOB_ALERT family enabled | `{"displayName": {"en": "IT-02: Web Developer", "fr": "IT-02 : Développeur(-euse) Web"}, "poolId": "<uuid>"}` |
+| `ApplicationStatusChanged` | The user's application status changes (`PoolCandidateObserver`) | APPLICATION_UPDATE family enabled | `{"poolName": {"en": "Web Developer", "fr": "Développeur(-euse) Web"}}` |
+| `ApplicationDeadlineApproaching` | A draft application's pool is about to close (`SendNotificationsApplicationDeadlineApproaching` command) | APPLICATION_UPDATE family enabled | `{"closingDate": "2026-12-01", "poolName": {"en": "…", "fr": "…"}, "poolId": "<uuid>", "poolCandidateId": "<uuid>"}` |
+| `ApplicationDeadlineExtended` | The closing date of a pool the user has a draft application for is extended (`PoolObserver`) | APPLICATION_UPDATE family enabled | `{"userName": "Jane Doe", "closingDate": "2026-12-15", "poolName": {"en": "…", "fr": "…"}, "poolCandidateId": "<uuid>"}` |
+| `UserFileGenerated` | A file the user requested (e.g. an Excel or document download) is ready | Always (in-app only) | `{"fileName": "candidates_2026-11-22.xlsx"}` |
+| `UserFileGenerationError` | Generating a file the user requested failed (`GenerateUserFile` job) | Always (in-app only) | `{"fileName": "candidates_2026-11-22.xlsx"}` |
+| `Test` | Developer test notification (`SendNotificationsTest` command) | Database channel chosen when sent | `{"name": "…"}` |
 
 ---
 
 ## off_platform_recruitment_processes
 
-Records recruitment processes that occurred outside the GC Digital Talent platform (e.g. via GC Jobs or another tool). Linked to a user's profile to track their full recruitment history.
+Records recruitment processes that occurred outside the GC Digital Talent platform (e.g. via GC Jobs or another tool). Users can add this to their own profile to track their full recruitment history and share it with recruiters who may see their profile.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for this off-platform process record. |  |  |
-| `user_id` | FK to the user who participated in the process. | FK → `users.id` | Required |
-| `created_at` | Timestamp when the record was created. |  |  |
-| `updated_at` | Timestamp when the record was last modified. |  |  |
-| `process_number` | The official process or competition number. |  | Required (NOT NULL) |
-| `department_id` | FK to the department that ran the process. | FK → `departments.id` | Optional; department must not be archived |
-| `classification_id` | FK to the classification the process was for. | FK → `classifications.id` | Required (NOT NULL) |
-| `platform` | Name of the platform used (e.g. GC Jobs, Infotel). |  | Required. Enum `HiringPlatform`: GC_JOBS, OTHER |
-| `platform_other` | Free-text description if platform is not in the standard list. |  | Required if platform = OTHER; prohibited otherwise |
+| Column              | Description                                                    | Relationship              | Constraints                                        |
+| ------------------- | -------------------------------------------------------------- | ------------------------- | -------------------------------------------------- |
+| `id`                | Unique identifier for this off-platform process record.        |                           |                                                    |
+| `user_id`           | FK to the user who participated in the process.                | FK → `users.id`           | Required                                           |
+| `created_at`        | Timestamp when the record was created.                         |                           |                                                    |
+| `updated_at`        | Timestamp when the record was last modified.                   |                           |                                                    |
+| `process_number`    | The official process or competition number.                    |                           | Required (NOT NULL)                                |
+| `department_id`     | FK to the department that ran the process.                     | FK → `departments.id`     | Optional; department must not be archived          |
+| `classification_id` | FK to the classification the process was for.                  | FK → `classifications.id` | Required (NOT NULL)                                |
+| `platform`          | Name of the platform used (e.g. GC Jobs).                      |                           | Required. Enum `HiringPlatform`: GC_JOBS, OTHER    |
+| `platform_other`    | Free-text description if platform is not in the standard list. |                           | Required if platform = OTHER; prohibited otherwise |
 
 ---
 
 ## permission_role
 
-Junction table assigning permissions to roles. Defines what each role is allowed to do in the platform.
+Junction table assigning permissions to roles. Defines what each role is allowed to do in the platform. Part of [Laratrust](https://laratrust.santigarcor.me/) (`santigarcor/laratrust`).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1037,7 +1050,7 @@ Junction table assigning permissions to roles. Defines what each role is allowed
 
 ## permission_user
 
-Assigns permissions directly to individual users, optionally scoped to a specific team. Used for exceptions beyond what their role provides.
+Assigns permissions directly to individual users, optionally scoped to a specific team. Used for exceptions beyond what their role provides. Part of [Laratrust](https://laratrust.santigarcor.me/) (`santigarcor/laratrust`), but unused by our application; all permissions are assigned in groups through roles, instead of being granted to users directly.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1050,7 +1063,7 @@ Assigns permissions directly to individual users, optionally scoped to a specifi
 
 ## permissions
 
-Reference table of all defined platform permissions (e.g. view-pool, update-candidate). Used by the Bouncer RBAC system to control access across the application.
+Reference table of all defined platform permissions (e.g. view-pool, update-candidate). Used by the Laratrust Role-Based Access Control (RBAC) system to control access across the application. Implemented using [Laratrust](https://laratrust.santigarcor.me/) (`santigarcor/laratrust`, configured in `config/laratrust.php`). Roles and permissions are defined in `config/rolepermission.php` and seeded by `RolePermissionSeeder`.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1321,7 +1334,7 @@ Recruitment pools (job advertisements) at the heart of the GC Digital Talent pla
 
 ## role_user
 
-Assigns roles to users, optionally scoped to a specific team. Drives role-based access control across the platform.
+Assigns roles to users, optionally scoped to a specific team. Drives role-based access control across the platform. Part of [Laratrust](https://laratrust.santigarcor.me/) (`santigarcor/laratrust`).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1337,7 +1350,7 @@ Assigns roles to users, optionally scoped to a specific team. Drives role-based 
 
 ## roles
 
-Reference table of platform roles (e.g. Admin, Pool Operator, Applicant, Community Manager). Roles group permissions and are assigned to users platform-wide or within teams.
+Reference table of platform roles (e.g. Admin, Pool Operator, Applicant, Community Manager). Roles group permissions and are assigned to users platform-wide or within teams. Managed by [Laratrust](https://laratrust.santigarcor.me/) (`santigarcor/laratrust`, configured in `config/laratrust.php`). Roles and permissions are defined in `config/rolepermission.php` and seeded by `RolePermissionSeeder`.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -1604,7 +1617,7 @@ A request submitted by a hiring manager for referrals of qualified talent matchi
 
 ## teams
 
-Organizational teams used to scope roles and permissions. A team can be associated with a pool, community, or department via the polymorphic teamable fields.
+Organizational teams used to scope roles and permissions. A team can be associated with a pool, community, or department via the polymorphic teamable fields. Implements [Laratrust](https://laratrust.santigarcor.me/)'s teams feature (enabled in `config/laratrust.php`).
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
