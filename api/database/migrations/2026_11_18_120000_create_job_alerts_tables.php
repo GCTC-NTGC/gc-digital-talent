@@ -17,7 +17,6 @@ return new class() extends Migration
             $table->uuid('id')->primary()->default(new Expression('gen_random_uuid()'));
             $table->jsonb('keyword_search')->nullable();
             $table->jsonb('eligibility')->nullable();
-            $table->jsonb('published_at_range')->nullable();
             $table->jsonb('languages')->nullable();
             $table->string('salary_range')->nullable();
             $table->timestamps();

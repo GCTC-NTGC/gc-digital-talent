@@ -1131,8 +1131,6 @@ type JobAlertFilter {
   eligibility: [LocalizedPoolAreaOfSelection!]
   departments: [Department!] @belongsToMany
   classifications: [Classification!] @belongsToMany
-  publishedAtRange: [LocalizedPoolPublishedRange!]
-    @rename(attribute: "published_at_range")
   languages: [LocalizedLanguageAbility!]
   salaryRange: LocalizedSalaryRange @rename(attribute: "salary_range")
 }
@@ -2847,8 +2845,6 @@ input CreateJobAlertFilterInput {
   eligibility: [PoolAreaOfSelection!]
   departments: DepartmentBelongsToMany
   classifications: ClassificationBelongsToMany
-  publishedAtRange: [PoolPublishedRange!]
-    @rename(attribute: "published_at_range")
   languages: [LanguageAbility!]
   salaryRange: SalaryRange @rename(attribute: "salary_range")
 }

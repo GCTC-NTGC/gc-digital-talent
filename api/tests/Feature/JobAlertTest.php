@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Enums\ErrorCode;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolAreaOfSelection;
-use App\Enums\PoolPublishedRange;
 use App\Enums\SalaryRange;
 use App\Models\Classification;
 use App\Models\Department;
@@ -170,18 +169,6 @@ class JobAlertTest extends TestCase
             ->assertGraphQLValidationError('jobAlert.jobAlertFilter.create', ErrorCode::JOB_ALERT_FILTER_REQUIRED->name);
     }
 
-    public function testCreateRejectsOverThirtyDaysRange(): void
-    {
-        $this->actingAs($this->applicant, 'api')
-            ->graphQL($this->createMutation, $this->createInput([
-                'publishedAtRange' => [PoolPublishedRange::OVER_30_DAYS->name],
-            ]))
-            ->assertGraphQLValidationError(
-                'jobAlert.jobAlertFilter.create.publishedAtRange.0',
-                ErrorCode::JOB_ALERT_INVALID_PUBLISHED_RANGE->name
-            );
-    }
-
     public function testOwnerCanUpdateJobAlert(): void
     {
         $jobAlert = JobAlert::factory()->for($this->applicant)->create();
@@ -274,7 +261,6 @@ class JobAlertTest extends TestCase
             'eligibility' => [PoolAreaOfSelection::PUBLIC->name],
             'departments' => [$department->id],
             'classifications' => [$classification->id],
-            'publishedAtRange' => [PoolPublishedRange::UNDER_48_HOURS->name],
             'languages' => [LanguageAbility::ENGLISH->name],
             'salaryRange' => SalaryRange::BETWEEN_80000_99999->name,
         ];

@@ -13,7 +13,6 @@ use Illuminate\Support\Carbon;
  * @property string $id
  * @property ?array $keyword_search
  * @property ?array $eligibility
- * @property ?array $published_at_range
  * @property ?array $languages
  * @property ?string $salary_range
  * @property Carbon $created_at
@@ -28,7 +27,6 @@ class JobAlertFilter extends Model
     protected $casts = [
         'keyword_search' => 'array',
         'eligibility' => 'array',
-        'published_at_range' => 'array',
         'languages' => 'array',
     ];
 
@@ -52,7 +50,6 @@ class JobAlertFilter extends Model
             'eligibility' => $this->eligibility,
             'departments' => $this->departments->pluck('id')->all(),
             'classifications' => $this->classifications->pluck('id')->all(),
-            'publishedAtRange' => $this->published_at_range,
             'languages' => $this->languages,
             'salaryRange' => $this->salary_range,
         ];

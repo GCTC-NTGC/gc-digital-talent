@@ -76,7 +76,6 @@ enum ErrorCode
     // Job alert
     case JOB_ALERT_LIMIT_REACHED;
     case JOB_ALERT_FILTER_REQUIRED;
-    case JOB_ALERT_INVALID_PUBLISHED_RANGE;
 
     // Job poster template
     case ESSENTIAL_SKILL_REQUIRES_LEVEL;

@@ -1636,7 +1636,6 @@ type JobAlertFilter {
   eligibility: [LocalizedPoolAreaOfSelection!]
   departments: [Department!]
   classifications: [Classification!]
-  publishedAtRange: [LocalizedPoolPublishedRange!]
   languages: [LocalizedLanguageAbility!]
   salaryRange: LocalizedSalaryRange
 }
@@ -2830,7 +2829,6 @@ input CreateJobAlertFilterInput {
   eligibility: [PoolAreaOfSelection!]
   departments: DepartmentBelongsToMany
   classifications: ClassificationBelongsToMany
-  publishedAtRange: [PoolPublishedRange!]
   languages: [LanguageAbility!]
   salaryRange: SalaryRange
 }
@@ -4323,7 +4321,6 @@ enum ErrorCode {
   ENUM_NOT_LOCALIZED
   JOB_ALERT_LIMIT_REACHED
   JOB_ALERT_FILTER_REQUIRED
-  JOB_ALERT_INVALID_PUBLISHED_RANGE
   ESSENTIAL_SKILL_REQUIRES_LEVEL
   NONESSENTIAL_SKILL_PROHIBITS_LEVEL
   CANNOT_ENABLE_NOTIFICATION_FAMILY
