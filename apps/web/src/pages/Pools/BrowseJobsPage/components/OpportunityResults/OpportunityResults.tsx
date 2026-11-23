@@ -72,7 +72,7 @@ const OpportunityResults = ({
     unpackMaybes(page.edges).map((edge) => edge.node),
   );
   // the first card of the page just loaded, so keyboard and screen reader users carry on from there
-  // or the last card, if that page came back empty and the button is gone
+  // or the last card, if that page added no new cards
   const focusIndex = morePages.length
     ? Math.min(
         pools.length - unpackMaybes(lastPage.edges).length,
@@ -94,7 +94,17 @@ const OpportunityResults = ({
     setFetchingMore(false);
 
     if (data) {
-      setMorePages((pages) => [...pages, data.publishedPoolsSearch]);
+      // a deadline extended mid-browse can bring an already shown pool back on a later page, so keep only its first card
+      const shownIds = new Set(pools.map((pool) => pool.id));
+      setMorePages((pages) => [
+        ...pages,
+        {
+          ...data.publishedPoolsSearch,
+          edges: unpackMaybes(data.publishedPoolsSearch.edges).filter(
+            (edge) => !shownIds.has(edge.node.id),
+          ),
+        },
+      ]);
     } else if (error?.networkError) {
       // the client already toasts GraphQL errors, but not network ones
       toast.error(
