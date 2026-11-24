@@ -1,3 +1,4 @@
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import type {
   AssessmentStep,
   AssessmentStepInput,
@@ -17,16 +18,15 @@ import {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
+import { getClassifications } from "./classification";
+import { getCommunities } from "./communities";
+import { getDepartments } from "./departments";
 import type {
   GraphQLContext,
   GraphQLRequestFunc,
   GraphQLResponse,
 } from "./graphql";
-import { getCommunities } from "./communities";
-import { getClassifications } from "./classification";
-import { getDepartments } from "./departments";
 import { getSkills } from "./skills";
 import { getWorkStreams } from "./workStreams";
 

@@ -4,8 +4,8 @@ import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createPool, updatePool } from "~/utils/pools";
 import { generateUniqueTestId } from "~/utils/id";
+import { createPool, updatePool } from "~/utils/pools";
 
 test.describe("Process permissions", { tag: "@uat" }, () => {
   let poolName: string;
