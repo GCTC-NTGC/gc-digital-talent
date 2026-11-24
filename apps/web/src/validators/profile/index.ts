@@ -1,28 +1,28 @@
-import {
-  hasEmptyRequiredFields as personalInformationSectionHasEmptyRequiredFields,
-  type PartialUser as PartialUserPersonalInformation,
-} from "./personalInformation";
-import {
-  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
-  type PartialUser as PartialUserDei,
-} from "./diversityEquityInclusion";
+import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
 import {
   hasEmptyRequiredFields as priorityEntitlementsHasEmptyRequiredFields,
   type PartialUser as PartialUserPriority,
 } from "./citizenVeteranPriority";
+import {
+  hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
+  type PartialUser as PartialUserDei,
+} from "./diversityEquityInclusion";
+import { hasMissingResponses as generalQuestionsSectionHasMissingResponses } from "./generalQuestions";
 import {
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
   hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
   type PartialUser as PartialUserLanguage,
 } from "./languageInformation";
 import {
+  hasEmptyRequiredFields as personalInformationSectionHasEmptyRequiredFields,
+  type PartialUser as PartialUserPersonalInformation,
+} from "./personalInformation";
+import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } from "./screeningQuestions";
+import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
+import {
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
   type PartialUser as PartialUserPreferences,
 } from "./workPreferences";
-import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
-import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
-import { hasMissingResponses as generalQuestionsSectionHasMissingResponses } from "./generalQuestions";
-import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } from "./screeningQuestions";
 
 export {
   personalInformationSectionHasEmptyRequiredFields,

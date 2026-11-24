@@ -1,3 +1,6 @@
+import { differenceInDays } from "date-fns/differenceInDays";
+import sortBy from "lodash/sortBy";
+import type { ReactNode } from "react";
 /**
  * This file contains utility functions for working with the Pool Candidate model generally,
  * and for interacting with Pool Candidates on the Admin side (e.g. Assessment).
@@ -6,14 +9,8 @@
  */
 import type { IntlShape } from "react-intl";
 import { defineMessages } from "react-intl";
-import sortBy from "lodash/sortBy";
-import type { ReactNode } from "react";
-import { differenceInDays } from "date-fns/differenceInDays";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import type { ChipProps } from "@gc-digital-talent/ui";
 import type {
   ScreeningStage,
   AssessmentStepType,
@@ -23,6 +20,9 @@ import {
   CandidateInterest,
   ApplicationStatus,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
+import type { ChipProps } from "@gc-digital-talent/ui";
 
 import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";
 
