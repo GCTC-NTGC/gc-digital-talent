@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Classification;
-use App\Models\Community;
 use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
 
@@ -26,12 +25,6 @@ class DevelopmentProgramFactory extends BaseFactory
         return [
             'name' => $this->faker->localizedString($this->faker->company()),
             'description_for_profile' => $this->faker->localizedString($this->faker->sentence()),
-            'description_for_nominations' => $this->faker->localizedString($this->faker->sentence()),
-            'community_id' => function () {
-                $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
-
-                return $community->id;
-            },
             'information_url' => $this->faker->localizedString($this->faker->url()),
             'abbreviation' => $this->faker->localizedString(strtoupper($this->faker->text(5))),
         ];
