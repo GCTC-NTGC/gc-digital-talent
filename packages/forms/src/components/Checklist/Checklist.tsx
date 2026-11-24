@@ -1,14 +1,14 @@
-import { useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
+import { useFormContext } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
-import Checkbox from "../Checkbox/Checkbox";
-import Field from "../Field";
-import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import Checkbox from "../Checkbox/Checkbox";
+import Field from "../Field";
 
 export interface CheckboxOption {
   value: string | number;

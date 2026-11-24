@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 

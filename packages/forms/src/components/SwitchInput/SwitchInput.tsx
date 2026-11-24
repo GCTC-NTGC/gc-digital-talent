@@ -1,14 +1,14 @@
+import { ErrorMessage } from "@hookform/error-message";
 import type { ComponentRef } from "react";
 import { forwardRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
+import { nodeToString } from "@gc-digital-talent/helpers";
 import type { SwitchProps } from "@gc-digital-talent/ui";
 import { Switch } from "@gc-digital-talent/ui";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
-import type { CommonInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import type { CommonInputProps } from "../../types";
 import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 

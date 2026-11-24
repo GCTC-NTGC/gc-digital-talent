@@ -1,9 +1,9 @@
-import { useQuery } from "urql";
 import type { ReactNode } from "react";
+import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Pending } from "@gc-digital-talent/ui";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 

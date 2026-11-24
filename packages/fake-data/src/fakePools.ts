@@ -17,17 +17,17 @@ import {
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
-import fakeScreeningQuestions from "./fakeScreeningQuestions";
-import fakeGeneralQuestions from "./fakeGeneralQuestions";
+import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
 import fakeCommunities from "./fakeCommunities";
+import fakeDepartments from "./fakeDepartments";
+import fakeGeneralQuestions from "./fakeGeneralQuestions";
+import toLocalizedEnum from "./fakeLocalizedEnum";
+import toLocalizedString from "./fakeLocalizedString";
+import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
+import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
-import toLocalizedString from "./fakeLocalizedString";
-import fakeAssessmentSteps from "./fakeAssessmentSteps";
-import fakeDepartments from "./fakeDepartments";
-import toLocalizedEnum from "./fakeLocalizedEnum";
 import fakeWorkStreams from "./fakeWorkStreams";
 
 const generatePool = (

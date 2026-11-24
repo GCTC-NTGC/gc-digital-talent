@@ -1,7 +1,7 @@
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
+import type { ReactNode } from "react";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router";
-import type { ReactNode } from "react";
 
 import richTextElements from "@gc-digital-talent/rich-text-elements";
 

@@ -1,3 +1,4 @@
+import { authExchange } from "@urql/exchange-auth";
 import type { IntlShape } from "react-intl";
 import type { Client } from "urql";
 import {
@@ -7,11 +8,7 @@ import {
   mapExchange,
   subscriptionExchange,
 } from "urql";
-import { authExchange } from "@urql/exchange-auth";
 
-import { getLocale } from "@gc-digital-talent/i18n";
-import { getLogger } from "@gc-digital-talent/logger";
-import { toast } from "@gc-digital-talent/toast";
 import type {
   LogoutReason,
   AuthenticationState,
@@ -24,9 +21,14 @@ import {
   REFRESH_TOKEN,
 } from "@gc-digital-talent/auth";
 import { uniqueItems } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
+import { toast } from "@gc-digital-talent/toast";
 
-import protectedEndpointExchange from "../exchanges/protectedEndpointExchange";
 import { apiHost, apiUri } from "../constants";
+import protectedEndpointExchange from "../exchanges/protectedEndpointExchange";
+import specialErrorExchange from "../exchanges/specialErrorExchange";
+import createPusher from "./createPusher";
 import {
   buildValidationErrorMessageNode,
   containsAuthenticationError,
@@ -34,9 +36,7 @@ import {
   extractErrorMessages,
   extractValidationMessageKeys,
 } from "./errors";
-import specialErrorExchange from "../exchanges/specialErrorExchange";
 import { isTokenProbablyExpired } from "./isTokenProbablyExpired";
-import createPusher from "./createPusher";
 
 interface GetClientArgs {
   intl: IntlShape;

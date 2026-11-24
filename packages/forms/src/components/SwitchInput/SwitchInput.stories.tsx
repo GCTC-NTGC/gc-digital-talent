@@ -1,10 +1,10 @@
-import type { StoryFn } from "@storybook/react-vite";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
-import type { SwitchProps } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import type { SwitchProps } from "@gc-digital-talent/ui";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";

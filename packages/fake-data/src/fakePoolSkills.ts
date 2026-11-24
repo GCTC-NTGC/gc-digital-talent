@@ -5,8 +5,8 @@ import {
   SkillLevel,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import fakeSkills from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import fakeSkills from "./fakeSkills";
 
 const generatePoolSkill = () => {
   return {
