@@ -14,8 +14,8 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->string('selection_scope');
-            $table->string('area_of_selection_scope');
+            $table->string('selection_scope')->nullable();
+            $table->string('area_of_selection_scope')->nullable();
             $table->string('area_of_selection_criteria')->nullable();
             $table->jsonb('area_of_selection_exception_reason')->nullable();
             $table->boolean('includes_sliding_area')->default(false);
