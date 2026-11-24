@@ -9104,6 +9104,10 @@
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
   },
+  "Yh1sXR": {
+    "defaultMessage": "Je suis membre des Premières Nations (avec inscription)",
+    "description": "Text for the option to self-declare as a status first nations"
+  },
   "Yh8UWM": {
     "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement",
     "description": "Nine-box recommendation title for development"
@@ -10965,6 +10969,10 @@
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
+  },
+  "g/Jfxy": {
+    "defaultMessage": "Je suis membre des Premières Nations (sans inscription)",
+    "description": "Text for the option to self-declare as a non-status first nations"
   },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
@@ -13993,10 +14001,6 @@
     "defaultMessage": "Accédez à ConnexionCanada.",
     "description": "Text for first registrion step, head to canada login"
   },
-  "sSE4kt": {
-    "defaultMessage": "Je suis membre des Premières Nations (sans inscription)",
-    "description": "Text for the option to self-declare as a non-status first nations"
-  },
   "sTPYhS": {
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
@@ -14084,10 +14088,6 @@
   "sry9Wl": {
     "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",
     "description": "Language profiles list for language requirements dialog"
-  },
-  "ssJxrj": {
-    "defaultMessage": "Je suis membre des Premières Nations (avec inscription)",
-    "description": "Text for the option to self-declare as a status first nations"
   },
   "ssSdOn": {
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",

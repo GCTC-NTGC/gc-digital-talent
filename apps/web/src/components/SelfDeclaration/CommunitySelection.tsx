@@ -98,8 +98,8 @@ const FirstNationSection = ({
               {
                 value: "status",
                 label: intl.formatMessage({
-                  defaultMessage: '"I am Status First Nations"',
-                  id: "ssJxrj",
+                  defaultMessage: "I am Status First Nations",
+                  id: "Yh1sXR",
                   description:
                     "Text for the option to self-declare as a status first nations",
                 }),
@@ -107,8 +107,8 @@ const FirstNationSection = ({
               {
                 value: "nonStatus",
                 label: intl.formatMessage({
-                  defaultMessage: '"I am Non-Status First Nations"',
-                  id: "sSE4kt",
+                  defaultMessage: "I am Non-Status First Nations",
+                  id: "g/Jfxy",
                   description:
                     "Text for the option to self-declare as a non-status first nations",
                 }),
