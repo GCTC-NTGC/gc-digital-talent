@@ -229,15 +229,6 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
         communityInterests(id: $communityInterestId) {
           ...UpdateCommunityInterestPage_Fragment
           ...UpdateCommunityInterestFormData_Fragment
-          interestInDevelopmentPrograms {
-            id
-            communityDevelopmentProgram {
-              id
-              developmentProgram {
-                id
-              }
-            }
-          }
         }
       }
     }
@@ -319,26 +310,8 @@ export const UpdateCommunityInterestPage = () => {
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const interestedDevPrograms = new Map<string, string>();
-    queryData?.me?.employeeProfile?.communityInterests?.forEach(
-      (communityInterest) => {
-        communityInterest.interestInDevelopmentPrograms?.forEach(
-          (interestedDevProgram) => {
-            interestedDevPrograms.set(
-              interestedDevProgram.communityDevelopmentProgram.id,
-              interestedDevProgram.id,
-            );
-          },
-        );
-      },
-    );
-
     const mutationInput: UpdateCommunityInterestWithDevelopmentProgramsInput =
-      formValuesToApiUpdateInput(
-        communityInterestId,
-        // interestedDevPrograms,
-        formValues,
-      );
+      formValuesToApiUpdateInput(communityInterestId, formValues);
     const mutationPromise = executeUpdateMutation({
       communityInterestWithDevelopmentPrograms: mutationInput,
     }).then((response) => {
