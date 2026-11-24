@@ -1,15 +1,15 @@
 import { screen } from "@testing-library/react";
 
 import {
-  expectNoAccessibilityErrors,
-  renderWithProviders,
-} from "@gc-digital-talent/vitest-helpers";
-import {
   fakeUsers,
   fakePools,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { PoolLanguage } from "@gc-digital-talent/graphql";
+import {
+  expectNoAccessibilityErrors,
+  renderWithProviders,
+} from "@gc-digital-talent/vitest-helpers";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,

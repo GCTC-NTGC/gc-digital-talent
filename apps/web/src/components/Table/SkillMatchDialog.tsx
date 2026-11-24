@@ -3,10 +3,10 @@ import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
 
 import type { SkillTreeSkill } from "~/components/SkillTree/SkillTree";
 import SkillTree, {

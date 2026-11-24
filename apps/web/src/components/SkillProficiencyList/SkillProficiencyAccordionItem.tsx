@@ -1,17 +1,17 @@
-import { useIntl } from "react-intl";
 import type { ComponentProps } from "react";
+import { useIntl } from "react-intl";
 
-import { Accordion } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getSkillLevelDefinition,
-  getSkillLevelName,
-} from "@gc-digital-talent/i18n";
 import type {
   SkillCategory,
   SkillLevel,
   SkillProficiencyListOptionsFragment,
 } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getSkillLevelDefinition,
+  getSkillLevelName,
+} from "@gc-digital-talent/i18n";
+import { Accordion } from "@gc-digital-talent/ui";
 
 import SkillBrowserDialog from "../SkillBrowser/SkillBrowserDialog";
 import type { FormValues as SkillBrowserDialogFormValues } from "../SkillBrowser/types";

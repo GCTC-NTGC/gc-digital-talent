@@ -1,27 +1,27 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { DateInput } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
-import { emptyToNull } from "@gc-digital-talent/helpers";
+import { DateInput } from "@gc-digital-talent/forms";
 import type {
   UpdatePoolCandidateStatusInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { emptyToNull } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 

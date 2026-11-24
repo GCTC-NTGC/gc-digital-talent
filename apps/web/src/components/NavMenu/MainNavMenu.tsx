@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 
-import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { NavMenu } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { NavMenu } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import useNavContext from "../NavContext/useNavContext";
-import useMainNavLinks from "./useMainNavLinks";
-import navMenuMessages from "./messages";
+import HomeLink from "./HomeLink";
 import Menu, { borderItem } from "./Menu";
 import MenuSeparator from "./MenuSeparator";
-import HomeLink from "./HomeLink";
+import navMenuMessages from "./messages";
+import useMainNavLinks from "./useMainNavLinks";
 
 const MainNavMenu = () => {
   const intl = useIntl();

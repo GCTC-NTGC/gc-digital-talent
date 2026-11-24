@@ -1,14 +1,14 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
-import { allModes } from "@gc-digital-talent/storybook-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { fakeCommunities } from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { fakeCommunities } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TalentNominationEventCard, {
   TalentNominationEventCard_Fragment,

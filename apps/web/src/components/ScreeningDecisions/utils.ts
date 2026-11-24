@@ -1,5 +1,5 @@
-import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import type {
   AssessmentResultType,
@@ -17,20 +17,20 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getLocale,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import type { NullableDecision } from "~/utils/assessmentResults";
-import { NO_DECISION } from "~/utils/assessmentResults";
-import type { ExperienceWithSkills } from "~/utils/skillUtils";
-import { getExperienceSkills } from "~/utils/skillUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
+import type { NullableDecision } from "~/utils/assessmentResults";
+import { NO_DECISION } from "~/utils/assessmentResults";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
+import { getExperienceSkills } from "~/utils/skillUtils";
 
 import type { FormValues } from "./types";
 

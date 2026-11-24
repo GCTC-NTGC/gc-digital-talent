@@ -1,13 +1,13 @@
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
-import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
+import type { ExperienceType } from "~/types/experience";
 
 interface ExperienceTypeDetails {
   title: string;

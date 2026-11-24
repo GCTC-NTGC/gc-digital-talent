@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfileView,
 } from "@gc-digital-talent/i18n";
-import { empty } from "@gc-digital-talent/helpers";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import governmentMessages from "~/messages/governmentMessages";
+import profileMessages from "~/messages/profileMessages";
 
 const CitizenVeteranPriorityDisplay_Fragment = graphql(/** GraphQL */ `
   fragment CitizenVeteranPriorityDisplay on User {

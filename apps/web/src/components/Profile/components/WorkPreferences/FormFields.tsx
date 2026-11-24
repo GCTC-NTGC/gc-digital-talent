@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
@@ -11,13 +11,6 @@ import {
   TextArea,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  OperationalRequirements,
-  errorMessages,
-  getOperationalRequirement,
-  sortFlexibleWorkLocations,
-  sortWorkRegion,
-} from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
@@ -26,9 +19,16 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  OperationalRequirements,
+  errorMessages,
+  getOperationalRequirement,
+  sortFlexibleWorkLocations,
+  sortWorkRegion,
+} from "@gc-digital-talent/i18n";
 
-import type { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import type { FormFieldProps } from "../../types";
 import type { FormValues } from "./types";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `

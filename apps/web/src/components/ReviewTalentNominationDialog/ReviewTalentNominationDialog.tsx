@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
@@ -11,18 +17,12 @@ import {
   Separator,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentNominationMessages from "~/messages/talentNominationMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { getFullNameLabel } from "~/utils/nameUtils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
 

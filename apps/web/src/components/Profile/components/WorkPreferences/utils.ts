@@ -9,8 +9,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import type { FormValues } from "./types";
 import { WorkPreferencesDisplay_Fragment } from "./Display";
+import type { FormValues } from "./types";
 
 export const dataToFormValues = (
   data: ProfileWorkPreferencesFragment,

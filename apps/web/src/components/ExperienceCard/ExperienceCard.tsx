@@ -1,7 +1,15 @@
-import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  EmploymentCategory,
+  getFragment,
+  GovEmployeeType,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Collapsible,
@@ -14,15 +22,8 @@ import {
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  EmploymentCategory,
-  getFragment,
-  GovEmployeeType,
-  graphql,
-} from "@gc-digital-talent/graphql";
 
+import experienceMessages from "~/messages/experienceMessages";
 import {
   getExperienceFormLabels,
   isAwardExperience,
@@ -32,18 +33,17 @@ import {
   isWorkExperience,
   useExperienceInfo,
 } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 
 import type { SkillLink } from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import AwardContent from "./AwardContent";
-import ContentSection from "./ContentSection";
 import CommunityContent from "./CommunityContent";
-import EducationContent from "./EducationContent";
-import WorkContent from "./WorkContent";
+import ContentSection from "./ContentSection";
 import EditLink from "./EditLink";
-import WorkStreamContent from "./WorkContent/WorkStreamsContent";
+import EducationContent from "./EducationContent";
 import PersonalContent from "./PersonalContent";
+import WorkContent from "./WorkContent";
+import WorkStreamContent from "./WorkContent/WorkStreamsContent";
 
 type EditMode = "link" | "dialog";
 

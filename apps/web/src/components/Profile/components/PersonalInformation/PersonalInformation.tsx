@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import { useIntl } from "react-intl";
 
-import { Notice, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Notice, Heading } from "@gc-digital-talent/ui";
 
 import {
   hasAllEmptyFields,
@@ -12,8 +12,8 @@ import {
   type AboutPool,
 } from "~/validators/profile/personalInformation";
 
-import type { ProfileSectionPool, SectionProps } from "../../types";
 import useSectionInfo from "../../hooks/useSectionInfo";
+import type { ProfileSectionPool, SectionProps } from "../../types";
 import AccountInformationCard from "./AccountInformationCard";
 import GovernmentInformationCard from "./GovernmentInformationCard";
 

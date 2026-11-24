@@ -1,14 +1,14 @@
-import { useIntl } from "react-intl";
 import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
+import { useIntl } from "react-intl";
 
-import { IconButton } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { IconButton } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Flag on PoolCandidateAdminView {

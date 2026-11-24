@@ -1,8 +1,8 @@
 import CanadaLogo from "./CanadaLogo";
 import CanadaLogoWhite from "./CanadaLogoWhite";
 import GocLogoEn from "./GocLogoEn";
-import GocLogoWhiteEn from "./GoCLogoWhiteEn";
 import GocLogoFr from "./GocLogoFr";
+import GocLogoWhiteEn from "./GoCLogoWhiteEn";
 import GocLogoWhiteFr from "./GoCLogoWhiteFr";
 
 export {

@@ -3,18 +3,18 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import type {
   AllExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
 import EducationFields from "./EducationFields/EducationFields";
+import NullExperienceType from "./NullExperienceType";
 import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields/WorkFields";
-import NullExperienceType from "./NullExperienceType";
 
 interface ExperienceDetailsProps {
   experienceType?: ExperienceType;

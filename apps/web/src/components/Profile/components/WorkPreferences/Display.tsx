@@ -1,24 +1,24 @@
 import { useIntl } from "react-intl";
 
-import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getOperationalRequirement,
-  getWorkRegionsDetailed,
-} from "@gc-digital-talent/i18n";
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import type { FieldLabels } from "@gc-digital-talent/forms";
+import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getOperationalRequirement,
+  getWorkRegionsDetailed,
+} from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { FlexibleWorkLocationOptions_Fragment } from "./fragment";
 export const WorkPreferencesDisplay_Fragment = graphql(/** GraphQL */ `

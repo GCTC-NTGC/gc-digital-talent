@@ -6,9 +6,9 @@ import type {
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";

@@ -4,11 +4,11 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, Separator } from "@gc-digital-talent/ui";
 
-import PersonalContactInfo from "./PersonalContactInfo";
-import LanguageInfo from "./LanguageInfo";
-import WorkPreferences from "./WorkPreferences";
-import { BasicInformationOptions_Fragment } from "./utils";
 import DiversityEquityInfo from "./DiversityEquityInfo";
+import LanguageInfo from "./LanguageInfo";
+import PersonalContactInfo from "./PersonalContactInfo";
+import { BasicInformationOptions_Fragment } from "./utils";
+import WorkPreferences from "./WorkPreferences";
 
 const BasicInformation_Fragment = graphql(/* GraphQL */ `
   fragment BasicInformation on User {

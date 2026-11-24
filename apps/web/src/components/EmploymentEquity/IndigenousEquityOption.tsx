@@ -1,11 +1,11 @@
-import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import type { ReactNode, JSX } from "react";
+import { useIntl } from "react-intl";
 
-import { Button, Card, Ul } from "@gc-digital-talent/ui";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Button, Card, Ul } from "@gc-digital-talent/ui";
 
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 

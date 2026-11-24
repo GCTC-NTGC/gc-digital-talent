@@ -1,8 +1,9 @@
-import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button, Heading, Notice, Ul } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
@@ -10,15 +11,14 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Dialog, Button, Heading, Notice, Ul } from "@gc-digital-talent/ui";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import {
   deriveExperienceType,
   getExperienceName,
 } from "~/utils/experienceUtils";
-import { useExperienceMutations } from "~/hooks/useExperienceMutations";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 

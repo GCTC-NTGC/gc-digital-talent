@@ -1,9 +1,9 @@
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Notice } from "@gc-digital-talent/ui";
 import type { ScreeningStage } from "@gc-digital-talent/graphql";
 import { ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
+import { Notice } from "@gc-digital-talent/ui";
 
 import type { FormValues } from "./types";
 

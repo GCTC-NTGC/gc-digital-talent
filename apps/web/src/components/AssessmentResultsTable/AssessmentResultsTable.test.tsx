@@ -1,7 +1,7 @@
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
-import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
-import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import { AssessmentDecision } from "@gc-digital-talent/graphql";
 

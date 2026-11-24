@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   fakePoolCandidates,
@@ -7,11 +7,11 @@ import {
   fakePools,
   fakeLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   FlexibleWorkLocation,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import ApplicationSnapshot, {
   ApplicationSnapshot_Fragment,

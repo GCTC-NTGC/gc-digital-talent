@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import { Fragment } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";

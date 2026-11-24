@@ -1,10 +1,11 @@
-import type { MessageDescriptor } from "react-intl";
-import { defineMessage, useIntl } from "react-intl";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useQuery } from "urql";
 import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 import {
   Combobox,
@@ -15,12 +16,6 @@ import {
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  uiMessages,
-  narrowEnumType,
-} from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import type { GovFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import {
   GovContractorType,
@@ -28,15 +23,20 @@ import {
   GovPositionType,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Loading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  errorMessages,
+  uiMessages,
+  narrowEnumType,
+} from "@gc-digital-talent/i18n";
+import { Loading, Notice } from "@gc-digital-talent/ui";
 
+import { useStableDate } from "~/hooks/useStableDate";
 import type {
   SubExperienceFormProps,
   WorkFormValues,
 } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
-import { useStableDate } from "~/hooks/useStableDate";
 
 import SupervisoryFields from "./SupervisoryFields";
 

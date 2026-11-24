@@ -1,12 +1,12 @@
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import type { HeadingRank } from "@gc-digital-talent/ui";
-import { Link, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";

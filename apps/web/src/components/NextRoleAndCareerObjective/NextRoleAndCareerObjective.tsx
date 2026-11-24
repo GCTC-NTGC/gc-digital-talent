@@ -4,11 +4,11 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, PreviewList, Notice } from "@gc-digital-talent/ui";
 
-import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
+import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 
-import NextRolePreview from "./NextRolePreview";
 import CareerObjectivePreview from "./CareerObjectivePreview";
+import NextRolePreview from "./NextRolePreview";
 import { CareerObjectiveInfo_Fragment, NextRoleInfo_Fragment } from "./utils";
 
 export const NextRoleAndCareerObjective_Fragment = graphql(/* GraphQL */ `

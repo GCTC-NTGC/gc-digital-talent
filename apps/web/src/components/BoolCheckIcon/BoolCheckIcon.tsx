@@ -1,5 +1,5 @@
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type { ReactNode } from "react";
 import { useId } from "react";
 import { tv } from "tailwind-variants";

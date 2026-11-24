@@ -2,9 +2,9 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { PreviewList } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import CommunityInterestDialog from "~/components/CommunityInterestDialog/CommunityInterestDialog";
 

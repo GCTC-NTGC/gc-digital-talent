@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
 

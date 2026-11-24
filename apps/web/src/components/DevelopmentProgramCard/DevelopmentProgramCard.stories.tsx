@@ -1,11 +1,11 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
-import { allModes } from "@gc-digital-talent/storybook-helpers";
 import {
   fakeClassifications,
   fakeDevelopmentPrograms,
 } from "@gc-digital-talent/fake-data";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
 
