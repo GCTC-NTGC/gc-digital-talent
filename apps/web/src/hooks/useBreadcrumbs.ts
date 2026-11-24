@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
 
-import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "./useRoutes";
 

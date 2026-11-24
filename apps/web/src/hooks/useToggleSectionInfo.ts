@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useCallback, useMemo, useState } from "react";
 
 import type { HeadingProps, IconType } from "@gc-digital-talent/ui";
 
