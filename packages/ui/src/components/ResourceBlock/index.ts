@@ -1,8 +1,8 @@
-import Root from "./Root";
 import BaseItem from "./BaseItem";
-import SingleLinkItem from "./SingleLinkItem";
 import LinkMenuItem from "./LinkMenuItem";
 import RawContentItem from "./RawContentItem";
+import Root from "./Root";
+import SingleLinkItem from "./SingleLinkItem";
 
 export default {
   Root,

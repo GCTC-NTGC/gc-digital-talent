@@ -2,8 +2,8 @@ import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import type { ListVariants } from "./styles";
 import Ol from "./Ol";
+import type { ListVariants } from "./styles";
 import Ul from "./Ul";
 
 const spaces: ListVariants["space"][] = ["sm", "md", "lg", "xl"];

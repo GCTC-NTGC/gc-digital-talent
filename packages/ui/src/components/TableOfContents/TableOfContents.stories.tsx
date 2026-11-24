@@ -1,6 +1,6 @@
-import { Fragment } from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Fragment } from "react";
 import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

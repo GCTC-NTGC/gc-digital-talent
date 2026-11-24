@@ -1,5 +1,4 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { useIntl } from "react-intl";
 import type {
   ComponentPropsWithoutRef,
   ComponentRef,
@@ -13,14 +12,15 @@ import {
   useMemo,
   useContext,
 } from "react";
+import { useIntl } from "react-intl";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
-import { iconMap, getAlertLevelTitle } from "./utils";
 import type { AlertHeadingRank, AlertType } from "./types";
+import { iconMap, getAlertLevelTitle } from "./utils";
 
 interface AlertContextValue {
   type: AlertType;

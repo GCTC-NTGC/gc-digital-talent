@@ -1,5 +1,5 @@
-import { forwardRef } from "react";
 import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
+import { forwardRef } from "react";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";

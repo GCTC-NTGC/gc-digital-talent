@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
+import { hrefToString } from "../../../utils";
 import Heading from "../../Heading";
 import type { CardFlatRegularLinkProps } from "./CardFlatRegularLink";
 import CardFlatRegularLink from "./CardFlatRegularLink";
 import type { CardFlatScrollToLinkProps } from "./CardFlatScrollToLink";
 import CardFlatScrollToLink from "./CardFlatScrollToLink";
-import { hrefToString } from "../../../utils";
 
 function isRegularLinkItem(
   item: LinkItemRegular | LinkItemScrollTo,
