@@ -662,6 +662,10 @@
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'create a work stream' form"
   },
+  "0blbyb": {
+    "defaultMessage": "Je suis membre des Premières Nations",
+    "description": "Text for the option to self-declare as first nations"
+  },
   "0c/3Iw": {
     "defaultMessage": "Vos objectifs et votre style de travail",
     "description": "Title for goals and work style section"
@@ -8639,10 +8643,6 @@
   "WpVd0l": {
     "defaultMessage": "Le droit de priorité est un statut offert par la Commission de la fonction publique du Canada. Pour en apprendre davantage, <priorityEntitlementLink>consultez le site Web Information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence describing what priority entitlement is"
-  },
-  "Wpj2OY": {
-    "defaultMessage": "« Je suis membre des Premières Nations »",
-    "description": "Text for the option to self-declare as first nations"
   },
   "WpoUnf": {
     "defaultMessage": "Offrir des possibilités de perfectionnement lors des nominations en gestion des talents",

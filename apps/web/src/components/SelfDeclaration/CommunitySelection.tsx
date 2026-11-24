@@ -65,8 +65,8 @@ const FirstNationSection = ({
           trackUnsaved={false}
           value="firstNations"
           label={intl.formatMessage({
-            defaultMessage: '"I am First Nations"',
-            id: "Wpj2OY",
+            defaultMessage: "I am First Nations",
+            id: "0blbyb",
             description: "Text for the option to self-declare as first nations",
           })}
           aria-describedby={customAlertId}
