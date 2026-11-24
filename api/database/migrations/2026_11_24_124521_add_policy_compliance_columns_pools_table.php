@@ -25,7 +25,8 @@ return new class() extends Migration
             $table->jsonb('fixed_length_staffing_type')->nullable();
             $table->unsignedInteger('employment_length_years')->nullable();
             $table->unsignedInteger('employment_length_months')->nullable();
-            $table->string('staffing_intent')->comment('The intended purpose of the process (specific or generic).');
+            $table->string('staffing_intent')->nullable()
+                ->comment('The intended purpose of the process (specific or generic).');
             $table->unsignedInteger('number_of_positions')->nullable();
             $table->boolean('exceeds_location_limit')->default(false);
             $table->jsonb('territory_agreements')->default(json_encode([]));
