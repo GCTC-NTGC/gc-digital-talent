@@ -197,20 +197,6 @@
         "!node_modules"
       ]
     },
-    "prettier": {
-      "inputs": [
-        "./.prettierrc",
-        "**/*.{ts,tsx}",
-        "!node_modules"
-      ]
-    },
-    "prettier:fix": {
-      "inputs": [
-        "./.prettierrc",
-        "**/*.{ts,tsx}",
-        "!node_modules"
-      ]
-    },
     "tsc": {}
   }
 }

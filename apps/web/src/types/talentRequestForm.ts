@@ -72,12 +72,14 @@ export interface PartialApplicantFilter {
   community?: { name?: LocalizedString | null } | null;
   equity?: PartialApplicantFilterEquity | null;
   flexibleWorkLocations?:
-    (GenericLocalizedEnum<FlexibleWorkLocation> | null)[] | null;
+    | (GenericLocalizedEnum<FlexibleWorkLocation> | null)[]
+    | null;
   hasDiploma?: boolean | null;
   languageAbility?: GenericLocalizedEnum<LanguageAbility> | null;
   locationPreferences?: (GenericLocalizedEnum<WorkRegion> | null)[] | null;
   operationalRequirements?:
-    (GenericLocalizedEnum<OperationalRequirement> | null)[] | null;
+    | (GenericLocalizedEnum<OperationalRequirement> | null)[]
+    | null;
   pools?: (PartialApplicantFilterPool | null)[] | null;
   positionDuration?: (PositionDuration | null)[] | null;
   qualifiedInClassifications?: (TalentRequestClassification | null)[] | null;

@@ -116,7 +116,9 @@ const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
 `);
 
 type NominationOption =
-  "advancement" | "lateralMovement" | "developmentProgram";
+  | "advancement"
+  | "lateralMovement"
+  | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
   nineBoxPerformance?: NineBoxRating;
