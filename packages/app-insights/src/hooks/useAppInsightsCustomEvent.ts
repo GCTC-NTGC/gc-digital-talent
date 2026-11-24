@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import type { ICustomProperties } from "@microsoft/applicationinsights-web";
+import { useState, useEffect } from "react";
 
 import useAppInsightsContext from "./useAppInsightsContext";
 

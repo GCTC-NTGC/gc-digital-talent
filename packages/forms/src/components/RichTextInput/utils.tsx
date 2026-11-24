@@ -1,5 +1,5 @@
-import { CharacterCount } from "@tiptap/extensions";
 import { Heading } from "@tiptap/extension-heading";
+import { CharacterCount } from "@tiptap/extensions";
 import { StarterKit } from "@tiptap/starter-kit";
 
 import descriptionList from "./descriptionList";

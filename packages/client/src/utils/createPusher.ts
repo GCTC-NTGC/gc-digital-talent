@@ -1,7 +1,7 @@
 import type { SubscriptionForwarder } from "@urql/core";
+import { print } from "graphql";
 import type { Channel } from "pusher-js";
 import Pusher from "pusher-js";
-import { print } from "graphql";
 
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 

@@ -1,11 +1,11 @@
-import { defineConfig } from "eslint/config";
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
-import turbo from "eslint-plugin-turbo";
-import testingLibrary from "eslint-plugin-testing-library";
-import noOnlyTests from "eslint-plugin-no-only-tests";
 import prettierConfig from "eslint-config-prettier/flat";
+import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
+import noOnlyTests from "eslint-plugin-no-only-tests";
+import testingLibrary from "eslint-plugin-testing-library";
+import turbo from "eslint-plugin-turbo";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
 export default defineConfig(
   eslint.configs.recommended,

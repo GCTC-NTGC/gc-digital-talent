@@ -1,4 +1,5 @@
 import formatjs from "eslint-plugin-formatjs";
+
 import baseConfig from "./react.mjs";
 
 export default [

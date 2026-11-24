@@ -1,5 +1,5 @@
-import * as AppInsights from "@microsoft/applicationinsights-web";
 import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
+import * as AppInsights from "@microsoft/applicationinsights-web";
 
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 

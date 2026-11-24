@@ -1,3 +1,4 @@
+import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakeAssessmentResults from "./fakeAssessmentResults";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
@@ -8,7 +9,6 @@ import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
 import toLocalizedEnum, { fakeLocalizedEnum } from "./fakeLocalizedEnum";
 import toLocalizedString from "./fakeLocalizedString";
-import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
 import fakePoolSkills from "./fakePoolSkills";

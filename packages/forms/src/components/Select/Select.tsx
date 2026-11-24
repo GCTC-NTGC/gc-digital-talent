@@ -5,12 +5,12 @@ import { tv } from "tailwind-variants";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import Field from "../Field";
-import type { CommonInputProps, OptGroupOrOption } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import { alphaSortOptions } from "../../utils";
 import { selectStyles } from "../../styles";
+import type { CommonInputProps, OptGroupOrOption } from "../../types";
+import { alphaSortOptions } from "../../utils";
+import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const select = tv({
