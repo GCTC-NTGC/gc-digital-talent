@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
+import { useIntl } from "react-intl";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
 

@@ -1,28 +1,28 @@
 import { useIntl } from "react-intl";
 
 import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
   commonMessages,
   getExecCoachingInterest,
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment } from "@gc-digital-talent/graphql";
 import { Ul, Notice } from "@gc-digital-talent/ui";
-import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  formatDate,
-  formDateStringToDate,
-} from "@gc-digital-talent/date-helpers";
 
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import messages from "~/messages/careerDevelopmentMessages";
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
 } from "~/components/CareerDevelopmentPreferences/utils";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import messages from "~/messages/careerDevelopmentMessages";
+import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 
 import {
   EmployeeProfileCareerDevelopment_Fragment,

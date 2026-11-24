@@ -1,35 +1,35 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Container,
   Pending,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import pageTitles from "~/messages/pageTitles";
+import useRoutes from "~/hooks/useRoutes";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+import pageTitles from "~/messages/pageTitles";
 
-import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
-import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
-import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
-import NonessentialTechnicalSkillsSection from "./components/NonessentialTechnicalSkillsSection/NonessentialTechnicalSkillsSection";
-import EssentialBehaviouralSkillsSection from "./components/EssentialBehaviouralSkillsSection/EssentialBehaviouralSkillsSection";
+import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
 import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
 import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
 import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
-import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
+import EssentialBehaviouralSkillsSection from "./components/EssentialBehaviouralSkillsSection/EssentialBehaviouralSkillsSection";
+import EssentialTechnicalSkillsSection from "./components/EssentialTechnicalSkillsSection/EssentialTechnicalSkillsSection";
+import JobDetailsSection from "./components/JobDetailsSection/JobDetailsSection";
+import KeyTasksSection from "./components/KeyTasksSection/KeyTasksSection";
+import NonessentialTechnicalSkillsSection from "./components/NonessentialTechnicalSkillsSection/NonessentialTechnicalSkillsSection";
 
 const SECTION_ID = {
   JOB_DETAILS: "job-details-section",

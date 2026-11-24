@@ -1,8 +1,12 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import type { ReviewTalentRequestDialogQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Button,
@@ -13,12 +17,10 @@ import {
   ThrowNotFound,
   Ul,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
-import type { ReviewTalentRequestDialogQuery } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { deriveSingleString } from "~/components/ReviewApplicationPreviewList/utils";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
@@ -26,8 +28,6 @@ import {
   positionTypeToYesNoSupervisoryStatement,
   TALENT_REQUEST_STATUS_COLOUR_MAP,
 } from "~/utils/talentRequestUtils";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import { deriveSingleString } from "~/components/ReviewApplicationPreviewList/utils";
 
 const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
   query ReviewTalentRequestDialog($id: UUID!) {

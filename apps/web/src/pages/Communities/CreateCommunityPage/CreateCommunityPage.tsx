@@ -1,16 +1,16 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { CreateCommunityInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
 import CreateCommunityForm from "./components/CreateCommunityForm";
 

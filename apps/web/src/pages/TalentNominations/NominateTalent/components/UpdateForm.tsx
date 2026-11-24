@@ -7,8 +7,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { Card } from "@gc-digital-talent/ui";
 
 import type { BaseFormValues } from "../types";
-import useMutations from "../useMutations";
 import useCurrentStep from "../useCurrentStep";
+import useMutations from "../useMutations";
 import Actions from "./Actions";
 
 export type SubmitDataTransformer<TFormValues> = (

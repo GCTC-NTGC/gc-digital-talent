@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Container } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { Container } from "@gc-digital-talent/ui";
 
 import { CareerPlanning, CareerPlanning_Fragment } from "./CareerPlanningPage";
 

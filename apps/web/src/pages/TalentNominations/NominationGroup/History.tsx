@@ -1,8 +1,14 @@
 import FolderIcon from "@heroicons/react/24/outline/FolderIcon";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useState } from "react";
 
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Accordion,
   Card,
@@ -12,12 +18,6 @@ import {
   Button,
   Notice,
 } from "@gc-digital-talent/ui";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";

@@ -1,8 +1,12 @@
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
@@ -10,13 +14,9 @@ import {
   Separator,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
 const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>

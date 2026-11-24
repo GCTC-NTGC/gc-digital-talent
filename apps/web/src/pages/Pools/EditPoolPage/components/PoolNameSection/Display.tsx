@@ -1,21 +1,21 @@
-import type { MessageDescriptor } from "react-intl";
-import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { EditPoolNameFragment } from "@gc-digital-talent/graphql";
 import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import type { DisplayProps } from "../../types";
-import type { SelectionLimitationDefinition } from "./PoolNameSection";
 import CitizensNote from "./CitizensNote";
+import type { SelectionLimitationDefinition } from "./PoolNameSection";
 
 const Display = ({
   pool,

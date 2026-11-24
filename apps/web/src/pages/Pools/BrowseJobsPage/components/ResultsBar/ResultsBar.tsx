@@ -2,13 +2,13 @@ import { Fragment, useId } from "react";
 import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 import { twMerge } from "tailwind-merge";
 
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
   type ButtonProps,
   type CardProps,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import useBrowseJobsSearchParams, {
   sortByOptions,

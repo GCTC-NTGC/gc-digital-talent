@@ -12,14 +12,14 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { getFullNameLabel } from "~/utils/nameUtils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
+import labels from "../../labels";
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
-import labels from "../../labels";
 
 interface ListItem {
   key: string;

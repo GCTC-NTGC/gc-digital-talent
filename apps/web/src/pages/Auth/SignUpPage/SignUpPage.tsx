@@ -1,39 +1,39 @@
-import type { ReactNode } from "react";
-import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
+import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router";
 
-import { Accordion, Container, Heading, Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Accordion, Container, Heading, Link } from "@gc-digital-talent/ui";
 
-import Hero from "~/components/Hero";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import canadaLoginStep1 from "~/assets/img/canada_login_registration_step_1_light.webp";
 import canadaLoginStep1Dark from "~/assets/img/canada_login_registration_step_1_dark.webp";
-import canadaLoginStep2 from "~/assets/img/canada_login_registration_step_2_light.webp";
+import canadaLoginStep1 from "~/assets/img/canada_login_registration_step_1_light.webp";
 import canadaLoginStep2Dark from "~/assets/img/canada_login_registration_step_2_dark.webp";
-import canadaLoginStep3 from "~/assets/img/canada_login_registration_step_3_light.webp";
+import canadaLoginStep2 from "~/assets/img/canada_login_registration_step_2_light.webp";
 import canadaLoginStep3Dark from "~/assets/img/canada_login_registration_step_3_dark.webp";
-import canadaLoginStep4 from "~/assets/img/canada_login_registration_step_4_light.webp";
+import canadaLoginStep3 from "~/assets/img/canada_login_registration_step_3_light.webp";
 import canadaLoginStep4Dark from "~/assets/img/canada_login_registration_step_4_dark.webp";
-import canadaLoginStep5 from "~/assets/img/canada_login_registration_step_5_light.webp";
+import canadaLoginStep4 from "~/assets/img/canada_login_registration_step_4_light.webp";
 import canadaLoginStep5Dark from "~/assets/img/canada_login_registration_step_5_dark.webp";
-import canadaLoginStep6 from "~/assets/img/canada_login_registration_step_6_light.webp";
+import canadaLoginStep5 from "~/assets/img/canada_login_registration_step_5_light.webp";
 import canadaLoginStep6Dark from "~/assets/img/canada_login_registration_step_6_dark.webp";
-import canadaLoginStep7 from "~/assets/img/canada_login_registration_step_7_light.webp";
+import canadaLoginStep6 from "~/assets/img/canada_login_registration_step_6_light.webp";
 import canadaLoginStep7Dark from "~/assets/img/canada_login_registration_step_7_dark.webp";
-import canadaLoginStep8 from "~/assets/img/canada_login_registration_step_8_light.webp";
+import canadaLoginStep7 from "~/assets/img/canada_login_registration_step_7_light.webp";
 import canadaLoginStep8Dark from "~/assets/img/canada_login_registration_step_8_dark.webp";
-import canadaLoginStep9 from "~/assets/img/canada_login_registration_step_9_light.webp";
+import canadaLoginStep8 from "~/assets/img/canada_login_registration_step_8_light.webp";
 import canadaLoginStep9Dark from "~/assets/img/canada_login_registration_step_9_dark.webp";
+import canadaLoginStep9 from "~/assets/img/canada_login_registration_step_9_light.webp";
+import Hero from "~/components/Hero";
 import InstructionsStepCard, {
   InstructionsCardGrid,
 } from "~/components/Instructions/RegisterInstructionStep";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 import canadaLoginMessages from "~/messages/canadaLoginMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (

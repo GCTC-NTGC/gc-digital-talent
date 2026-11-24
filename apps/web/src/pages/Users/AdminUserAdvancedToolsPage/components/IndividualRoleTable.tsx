@@ -2,9 +2,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
+import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -12,8 +12,8 @@ import tableMessages from "~/components/Table/tableMessages";
 
 import type { RoleTableProps } from "../utils";
 import { getRoleTableFragments, roleCell } from "../utils";
-import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
+import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 
 const columnHelper = createColumnHelper<AuthRoleAssignment>();
 

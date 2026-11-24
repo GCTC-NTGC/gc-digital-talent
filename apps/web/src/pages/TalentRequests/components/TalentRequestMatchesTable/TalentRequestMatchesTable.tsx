@@ -1,14 +1,14 @@
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
 import {
   createColumnHelper,
   type ColumnDef,
   type PaginationState,
   type SortingState,
 } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
+import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
-import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
-import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
 
 import {
   getFragment,
@@ -20,25 +20,33 @@ import {
   type TalentRequestUserSkillMatchFragment,
   TalentRequestTrackedUserNotReferredReason,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconLabel, Link } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import type { SearchState } from "~/components/Table/ResponsiveTable/types";
-import useSelectedRows from "~/hooks/useSelectedRows";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import profileMessages from "~/messages/profileMessages";
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import adminMessages from "~/messages/adminMessages";
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
-import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
-import useUserDownloads from "~/hooks/useUserDownloads";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
+import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
+import useSelectedRows from "~/hooks/useSelectedRows";
 import useTrackedUsersMutations from "~/hooks/useTrackedUsersMutations";
+import useUserDownloads from "~/hooks/useUserDownloads";
+import adminMessages from "~/messages/adminMessages";
+import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import profileMessages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
+import type { StatusDialogConfig } from "../../types";
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import ChangeStatusDialog from "../TalentRequestReferralDialogs/ChangeStatusDialog";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
+import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
+import TalentRequestMatchesFilterDialog, {
+  type FormValues,
+} from "./TalentRequestMatchesFilterDialog";
 import {
   addSearchToWhere,
   locationAccessor,
@@ -47,14 +55,6 @@ import {
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
 } from "./utils";
-import TalentRequestMatchesFilterDialog, {
-  type FormValues,
-} from "./TalentRequestMatchesFilterDialog";
-import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
-import ChangeStatusDialog from "../TalentRequestReferralDialogs/ChangeStatusDialog";
-import type { StatusDialogConfig } from "../../types";
-import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
-import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `

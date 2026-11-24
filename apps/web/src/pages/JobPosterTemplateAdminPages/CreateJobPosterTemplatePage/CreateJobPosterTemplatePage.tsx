@@ -1,10 +1,11 @@
-import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
+import { useMutation, useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateJobPosterTemplateInput,
   CreateJobPosterTemplateSkillInput,
@@ -16,7 +17,13 @@ import {
   graphql,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import {
+  emptyToNull,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Button,
   Card,
@@ -24,35 +31,28 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { Submit } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  emptyToNull,
-  notEmpty,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
 
+import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
 
-import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
-import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
-import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
-import type { FormValues as JobDetailsFormValues } from "../components/JobDetailsForm";
-import JobDetailsForm from "../components/JobDetailsForm";
-import type { FormValues as KeyTasksFormValues } from "../components/KeyTasksForm";
-import KeyTasksForm from "../components/KeyTasksForm";
-import type { FormValues as EssentialTechnicalSkillsFormValues } from "../components/EssentialTechnicalSkillsForm";
-import EssentialTechnicalSkillsForm from "../components/EssentialTechnicalSkillsForm";
-import type { FormValues as NonessentialTechnicalSkillsFormValues } from "../components/NonessentialTechnicalSkillsForm";
-import NonessentialTechnicalSkillsForm from "../components/NonessentialTechnicalSkillsForm";
 import type { FormValues as EssentialBehaviouralSkillsFormValues } from "../components/EssentialBehaviouralSkillsForm";
 import EssentialBehaviouralSkillsForm from "../components/EssentialBehaviouralSkillsForm";
+import type { FormValues as EssentialTechnicalSkillsFormValues } from "../components/EssentialTechnicalSkillsForm";
+import EssentialTechnicalSkillsForm from "../components/EssentialTechnicalSkillsForm";
+import type { FormValues as JobDetailsFormValues } from "../components/JobDetailsForm";
+import JobDetailsForm from "../components/JobDetailsForm";
+import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
+import type { FormValues as KeyTasksFormValues } from "../components/KeyTasksForm";
+import KeyTasksForm from "../components/KeyTasksForm";
+import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
+import type { FormValues as NonessentialTechnicalSkillsFormValues } from "../components/NonessentialTechnicalSkillsForm";
+import NonessentialTechnicalSkillsForm from "../components/NonessentialTechnicalSkillsForm";
+import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `
   fragment CreateJobPosterTemplateOptions on Query {

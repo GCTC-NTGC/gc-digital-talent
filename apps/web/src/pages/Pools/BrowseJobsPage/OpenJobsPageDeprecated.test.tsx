@@ -2,13 +2,13 @@ import { screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { PoolStatus } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { PoolStatus } from "@gc-digital-talent/graphql";
-import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import OpenJobs from "./OpenJobsPageDeprecated";
 

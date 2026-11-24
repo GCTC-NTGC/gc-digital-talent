@@ -1,12 +1,22 @@
 import { useEffect } from "react";
-import type { Location } from "react-router";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { defineMessage, useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { defineMessage, useIntl } from "react-intl";
+import type { Location } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import type { CombinedError, OperationContext } from "urql";
 import { useQuery } from "urql";
 
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { Submit } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  formMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Button,
@@ -18,34 +28,27 @@ import {
   TableOfContents,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { Submit } from "@gc-digital-talent/forms";
 
-import useRoutes from "~/hooks/useRoutes";
+import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
+import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
+import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeading";
+import SelectExperience from "~/components/ExperienceFormFields/SelectExperience";
+import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
+import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import {
   useDeleteExperienceMutation,
   useExperienceMutations,
 } from "~/hooks/useExperienceMutations";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 import type {
   ExperienceType,
   AllExperienceFormValues,
   ExperienceFormValues,
   ExperienceDetailsSubmissionData,
 } from "~/types/experience";
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
-import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
-import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
-import SelectExperience from "~/components/ExperienceFormFields/SelectExperience";
-import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeading";
 import {
   deriveExperienceType,
   formValuesToSubmitData,
@@ -56,9 +59,6 @@ import {
   organizationSuggestionsFromExperiences,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import adminMessages from "~/messages/adminMessages";
-import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 

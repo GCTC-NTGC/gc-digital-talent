@@ -1,9 +1,20 @@
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { useState, forwardRef } from "react";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
+import { useMutation } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  RoleInput,
+  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
+} from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Dialog,
   Button,
@@ -11,20 +22,9 @@ import {
   Chips,
   DropdownMenu,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-import type {
-  RoleInput,
-  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
-} from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import type { CommunityMember } from "~/utils/communityUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 import type { ContextType } from "./types";

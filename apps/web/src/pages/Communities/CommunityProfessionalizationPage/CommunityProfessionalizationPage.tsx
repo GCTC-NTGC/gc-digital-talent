@@ -1,9 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery, type OperationContext } from "urql";
-import { useOutletContext } from "react-router";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useOutletContext } from "react-router";
+import { useQuery, type OperationContext } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -14,18 +19,13 @@ import {
   Button,
   Notice,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
+import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import Hero from "~/components/Hero";
-import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 import AddDialog from "./components/AddDialog";

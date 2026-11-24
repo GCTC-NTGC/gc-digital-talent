@@ -1,22 +1,22 @@
-import { useIntl } from "react-intl";
-import type { ReactNode } from "react";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
+import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Container, TableOfContents, Ul } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 
 import { messages } from "./messages";

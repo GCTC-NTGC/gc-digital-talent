@@ -1,17 +1,17 @@
 import { faker } from "@faker-js/faker/locale/en";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Container } from "@gc-digital-talent/ui";
-import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
+import { Container } from "@gc-digital-talent/ui";
 
 import { PersonalInfoBox_Fragment } from "~/components/PersonalInfoBox/PersonalInfoBox";
 
+import { AccountAndContactInformation_Fragment } from "./AccountAndContactInformation";
 import {
   AccountSettings,
   PersonalInformation_Fragment,
 } from "./AccountSettingsPage";
-import { AccountAndContactInformation_Fragment } from "./AccountAndContactInformation";
 
 faker.seed(0);
 

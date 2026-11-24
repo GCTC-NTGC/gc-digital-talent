@@ -1,27 +1,28 @@
-import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   hasRequiredRoles,
   ROLE_NAME,
   useAuthorization,
 } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableMessages from "~/components/Table/tableMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
+import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 import {
   actionCell,
   emailLinkCell,
@@ -29,12 +30,11 @@ import {
   roleAccessor,
   roleCell,
 } from "./components/helpers";
+import { ManageAccessPage_PoolFragment } from "./components/operations";
 import type {
   ManageAccessPageFragment,
   PoolTeamMember,
 } from "./components/types";
-import { ManageAccessPage_PoolFragment } from "./components/operations";
-import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 
 const pageTitle = defineMessage({
   defaultMessage: "Process members",

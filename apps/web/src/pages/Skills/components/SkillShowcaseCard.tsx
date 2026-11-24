@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
-import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
   UpdateUserSkillRankingsInput,
@@ -12,12 +11,13 @@ import {
   graphql,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
+import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 
 import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
-import RemoveDialog from "./RemoveDialog";
 import { UpdateUserSkillRankings_Mutation } from "../operations";
+import RemoveDialog from "./RemoveDialog";
 
 export const SkillShowcaseCardSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillShowcaseCardSkill on Skill {

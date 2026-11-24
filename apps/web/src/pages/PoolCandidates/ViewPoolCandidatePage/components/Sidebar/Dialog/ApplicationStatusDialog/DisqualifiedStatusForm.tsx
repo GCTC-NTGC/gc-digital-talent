@@ -1,16 +1,16 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
 
+import { HiddenInput } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { HiddenInput } from "@gc-digital-talent/forms";
+import { Dialog } from "@gc-digital-talent/ui";
 
 import type { ApplicationStatusFormProps, MutationMessages } from "../types";
-import { RevertDecision_Mutation } from "./mutations";
 import messages from "./messages";
+import { RevertDecision_Mutation } from "./mutations";
 import { Content } from "./StatusContent";
 
 const DisqualifiedStatusForm_Fragment = graphql(/** GraphQL */ `

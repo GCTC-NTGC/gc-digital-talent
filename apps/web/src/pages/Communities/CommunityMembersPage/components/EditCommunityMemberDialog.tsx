@@ -2,30 +2,30 @@ import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { useState, forwardRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
+import { useMutation } from "urql";
 
-import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
+import type {
+  RoleInput,
+  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  RoleInput,
-  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
-} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
-import type { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import type { CommunityMember } from "~/utils/communityUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import type { CommunityMemberFormValues, ContextType } from "./types";
-import { getTeamBasedRoleOptions } from "./utils";
-import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
+import type { CommunityMemberFormValues, ContextType } from "./types";
+import useAvailableRoles from "./useAvailableRoles";
+import { getTeamBasedRoleOptions } from "./utils";
 
 interface EditCommunityMemberDialogProps extends ComponentPropsWithoutRef<
   typeof DropdownMenu.Item

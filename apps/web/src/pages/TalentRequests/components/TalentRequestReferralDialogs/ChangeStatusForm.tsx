@@ -1,18 +1,18 @@
 import { useIntl, type IntlShape } from "react-intl";
 import { gql, useQuery } from "urql";
 
+import { BasicForm, Select } from "@gc-digital-talent/forms";
 import type {
   ChangeTrackedUserStatusQuery,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
-import { BasicForm, Select } from "@gc-digital-talent/forms";
-import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
   errorMessages,
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import type { StatusReasonType } from "../../types";
 

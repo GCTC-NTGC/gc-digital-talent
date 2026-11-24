@@ -1,19 +1,19 @@
-import { useIntl } from "react-intl";
-import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import { useIntl } from "react-intl";
 
-import { CTALink } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { CTALink } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import hero1Square from "~/assets/img/home-hero-square-1.webp";
 import hero1Landscape from "~/assets/img/home-hero-landscape-1.webp";
-import hero2Square from "~/assets/img/home-hero-square-2.webp";
 import hero2Landscape from "~/assets/img/home-hero-landscape-2.webp";
-import hero3Square from "~/assets/img/home-hero-square-3.webp";
 import hero3Landscape from "~/assets/img/home-hero-landscape-3.webp";
-import hero4Square from "~/assets/img/home-hero-square-4.webp";
 import hero4Landscape from "~/assets/img/home-hero-landscape-4.webp";
+import hero1Square from "~/assets/img/home-hero-square-1.webp";
+import hero2Square from "~/assets/img/home-hero-square-2.webp";
+import hero3Square from "~/assets/img/home-hero-square-3.webp";
+import hero4Square from "~/assets/img/home-hero-square-4.webp";
+import useRoutes from "~/hooks/useRoutes";
 
 import HomeHero from "../../components/HomeHero";
 

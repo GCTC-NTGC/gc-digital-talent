@@ -1,8 +1,16 @@
-import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
+import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
+import type {
+  UpdateUserSkillRankingsInput,
+  UpdateSkillShowcaseUserSkillFragment,
+  UpdateSkillShowcaseSkillFragment,
+} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 import type {
   IconType,
   BreadcrumbsProps,
@@ -15,17 +23,9 @@ import {
   Link,
   Container,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
-import type {
-  UpdateUserSkillRankingsInput,
-  UpdateSkillShowcaseUserSkillFragment,
-  UpdateSkillShowcaseSkillFragment,
-} from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
 
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 

@@ -1,7 +1,8 @@
+import { faker } from "@faker-js/faker/locale/en";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { StoryFn } from "@storybook/react-vite";
-import { faker } from "@faker-js/faker/locale/en";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   fakeClassifications,
   fakeCommunities,
@@ -9,7 +10,6 @@ import {
 } from "@gc-digital-talent/fake-data";
 import type { CreatePoolInput } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import {
   CreatePoolClassification_Fragment,

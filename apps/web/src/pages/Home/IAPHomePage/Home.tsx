@@ -1,34 +1,34 @@
-import { useIntl } from "react-intl";
 import { m } from "motion/react";
-import { useSearchParams } from "react-router";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router";
 
 import { Container, Link, Image } from "@gc-digital-talent/ui";
 
-import useQuote from "~/hooks/useQuote";
+import applicant from "~/assets/img/applicant.webp";
+import feathers from "~/assets/img/feathers.webp";
+import gloves from "~/assets/img/gloves.webp";
 import iapHeroImg from "~/assets/img/iap-hero.webp";
 import logoImg from "~/assets/img/iap-logo.svg";
+import iconWatermark from "~/assets/img/icon-watermark.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.webp";
-import feathers from "~/assets/img/feathers.webp";
+import indigenousWoman from "~/assets/img/indigenous-woman.webp";
+import lowerBack from "~/assets/img/lower-back.webp";
 import manOnComputer from "~/assets/img/man-on-computer.webp";
-import gloves from "~/assets/img/gloves.webp";
-import applicant from "~/assets/img/applicant.webp";
-import ulu from "~/assets/img/ulu.webp";
 import quoteBg from "~/assets/img/quote-bg.webp";
 import sash from "~/assets/img/sash.webp";
-import lowerBack from "~/assets/img/lower-back.webp";
-import iconWatermark from "~/assets/img/icon-watermark.svg";
-import indigenousWoman from "~/assets/img/indigenous-woman.webp";
+import ulu from "~/assets/img/ulu.webp";
 import { ApplyDialog, RequirementDialog } from "~/components/IAPDialog";
-import Heading from "~/components/IAPHeading/Heading";
 import AccommodationsDialog from "~/components/IAPDialog/AccommodationsDialog";
+import Heading from "~/components/IAPHeading/Heading";
+import useQuote from "~/hooks/useQuote";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
 import LanguageSelector from "./components/LanguageSelector";
-import Step from "./components/Step";
 import Quote from "./components/Quote";
+import Step from "./components/Step";
 import {
   BarChart,
   Calendar,

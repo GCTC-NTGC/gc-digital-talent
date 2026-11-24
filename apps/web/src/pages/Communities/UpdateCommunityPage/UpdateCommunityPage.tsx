@@ -1,17 +1,23 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
-import { useNavigate, useOutletContext } from "react-router";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate, useOutletContext } from "react-router";
+import { useMutation, useQuery } from "urql";
 
-import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Submit, Input, TextArea } from "@gc-digital-talent/forms";
+import type {
+  FragmentType,
+  UpdateCommunityInput,
+} from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   errorMessages,
   commonMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Pending,
   NotFound,
@@ -21,21 +27,15 @@ import {
   Link,
   Notice,
 } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  UpdateCommunityInput,
-} from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 

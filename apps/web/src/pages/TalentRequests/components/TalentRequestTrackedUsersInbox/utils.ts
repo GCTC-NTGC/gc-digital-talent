@@ -1,12 +1,12 @@
-import { tv } from "tailwind-variants";
-import BookmarkSquareIcon from "@heroicons/react/16/solid/BookmarkSquareIcon";
 import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
+import BookmarkSquareIcon from "@heroicons/react/16/solid/BookmarkSquareIcon";
 import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
 import NoSymbolIcon from "@heroicons/react/16/solid/NoSymbolIcon";
+import { tv } from "tailwind-variants";
 
-import type { IconType } from "@gc-digital-talent/ui";
 import { TalentRequestTrackedUserStatus } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import type { IconType } from "@gc-digital-talent/ui";
 
 export const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
   [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIcon,

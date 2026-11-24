@@ -1,11 +1,11 @@
-import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useOutletContext } from "react-router";
+import { useQuery } from "urql";
 
-import { graphql } from "@gc-digital-talent/graphql";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import type { AuthRole, RoleName } from "@gc-digital-talent/auth";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 
 import { checkRoleDepartments } from "~/utils/departmentUtils";
 

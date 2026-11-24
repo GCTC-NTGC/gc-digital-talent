@@ -1,14 +1,14 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
+import { Select } from "@gc-digital-talent/forms";
 import {
   graphql,
   type TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
-import { Select } from "@gc-digital-talent/forms";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -16,12 +16,12 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import StatusDialogLayout from "./StatusDialogLayout";
 import { type StatusDialogProps, trackedUsersMutationContext } from "./shared";
+import StatusDialogLayout from "./StatusDialogLayout";
 
 const InboxNotSelectReasons_Query = graphql(/* GraphQL */ `
   query InboxNotSelectReasons {

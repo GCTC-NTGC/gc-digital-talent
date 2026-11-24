@@ -1,7 +1,7 @@
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
-import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import {
@@ -9,6 +9,8 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
   Heading,
@@ -16,12 +18,10 @@ import {
   Notice,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
+import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
 import FunctionalCommunityCard from "~/components/FunctionalCommunity/FunctionalCommunityCard";
 import useRoutes from "~/hooks/useRoutes";
-import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
 
 const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesUser on User {

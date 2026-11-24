@@ -4,42 +4,42 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
-import { useState, useMemo, useRef } from "react";
-import { useSearchParams } from "react-router";
-import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
+import { useState, useMemo, useRef } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router";
+import { useQuery } from "urql";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
   PoolFilterInput,
   PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getLocalizedName,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 
-import useRoutes from "~/hooks/useRoutes";
-import Table, {
-  getTableStateFromSearchParams,
-} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import accessors from "~/components/Table/accessors";
+import cells from "~/components/Table/cells";
 import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
-import accessors from "~/components/Table/accessors";
-import cells from "~/components/Table/cells";
+import permissionConstants from "~/constants/permissionConstants";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import permissionConstants from "~/constants/permissionConstants";
 
 import {
   classificationCell,
@@ -55,9 +55,9 @@ import {
   getOrderByColumnSort,
   getWorkStreamNameSort,
 } from "./helpers";
+import { PoolBookmark_Fragment } from "./PoolBookmark";
 import type { FormValues } from "./PoolFilterDialog";
 import PoolFilterDialog from "./PoolFilterDialog";
-import { PoolBookmark_Fragment } from "./PoolBookmark";
 
 const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();
 

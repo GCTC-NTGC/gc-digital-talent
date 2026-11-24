@@ -1,13 +1,13 @@
-import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
-import { IconButton } from "@gc-digital-talent/ui";
 import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { IconButton } from "@gc-digital-talent/ui";
 
 export const PoolBookmark_Fragment = graphql(/* GraphQL */ `
   fragment PoolBookmark on User {

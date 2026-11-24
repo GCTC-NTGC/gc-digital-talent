@@ -1,6 +1,6 @@
+import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import type { ReactNode } from "react";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
@@ -10,14 +10,6 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  getEmploymentEquityGroup,
-  narrowEnumType,
-  sortFlexibleWorkLocations,
-  sortWorkRegion,
-} from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
@@ -26,24 +18,32 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  getEmploymentEquityGroup,
+  narrowEnumType,
+  sortFlexibleWorkLocations,
+  sortWorkRegion,
+} from "@gc-digital-talent/i18n";
 import { Link, Ul } from "@gc-digital-talent/ui";
 
+import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
+import messages from "~/messages/profileMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import type {
   TalentRequestClassification,
   TalentRequestWorkStream,
 } from "~/types/talentRequestForm";
 import { NullSelection } from "~/types/talentRequestForm";
-import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
-import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
-import processMessages from "~/messages/processMessages";
-import messages from "~/messages/profileMessages";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import adminMessages from "~/messages/adminMessages";
-import useRoutes from "~/hooks/useRoutes";
 
-import FilterBlock from "./FilterBlock";
-import AdvancedFilters from "./AdvancedFilters";
 import { getClassificationAriaLabel } from "../utils";
+import AdvancedFilters from "./AdvancedFilters";
+import FilterBlock from "./FilterBlock";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {

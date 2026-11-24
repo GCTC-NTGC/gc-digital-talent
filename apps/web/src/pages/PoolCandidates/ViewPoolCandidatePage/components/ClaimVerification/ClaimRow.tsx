@@ -1,16 +1,16 @@
-import { useIntl } from "react-intl";
-import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type { PropsWithoutRef, ReactNode, SVGProps } from "react";
+import { useIntl } from "react-intl";
 
-import { ClaimVerificationResult } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
+import { ClaimVerificationResult } from "@gc-digital-talent/graphql";
+import { Heading } from "@gc-digital-talent/ui";
 
 interface VerificationMessageProps {
   result: ClaimVerificationResult;

@@ -1,24 +1,24 @@
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { useQuery } from "urql";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";
 import { Combobox, Select } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
-import type { RoleName } from "@gc-digital-talent/auth";
-import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import adminMessages from "~/messages/adminMessages";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 import type { RoleTableProps } from "../utils";
 import {

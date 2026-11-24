@@ -1,6 +1,6 @@
 import type { SortingState } from "@tanstack/react-table";
-import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
+import type { IntlShape } from "react-intl";
 
 import type {
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
@@ -13,9 +13,9 @@ import {
   OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import { Link } from "@gc-digital-talent/ui";
-import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";

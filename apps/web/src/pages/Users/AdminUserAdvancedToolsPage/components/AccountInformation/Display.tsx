@@ -4,8 +4,8 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { AccountInformationForm_Fragment } from "./AccountInformation";
 

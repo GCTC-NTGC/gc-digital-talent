@@ -1,10 +1,10 @@
 import { act, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { Kind } from "graphql";
 import type { GraphQLRequest } from "urql";
 import { Provider as GraphqlProvider } from "urql";
-import { fromValue } from "wonka";
-import { Kind } from "graphql";
 import { vi } from "vitest";
+import { fromValue } from "wonka";
 
 import {
   expectNoAccessibilityErrors,

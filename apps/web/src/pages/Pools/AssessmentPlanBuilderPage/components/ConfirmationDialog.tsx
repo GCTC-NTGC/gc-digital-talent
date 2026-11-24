@@ -1,9 +1,9 @@
-import { useState } from "react";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { AlertDialog, Button, IconButton, Notice } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { AlertDialog, Button, IconButton, Notice } from "@gc-digital-talent/ui";
 
 interface ConfirmationDialogProps {
   assessmentTitle?: string | null;

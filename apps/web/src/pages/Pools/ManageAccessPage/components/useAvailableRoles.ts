@@ -1,5 +1,5 @@
-import { useQuery } from "urql";
 import { useMemo } from "react";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

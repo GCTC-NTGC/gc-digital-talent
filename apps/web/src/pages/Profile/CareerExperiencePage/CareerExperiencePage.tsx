@@ -1,25 +1,21 @@
-import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { useState } from "react";
-import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   Pending,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import profileMessages from "~/messages/profileMessages";
-import experienceMessages from "~/messages/experienceMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
 import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import type { ExperienceListCard_Fragment } from "~/components/ExperienceListCard/ExperienceListCard";
@@ -27,6 +23,10 @@ import ExperienceListCard from "~/components/ExperienceListCard/ExperienceListCa
 import ExperienceListSortSelector, {
   type SortValue,
 } from "~/components/ExperienceListCard/ExperienceListSortSelector";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
+import experienceMessages from "~/messages/experienceMessages";
+import profileMessages from "~/messages/profileMessages";
 
 const pageTitle = defineMessage({
   defaultMessage: "Your career experience",

@@ -4,20 +4,20 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  errorMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
 import { Checkbox, Combobox, Select } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
 
 const ProfessionalizationAddDialog_Query = graphql(/* GraphQL */ `
   query ProfessionalizationAddDialog {

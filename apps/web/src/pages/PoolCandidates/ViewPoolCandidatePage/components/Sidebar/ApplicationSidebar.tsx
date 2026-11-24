@@ -8,12 +8,12 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
-import ApplicationStatusMeta from "./ApplicationStatusMeta/ApplicationStatusMeta";
-import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/ApplicationStatusDialog";
 import ApplicantContactInformation from "./ApplicantContactInformation";
 import ApplicationBookmarkFlag from "./ApplicationBookmarkFlag";
-import ApplicationNotes from "./ApplicationNotes";
 import DownloadButton from "./ApplicationDownloadButton";
+import ApplicationNotes from "./ApplicationNotes";
+import ApplicationStatusMeta from "./ApplicationStatusMeta/ApplicationStatusMeta";
+import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/ApplicationStatusDialog";
 
 export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
   fragment ApplicationSidebar on PoolCandidate {

@@ -1,17 +1,8 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import type { ClientLoaderFunction } from "react-router";
 import { redirect } from "react-router";
 
-import {
-  AlertDialog,
-  Notice,
-  Button,
-  Heading,
-  Link,
-  Ul,
-  Container,
-} from "@gc-digital-talent/ui";
 import type { LogoutReason } from "@gc-digital-talent/auth";
 import {
   LOGOUT_REASON_KEY,
@@ -21,15 +12,24 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
+import {
+  AlertDialog,
+  Notice,
+  Button,
+  Heading,
+  Link,
+  Ul,
+  Container,
+} from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import authMessages from "~/messages/authMessages";
-import useReturnPath from "~/hooks/useReturnPath";
-import { getSafeRedirectPath } from "~/utils/utils";
 import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useReturnPath from "~/hooks/useReturnPath";
+import useRoutes from "~/hooks/useRoutes";
+import authMessages from "~/messages/authMessages";
+import { getSafeRedirectPath } from "~/utils/utils";
 
 const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">

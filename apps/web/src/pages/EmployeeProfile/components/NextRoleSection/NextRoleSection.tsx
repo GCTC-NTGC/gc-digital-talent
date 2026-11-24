@@ -1,30 +1,12 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useMutation } from "urql";
 import type { ComponentProps } from "react";
 import { useEffect, useId } from "react";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
-import { Button, ToggleSection, Notice } from "@gc-digital-talent/ui";
-import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-  getLocale,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import type { FragmentType, CSuiteRoleTitle } from "@gc-digital-talent/graphql";
-import { graphql, getFragment, TargetRole } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  nodeToString,
-  sortAlphaBy,
-  UnauthorizedError,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 import {
   alphaSortOptions,
   Checkbox,
@@ -37,17 +19,35 @@ import {
   Submit,
   TextArea,
 } from "@gc-digital-talent/forms";
+import type { FragmentType, CSuiteRoleTitle } from "@gc-digital-talent/graphql";
+import { graphql, getFragment, TargetRole } from "@gc-digital-talent/graphql";
+import {
+  nodeToString,
+  sortAlphaBy,
+  UnauthorizedError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+  getLocale,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, ToggleSection, Notice } from "@gc-digital-talent/ui";
 
-import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { getGroupOptions, getLevelOptions } from "~/utils/classification";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
 
-import Display from "./Display";
 import messages from "../../messages";
+import Display from "./Display";
 
 const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileNextRoleOptions on Query {

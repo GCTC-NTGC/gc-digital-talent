@@ -1,8 +1,8 @@
+import { getNonce } from "get-nonce";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
-import { getNonce } from "get-nonce";
 
 import {
   Notice,
@@ -16,8 +16,8 @@ import {
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import printStyles from "~/styles/printStyles";
 
 import RequestConfirmationPrintDocument from "./components/RequestConfirmationPrintDocument";

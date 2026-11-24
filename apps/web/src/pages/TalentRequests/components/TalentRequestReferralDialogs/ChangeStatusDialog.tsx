@@ -1,21 +1,21 @@
 import { useIntl } from "react-intl";
 
+import type {
+  TalentRequestTrackedUserNotReferredReason,
+  TalentRequestTrackedUserNotSelectedReason,
+} from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Dialog,
   IconLabel,
   type IconType,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import type {
-  TalentRequestTrackedUserNotReferredReason,
-  TalentRequestTrackedUserNotSelectedReason,
-} from "@gc-digital-talent/graphql";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import ChangeStatusForm from "./ChangeStatusForm";
 import type { StatusReasonType } from "../../types";
+import ChangeStatusForm from "./ChangeStatusForm";
 
 interface ChangeStatusDialogProps {
   open: boolean;

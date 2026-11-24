@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
-import { useEffect, useId } from "react";
 import uniqBy from "lodash/uniqBy";
+import { useEffect, useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import {
   Checkbox,
@@ -10,8 +10,6 @@ import {
   RadioGroup,
   RichTextInput,
 } from "@gc-digital-talent/forms";
-import { Heading, Notice, Ul } from "@gc-digital-talent/ui";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -23,11 +21,13 @@ import {
   sortAlphaBy,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Heading, Notice, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import { formMessages } from "../messages";
 import type { FormValues } from "../form";
+import { formMessages } from "../messages";
 
 const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
   /* GraphQL */ `

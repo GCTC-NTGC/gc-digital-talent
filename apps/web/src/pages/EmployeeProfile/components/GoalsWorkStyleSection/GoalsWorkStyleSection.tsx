@@ -1,34 +1,34 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useMutation } from "urql";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
-import {
-  Button,
-  CardSeparator,
-  Notice,
-  ToggleSection,
-} from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { UnauthorizedError } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { UnauthorizedError } from "@gc-digital-talent/helpers";
+import {
+  Button,
+  CardSeparator,
+  Notice,
+  ToggleSection,
+} from "@gc-digital-talent/ui";
 
-import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
-import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
 
 import Display from "./Display";
 

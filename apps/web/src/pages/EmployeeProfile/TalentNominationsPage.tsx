@@ -1,9 +1,14 @@
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import TrophyIcon from "@heroicons/react/24/outline/TrophyIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import TrophyIcon from "@heroicons/react/24/outline/TrophyIcon";
-import StarIcon from "@heroicons/react/24/outline/StarIcon";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Separator,
   TableOfContents,
@@ -13,20 +18,15 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { useLocalStorage } from "@gc-digital-talent/storage";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { NotFoundError } from "@gc-digital-talent/helpers";
 
-import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
 import profileMessages from "~/messages/profileMessages";
 
-import NewFeatureMessage from "./components/NewFeatureMessage";
-import SharedTocLinks from "./components/SharedTocLinks";
-import NominationsReceived from "./components/NominationsReceived/NominationsReceived";
 import EmployeesNominated from "./components/EmployeesNominated/EmployeesNominated";
+import NewFeatureMessage from "./components/NewFeatureMessage";
+import NominationsReceived from "./components/NominationsReceived/NominationsReceived";
+import SharedTocLinks from "./components/SharedTocLinks";
 
 const SECTION_ID = {
   NOMINATIONS_RECEIVED: "nominations-received-section",

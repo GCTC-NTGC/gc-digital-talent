@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 
-import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
+import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { Chip, Chips, Heading, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

@@ -1,7 +1,12 @@
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   ThrowNotFound,
   Pending,
@@ -9,16 +14,11 @@ import {
   Container,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import profileMessages from "~/messages/profileMessages";
+import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
+import profileMessages from "~/messages/profileMessages";
 
 import DownloadButton from "../DownloadButton";
 

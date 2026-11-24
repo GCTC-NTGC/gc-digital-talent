@@ -10,10 +10,6 @@ import {
   hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
 } from "~/validators/employeeProfile/careerDevelopment";
 import {
-  hasAllEmptyFields as nextRoleHasAllEmptyFields,
-  hasEmptyRequiredFields as nextRoleHasEmptyRequiredFields,
-} from "~/validators/employeeProfile/nextRole";
-import {
   hasAllEmptyFields as careerObjectiveHasAllEmptyFields,
   hasEmptyRequiredFields as careerObjectiveHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/careerObjective";
@@ -21,6 +17,10 @@ import {
   hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
   hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/goalsWorkStyle";
+import {
+  hasAllEmptyFields as nextRoleHasAllEmptyFields,
+  hasEmptyRequiredFields as nextRoleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/nextRole";
 
 export const getCareerPlanningStatus = (
   isVerifiedGovEmployee: boolean,

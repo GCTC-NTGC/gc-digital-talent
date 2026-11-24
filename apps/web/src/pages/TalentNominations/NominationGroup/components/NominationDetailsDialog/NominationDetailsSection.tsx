@@ -1,19 +1,19 @@
 import { useIntl } from "react-intl";
 
+import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   getFragment,
   graphql,
   TalentNominationLateralMovementOption,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Heading, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { localizedEnumToOptions } from "@gc-digital-talent/forms";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import talentNominationMessages from "~/messages/talentNominationMessages";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 const TalentNominationDetailsDialogNominationDetailsNomination_Fragment =

@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -12,8 +12,8 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import Footer from "./Footer";
 import PauseReferralsFormFields from "./FormFields/PauseReferralsFormFields";

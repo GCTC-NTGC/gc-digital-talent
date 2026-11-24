@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
 
-import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
+import useRoutes from "~/hooks/useRoutes";
 
 interface BottomHalfNotEmployeeProps {
   showButtonAlreadyHaveProfile: boolean;

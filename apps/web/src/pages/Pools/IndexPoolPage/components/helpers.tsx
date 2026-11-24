@@ -1,10 +1,7 @@
-import type { IntlShape } from "react-intl";
-import type { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
 
-import type { Locales } from "@gc-digital-talent/i18n";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Chip } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   LocalizedString,
@@ -23,13 +20,16 @@ import {
   SortOrder,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link, Chip } from "@gc-digital-talent/ui";
 
-import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 
-import type { FormValues } from "./PoolFilterDialog";
 import type { PoolBookmark_Fragment } from "./PoolBookmark";
 import PoolBookmark from "./PoolBookmark";
+import type { FormValues } from "./PoolFilterDialog";
 
 export function poolNameAccessor(
   name: LocalizedString | null | undefined,

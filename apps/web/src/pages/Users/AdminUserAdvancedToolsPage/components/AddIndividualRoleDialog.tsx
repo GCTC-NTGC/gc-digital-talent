@@ -1,15 +1,15 @@
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 

@@ -1,9 +1,9 @@
 import RocketLaunchIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
 import { useIntl } from "react-intl";
 
-import { Heading, Ul } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 
 import JobCard from "~/components/JobCard/JobCard";
 

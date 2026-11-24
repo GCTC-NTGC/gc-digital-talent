@@ -1,27 +1,27 @@
 import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 
-import type { StepType } from "@gc-digital-talent/ui";
-import { Stepper } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import type { StepType } from "@gc-digital-talent/ui";
+import { Stepper } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 
-import useCurrentStep, { stepOrder } from "../useCurrentStep";
 import type { RouteParams } from "../types";
+import useCurrentStep, { stepOrder } from "../useCurrentStep";
 
 const stepLabels = new Map<TalentNominationStep, MessageDescriptor>([
   [

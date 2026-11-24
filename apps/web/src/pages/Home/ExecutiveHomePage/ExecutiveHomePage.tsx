@@ -1,10 +1,17 @@
-import { defineMessage, useIntl } from "react-intl";
-import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
-import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
+import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Card,
@@ -17,26 +24,19 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
-import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
+import execHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
+import execHeroSquare from "~/assets/img/exec-hero-square.webp";
+import execProfileLandScape from "~/assets/img/exec-profile-landscape.webp";
+import execProfileSquare from "~/assets/img/exec-profile-square.webp";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import PoolCard from "~/components/PoolCard/PoolCard";
-import { isExecPool } from "~/utils/poolUtils";
+import SEO from "~/components/SEO/SEO";
+import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
+import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import execHeroSquare from "~/assets/img/exec-hero-square.webp";
-import execHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
-import execProfileSquare from "~/assets/img/exec-profile-square.webp";
-import execProfileLandScape from "~/assets/img/exec-profile-landscape.webp";
+import useRoutes from "~/hooks/useRoutes";
+import { isExecPool } from "~/utils/poolUtils";
 
 import HomeHero from "../components/HomeHero";
 

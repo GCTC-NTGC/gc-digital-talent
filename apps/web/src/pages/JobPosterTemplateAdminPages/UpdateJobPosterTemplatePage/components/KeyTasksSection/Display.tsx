@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
