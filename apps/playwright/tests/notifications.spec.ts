@@ -1,3 +1,4 @@
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import type { Skill, User } from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
@@ -8,28 +9,27 @@ import {
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
-import type { GraphQLContext } from "~/utils/graphql";
-import graphql from "~/utils/graphql";
-import {
-  changePoolClosingDate,
-  createAndPublishPool,
-  retirePublishedPool,
-} from "~/utils/pools";
-import { getSkills } from "~/utils/skills";
-import { generateUniqueTestId } from "~/utils/id";
-import { getMyCommunity } from "~/utils/communities";
-import { getWorkStreams } from "~/utils/workStreams";
 import AccountSettings from "~/fixtures/AccountSettings";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 import {
   createAndSubmitApplication,
   createApplication,
 } from "~/utils/applications";
+import { loginBySub } from "~/utils/auth";
+import { getMyCommunity } from "~/utils/communities";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
+import {
+  changePoolClosingDate,
+  createAndPublishPool,
+  retirePublishedPool,
+} from "~/utils/pools";
+import { getSkills } from "~/utils/skills";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
+import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Notifications", { tag: "@uat" }, () => {
   let uniqueTestId: string;

@@ -1,6 +1,6 @@
+import AUTH from "~/constants/auth";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import AUTH from "~/constants/auth";
 
 const sub =
   process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ??

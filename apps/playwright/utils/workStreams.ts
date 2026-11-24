@@ -3,8 +3,8 @@ import type {
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";
 
 const Test_WorkStreamQueryDocument = /* GraphQL */ `

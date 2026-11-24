@@ -1,3 +1,4 @@
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import type {
   CommunityInterest,
   DevelopmentProgram,
@@ -5,11 +6,8 @@ import type {
   User,
 } from "@gc-digital-talent/graphql/schema-types";
 import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql/schema-types";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import type { GraphQLContext } from "~/utils/graphql";
-import graphql from "~/utils/graphql";
 import {
   createCommunity,
   createCommunityInterest,
@@ -19,11 +17,13 @@ import {
   assignCommunityAdminRole,
   assignCommunityTalentCoordinatorRole,
 } from "~/utils/communities";
-import { createTalentNominationEvent } from "~/utils/talentNominations";
-import { createWorkStream } from "~/utils/workStreams";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createEducationExperience } from "~/utils/experiences";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
+import { createTalentNominationEvent } from "~/utils/talentNominations";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createWorkStream } from "~/utils/workStreams";
 
 import { loginBySub } from "../../utils/auth";
 

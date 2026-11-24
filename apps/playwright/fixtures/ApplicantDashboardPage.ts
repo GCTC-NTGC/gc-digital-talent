@@ -2,8 +2,8 @@ import { expect } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
-import ExperiencePage from "./ExperiencePage";
 import CommunityInterest from "./CommunityInterest";
+import ExperiencePage from "./ExperiencePage";
 import ProfilePage from "./ProfilePage";
 
 const FIELD = {

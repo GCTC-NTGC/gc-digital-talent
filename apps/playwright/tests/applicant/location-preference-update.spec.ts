@@ -5,13 +5,13 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
 
+import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
-import testConfig from "~/constants/config";
 
 test.describe("Location Preference Update", () => {
   let locationPrefPage: LocationPreferenceUpdatePage;
