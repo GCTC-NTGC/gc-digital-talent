@@ -122,19 +122,17 @@ export const PoolList_QueryFragment = graphql(/* GraphQL */ `
       }
     }
   }
-`)
+`);
 
 type PoolListProps = {
   query: FragmentType<typeof PoolList_QueryFragment>;
-}
+};
 
 const PoolList = ({ query }: PoolListProps) => {
   const pools = getFragment(PoolList_QueryFragment, query);
 
-  return pools.map((pool) => (
-    <PoolCard key={pool.id} pool={pool} />
-  ))
-}
+  return pools.map((pool) => <PoolCard key={pool.id} pool={pool} />);
+};
 
 // PoolPage.tsx
 import { useQuery } from "urql";
@@ -144,11 +142,11 @@ export const PoolPage_Query = graphql(/* GraphQL */ `
   query PoolPage_Query {
     ...PoolList_QueryFragment
   }
-`)
+`);
 
 const PoolPage = ({ pools: poolsFragment }: PoolPageProps) => {
-  const [{data}] = useQuery({ query: PoolPage_Query })
+  const [{ data }] = useQuery({ query: PoolPage_Query });
 
   return <PoolList query={data} />;
-}
+};
 ```

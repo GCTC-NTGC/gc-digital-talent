@@ -14,16 +14,16 @@ Both the matches table (`talentRequestMatches`, root model `User`) and the track
 
 ## The files
 
-| File | Responsibility |
-| --- | --- |
-| `app/Enums/TalentRequestSource.php` | Lists the sources. `matchRelation()` maps each source to its User relation. `selected()` returns the sources a request queries. |
-| `app/Traits/HasTalentRequestSources.php` | Used by `User`. Holds each source's match relation, `talentRequestSources()` (names matched), and `talentRequestSourceMatches()` (records matched). |
-| `app/Builders/UserBuilder.php` | `whereMatchesTalentRequest()` keeps users matching at least one source; `withTalentRequestMatches()` loads each source's records. |
-| The source's model (e.g. `app/Models/PoolCandidate.php`) | Each source's own `whereMatchesTalentRequest()` rule — what counts as a match. A query scope on the model, or a method on its builder class if the model already has one (`PoolCandidate` does; most models do not). |
-| `app/Models/ApplicantFilter.php` | `toMatchFilters()` turns a saved filter into the array the match rules expect. |
-| `app/Models/TalentRequestTrackedUser.php` | `sources` accessor and `scopeWithTalentRequestMatches()` reuse the User logic for the tracked list. |
-| `app/GraphQL/Types/TalentRequestTrackedUser/MatchingSources.php` | Resolves the tracked list's `matching<Source>Sources` fields. |
-| `api/graphql/schema.graphql` | The `sources` and `matching<Source>Sources` fields on `TalentRequestResult` and `TalentRequestTrackedUser`. |
+| File                                                             | Responsibility                                                                                                                                                                                                       |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/Enums/TalentRequestSource.php`                              | Lists the sources. `matchRelation()` maps each source to its User relation. `selected()` returns the sources a request queries.                                                                                      |
+| `app/Traits/HasTalentRequestSources.php`                         | Used by `User`. Holds each source's match relation, `talentRequestSources()` (names matched), and `talentRequestSourceMatches()` (records matched).                                                                  |
+| `app/Builders/UserBuilder.php`                                   | `whereMatchesTalentRequest()` keeps users matching at least one source; `withTalentRequestMatches()` loads each source's records.                                                                                    |
+| The source's model (e.g. `app/Models/PoolCandidate.php`)         | Each source's own `whereMatchesTalentRequest()` rule — what counts as a match. A query scope on the model, or a method on its builder class if the model already has one (`PoolCandidate` does; most models do not). |
+| `app/Models/ApplicantFilter.php`                                 | `toMatchFilters()` turns a saved filter into the array the match rules expect.                                                                                                                                       |
+| `app/Models/TalentRequestTrackedUser.php`                        | `sources` accessor and `scopeWithTalentRequestMatches()` reuse the User logic for the tracked list.                                                                                                                  |
+| `app/GraphQL/Types/TalentRequestTrackedUser/MatchingSources.php` | Resolves the tracked list's `matching<Source>Sources` fields.                                                                                                                                                        |
+| `api/graphql/schema.graphql`                                     | The `sources` and `matching<Source>Sources` fields on `TalentRequestResult` and `TalentRequestTrackedUser`.                                                                                                          |
 
 ## Adding a new source
 

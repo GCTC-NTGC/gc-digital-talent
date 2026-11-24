@@ -6,25 +6,25 @@ The local development environment is defined in [`docker-compose.yml`](../docker
 
 ### Services
 
-| Service | Image / Build | Host port | Notes |
-|---|---|---|---|
-| `webserver` | [`infrastructure/webserver.Dockerfile`](../infrastructure/webserver.Dockerfile) | `8000` | Runs nginx + PHP-FPM in a single container |
-| `postgres` | `postgres` | `5432` | Primary relational database |
-| `adminer` | `adminer` | `8080` | Web-based database UI |
-| `mock-auth` | `ghcr.io/navikt/mock-oauth2-server` | none (internal) | OAuth2 mock server, proxied by nginx at `/oxauth/*` |
-| `maintenance` | [`infrastructure/maintenance-container`](../infrastructure/maintenance-container) | none | Manual-use utility container; replicas set to 0 by default |
+| Service       | Image / Build                                                                     | Host port       | Notes                                                      |
+| ------------- | --------------------------------------------------------------------------------- | --------------- | ---------------------------------------------------------- |
+| `webserver`   | [`infrastructure/webserver.Dockerfile`](../infrastructure/webserver.Dockerfile)   | `8000`          | Runs nginx + PHP-FPM in a single container                 |
+| `postgres`    | `postgres`                                                                        | `5432`          | Primary relational database                                |
+| `adminer`     | `adminer`                                                                         | `8080`          | Web-based database UI                                      |
+| `mock-auth`   | `ghcr.io/navikt/mock-oauth2-server`                                               | none (internal) | OAuth2 mock server, proxied by nginx at `/oxauth/*`        |
+| `maintenance` | [`infrastructure/maintenance-container`](../infrastructure/maintenance-container) | none            | Manual-use utility container; replicas set to 0 by default |
 
 ### Request routing
 
 Inside the `webserver` container, nginx listens on port `8080` (mapped to host port `8000`) and routes requests as follows:
 
-| Path pattern | Routed to |
-|---|---|
-| `/oxauth/*` | Proxy → `mock-auth:8080` |
-| `/graphql`, `/admin/graphql` | FastCGI → PHP-FPM `:9000` |
-| `/api/*`, `/login`, `/register`, `/auth-callback`, `/refresh`, `/sector-identifier` | FastCGI → PHP-FPM `:9000` |
-| Static asset extensions (`.png`, `.js`, `.css`, …) | File system → `apps/web/dist/client/` |
-| `/` (all other paths) | SPA fallback → `apps/web/dist/client/index.html` |
+| Path pattern                                                                        | Routed to                                        |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `/oxauth/*`                                                                         | Proxy → `mock-auth:8080`                         |
+| `/graphql`, `/admin/graphql`                                                        | FastCGI → PHP-FPM `:9000`                        |
+| `/api/*`, `/login`, `/register`, `/auth-callback`, `/refresh`, `/sector-identifier` | FastCGI → PHP-FPM `:9000`                        |
+| Static asset extensions (`.png`, `.js`, `.css`, …)                                  | File system → `apps/web/dist/client/`            |
+| `/` (all other paths)                                                               | SPA fallback → `apps/web/dist/client/index.html` |
 
 ```mermaid
 graph TB
@@ -59,7 +59,7 @@ graph TB
 graph TB
     user["End User (Browser)"]
     admin["Admin (GC network required)"]
-    
+
     f5["Firewall"]
 
     subgraph azure["Azure"]
@@ -75,10 +75,10 @@ graph TB
 
     user -- "HTTPS" --> f5
     admin -- "HTTPS\n(VPN / GC network)" --> f5
-    
+
     f5 -- "/static/* redirect" --> storage
     f5 -- "App Traffic" --> appservice
-    
+
     nginx2 -- "DB queries" --> db
     nginx2 -- "telemetry" --> insights
     nginx2 -- "auth flows\n(/login, /auth-callback)" --> cl
