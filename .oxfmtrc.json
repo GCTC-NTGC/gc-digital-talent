@@ -16,6 +16,8 @@
     "dist",
     "**/src/gql/**",
     "packages/graphql/src/index.ts",
-    ".react-router"
+    ".react-router",
+    "tc-report",
+    "__snapshots__"
   ]
 }
