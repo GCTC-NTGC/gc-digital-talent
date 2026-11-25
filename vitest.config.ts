@@ -37,7 +37,6 @@ export default mergeConfig(
           "./apps/playwright/**",
           "**/dist/**",
           "**/assets/**",
-          "**/eslint.config.{js,cjs,mjs,ts}",
           "**/vite.config.{js,cjs,mjs,ts}",
           "**/*.d.ts",
           "**/*.json",

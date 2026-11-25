@@ -23,11 +23,9 @@
     "urql": "^5.0.4"
   },
   "devDependencies": {
-    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/lodash": "^4.17.27",
     "@types/react": "^19.3.0",
-    "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
     "vitest": "^5.0.5"
   }
