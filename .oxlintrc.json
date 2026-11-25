@@ -127,7 +127,7 @@
       {
         "paths": [
           {
-            "name": "your-locale-module",
+            "name": "@gc-digital-talent/i18n",
             "importNames": ["useLocale"],
             "message": "Please use getLocale instead."
           }
