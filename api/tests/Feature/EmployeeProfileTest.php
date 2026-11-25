@@ -39,7 +39,6 @@ class EmployeeProfileTest extends TestCase
         $this->seed([RolePermissionSeeder::class, DepartmentSeeder::class]);
 
         $this->user = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
     }

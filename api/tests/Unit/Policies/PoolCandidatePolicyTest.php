@@ -47,17 +47,17 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     // --- createDraft() / create() ---
 
-    public function testApplicantCanCreateDraftApplication(): void
+    public function testBaseUserCanCreateDraftApplication(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertTrue($this->ensureBool($this->policy->createDraft($applicant)));
+        $baseUser = User::factory()->create();
+        $this->assertTrue($this->ensureBool($this->policy->createDraft($baseUser)));
     }
 
     // --- Own-resource methods ---
 
     public function testOwnerCanViewTheirOwnApplication(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $candidate = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create();
 
         $this->assertTrue($this->ensureBool($this->policy->view($owner, $candidate)));
@@ -65,7 +65,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testOwnerCanManageDraftApplication(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $draft = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create(['submitted_at' => null]);
 
         $this->assertTrue($this->ensureBool($this->policy->update($owner, $draft)));
@@ -75,7 +75,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testOwnerCannotChangeSubmittedApplication(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $submitted = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create(['submitted_at' => config('constants.past_date')]);
 
         $this->assertFalse($this->ensureBool($this->policy->update($owner, $submitted)));
@@ -84,7 +84,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testOwnerCanArchiveAndSuspendSubmittedApplication(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $submitted = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create(['submitted_at' => now()]);
 
         $this->assertTrue($this->ensureBool($this->policy->archive($owner, $submitted)));
@@ -93,7 +93,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testOwnerCanToggleDashboardVisibilityOfExpiredDraftApplication(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $expiredDraft = PoolCandidate::factory()
             ->for($owner)
             ->for($this->primaryPool)
@@ -107,7 +107,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testOwnerCannotViewTheirOwnApplicationStatus(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $candidate = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create();
 
         $this->assertFalse($this->ensureBool($this->policy->viewApplicationStatus($owner, $candidate)));
@@ -115,7 +115,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
 
     public function testNonOwnerCannotModifyOrSubmitApplication(): void
     {
-        $otherUser = User::factory()->asApplicant()->create();
+        $otherUser = User::factory()->create();
 
         $this->assertFalse($this->ensureBool($this->policy->update($otherUser, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->submit($otherUser, $this->submittedCandidate)));

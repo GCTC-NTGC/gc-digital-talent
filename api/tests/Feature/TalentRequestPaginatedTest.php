@@ -30,7 +30,7 @@ class TalentRequestPaginatedTest extends TestCase
 
     protected $communityRecruiter;
 
-    protected $applicant;
+    protected $baseUser;
 
     protected function setUp(): void
     {
@@ -50,11 +50,10 @@ class TalentRequestPaginatedTest extends TestCase
                 'email' => 'community-recruiter@test.com',
                 'sub' => 'community-recruiter@test.com',
             ]);
-        $this->applicant = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
     }
 
@@ -85,7 +84,7 @@ class TalentRequestPaginatedTest extends TestCase
             ->assertGraphQLErrorMessage('Unauthenticated.');
 
         // applicant sees zero
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->talentRequestsQuery)
             ->assertJsonFragment(['count' => 0]);
 
@@ -529,7 +528,7 @@ class TalentRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['id' => $communityRequest->id]);
 
         // non-admin sees zero
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->talentRequestsQuery, [
                 'where' => [],
             ])->assertJsonFragment(['count' => 0]);
@@ -538,7 +537,7 @@ class TalentRequestPaginatedTest extends TestCase
     public function testSubmitterCannotSearchOwnRequests(): void
     {
         TalentRequest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'admin_notes' => 'Secret note',
         ]);
 
@@ -546,7 +545,7 @@ class TalentRequestPaginatedTest extends TestCase
             [],
             ['adminNotes' => 'secret'],
             ['generalSearch' => 'secret'],
-        ])->each(fn (array $where) => $this->actingAs($this->applicant, 'api')
+        ])->each(fn (array $where) => $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->talentRequestsQuery, ['where' => $where])
             ->assertGraphQLErrorFree()
             ->assertJsonFragment(['count' => 0]));
@@ -557,7 +556,6 @@ class TalentRequestPaginatedTest extends TestCase
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
         $submittingRecruiter = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter([$community->id])
             ->create();
         $communityRequest = TalentRequest::factory()->create([

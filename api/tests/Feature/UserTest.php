@@ -1823,7 +1823,7 @@ class UserTest extends TestCase
         // Create users
         User::factory(1)->asAdmin()->create();
         User::factory(3)->create();
-        User::factory(11)->asApplicant()->create();
+        User::factory(11)->create();
 
         User::factory(2)->asProcessOperator($testPool->id)->create();
         User::factory(3)->asCommunityRecruiter($testCommunity->id)->create();
@@ -1891,7 +1891,7 @@ class UserTest extends TestCase
 
     public function testUpdateUserIsStatusOrNonStatusRule(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
 
         $updateUserAsUser =
             /** @lang GraphQL */
@@ -1906,11 +1906,11 @@ class UserTest extends TestCase
         ';
 
         // assert user can set STATUS or NON_STATUS but not both
-        $this->actingAs($applicant, 'api')
+        $this->actingAs($baseUser, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
-                    'id' => $applicant->id,
+                    'id' => $baseUser->id,
                     'user' => [
                         'indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name],
                     ],
@@ -1919,11 +1919,11 @@ class UserTest extends TestCase
             ->assertJsonFragment(['indigenousCommunities' => [[
                 'value' => IndigenousCommunity::STATUS_FIRST_NATIONS->name,
             ]]]);
-        $this->actingAs($applicant, 'api')
+        $this->actingAs($baseUser, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
-                    'id' => $applicant->id,
+                    'id' => $baseUser->id,
                     'user' => [
                         'indigenousCommunities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
                     ],
@@ -1932,11 +1932,11 @@ class UserTest extends TestCase
             ->assertJsonFragment(['indigenousCommunities' => [[
                 'value' => IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name,
             ]]]);
-        $this->actingAs($applicant, 'api')
+        $this->actingAs($baseUser, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
-                    'id' => $applicant->id,
+                    'id' => $baseUser->id,
                     'user' => [
                         'indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name, IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
                     ],
@@ -1949,13 +1949,11 @@ class UserTest extends TestCase
     {
         $this->seed(RolePermissionSeeder::class);
         $baseUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -2002,11 +2000,11 @@ class UserTest extends TestCase
     public function testUsersNestedPoolCandidates(): void
     {
         // applicant has one submitted and one draft application
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
         PoolCandidate::factory()->create([
-            'user_id' => $applicant->id,
+            'user_id' => $baseUser->id,
         ]);
-        $submittedApplication = PoolCandidate::factory()->submitted()->for($applicant)->create();
+        $submittedApplication = PoolCandidate::factory()->submitted()->for($baseUser)->create();
 
         $candidateCount = count(PoolCandidate::all());
         assertSame(2, $candidateCount);
@@ -2028,7 +2026,7 @@ class UserTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query,
                 [
-                    'id' => $applicant->id,
+                    'id' => $baseUser->id,
                 ]
             )->assertJson([
                 'data' => [
@@ -2068,7 +2066,6 @@ class UserTest extends TestCase
     public function testMultipleSubstantiveExperiences()
     {
         $user = User::factory()
-            ->asApplicant()
             ->create();
 
         // Nonsubstantive
@@ -2101,7 +2098,6 @@ class UserTest extends TestCase
     public function testNoSubstantiveExperiences()
     {
         $user = User::factory()
-            ->asApplicant()
             ->create();
 
         // Nonsubstantive
@@ -2450,16 +2446,15 @@ class UserTest extends TestCase
 
     public function testUpdateUserAsAdminRoleCheck(): void
     {
-        $applicantUser = User::factory()
-            ->asApplicant()
+        $baseUser = User::factory()
             ->create();
 
-        $this->actingAs($applicantUser, 'api')->graphQL(
+        $this->actingAs($baseUser, 'api')->graphQL(
             $this->updateUserAsAdminMutation,
             [
-                'id' => $applicantUser->id,
+                'id' => $baseUser->id,
                 'user' => [
-                    'id' => $applicantUser->id,
+                    'id' => $baseUser->id,
                     'email' => 'BAD.EMAIL@EXAMPLE.COM',
                 ],
             ]

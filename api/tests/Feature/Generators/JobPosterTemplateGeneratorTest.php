@@ -38,7 +38,6 @@ class JobPosterTemplateGeneratorTest extends TestCase
         WorkStream::factory()->create();
 
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create();
 

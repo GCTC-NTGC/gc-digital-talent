@@ -203,7 +203,6 @@ class SnapshotShapeTest extends TestCase
     {
         $community = Community::factory()->create();
         $user = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();

@@ -34,10 +34,10 @@ class UserAuthorizationScopeTest extends TestCase
         };
     }
 
-    protected static function createPoolCandidate(User $applicant, Pool $pool)
+    protected static function createPoolCandidate(User $baseUser, Pool $pool)
     {
         return PoolCandidate::factory()
-            ->for($applicant)
+            ->for($baseUser)
             ->for($pool)
             ->submitted()
             ->create();
@@ -65,20 +65,19 @@ class UserAuthorizationScopeTest extends TestCase
     {
         // no $actor User or mock for guest
 
-        $someoneElse = User::factory()->asApplicant()->create();
+        $someoneElse = User::factory()->create();
         $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([], $userIds->toArray());
     }
 
-    // an applicant should be able to view just themselves
-    public function testApplicantSeesOnlyThemselves(): void
+    // a base user should be able to view just themselves
+    public function testBaseUserSeesOnlyThemselves(): void
     {
         $actor = User::factory()
-            ->asApplicant()
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $someoneElse = User::factory()->asApplicant()->create();
+        $someoneElse = User::factory()->create();
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
@@ -94,13 +93,13 @@ class UserAuthorizationScopeTest extends TestCase
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $otherApplicant = User::factory()->asApplicant()->create();
+        $otherBaseUser = User::factory()->create();
         $otherAdmin = User::factory()->asAdmin()->create();
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $actor->id,
-            $otherApplicant->id,
+            $otherBaseUser->id,
             $otherAdmin->id,
         ], $userIds->toArray());
     }
@@ -115,15 +114,14 @@ class UserAuthorizationScopeTest extends TestCase
         $otherPool = self::createPool($community);
 
         $actor = User::factory()
-            ->asApplicant()
             ->asProcessOperator($actorsPool->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $applicantToActorsPool = User::factory()->asApplicant()->create();
+        $applicantToActorsPool = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool, $actorsPool);
 
-        $applicantToOtherPool = User::factory()->asApplicant()->create();
+        $applicantToOtherPool = User::factory()->create();
         self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
@@ -146,18 +144,17 @@ class UserAuthorizationScopeTest extends TestCase
         $otherPool = self::createPool($otherCommunity);
 
         $actor = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($actorsCommunity->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $applicantToActorsPool1 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool1 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
 
-        $applicantToActorsPool2 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool2 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
 
-        $applicantToOtherPool = User::factory()->asApplicant()->create();
+        $applicantToOtherPool = User::factory()->create();
         self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
@@ -176,7 +173,6 @@ class UserAuthorizationScopeTest extends TestCase
         $community = Community::factory()->create();
 
         $actor = User::factory()
-            ->asApplicant()
             ->asCommunityTalentCoordinator($community->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
@@ -230,7 +226,6 @@ class UserAuthorizationScopeTest extends TestCase
         $otherCommunity = Community::factory()->create();
 
         $actor = User::factory()
-            ->asApplicant()
             ->asCommunityTalentCoordinator($actorsCommunity->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
@@ -261,18 +256,17 @@ class UserAuthorizationScopeTest extends TestCase
         $otherPool = self::createPool($otherCommunity);
 
         $actor = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($actorsCommunity->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $applicantToActorsPool1 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool1 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
 
-        $applicantToActorsPool2 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool2 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
 
-        $applicantToOtherPool = User::factory()->asApplicant()->create();
+        $applicantToOtherPool = User::factory()->create();
         self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
@@ -292,7 +286,6 @@ class UserAuthorizationScopeTest extends TestCase
         $otherCommunity = Community::factory()->create();
 
         $actor = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($actorsCommunity->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
@@ -323,18 +316,17 @@ class UserAuthorizationScopeTest extends TestCase
         $otherPool = self::createPool($otherDepartment);
 
         $actor = User::factory()
-            ->asApplicant()
             ->asDepartmentHRAdvisor($actorsDepartment->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $applicantToActorsPool1 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool1 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
 
-        $applicantToActorsPool2 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool2 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
 
-        $applicantToOtherPool = User::factory()->asApplicant()->create();
+        $applicantToOtherPool = User::factory()->create();
         self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
@@ -358,18 +350,17 @@ class UserAuthorizationScopeTest extends TestCase
         $otherPool = self::createPool($otherDepartment);
 
         $actor = User::factory()
-            ->asApplicant()
             ->asDepartmentAdmin($actorsDepartment->id)
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $applicantToActorsPool1 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool1 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
 
-        $applicantToActorsPool2 = User::factory()->asApplicant()->create();
+        $applicantToActorsPool2 = User::factory()->create();
         self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
 
-        $applicantToOtherPool = User::factory()->asApplicant()->create();
+        $applicantToOtherPool = User::factory()->create();
         self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();

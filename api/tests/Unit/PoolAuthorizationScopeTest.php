@@ -98,12 +98,11 @@ class PoolAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $poolIds->toArray());
     }
 
-    // an applicant should be able to admin no pools
-    public function testAdminAsApplicant(): void
+    // a base user should be able to admin no pools
+    public function testAdminAsBaseUser(): void
     {
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
-                ->asApplicant()
                 ->create());
 
         $poolIds = Pool::authorizedToAdmin()->get()->pluck('id');
@@ -150,12 +149,11 @@ class PoolAuthorizationScopeTest extends TestCase
         ], $poolIds->toArray());
     }
 
-    // an applicant should be able to view any published pool (like anyone can)
-    public function testViewAsApplicant(): void
+    // a base user should be able to view any published pool (like anyone can)
+    public function testViewAsBaseUser(): void
     {
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
-                ->asApplicant()
                 ->create());
 
         // three published from both teams

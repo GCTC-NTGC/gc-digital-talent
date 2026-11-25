@@ -50,7 +50,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user = User::factory()
-            ->asApplicant()
             ->create([
                 'work_email_verified_at' => null,
             ]);
@@ -209,7 +208,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     public function testVerifiedWorkEmailNoNotifications(): void
     {
         $userVerifiedEmail = User::factory()
-            ->asApplicant()
             ->create([
                 'work_email_verified_at' => config('constants.past_date'),
             ]);

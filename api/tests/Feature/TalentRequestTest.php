@@ -130,7 +130,6 @@ class TalentRequestTest extends TestCase
         ]);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -351,7 +350,7 @@ class TalentRequestTest extends TestCase
 
     public function testSubmitterCannotViewAdminDataOfOwnRequest(): void
     {
-        $submitter = User::factory()->asApplicant()->create();
+        $submitter = User::factory()->create();
         $talentRequest = $this->createRequestWithAdminData($submitter);
 
         $this->actingAs($submitter, 'api')
@@ -365,7 +364,7 @@ class TalentRequestTest extends TestCase
 
     public function testSubmitterCanViewOtherFieldsOfOwnRequest(): void
     {
-        $submitter = User::factory()->asApplicant()->create();
+        $submitter = User::factory()->create();
         $talentRequest = $this->createRequestWithAdminData($submitter);
 
         $this->actingAs($submitter, 'api')
@@ -410,7 +409,6 @@ class TalentRequestTest extends TestCase
     public function testTeamMemberCannotViewAdminDataOfOwnRequestToOtherCommunity(): void
     {
         $submittingRecruiter = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter([$this->authorizedCommunity->id])
             ->create();
         $talentRequest = $this->createRequestWithAdminData($submittingRecruiter, $this->otherCommunity);

@@ -29,7 +29,6 @@ class ProtectedRequestUserCheckerTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',

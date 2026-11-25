@@ -45,7 +45,7 @@ class JobPosterArchiveTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->user = User::factory()->asApplicant()->create();
+        $this->user = User::factory()->create();
 
         $this->pool = Pool::factory()->closed()->create();
     }

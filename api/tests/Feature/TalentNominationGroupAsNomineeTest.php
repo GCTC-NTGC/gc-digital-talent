@@ -102,7 +102,6 @@ class TalentNominationGroupAsNomineeTest extends TestCase
     protected function makeEmployee(string $userName, string $firstName, string $lastName): User
     {
         return User::factory()
-            ->asApplicant()
             ->create([
                 'email' => $userName.'@test.com',
                 'first_name' => $firstName,
@@ -246,7 +245,7 @@ class TalentNominationGroupAsNomineeTest extends TestCase
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
             'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $this->nominee->removeRole('applicant');
+        $this->nominee->removeRole('base_user');
 
         $this->queryAsNominee()
             ->assertGraphQLErrorFree()

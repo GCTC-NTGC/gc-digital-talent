@@ -30,14 +30,12 @@ class UserRoleTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->baseUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -120,7 +118,7 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role.
     public function testAdminCanAddAndRemoveNonTeamRoleToUser()
     {
-        $oldRole = Role::where('name', 'applicant')->sole();
+        $oldRole = Role::where('name', 'platform_admin')->sole();
         $newRole = Role::where('name', 'base_user')->sole();
         $user = User::factory()->create()->syncRoles([$oldRole]);
 
@@ -285,10 +283,10 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create two applicant users.  Assert that one of them cannot query the other's data.
-    public function testApplicantCannotQueryAnother()
+    // Create two base users.  Assert that one of them cannot query the other's data.
+    public function testBaseUserCannotQueryAnother()
     {
-        $users = User::factory()->count(2)->asApplicant()->create();
+        $users = User::factory()->count(2)->create();
 
         $this->actingAs($users[0], 'api')->graphQL(
             /** @lang GraphQL */
@@ -311,8 +309,8 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create an applicant user.  Assert that they can query the roles.
-    public function testApplicantCanQueryRoles()
+    // Create a base user.  Assert that they can query the roles.
+    public function testBaseUserCanQueryRoles()
     {
         $role = Role::inRandomOrder()->first();
         $this->actingAs($this->baseUser, 'api')->graphQL(
@@ -329,8 +327,8 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create an applicant user. Assert that they cannot perform and roles-and-teams mutation.
-    public function testApplicantCannotMutateRolesAndTeams()
+    // Create a base user. Assert that they cannot perform and roles-and-teams mutation.
+    public function testBaseUserCannotMutateRolesAndTeams()
     {
         $oldRole = Role::factory()->create(['is_team_based' => true]);
         $newRole = Role::factory()->create(['is_team_based' => true]);
@@ -372,8 +370,8 @@ class UserRoleTest extends TestCase
         )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    // Create an applicant user. Assert that they cannot edit their own roles.
-    public function testApplicantCannotMutateOwnRoles()
+    // Create a base user. Assert that they cannot edit their own roles.
+    public function testBaseUserCannotMutateOwnRoles()
     {
         $oldRole = Role::factory()->create(['is_team_based' => true]);
         $newRole = Role::factory()->create(['is_team_based' => true]);

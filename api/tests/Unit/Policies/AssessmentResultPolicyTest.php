@@ -30,19 +30,16 @@ class AssessmentResultPolicyTest extends PolicyTestCase
         $this->result = AssessmentResult::factory()->for($this->step)->create();
     }
 
-    public static function globalRoleProvider(): array
+    public function testPlatformAdminCanViewGlobally(): void
     {
-        return [
-            'platform admin can view globally' => ['asAdmin', true],
-            'applicant cannot view globally' => ['asApplicant', false],
-        ];
+        $user = User::factory()->asAdmin()->create();
+        $this->assertTrue($this->ensureBool($this->policy->view($user, $this->result)));
     }
 
-    #[DataProvider('globalRoleProvider')]
-    public function testGlobalRoleViewAccess(string $factoryMethod, bool $expected): void
+    public function testBaseUserCannotViewGlobally(): void
     {
-        $user = User::factory()->{$factoryMethod}()->create();
-        $this->assertEquals($expected, $this->ensureBool($this->policy->view($user, $this->result)));
+        $user = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->view($user, $this->result)));
     }
 
     public static function authorizedTeamRoleProvider(): array

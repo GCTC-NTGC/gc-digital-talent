@@ -16,9 +16,9 @@ class CommunityInterestPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $applicant;
+    protected $baseUser;
 
-    protected $otherApplicant;
+    protected $otherBaseUser;
 
     protected $platformAdmin;
 
@@ -48,18 +48,16 @@ class CommunityInterestPolicyTest extends TestCase
 
         $this->department = Department::factory()->create();
 
-        $this->applicant = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
-        $this->otherApplicant = User::factory()
-            ->asApplicant()
+        $this->otherBaseUser = User::factory()
             ->create([
-                'email' => 'other-applicant-user@test.com',
-                'sub' => 'other-applicant-user@test.com',
+                'email' => 'other-base-user@test.com',
+                'sub' => 'other-base-user@test.com',
             ]);
 
         $this->platformAdmin = User::factory()
@@ -94,7 +92,6 @@ class CommunityInterestPolicyTest extends TestCase
             ]);
 
         $this->verifiedEmployee = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create([
                 'email' => 'verified-employee-user@test.com',
@@ -102,7 +99,6 @@ class CommunityInterestPolicyTest extends TestCase
             ]);
 
         $this->otherVerifiedEmployee = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create([
                 'email' => 'other-verified-employee-user@test.com',
@@ -123,12 +119,12 @@ class CommunityInterestPolicyTest extends TestCase
         $ownCommunityInterest = CommunityInterest::factory()
             ->consented(false)
             ->create([
-                'user_id' => $this->applicant->id,
+                'user_id' => $this->baseUser->id,
                 'community_id' => $this->community->id,
             ]);
 
-        $this->assertTrue($this->applicant->can('viewUser', $ownCommunityInterest));
-        $this->assertFalse($this->otherApplicant->can('viewUser', $ownCommunityInterest));
+        $this->assertTrue($this->baseUser->can('viewUser', $ownCommunityInterest));
+        $this->assertFalse($this->otherBaseUser->can('viewUser', $ownCommunityInterest));
         $this->assertTrue($this->platformAdmin->can('viewUser', $ownCommunityInterest));
 
         // consented community interest attached to a verified gov employee - team roles can view
@@ -160,7 +156,7 @@ class CommunityInterestPolicyTest extends TestCase
         $notVerifiedInterest = CommunityInterest::factory()
             ->consented(true)
             ->create([
-                'user_id' => $this->otherApplicant->id,
+                'user_id' => $this->otherBaseUser->id,
                 'community_id' => $this->community->id,
             ]);
 

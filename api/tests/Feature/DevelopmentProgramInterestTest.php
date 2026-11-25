@@ -38,7 +38,6 @@ class DevelopmentProgramInterestTest extends TestCase
         $this->community = Community::factory()->create();
 
         $this->user = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create([
                 'email' => 'dev-program-interest-user@test.com',

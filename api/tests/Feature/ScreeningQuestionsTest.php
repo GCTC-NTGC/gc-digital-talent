@@ -34,7 +34,7 @@ class ScreeningQuestionsTest extends TestCase
 
     protected $adminUser;
 
-    protected $applicantUser;
+    protected $baseUser;
 
     protected $communityAdmin;
 
@@ -115,27 +115,23 @@ class ScreeningQuestionsTest extends TestCase
                 'community_id' => $this->community->id,
             ]);
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
         $this->communityRecruiter = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create([
                 'email' => 'community-recruiter-user@test.com',
                 'sub' => 'community-recruiter-user@test.com',
             ]);
-        $this->applicantUser = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
         $this->communityAdmin = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($this->community->id)
             ->create([
                 'email' => 'community-admin-user@test.com',
@@ -182,7 +178,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->applicantUser, 'api')->graphQL(
+        $this->actingAs($this->baseUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -195,7 +191,7 @@ class ScreeningQuestionsTest extends TestCase
             'id' => $this->publishedPool->id,
         ];
 
-        // assert all except applicant may query screening questions -> assessment step
+        // assert all except base user may query screening questions -> assessment step
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
@@ -206,7 +202,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertSuccessful();
-        $this->actingAs($this->applicantUser, 'api')->graphQL(
+        $this->actingAs($this->baseUser, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )
@@ -223,13 +219,13 @@ class ScreeningQuestionsTest extends TestCase
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
         $questionId = $this->publishedPool->screeningQuestions->first()->id;
 
         // assert response is successfully created
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -248,7 +244,7 @@ class ScreeningQuestionsTest extends TestCase
         ]);
 
         // assert attempting to create another response to the same question fails
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -272,12 +268,12 @@ class ScreeningQuestionsTest extends TestCase
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
         $questionId = $this->publishedPool->screeningQuestions->first()->id;
 
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -298,7 +294,7 @@ class ScreeningQuestionsTest extends TestCase
         $createdResponseId = ScreeningQuestionResponse::sole()['id'];
 
         // assert updating works
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -320,12 +316,12 @@ class ScreeningQuestionsTest extends TestCase
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
         $questionId = $this->publishedPool->screeningQuestions->first()->id;
 
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -346,7 +342,7 @@ class ScreeningQuestionsTest extends TestCase
         $createdResponseId = ScreeningQuestionResponse::sole()['id'];
 
         // assert deleting works
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -368,10 +364,10 @@ class ScreeningQuestionsTest extends TestCase
         $attackerApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
 
-        $victimUser = User::factory()->asApplicant()->create();
+        $victimUser = User::factory()->create();
         $victimApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
@@ -384,7 +380,7 @@ class ScreeningQuestionsTest extends TestCase
             'answer' => 'victim answer',
         ]);
 
-        $response = $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $response = $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $attackerApplication->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -417,10 +413,10 @@ class ScreeningQuestionsTest extends TestCase
         $attackerApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
 
-        $victimUser = User::factory()->asApplicant()->create();
+        $victimUser = User::factory()->create();
         $victimApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
@@ -433,7 +429,7 @@ class ScreeningQuestionsTest extends TestCase
             'answer' => 'victim answer',
         ]);
 
-        $response = $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $response = $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $attackerApplication->id,
             'application' => [
                 'screeningQuestionResponses' => [
@@ -456,7 +452,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->for($this->publishedPool)->create([
             'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->baseUser->id,
         ]);
 
         $otherPool = Pool::factory()->withScreeningQuestions()->create([
@@ -464,7 +460,7 @@ class ScreeningQuestionsTest extends TestCase
         ]);
         $otherPoolQuestionId = $otherPool->screeningQuestions->first()->id;
 
-        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [

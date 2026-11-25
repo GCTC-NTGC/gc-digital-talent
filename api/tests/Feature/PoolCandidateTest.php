@@ -25,7 +25,7 @@ class PoolCandidateTest extends TestCase
 
     protected $adminUser;
 
-    protected $applicantUser;
+    protected $baseUser;
 
     protected $communityRecruiterUser;
 
@@ -60,18 +60,16 @@ class PoolCandidateTest extends TestCase
         ]);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
                 'sub' => 'platform-admin-user@test.com',
             ]);
 
-        $this->applicantUser = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
         $this->communityRecruiterUser = User::factory()
@@ -82,7 +80,6 @@ class PoolCandidateTest extends TestCase
             ]);
 
         $this->communityUser = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($this->community->id)
             ->create([
                 'email' => 'community-admin@test.com',
@@ -90,7 +87,6 @@ class PoolCandidateTest extends TestCase
             ]);
 
         $this->departmentUser = User::factory()
-            ->asApplicant()
             ->asDepartmentAdmin($this->department->id)
             ->create([
                 'email' => 'department-admin@test.com',
@@ -102,14 +98,12 @@ class PoolCandidateTest extends TestCase
         $unAssociatedDepartment = Department::factory()->create();
 
         $this->unAssociatedCommunityUser = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($unAssociatedCommunity->id)
             ->create([
                 'email' => 'unassociated-community-admin@test.com',
                 'sub' => 'unassociated-community-admin@test.com',
             ]);
         $this->unAssociatedDepartmentUser = User::factory()
-            ->asApplicant()
             ->asDepartmentAdmin($unAssociatedDepartment->id)
             ->create([
                 'email' => 'unassociated-department-admin@test.com',
@@ -118,7 +112,7 @@ class PoolCandidateTest extends TestCase
 
         $this->candidate = PoolCandidate::factory()
             ->submitted()
-            ->for($this->applicantUser)
+            ->for($this->baseUser)
             ->for($this->pool)
             ->create();
     }
@@ -184,8 +178,8 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert applicant can query candidate, but not access notes
-        $this->actingAs($this->applicantUser, 'api')
+        // Assert base user can query candidate, but not access notes
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($basicQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
@@ -194,7 +188,7 @@ class PoolCandidateTest extends TestCase
                     ],
                 ],
             ]);
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
@@ -237,7 +231,7 @@ class PoolCandidateTest extends TestCase
 
         $notesVariables = ['id' => $this->candidate->id, 'notes' => 'new notes'];
 
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($notesMutation, $notesVariables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
@@ -341,8 +335,8 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert applicant cannot access the internal status of their own application
-        $this->actingAs($this->applicantUser, 'api')
+        // Assert base user cannot access the internal status of their own application
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
@@ -388,9 +382,9 @@ class PoolCandidateTest extends TestCase
             }
          ';
 
-        // Assert applicant can view the summary of their own application
+        // Assert base user can view the summary of their own application
         // The candidate is submitted and awaiting screening, so RECEIVED
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($summaryQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [

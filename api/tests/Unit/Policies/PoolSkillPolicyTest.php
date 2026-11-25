@@ -41,12 +41,12 @@ class PoolSkillPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->delete($user, $this->poolSkill)));
     }
 
-    public function testApplicantCannotUpdateOrDeletePoolSkill(): void
+    public function testBaseUserCannotUpdateOrDeletePoolSkill(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
 
-        $this->assertFalse($this->ensureBool($this->policy->update($applicant, $this->poolSkill)));
-        $this->assertFalse($this->ensureBool($this->policy->delete($applicant, $this->poolSkill)));
+        $this->assertFalse($this->ensureBool($this->policy->update($baseUser, $this->poolSkill)));
+        $this->assertFalse($this->ensureBool($this->policy->delete($baseUser, $this->poolSkill)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -77,10 +77,10 @@ class PoolSkillPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->viewAssessmentSteps($user, $this->poolSkill)));
     }
 
-    public function testApplicantCannotViewAssessmentSteps(): void
+    public function testBaseUserCannotViewAssessmentSteps(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->viewAssessmentSteps($applicant, $this->poolSkill)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->viewAssessmentSteps($baseUser, $this->poolSkill)));
     }
 
     #[DataProvider('allTeamRolesProvider')]

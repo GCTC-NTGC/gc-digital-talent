@@ -57,7 +57,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
         Community::factory()->create();
 
         $this->draftUser = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'draftUser',
                 'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
@@ -65,7 +64,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ]);
 
         $this->draftExpiredUser = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'draftExpiredUser',
                 'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
@@ -73,7 +71,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ]);
 
         $this->applicationReviewUser = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'applicationReviewUser',
                 'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],

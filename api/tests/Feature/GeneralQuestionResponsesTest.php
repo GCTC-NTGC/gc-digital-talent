@@ -65,7 +65,6 @@ class GeneralQuestionResponsesTest extends TestCase
                 'community_id' => $this->community->id,
             ]);
         $this->processOperator = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->pool->id)
             ->create([
                 'email' => 'process-operator@test.com',
@@ -219,7 +218,7 @@ class GeneralQuestionResponsesTest extends TestCase
             'user_id' => $this->processOperator->id,
         ]);
 
-        $victimUser = User::factory()->asApplicant()->create();
+        $victimUser = User::factory()->create();
         $victimApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'application_status' => ApplicationStatus::DRAFT->name,
@@ -265,7 +264,7 @@ class GeneralQuestionResponsesTest extends TestCase
             'user_id' => $this->processOperator->id,
         ]);
 
-        $victimUser = User::factory()->asApplicant()->create();
+        $victimUser = User::factory()->create();
         $victimApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'application_status' => ApplicationStatus::DRAFT->name,

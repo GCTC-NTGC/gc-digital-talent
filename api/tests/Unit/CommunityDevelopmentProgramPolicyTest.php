@@ -18,7 +18,7 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $applicantUser;
+    protected $baseUser;
 
     protected $processOperatorUser;
 
@@ -52,11 +52,10 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->applicantUser = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
         $this->department = Department::factory()->create();
@@ -66,7 +65,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
         $this->otherCommunity = Community::factory()->create();
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
@@ -79,21 +77,18 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
         ]);
 
         $this->processOperatorUser = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->teamPool->id)
             ->create([
                 'email' => 'process-operator-user@test.com',
             ]);
 
         $this->communityRecruiterUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create([
                 'email' => 'community-recruiter-user@test.com',
             ]);
 
         $this->communityAdminUser = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($this->community->id)
             ->create([
                 'email' => 'community-admin-user@test.com',
@@ -138,7 +133,7 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ];
 
-        $this->assertFalse($this->applicantUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
+        $this->assertFalse($this->baseUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->adminUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->processOperatorUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->communityRecruiterUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
@@ -173,7 +168,7 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ]);
 
-        $this->assertFalse($this->applicantUser->can('update', $record));
+        $this->assertFalse($this->baseUser->can('update', $record));
         $this->assertFalse($this->adminUser->can('update', $record));
         $this->assertFalse($this->processOperatorUser->can('update', $record));
         $this->assertFalse($this->communityRecruiterUser->can('update', $record));
@@ -208,7 +203,7 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ]);
 
-        $this->assertFalse($this->applicantUser->can('delete', $record));
+        $this->assertFalse($this->baseUser->can('delete', $record));
         $this->assertFalse($this->adminUser->can('delete', $record));
         $this->assertFalse($this->processOperatorUser->can('delete', $record));
         $this->assertFalse($this->communityRecruiterUser->can('delete', $record));

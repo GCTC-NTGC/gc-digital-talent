@@ -45,7 +45,6 @@ class AssessmentStepTest extends TestCase
             'community_id' => $this->community->id,
         ]);
         $this->communityUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create([
                 'email' => 'community-user@test.com',

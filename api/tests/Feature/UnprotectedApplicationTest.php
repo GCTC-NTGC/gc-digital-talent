@@ -24,10 +24,9 @@ class UnprotectedApplicationTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
     }
 
-    public function testApplicantCanViewOwnApplications()
+    public function testBaseUserCanViewOwnApplications()
     {
         $user = User::factory()
-            ->asApplicant()
             ->create();
         $application = PoolCandidate::factory()->create([
             'user_id' => $user->id,

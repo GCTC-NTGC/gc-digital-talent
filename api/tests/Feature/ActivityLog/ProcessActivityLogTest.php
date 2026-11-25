@@ -404,11 +404,11 @@ class ProcessActivityLogTest extends TestCase
             ->assertJsonCount(0, 'data.pool.activities.data');
     }
 
-    public function testApplicantCannotViewActivities(): void
+    public function testBaseUserCannotViewActivities(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
 
-        $this->actingAs($applicant, 'api')
+        $this->actingAs($baseUser, 'api')
             ->graphQL($this->query, [
                 'id' => $this->process->id,
             ])

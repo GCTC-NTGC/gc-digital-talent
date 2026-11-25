@@ -57,7 +57,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             ->create(['community_id' => $this->communityB->id]);
 
         $this->user1 = User::factory()
-            ->asApplicant()
             ->create();
 
         $this->candidateDraft1A = PoolCandidate::factory()
@@ -74,7 +73,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             ->create();
 
         $this->user2 = User::factory()
-            ->asApplicant()
             ->create();
 
         $this->candidateDraft2B = PoolCandidate::factory()
@@ -101,8 +99,8 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $candidateIds->toArray());
     }
 
-    // an applicant should be able to view their own candidates
-    public function testViewAsApplicant(): void
+    // a base user should be able to view their own candidates
+    public function testViewAsBaseUser(): void
     {
         Auth::shouldReceive('user')
             ->andReturn($this->user1);

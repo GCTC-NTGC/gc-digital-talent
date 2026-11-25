@@ -42,17 +42,14 @@ class UserExcelGeneratorTest extends TestCase
     {
         // arrange
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create();
 
         $targetUser1 = User::factory()
-            ->asApplicant()
             ->withNonGovProfile()
             ->create();
 
         $targetUser2 = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
 
@@ -88,7 +85,7 @@ class UserExcelGeneratorTest extends TestCase
     public function testCommunityFilterExcludesUsersOutsideCommunity(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $community = Community::factory()->create();
 
@@ -118,7 +115,7 @@ class UserExcelGeneratorTest extends TestCase
 
     public function testCommunitiesFilterAcceptsMultipleCommunities(): void
     {
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
         $communityOne = Community::factory()->create();
         $communityTwo = Community::factory()->create();
         $communityThree = Community::factory()->create();
@@ -148,7 +145,7 @@ class UserExcelGeneratorTest extends TestCase
 
     public function testCommunitiesAndJobInterestMustMatchSameCommunityInterest(): void
     {
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
         $communityOne = Community::factory()->create();
         $communityTwo = Community::factory()->create();
 
@@ -177,7 +174,7 @@ class UserExcelGeneratorTest extends TestCase
 
     public function testVerifiedGovEmployeesOnlyExcludesUnverifiedWorkEmail(): void
     {
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
         $community = Community::factory()->create();
 
         $verifiedUser = User::factory()->withGovEmployeeProfile()->create();
@@ -207,7 +204,7 @@ class UserExcelGeneratorTest extends TestCase
     public function testCommunityInterestSheetHasPairedDevProgramHeaders(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $community = Community::factory()->create();
         $program = DevelopmentProgram::factory()->withCommunity($community->id)->create();
@@ -249,7 +246,7 @@ class UserExcelGeneratorTest extends TestCase
     public function testCompletedDevProgramLinkedExperienceAppearsInSheet(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $community = Community::factory()->create();
         $program = DevelopmentProgram::factory()->withCommunity($community->id)->create();
@@ -312,7 +309,7 @@ class UserExcelGeneratorTest extends TestCase
     public function testCompletedDevProgramWithNoLinkedExperienceIsNull(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $community = Community::factory()->create();
         $program = DevelopmentProgram::factory()->withCommunity($community->id)->create();
@@ -355,7 +352,7 @@ class UserExcelGeneratorTest extends TestCase
     {
         // arrange
         $exportBatchSize = 200; // UserExcelGenerator reads users 200 at a time
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create(['current_city' => 'Elsewhere']);
+        $adminUser = User::factory()->asAdmin()->create(['current_city' => 'Elsewhere']);
 
         // More matches than one batch holds. Users matching the keyword twice (city and first name) rank above users matching it once, they get the highest ids,
         // so best-match order is the reverse of id order: the case where paging by id behind a best-match sort repeats or drops users.

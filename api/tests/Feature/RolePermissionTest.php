@@ -66,25 +66,6 @@ class RolePermissionTest extends TestCase
             'view-any-role',
             'view-any-community',
             'view-any-developmentProgram',
-        ], true));
-
-        $this->assertFalse($this->user->isAbleTo('view-any-user'));
-
-        $this->cleanup();
-    }
-
-    /**
-     * Test the Applicant Role
-     *
-     * @return void
-     */
-    public function testApplicantRole()
-    {
-        $applicantRole = Role::where('name', 'applicant')->sole();
-        $this->user->addRole($applicantRole);
-
-        $this->assertTrue($this->user->hasRole('applicant'));
-        $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
             'view-own-applicationDecision',
             'view-own-applicationPlacement',

@@ -67,7 +67,6 @@ class UserVerifyEmailsTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->regularUser = User::factory()
-            ->asApplicant()
             ->create([
                 'id' => '00000000-0000-0000-0000-000000000001',
                 'email' => 'regular.user@example.org',

@@ -54,7 +54,6 @@ class CommunityTest extends TestCase
 
         // Create users.
         $this->admin = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',

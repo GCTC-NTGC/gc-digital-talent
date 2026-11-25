@@ -367,12 +367,12 @@ class TalentRequestTrackedUserTest extends TestCase
         // viewable: applicant with a submitted candidate in a published pool of the community
         $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
-        $viewableUser = User::factory()->asApplicant()->create();
+        $viewableUser = User::factory()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
             ->create(['submitted_at' => CarbonImmutable::now()]);
 
         // hidden: plain applicant with no candidacy in the community
-        $hiddenUser = User::factory()->asApplicant()->create();
+        $hiddenUser = User::factory()->create();
 
         foreach ([$viewableUser, $hiddenUser] as $user) {
             TalentRequestTrackedUser::factory()->create([
@@ -394,7 +394,7 @@ class TalentRequestTrackedUserTest extends TestCase
     public static function cannotViewRequestProvider(): array
     {
         return [
-            'applicant' => ['applicant'],
+            'base user' => ['base_user'],
             'recruiter of other community' => ['other_recruiter'],
         ];
     }
@@ -405,7 +405,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         $actor = match ($role) {
-            'applicant' => User::factory()->asApplicant()->create(),
+            'base_user' => User::factory()->create(),
             'other_recruiter' => User::factory()->asCommunityRecruiter([Community::factory()->create()->id])->create(),
         };
 
@@ -570,12 +570,12 @@ class TalentRequestTrackedUserTest extends TestCase
         // viewable: applicant with a submitted candidate in a published pool of the community
         $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
-        $viewableUser = User::factory()->asApplicant()->create();
+        $viewableUser = User::factory()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
             ->create(['submitted_at' => CarbonImmutable::now()]);
 
         // hidden: plain applicant with no candidacy in the community
-        $hiddenUser = User::factory()->asApplicant()->create();
+        $hiddenUser = User::factory()->create();
 
         foreach ([$viewableUser, $hiddenUser] as $user) {
             TalentRequestTrackedUser::factory()->create([
@@ -629,7 +629,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         $actor = match ($role) {
-            'applicant' => User::factory()->asApplicant()->create(),
+            'base_user' => User::factory()->create(),
             'other_recruiter' => User::factory()->asCommunityRecruiter([Community::factory()->create()->id])->create(),
         };
 
@@ -799,7 +799,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         $actor = match ($role) {
-            'applicant' => User::factory()->asApplicant()->create(),
+            'base_user' => User::factory()->create(),
             'other_recruiter' => User::factory()->asCommunityRecruiter([Community::factory()->create()->id])->create(),
         };
 
@@ -881,7 +881,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'talent_request_id' => $request->id,
             'user_id' => User::factory()->create()->id,
         ]);
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateReferredMutation, [
@@ -942,7 +942,7 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
         $user = User::factory()->create();
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkCreateReferredMutation, [
@@ -1006,7 +1006,7 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
         $user = User::factory()->create();
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkCreateNotReferredMutation, [
@@ -1089,7 +1089,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'talent_request_id' => $request->id,
             'user_id' => User::factory()->create()->id,
         ]);
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateNotReferredMutation, [
@@ -1168,7 +1168,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'talent_request_id' => $request->id,
             'user_id' => User::factory()->create()->id,
         ]);
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateSelectedMutation, [
@@ -1246,7 +1246,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'talent_request_id' => $request->id,
             'user_id' => User::factory()->create()->id,
         ]);
-        $unauthorizedUser = User::factory()->asApplicant()->create();
+        $unauthorizedUser = User::factory()->create();
 
         $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateNotSelectedMutation, [
@@ -1394,7 +1394,7 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
         $user = User::factory()->create();
-        $unauthorized = User::factory()->asApplicant()->create();
+        $unauthorized = User::factory()->create();
 
         $this->actingAs($unauthorized, 'api')
             ->graphQL($this->createSingleMutation, [
@@ -1699,7 +1699,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'talent_request_id' => $request->id,
             'user_id' => User::factory()->create()->id,
         ]);
-        $unauthorized = User::factory()->asApplicant()->create();
+        $unauthorized = User::factory()->create();
 
         $this->actingAs($unauthorized, 'api')
             ->graphQL($this->updateSingleMutation, [

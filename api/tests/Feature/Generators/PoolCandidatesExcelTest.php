@@ -36,12 +36,10 @@ class PoolCandidatesExcelTest extends TestCase
     {
         // arrange
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create();
 
         $targetUser = User::factory()
-            ->asApplicant()
             ->withNonGovProfile()
             ->create();
 
@@ -93,8 +91,8 @@ class PoolCandidatesExcelTest extends TestCase
     public function testRodFilenameSurvivesSanitizeRoundTripInBothLocales(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
-        $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $adminUser = User::factory()->asAdmin()->create();
+        $targetUser = User::factory()->withNonGovProfile()->create();
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -135,7 +133,7 @@ class PoolCandidatesExcelTest extends TestCase
     public function testCommunityFilterExcludesCandidatesOutsideCommunity(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
@@ -143,7 +141,7 @@ class PoolCandidatesExcelTest extends TestCase
         $pool = Pool::factory()->create(['community_id' => $community->id]);
         $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
 
-        $memberUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $memberUser = User::factory()->withNonGovProfile()->create();
         PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -151,7 +149,7 @@ class PoolCandidatesExcelTest extends TestCase
             ->for($pool)
             ->create();
 
-        $outsideUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $outsideUser = User::factory()->withNonGovProfile()->create();
         PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -184,11 +182,11 @@ class PoolCandidatesExcelTest extends TestCase
     public function testAssessmentStepFilterExcludesCandidatesAtOtherSteps(): void
     {
         // arrange
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
         $pool = Pool::factory()->withAssessmentSteps(2)->create();
         [$step, $otherStep] = $pool->assessmentSteps;
 
-        $userAtStep = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $userAtStep = User::factory()->withNonGovProfile()->create();
         PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -196,7 +194,7 @@ class PoolCandidatesExcelTest extends TestCase
             ->for($pool)
             ->create(['assessment_step_id' => $step->id]);
 
-        $userAtOtherStep = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $userAtOtherStep = User::factory()->withNonGovProfile()->create();
         PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -241,8 +239,8 @@ class PoolCandidatesExcelTest extends TestCase
     // <f> element, which Excel renders as #NAME? (or a live HYPERLINK injection).
     public function testNeutralizesFormulaInjection(): void
     {
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
-        $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $adminUser = User::factory()->asAdmin()->create();
+        $targetUser = User::factory()->withNonGovProfile()->create();
 
         // Same shape as the value that broke generation in production.
         $payload = '= To become more involved';

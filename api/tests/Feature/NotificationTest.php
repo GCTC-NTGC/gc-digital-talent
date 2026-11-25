@@ -56,7 +56,6 @@ class NotificationTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->candidateUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',

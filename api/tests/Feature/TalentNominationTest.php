@@ -72,7 +72,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'employee1@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asApplicant()
             ->create();
 
         $this->employee2 = User::factory()
@@ -82,7 +81,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'employee2@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asApplicant()
             ->create();
 
         $this->nonEmployee1 = User::factory()
@@ -92,7 +90,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => null,
                 'work_email_verified_at' => null,
             ])
-            ->asApplicant()
             ->create();
 
         $this->nominationEvent = TalentNominationEvent::factory()->create([
@@ -568,7 +565,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'coordinator@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asApplicant()
             ->asCommunityTalentCoordinator($event->community_id)
             ->create();
 

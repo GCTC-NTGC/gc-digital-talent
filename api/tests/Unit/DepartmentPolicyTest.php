@@ -16,9 +16,7 @@ class DepartmentPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $applicant;
-
-    protected $otherApplicant;
+    protected $baseUser;
 
     protected $platformAdmin;
 
@@ -50,18 +48,10 @@ class DepartmentPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->applicant = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
-            ]);
-
-        $this->otherApplicant = User::factory()
-            ->asApplicant()
-            ->create([
-                'email' => 'other-applicant-user@test.com',
-                'sub' => 'other-applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
         $this->pool = Pool::factory()->create();
@@ -111,8 +101,7 @@ class DepartmentPolicyTest extends TestCase
      */
     public function testViewTeamMembers()
     {
-        $this->assertFalse($this->applicant->can('viewTeamMembers', $this->department));
-        $this->assertFalse($this->otherApplicant->can('viewTeamMembers', $this->department));
+        $this->assertFalse($this->baseUser->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->processOperator->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->communityAdmin->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->communityRecruiter->can('viewTeamMembers', $this->department));

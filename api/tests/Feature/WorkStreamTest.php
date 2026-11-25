@@ -50,7 +50,6 @@ class WorkStreamTest extends TestCase
         $this->seed(WorkStreamSeeder::class);
 
         $this->nonAdmin = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'non-admin-user@test.com',
                 'sub' => 'non-admin-user@test.com',

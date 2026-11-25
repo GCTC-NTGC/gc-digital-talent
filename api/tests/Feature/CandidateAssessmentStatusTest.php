@@ -97,7 +97,6 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->asAdmin()
             ->create();
@@ -1003,7 +1002,6 @@ class CandidateAssessmentStatusTest extends TestCase
         }
     ';
         $communityAdminUser = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin($this->community->id)
             ->create();
         $candidate = PoolCandidate::factory()->create([

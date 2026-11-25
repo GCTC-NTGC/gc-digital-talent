@@ -49,7 +49,6 @@ class CandidateFacingStatusTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user = User::factory()
-            ->asApplicant()
             ->create();
 
         $this->candidate = PoolCandidate::factory()

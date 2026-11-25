@@ -19,9 +19,9 @@ class UserPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $applicant;
+    protected $baseUser;
 
-    protected $otherApplicant;
+    protected $otherBaseUser;
 
     protected $employee;
 
@@ -55,18 +55,16 @@ class UserPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->applicant = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
-        $this->otherApplicant = User::factory()
-            ->asApplicant()
+        $this->otherBaseUser = User::factory()
             ->create([
-                'email' => 'other-applicant-user@test.com',
-                'sub' => 'other-applicant-user@test.com',
+                'email' => 'other-base-user@test.com',
+                'sub' => 'other-base-user@test.com',
             ]);
 
         $this->employee = User::factory()
@@ -119,7 +117,7 @@ class UserPolicyTest extends TestCase
      */
     public function testViewAny()
     {
-        $this->assertFalse($this->applicant->can('viewAny', User::class));
+        $this->assertFalse($this->baseUser->can('viewAny', User::class));
         $this->assertTrue($this->platformAdmin->can('viewAny', User::class));
 
         $this->assertFalse($this->processOperator->can('viewAny', User::class));
@@ -137,17 +135,17 @@ class UserPolicyTest extends TestCase
      */
     public function testView()
     {
-        $this->assertTrue($this->applicant->can('view', $this->applicant));
-        $this->assertFalse($this->otherApplicant->can('view', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('view', $this->applicant));
+        $this->assertTrue($this->baseUser->can('view', $this->baseUser));
+        $this->assertFalse($this->otherBaseUser->can('view', $this->baseUser));
+        $this->assertTrue($this->platformAdmin->can('view', $this->baseUser));
 
         // cannot view regular user
-        $this->assertFalse($this->processOperator->can('view', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('view', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('view', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
+        $this->assertFalse($this->processOperator->can('view', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('view', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('view', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('view', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('view', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->baseUser));
 
         $this->pool->community_id = $this->community->id;
         $this->pool->department_id = $this->department->id;
@@ -156,16 +154,16 @@ class UserPolicyTest extends TestCase
             [
                 'submitted_at' => config('constants.past_date'),
                 'pool_id' => $this->pool->id,
-                'user_id' => $this->applicant->id,
+                'user_id' => $this->baseUser->id,
             ]
         );
 
         // can now view applicant as they have an application attached to $pool within $community and $department
-        $this->assertTrue($this->processOperator->can('view', $this->applicant));
-        $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
-        $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
-        $this->assertTrue($this->departmentAdmin->can('view', $this->applicant));
-        $this->assertTrue($this->departmentHRAdvisor->can('view', $this->applicant));
+        $this->assertTrue($this->processOperator->can('view', $this->baseUser));
+        $this->assertTrue($this->communityRecruiter->can('view', $this->baseUser));
+        $this->assertTrue($this->communityAdmin->can('view', $this->baseUser));
+        $this->assertTrue($this->departmentAdmin->can('view', $this->baseUser));
+        $this->assertTrue($this->departmentHRAdvisor->can('view', $this->baseUser));
 
         PoolCandidate::truncate();
         CommunityInterest::factory()->create([
@@ -183,15 +181,15 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->departmentHRAdvisor->can('view', $this->employee));
 
         CommunityInterest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'community_id' => $this->community->id,
             'consent_to_share_profile' => true,
         ]);
 
         // recruiter/coordinator/admin cannot view applicant as a community talent because they are not a verified gov employee
-        $this->assertFalse($this->communityRecruiter->can('view', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('view', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->communityRecruiter->can('view', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('view', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('view', $this->baseUser));
     }
 
     /**
@@ -201,16 +199,16 @@ class UserPolicyTest extends TestCase
      */
     public function testUpdate()
     {
-        $this->assertTrue($this->applicant->can('update', $this->applicant));
-        $this->assertFalse($this->otherApplicant->can('update', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('update', $this->applicant));
+        $this->assertTrue($this->baseUser->can('update', $this->baseUser));
+        $this->assertFalse($this->otherBaseUser->can('update', $this->baseUser));
+        $this->assertTrue($this->platformAdmin->can('update', $this->baseUser));
 
-        $this->assertFalse($this->processOperator->can('update', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('update', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('update', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('update', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('update', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('update', $this->applicant));
+        $this->assertFalse($this->processOperator->can('update', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('update', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('update', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('update', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('update', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('update', $this->baseUser));
     }
 
     /**
@@ -220,15 +218,15 @@ class UserPolicyTest extends TestCase
      */
     public function testUpdateSub()
     {
-        $this->assertFalse($this->applicant->can('updateSub', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('updateSub', $this->applicant));
+        $this->assertFalse($this->baseUser->can('updateSub', $this->baseUser));
+        $this->assertTrue($this->platformAdmin->can('updateSub', $this->baseUser));
 
-        $this->assertFalse($this->processOperator->can('updateSub', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('updateSub', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('updateSub', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('updateSub', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('updateSub', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('updateSub', $this->applicant));
+        $this->assertFalse($this->processOperator->can('updateSub', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('updateSub', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('updateSub', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateSub', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('updateSub', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateSub', $this->baseUser));
     }
 
     /**
@@ -238,16 +236,16 @@ class UserPolicyTest extends TestCase
      */
     public function testDelete()
     {
-        $this->assertFalse($this->applicant->can('delete', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('delete', $this->applicant));
+        $this->assertFalse($this->baseUser->can('delete', $this->baseUser));
+        $this->assertTrue($this->platformAdmin->can('delete', $this->baseUser));
         $this->assertFalse($this->platformAdmin->can('delete', $this->platformAdmin));
 
-        $this->assertFalse($this->processOperator->can('delete', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('delete', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('delete', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('delete', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('delete', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('delete', $this->applicant));
+        $this->assertFalse($this->processOperator->can('delete', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('delete', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('delete', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('delete', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('delete', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('delete', $this->baseUser));
     }
 
     /**
@@ -263,7 +261,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -277,7 +275,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -289,8 +287,8 @@ class UserPolicyTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -345,7 +343,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -359,7 +357,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -371,8 +369,8 @@ class UserPolicyTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -395,7 +393,7 @@ class UserPolicyTest extends TestCase
             [
                 User::class,
                 [
-                    'id' => $this->otherApplicant->id,
+                    'id' => $this->otherBaseUser->id,
                     'roleAssignmentsInput' => [
                         'detach' => [
                             [
@@ -411,7 +409,7 @@ class UserPolicyTest extends TestCase
             [
                 User::class,
                 [
-                    'id' => $this->otherApplicant->id,
+                    'id' => $this->otherBaseUser->id,
                     'roleAssignmentsInput' => [
                         'detach' => [
                             [
@@ -437,7 +435,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -451,7 +449,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -463,8 +461,8 @@ class UserPolicyTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -494,7 +492,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -508,7 +506,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -521,8 +519,8 @@ class UserPolicyTest extends TestCase
         ];
 
         // same community, so Community Admin able to too
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForAttach));
@@ -542,7 +540,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -556,7 +554,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -582,16 +580,16 @@ class UserPolicyTest extends TestCase
      */
     public function testRemoveWorkEmailInformation()
     {
-        $this->assertTrue($this->applicant->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertTrue($this->baseUser->can('removeWorkEmailInformation', $this->baseUser));
 
-        $this->assertFalse($this->otherApplicant->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->processOperator->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->platformAdmin->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('removeWorkEmailInformation', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->otherBaseUser->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->processOperator->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->platformAdmin->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('removeWorkEmailInformation', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('removeWorkEmailInformation', $this->baseUser));
     }
 
     /**
@@ -606,7 +604,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -620,7 +618,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -632,8 +630,8 @@ class UserPolicyTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -663,7 +661,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -677,7 +675,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -689,8 +687,8 @@ class UserPolicyTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->baseUser->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
@@ -711,7 +709,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForAttach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'attach' => [
                         [
@@ -725,7 +723,7 @@ class UserPolicyTest extends TestCase
         $policyArgsForDetach = [
             User::class,
             [
-                'id' => $this->otherApplicant->id,
+                'id' => $this->otherBaseUser->id,
                 'roleAssignmentsInput' => [
                     'detach' => [
                         [
@@ -754,15 +752,15 @@ class UserPolicyTest extends TestCase
      */
     public function testViewAnyUserWorkEmail()
     {
-        $this->assertFalse($this->applicant->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertFalse($this->baseUser->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertTrue($this->platformAdmin->can('viewAnyUserWorkEmail', $this->baseUser));
 
-        $this->assertFalse($this->processOperator->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertTrue($this->communityRecruiter->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertTrue($this->communityAdmin->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertTrue($this->departmentAdmin->can('viewAnyUserWorkEmail', $this->applicant));
-        $this->assertTrue($this->departmentHRAdvisor->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertFalse($this->processOperator->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertTrue($this->communityRecruiter->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertTrue($this->communityAdmin->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertTrue($this->departmentAdmin->can('viewAnyUserWorkEmail', $this->baseUser));
+        $this->assertTrue($this->departmentHRAdvisor->can('viewAnyUserWorkEmail', $this->baseUser));
     }
 
     /**
@@ -773,14 +771,14 @@ class UserPolicyTest extends TestCase
      */
     public function testUpdateAsAdmin()
     {
-        $this->assertTrue($this->platformAdmin->can('updateAsAdmin', $this->applicant));
+        $this->assertTrue($this->platformAdmin->can('updateAsAdmin', $this->baseUser));
 
-        $this->assertFalse($this->applicant->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->processOperator->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->communityRecruiter->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('updateAsAdmin', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->baseUser->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->processOperator->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->communityRecruiter->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->communityAdmin->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->departmentAdmin->can('updateAsAdmin', $this->baseUser));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateAsAdmin', $this->baseUser));
     }
 }

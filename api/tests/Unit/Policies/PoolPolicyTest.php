@@ -39,10 +39,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->viewAny($admin)));
     }
 
-    public function testApplicantCannotViewAnyPool(): void
+    public function testBaseUserCannotViewAnyPool(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->viewAny($applicant)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->viewAny($baseUser)));
     }
 
     // --- viewAnyPublished() ---
@@ -79,10 +79,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->primaryPool)));
     }
 
-    public function testApplicantCannotViewDraftPool(): void
+    public function testBaseUserCannotViewDraftPool(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->view($applicant, $this->primaryPool)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->view($baseUser, $this->primaryPool)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -153,15 +153,15 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->create($user, $request)));
     }
 
-    public function testApplicantCannotCreatePool(): void
+    public function testBaseUserCannotCreatePool(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
         $request = [
             'community_id' => $this->primaryPool->community_id,
             'department' => ['connect' => $this->primaryPool->department_id],
         ];
 
-        $this->assertFalse($this->ensureBool($this->policy->create($applicant, $request)));
+        $this->assertFalse($this->ensureBool($this->policy->create($baseUser, $request)));
     }
 
     #[DataProvider('communityRolesCanCreateProvider')]
@@ -224,10 +224,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->duplicate($user, ['id' => $this->primaryPool->id])));
     }
 
-    public function testApplicantCannotDuplicatePool(): void
+    public function testBaseUserCannotDuplicatePool(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->duplicate($applicant, ['id' => $this->primaryPool->id])));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->duplicate($baseUser, ['id' => $this->primaryPool->id])));
     }
 
     // --- updateDraft() ---
@@ -268,10 +268,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->updateDraft($user, $publishedPool)));
     }
 
-    public function testApplicantCannotUpdateDraftPool(): void
+    public function testBaseUserCannotUpdateDraftPool(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->updateDraft($applicant, $this->primaryPool)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->updateDraft($baseUser, $this->primaryPool)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -477,10 +477,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->viewAssessmentPlan($user, $this->primaryPool)));
     }
 
-    public function testApplicantCannotViewAssessmentPlan(): void
+    public function testBaseUserCannotViewAssessmentPlan(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->viewAssessmentPlan($applicant, $this->primaryPool)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->viewAssessmentPlan($baseUser, $this->primaryPool)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -510,10 +510,10 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->viewTeamMembers($user, $this->primaryPool)));
     }
 
-    public function testApplicantCannotViewTeamMembers(): void
+    public function testBaseUserCannotViewTeamMembers(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->viewTeamMembers($applicant, $this->primaryPool)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->viewTeamMembers($baseUser, $this->primaryPool)));
     }
 
     #[DataProvider('allTeamRolesProvider')]

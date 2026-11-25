@@ -44,7 +44,6 @@ class TrashedExperienceSkillTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user = User::factory()
-            ->asApplicant()
             ->create();
 
         $this->skill = Skill::factory()->create();
@@ -66,7 +65,7 @@ class TrashedExperienceSkillTest extends TestCase
         $targetUserSkill = $this->userSkill;
 
         if (! $isOwner) {
-            $otherUser = User::factory()->asApplicant()->create();
+            $otherUser = User::factory()->create();
             $targetUserSkill = UserSkill::factory()->create([
                 'user_id' => $otherUser->id,
                 'skill_id' => $this->skill->id,
