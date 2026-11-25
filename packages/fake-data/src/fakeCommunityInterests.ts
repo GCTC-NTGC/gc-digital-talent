@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   CommunityInterestAdditionalDuty,
   FinanceChiefRole,
