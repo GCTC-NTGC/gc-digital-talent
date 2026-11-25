@@ -1,5 +1,3 @@
-import type { IntlShape, TypedMessageDescriptor } from "react-intl";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
@@ -7,7 +5,7 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import type { ReactNode } from "react";
-import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, TypedMessageDescriptor } from "react-intl";
 
 import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
 import {

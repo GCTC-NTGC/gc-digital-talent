@@ -1,5 +1,4 @@
 import { FormProvider, useForm } from "react-hook-form";
-import type { TypedMessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 

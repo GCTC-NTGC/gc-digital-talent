@@ -9,9 +9,6 @@ import type { ReactNode } from "react";
  */
 import type { IntlShape, MessageTag, PrimitiveType } from "react-intl";
 import { defineMessage } from "react-intl";
-import sortBy from "lodash/sortBy";
-import type { ReactNode } from "react";
-import { differenceInDays } from "date-fns/differenceInDays";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type {

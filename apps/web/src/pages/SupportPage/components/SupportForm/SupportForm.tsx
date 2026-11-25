@@ -324,8 +324,8 @@ const SupportFormApi = () => {
       .catch((err: Error) => {
         // default error message if we don't recognize the error
         let errorMessage:
-          typeof defaultErrorMessage | typeof emailErrorMessage =
-          defaultErrorMessage;
+          | typeof defaultErrorMessage
+          | typeof emailErrorMessage = defaultErrorMessage;
         if (err.name === SUPPORT_TICKET_ERROR.INVALID_EMAIL) {
           errorMessage = emailErrorMessage;
         }
