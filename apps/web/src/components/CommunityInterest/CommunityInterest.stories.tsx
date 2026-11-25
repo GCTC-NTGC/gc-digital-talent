@@ -29,8 +29,10 @@ const communityInterestQuery = makeFragmentData(
     user: {
       __typename: "User",
       developmentProgramUserRecords:
-        mockCommunityInterests[0].community.associatedDevelopmentPrograms?.map(
-          (developmentProgram, index) => {
+        mockCommunityInterests[0].community.associatedDevelopmentPrograms
+          // leave every third program without a record to show "Missing information"
+          ?.filter((_, index) => index % 3 !== 2)
+          .map((developmentProgram, index) => {
             const statuses = Object.values(
               DevelopmentProgramParticipationStatus,
             );
@@ -44,8 +46,7 @@ const communityInterestQuery = makeFragmentData(
               participationStatus: statuses[index % statuses.length],
               completionDate: FAR_PAST_DATE,
             };
-          },
-        ) ?? [],
+          }) ?? [],
     },
   },
   CommunityInterest_Fragment,
