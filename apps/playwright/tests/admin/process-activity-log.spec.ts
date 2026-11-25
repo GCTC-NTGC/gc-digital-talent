@@ -116,7 +116,7 @@ test.describe("Process activity log", { tag: "@uat" }, () => {
           ],
         },
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
 
     applicantUser = activityUser ?? NO_USER;

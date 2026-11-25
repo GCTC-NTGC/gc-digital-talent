@@ -33,7 +33,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
         workEmail: `${sub}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
     user = createdUser ?? NO_USER;
   });

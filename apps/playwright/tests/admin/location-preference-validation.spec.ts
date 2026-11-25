@@ -139,7 +139,7 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
           ],
         },
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
     user = createdUser ?? NO_USER;
 

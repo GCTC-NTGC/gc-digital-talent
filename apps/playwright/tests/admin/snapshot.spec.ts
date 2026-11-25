@@ -45,7 +45,7 @@ test.describe("Snapshot", () => {
     });
 
     const createdUser = await createUserWithRoles(adminCtx, {
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,

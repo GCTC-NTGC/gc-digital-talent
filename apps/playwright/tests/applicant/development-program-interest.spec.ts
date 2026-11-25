@@ -43,7 +43,7 @@ async function createDisposableTestUsers(
         workEmail: `${applicantSub}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     }),
     createUserWithRoles(platformAdminCtx, {
       user: {
