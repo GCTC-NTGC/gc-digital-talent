@@ -163,9 +163,8 @@ class AuthController extends Controller
                 $newUser->preferred_language_for_exam = $idTokenLocaleCode;
             }
             $newUser->save();
-            $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
+            $newUser->syncRoles([  // every new user is automatically a base_user
                 Role::where('name', 'base_user')->sole(),
-                Role::where('name', 'applicant')->sole(),
             ], null);
             $newUserCreated = true;
 
