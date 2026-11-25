@@ -3866,6 +3866,10 @@
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
   },
+  "DZdPO5": {
+    "defaultMessage": "{classification} à {departmentName} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is given."
+  },
   "DZfLMk": {
     "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
     "description": "Message displayed to a user after signing into a deleted account"
@@ -5535,6 +5539,10 @@
   "KDcgMh": {
     "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins quatre jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
+  },
+  "KEMz1f": {
+    "defaultMessage": "{classification} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is not given."
   },
   "KESOSJ": {
     "defaultMessage": "Membre ajouté avec succès",
