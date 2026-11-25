@@ -146,7 +146,7 @@ class TalentRequestFactory extends BaseFactory
         $matchesNomination = $matchesAdvancement || $matchesLateralMovement;
 
         $user = User::factory()
-            ->when($matchesNomination, fn ($factory) => $factory->asApplicant()->withGovEmployeeProfile())
+            ->when($matchesNomination, fn ($factory) => $factory->withGovEmployeeProfile())
             ->create($this->matchingUserAttributes($filter));
 
         if ($matchesQualifiedInPool) {
