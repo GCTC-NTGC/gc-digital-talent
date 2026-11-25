@@ -18,7 +18,6 @@
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/env": "workspace:*",
-    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
