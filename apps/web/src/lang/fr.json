@@ -3866,6 +3866,10 @@
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
   },
+  "DZdPO5": {
+    "defaultMessage": "{classification} à {departmentName} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is given."
+  },
   "DZfLMk": {
     "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
     "description": "Message displayed to a user after signing into a deleted account"
@@ -5536,6 +5540,10 @@
     "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins quatre jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
   },
+  "KEMz1f": {
+    "defaultMessage": "{classification} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is not given."
+  },
   "KESOSJ": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a community member was added to a community"
@@ -5547,6 +5555,10 @@
   "KF5u2L": {
     "defaultMessage": "Télécharger les profils complets (.docx)",
     "description": "Button label for downloading selected user profiles"
+  },
+  "KFgKGg": {
+    "defaultMessage": "Retirez {communityName}",
+    "description": "Title for to remove community from experience"
   },
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
@@ -9827,6 +9839,10 @@
   "buTxFT": {
     "defaultMessage": "Confirmer une autre adresse courriel professionnelle",
     "description": "Link to update to a different email when initially your work email and contact email are the same"
+  },
+  "buavit": {
+    "defaultMessage": "Retirer le rôle {role}",
+    "description": "Label for the form to remove a role from a user"
   },
   "bw4CAS": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
@@ -14476,10 +14492,6 @@
   "uR9G1H": {
     "defaultMessage": "Statut de supervision",
     "description": "Talent request - supervisory status title"
-  },
-  "uTf8vH": {
-    "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
-    "description": "Title for to remove community from experience"
   },
   "uVtmGg": {
     "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
