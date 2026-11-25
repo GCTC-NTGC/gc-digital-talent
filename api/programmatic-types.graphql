@@ -952,7 +952,6 @@ enum NotificationType {
 
 enum RoleName {
   BaseUser
-  Applicant
   ProcessOperator
   CommunityRecruiter
   CommunityAdmin
