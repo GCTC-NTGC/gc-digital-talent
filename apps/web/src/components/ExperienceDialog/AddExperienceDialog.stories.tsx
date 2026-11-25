@@ -1,7 +1,7 @@
 import type { StoryFn } from "@storybook/react-vite";
 
-import { Button } from "@gc-digital-talent/ui";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import { Button } from "@gc-digital-talent/ui";
 
 import AddExperienceDialog from "./AddExperienceDialog";
 

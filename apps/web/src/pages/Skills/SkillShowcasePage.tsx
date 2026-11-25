@@ -1,9 +1,14 @@
-import { defineMessage, useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useQuery } from "urql";
 import type { ReactNode } from "react";
+import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   TableOfContents,
   Pending,
@@ -11,19 +16,14 @@ import {
   ThrowNotFound,
   Container,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import profileMessages from "~/messages/profileMessages";
 import skillMessages from "~/messages/skillMessages";
 
 interface PageSection {

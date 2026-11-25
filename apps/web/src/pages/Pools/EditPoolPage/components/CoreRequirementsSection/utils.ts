@@ -1,10 +1,10 @@
-import { empty } from "@gc-digital-talent/helpers";
 import type {
   LocalizedString,
   PoolLanguage,
   SecurityStatus,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 
 export enum LocationOption {
   RemoteOptional = "REMOTE_OPTIONAL",

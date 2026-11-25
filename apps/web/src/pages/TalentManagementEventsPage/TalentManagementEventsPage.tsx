@@ -1,8 +1,11 @@
-import { useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Container,
   Flourish,
@@ -10,14 +13,11 @@ import {
   TableOfContents,
   Notice,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
+import TalentNominationEventCard from "~/components/TalentNominationEventCard/TalentNominationEventCard";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import TalentNominationEventCard from "~/components/TalentNominationEventCard/TalentNominationEventCard";
 
 const TalentManagementEventsPage_Query = graphql(/* GraphQL */ `
   query TalentManagementEventsPage {

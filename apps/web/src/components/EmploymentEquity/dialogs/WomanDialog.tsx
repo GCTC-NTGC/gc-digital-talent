@@ -1,13 +1,13 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
 import {
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import { Dialog } from "@gc-digital-talent/ui";
 
 import type { EquityDialogProps } from "../types";
 import Definition from "./Definition";

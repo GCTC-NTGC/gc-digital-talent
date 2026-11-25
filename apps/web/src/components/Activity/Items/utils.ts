@@ -1,28 +1,28 @@
-import type { IntlShape, MessageDescriptor } from "react-intl";
-import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
-import MinusIcon from "@heroicons/react/16/solid/MinusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
-import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
-import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
-import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
-import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
-import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
+import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
 import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
+import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
+import MinusIcon from "@heroicons/react/16/solid/MinusIcon";
+import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
+import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
+import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
+import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
+import { format } from "date-fns/format";
+import { isValid } from "date-fns/isValid";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
-import { isValid } from "date-fns/isValid";
-import { format } from "date-fns/format";
 
-import { ActivityEvent } from "@gc-digital-talent/graphql";
-import type { IconType } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import type { Logger } from "@gc-digital-talent/logger";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { ActivityEvent } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import type { Logger } from "@gc-digital-talent/logger";
+import type { IconType } from "@gc-digital-talent/ui";
 
 import activityMessages from "~/messages/activityMessages";
 import adminMessages from "~/messages/adminMessages";

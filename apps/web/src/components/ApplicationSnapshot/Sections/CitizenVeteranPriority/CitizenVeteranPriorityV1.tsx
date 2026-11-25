@@ -4,17 +4,17 @@ import type {
   ArmedForcesStatus,
   CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
-import { empty } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import profileMessages from "~/messages/profileMessages";
 import governmentMessages from "~/messages/governmentMessages";
+import profileMessages from "~/messages/profileMessages";
 
 import type { SnapshotProps } from "../types";
 

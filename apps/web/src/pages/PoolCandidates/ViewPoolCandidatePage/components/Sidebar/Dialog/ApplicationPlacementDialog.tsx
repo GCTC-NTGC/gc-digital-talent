@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { useState } from "react";
 
+import { useHasPermissions } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -10,16 +11,15 @@ import {
   Permission,
   PlacementType,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { useHasPermissions } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
-import Footer from "./Footer";
 import { hasPlacedStartDate } from "../utils";
+import Footer from "./Footer";
+import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(

@@ -1,10 +1,8 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import type { ReactNode, JSX } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   DATE_FORMAT_STRING,
   TZ_VANCOUVER,
@@ -12,25 +10,27 @@ import {
   convertDateTimeZone,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { DateInput, Submit } from "@gc-digital-talent/forms";
 import type { UpdatePoolInput, FragmentType } from "@gc-digital-talent/graphql";
 import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
+import { useStableDate } from "~/hooks/useStableDate";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 import {
   hasEmptyRequiredFields,
   hasInvalidRequiredFields,
 } from "~/validators/process/closingDate";
-import { useStableDate } from "~/hooks/useStableDate";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import processMessages from "~/messages/processMessages";
 
-import { useEditPoolContext } from "../EditPoolContext";
-import Display from "./Display";
 import type { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import { useEditPoolContext } from "../EditPoolContext";
 import ClosingDateDialog from "./ClosingDateDialog";
+import Display from "./Display";
 
 const dialog = (chunks: ReactNode) => <ClosingDateDialog title={chunks} />;
 

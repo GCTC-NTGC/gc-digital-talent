@@ -1,10 +1,24 @@
-import { useNavigate } from "react-router";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
+import type {
+  UpdateClassificationInput,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import {
+  errorMessages,
+  commonMessages,
+  uiMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
   Heading,
@@ -13,31 +27,17 @@ import {
   Pending,
   NotFound,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  commonMessages,
-  uiMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import type {
-  UpdateClassificationInput,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
-import messages from "./messages";
 import { getClassificationLevels } from "./helpers";
+import messages from "./messages";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {

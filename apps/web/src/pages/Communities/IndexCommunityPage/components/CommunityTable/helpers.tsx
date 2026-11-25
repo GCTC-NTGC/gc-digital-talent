@@ -1,9 +1,9 @@
 import type { IntlShape } from "react-intl";
 
-import { Link, Chip } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link, Chip } from "@gc-digital-talent/ui";
 
 import type { MyRoleTeam } from "./types";
 

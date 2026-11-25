@@ -2,21 +2,21 @@ import { useMemo, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Notice } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { normalizeString } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { normalizeString } from "@gc-digital-talent/helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Notice } from "@gc-digital-talent/ui";
 
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
+import type { FormValues, SelectedSkill } from "./types";
 import {
   getFamilyOptions,
   getFilteredFamilies,
   getFilteredSkills,
 } from "./utils";
-import type { FormValues, SelectedSkill } from "./types";
 
 export const SkillBrowserSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillBrowserSkill on Skill {

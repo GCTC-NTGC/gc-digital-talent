@@ -7,11 +7,11 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Container } from "@gc-digital-talent/ui";
 
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 interface ProfileHandle {
   pageTitle?: MessageDescriptor;

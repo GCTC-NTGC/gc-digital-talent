@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, AlertDialog } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, AlertDialog } from "@gc-digital-talent/ui";
 
 const RemoveUserWorkEmail_Mutation = graphql(/* GraphQL */ `
   mutation RemoveUserWorkEmail($id: UUID!) {

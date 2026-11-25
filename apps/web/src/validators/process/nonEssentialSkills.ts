@@ -1,5 +1,5 @@
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PoolSkillType } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { PoolWithSkills } from "~/utils/skillUtils";
 

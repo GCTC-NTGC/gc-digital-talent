@@ -1,10 +1,10 @@
+import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
+import type { Table } from "@tanstack/react-table";
 import { useRef, useEffect } from "react";
 import { useIntl } from "react-intl";
-import type { Table } from "@tanstack/react-table";
-import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 

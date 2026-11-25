@@ -1,7 +1,7 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
-import UserPlusIcon from "@heroicons/react/24/solid/UserPlusIcon";
-import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/20/solid/ChatBubbleBottomCenterIcon";
+import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
+import UserPlusIcon from "@heroicons/react/24/solid/UserPlusIcon";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { Container } from "@gc-digital-talent/ui";

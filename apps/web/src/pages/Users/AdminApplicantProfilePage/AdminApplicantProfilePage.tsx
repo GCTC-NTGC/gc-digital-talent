@@ -1,10 +1,12 @@
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Button,
@@ -14,34 +16,32 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import profileMessages from "~/messages/profileMessages";
 
-import { SECTION_KEY } from "./types";
-import PersonalAndContactInformation, {
-  PERSONAL_CONTACT_INFO_ID,
-} from "./components/PersonalAndContactInformation";
-import LanguageProfile, {
-  LANGUAGE_PROFILE_ID,
-} from "./components/LanguageProfile";
-import WorkPreferences, {
-  WORK_PREFERENCES_ID,
-} from "./components/WorkPreferences";
-import DiversityEquityInclusion, {
-  DEI_ID,
-} from "./components/DiversityEquityInclusion";
+import DownloadButton from "../DownloadButton";
 import CitizenVeteranPriority, {
   CITIZEN_VETERAN_PRIORITY_ID,
 } from "./components/CitizenVeteranPriority";
+import DiversityEquityInclusion, {
+  DEI_ID,
+} from "./components/DiversityEquityInclusion";
 import GovernmentInformation, {
   GOV_INFO_ID,
 } from "./components/GovernmentInformation";
-import DownloadButton from "../DownloadButton";
+import LanguageProfile, {
+  LANGUAGE_PROFILE_ID,
+} from "./components/LanguageProfile";
+import PersonalAndContactInformation, {
+  PERSONAL_CONTACT_INFO_ID,
+} from "./components/PersonalAndContactInformation";
+import WorkPreferences, {
+  WORK_PREFERENCES_ID,
+} from "./components/WorkPreferences";
+import { SECTION_KEY } from "./types";
 
 const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
   fragment AdminApplicantProfile on User {
@@ -58,7 +58,8 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
 interface AdminApplicantProfileProps {
   query: FragmentType<typeof AdminApplicantProfile_Fragment>;
   optionsQuery:
-    FragmentType<typeof FlexibleWorkLocationOptions_Fragment> | undefined;
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 const AdminApplicantProfile = ({

@@ -1,20 +1,20 @@
-import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
+import { useIntl } from "react-intl";
 
-import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import type { ExperienceFields } from "~/utils/experienceUtils";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import EditExperienceForm from "./components/ExperienceEditForm";
 import useApplication from "../useApplication";
+import EditExperienceForm from "./components/ExperienceEditForm";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,

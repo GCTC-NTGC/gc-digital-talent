@@ -1,15 +1,15 @@
-import { useQuery } from "urql";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { graphql } from "@gc-digital-talent/graphql";
-import { Breadcrumbs, Container, Loading, Notice } from "@gc-digital-talent/ui";
-import { NotFoundError } from "@gc-digital-talent/helpers";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { Breadcrumbs, Container, Loading, Notice } from "@gc-digital-talent/ui";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
 const JobPosterArchive_Query = graphql(/** GraphQL */ `

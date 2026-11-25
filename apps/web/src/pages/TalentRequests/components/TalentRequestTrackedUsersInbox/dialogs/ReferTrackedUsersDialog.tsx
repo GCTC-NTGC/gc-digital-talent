@@ -1,16 +1,16 @@
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
 
 import { graphql } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import StatusDialogLayout from "./StatusDialogLayout";
 import { type StatusDialogProps, trackedUsersMutationContext } from "./shared";
+import StatusDialogLayout from "./StatusDialogLayout";
 
 const InboxReferTrackedUsers_Mutation = graphql(/* GraphQL */ `
   mutation InboxReferTrackedUsers($ids: [UUID!]!) {

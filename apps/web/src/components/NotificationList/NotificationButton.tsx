@@ -3,8 +3,8 @@ import { forwardRef } from "react";
 
 import { getLogger } from "@gc-digital-talent/logger";
 
-import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
+import { linkStyles } from "./styles";
 
 interface NotificationLinkProps {
   id: string;

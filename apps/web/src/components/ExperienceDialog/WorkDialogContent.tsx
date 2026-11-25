@@ -1,7 +1,5 @@
 import { useIntl } from "react-intl";
 
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   CafEmploymentType,
   CafForce,
@@ -17,6 +15,8 @@ import {
   GovContractorType,
   GovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";

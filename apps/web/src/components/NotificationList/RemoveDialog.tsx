@@ -1,9 +1,9 @@
+import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import type { ReactNode } from "react";
 
-import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { AlertDialog, Button } from "@gc-digital-talent/ui";
 
 import { DeleteNotification_Mutation } from "./mutations";
 

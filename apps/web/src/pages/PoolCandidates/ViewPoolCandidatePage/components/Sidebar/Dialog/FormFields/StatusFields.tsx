@@ -1,6 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import {
+  hasRequiredRoles,
+  ROLE_NAME,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
@@ -9,7 +16,7 @@ import {
   graphql,
   PlacementType,
 } from "@gc-digital-talent/graphql";
-import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -17,19 +24,12 @@ import {
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import {
-  hasRequiredRoles,
-  ROLE_NAME,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import applicationMessages from "~/messages/applicationMessages";
 import { useStableDate } from "~/hooks/useStableDate";
+import applicationMessages from "~/messages/applicationMessages";
 
-import type { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
+import type { FormValues } from "../types";
 import PauseReferralsFormFields from "./PauseReferralsFormFields";
 
 const QualifiedFieldsOptions_Fragment = graphql(/** GraphQL */ `

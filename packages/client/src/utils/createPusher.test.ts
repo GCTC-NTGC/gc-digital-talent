@@ -1,9 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import type { Mock } from "vitest";
-import { parse } from "graphql";
 import { createRequest, makeOperation } from "@urql/core";
 import type { SubscriptionForwarder } from "@urql/core";
 import { makeFetchBody } from "@urql/core/internal";
+import { parse } from "graphql";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import type { Mock } from "vitest";
 
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 

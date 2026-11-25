@@ -1,22 +1,22 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
 import { useMemo } from "react";
+import { useIntl } from "react-intl";
 
 import { groupBy, unpackMaybes, sortAlphaBy } from "@gc-digital-talent/helpers";
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
+import useRoutes from "~/hooks/useRoutes";
 
-import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
 import type { CommunityAssignment, RoleTableProps } from "../utils";
 import { getRoleTableFragments, isCommunityTeamable, roleCell } from "../utils";
-import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
+import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
+import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
 
 const columnHelper = createColumnHelper<CommunityAssignment>();
 

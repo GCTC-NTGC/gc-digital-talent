@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

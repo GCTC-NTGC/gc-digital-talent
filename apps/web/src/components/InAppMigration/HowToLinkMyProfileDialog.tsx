@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 const HowToLinkMyProfileDialog = () => {
   const intl = useIntl();

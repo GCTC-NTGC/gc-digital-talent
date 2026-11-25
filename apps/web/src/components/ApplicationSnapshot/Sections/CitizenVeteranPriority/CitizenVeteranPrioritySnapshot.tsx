@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
+import type { SnapshotProps } from "../types";
+import { getSupportedVersionComponent } from "../utils";
 import type { CitizenVeteranPrioritySnapshotV1 } from "./CitizenVeteranPriorityV1";
 import CitizenVeteranPriorityV1 from "./CitizenVeteranPriorityV1";
-import { getSupportedVersionComponent } from "../utils";
-import type { SnapshotProps } from "../types";
 
 type CitizenVeteranPrioritySnapshotProps =
   SnapshotProps<CitizenVeteranPrioritySnapshotV1>;

@@ -1,11 +1,11 @@
 import uniqBy from "lodash/uniqBy";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   LocalizedString,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export interface SkillOption {

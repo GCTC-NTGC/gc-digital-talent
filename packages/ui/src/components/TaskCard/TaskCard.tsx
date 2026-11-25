@@ -1,15 +1,15 @@
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import type { ReactElement, ReactNode } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import type { IconType } from "../../types";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
+import type { HeadingRank } from "../Heading";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
-import type { HeadingRank } from "../Heading";
-import type { ButtonProps } from "../Button";
-import type { BaseButtonLinkProps } from "../../utils/btnStyles";
-import Button from "../Button";
 
 interface ItemProps {
   children?: ReactNode;

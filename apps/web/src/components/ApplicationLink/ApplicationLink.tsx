@@ -2,13 +2,13 @@ import { defineMessages, useIntl } from "react-intl";
 import type { IntlShape } from "react-intl";
 import { useLocation } from "react-router";
 
+import { useAuthentication } from "@gc-digital-talent/auth";
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Button, Link } from "@gc-digital-talent/ui";
-import { useAuthentication } from "@gc-digital-talent/auth";
 
-import useRoutes from "~/hooks/useRoutes";
-import useApplyToPool from "~/hooks/useApplyToPool";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
+import useApplyToPool from "~/hooks/useApplyToPool";
+import useRoutes from "~/hooks/useRoutes";
 
 const messages = defineMessages({
   apply: {

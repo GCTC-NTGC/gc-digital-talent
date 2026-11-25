@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Dialog } from "@gc-digital-talent/ui";
 
 import screeningDialogMessages from "./messages";

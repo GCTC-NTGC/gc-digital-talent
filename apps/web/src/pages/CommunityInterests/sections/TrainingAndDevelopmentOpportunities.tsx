@@ -1,10 +1,23 @@
-import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
+import { useState, useEffect } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { RadioGroup, Select } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  DevelopmentProgramParticipationStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Chip,
   Chips,
@@ -13,23 +26,10 @@ import {
   Button,
   Link,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  errorMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  DevelopmentProgramParticipationStatus,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { RadioGroup, Select } from "@gc-digital-talent/forms";
 
-import { getDateRange } from "~/utils/dateUtils";
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
+import { getDateRange } from "~/utils/dateUtils";
 
 import type { FormValues } from "../form";
 import LinkedExperience from "./LinkedExperience";
@@ -164,7 +164,9 @@ const TrainingAndDevelopmentOpportunities = ({
   const arrayOfDefaultValues: {
     developmentProgramId: string;
     participationStatus?:
-      DevelopmentProgramParticipationStatus | null | undefined;
+      | DevelopmentProgramParticipationStatus
+      | null
+      | undefined;
   }[] = developmentProgramUserRecordsUnpacked.map((record) => {
     return {
       developmentProgramId: record.developmentProgram.id,

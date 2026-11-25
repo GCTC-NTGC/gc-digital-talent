@@ -1,8 +1,12 @@
+import type { ReactNode } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import type { ReactNode } from "react";
 
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -15,18 +19,14 @@ import {
   Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { NotFoundError } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import messages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import OrganizeSection, {
   sectionTitle as organizeSectionTitle,

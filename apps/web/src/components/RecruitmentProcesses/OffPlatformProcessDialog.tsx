@@ -1,18 +1,18 @@
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
-import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
+  Combobox,
+  Input,
+  localizedEnumToOptions,
+  objectsToSortedOptions,
+  RadioGroup,
+} from "@gc-digital-talent/forms";
 import type {
   CreateOffPlatformRecruitmentProcessInput,
   FragmentType,
@@ -23,18 +23,18 @@ import {
   graphql,
   HiringPlatform,
 } from "@gc-digital-talent/graphql";
-import {
-  Combobox,
-  Input,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-  RadioGroup,
-} from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
 
-import processMessages from "~/messages/processMessages";
-import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
+import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
+import processMessages from "~/messages/processMessages";
 
 export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformProcessDialog on Query {
@@ -293,8 +293,8 @@ const OffPlatformProcessDialog = ({
                 ? intl.formatMessage(
                     {
                       defaultMessage:
-                        "{classification} with {departmentName} <hidden>off platform process</hidden>",
-                      id: "pBRz2q",
+                        "{classification} with {departmentName} off platform process",
+                      id: "DZdPO5",
                       description:
                         "Title for an off platform recruitment process if department is given.",
                     },
@@ -307,9 +307,8 @@ const OffPlatformProcessDialog = ({
                   )
                 : intl.formatMessage(
                     {
-                      defaultMessage:
-                        "{classification} <hidden>off platform process</hidden>",
-                      id: "QtDQkD",
+                      defaultMessage: "{classification} off platform process",
+                      id: "KEMz1f",
                       description:
                         "Title for an off platform recruitment process if department is not given.",
                     },

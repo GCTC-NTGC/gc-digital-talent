@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
+import type { SnapshotProps } from "../types";
+import { getSupportedVersionComponent } from "../utils";
 import type { DiversityEquityInclusionSnapshotV1 } from "./DiversityEquityInclusionV1";
 import DiversityEquityInclusionV1 from "./DiversityEquityInclusionV1";
-import { getSupportedVersionComponent } from "../utils";
-import type { SnapshotProps } from "../types";
 
 type DiversityEquityInclusionSnapshotProps =
   SnapshotProps<DiversityEquityInclusionSnapshotV1>;

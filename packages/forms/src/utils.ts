@@ -1,4 +1,3 @@
-import type { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import type {
@@ -6,21 +5,22 @@ import type {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
+import type { IntlShape } from "react-intl";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";
+import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import type { Node } from "./components/RichTextInput/types";
-import descriptionList from "./components/RichTextInput/descriptionList";
-import type { OptGroupOrOption } from "./types";
 import Anchor from "./components/RichTextInput/anchor";
+import descriptionList from "./components/RichTextInput/descriptionList";
+import type { Node } from "./components/RichTextInput/types";
+import type { OptGroupOrOption } from "./types";
 
 /**
  * Filters out empty data from data response, and returns list of ids.

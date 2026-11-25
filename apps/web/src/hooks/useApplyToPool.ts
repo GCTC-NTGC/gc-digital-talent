@@ -1,16 +1,16 @@
-import { useIntl } from "react-intl";
 import { useEffect, useRef } from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
 
-import { toast } from "@gc-digital-talent/toast";
+import { appInsights } from "@gc-digital-talent/app-insights";
+import { useAuthentication } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   tryFindMessageDescriptor,
   errorMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
-import { appInsights } from "@gc-digital-talent/app-insights";
-import { useAuthentication } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 

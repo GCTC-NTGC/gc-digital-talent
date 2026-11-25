@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useQuery } from "urql";
 import { useEffect } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   Checkbox,
@@ -9,9 +9,9 @@ import {
   localizedEnumToOptions,
   Select,
 } from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import type { SupervisoryFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import { CSuiteRoleTitle, graphql } from "@gc-digital-talent/graphql";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Loading } from "@gc-digital-talent/ui";
 
 import type {

@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ExperienceCard/ContentSection";
 import type { ContentProps } from "../ExperienceCard/types";

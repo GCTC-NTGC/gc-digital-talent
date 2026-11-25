@@ -1,6 +1,6 @@
-import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";

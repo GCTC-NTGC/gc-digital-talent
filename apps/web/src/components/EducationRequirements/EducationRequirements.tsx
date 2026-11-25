@@ -1,13 +1,14 @@
-import { useIntl } from "react-intl";
 import type { HTMLProps, ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
+import { assertUnreachable } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Link, Heading, Card, Ul } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
+import type { ClassificationGroup } from "~/types/classificationGroup";
 import {
   acceptableLink,
   degreeLink,
@@ -15,7 +16,6 @@ import {
   foreignDegreeLink,
   postSecondaryLink,
 } from "~/utils/educationUtils";
-import type { ClassificationGroup } from "~/types/classificationGroup";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 

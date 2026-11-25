@@ -1,10 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  MockGraphqlDecorator,
-  OverlayOrDialogDecorator,
-} from "@gc-digital-talent/storybook-helpers";
 import {
   fakeAssessmentResults,
   fakeAssessmentSteps,
@@ -24,6 +20,10 @@ import {
   AssessmentStepType,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import {
+  MockGraphqlDecorator,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 
 import ScreeningDecisionDialog, {
   ScreeningDecisionDialog_Fragment,

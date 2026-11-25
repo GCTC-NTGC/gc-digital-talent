@@ -1,18 +1,15 @@
-import type { IntlShape } from "react-intl";
-import type { SortingState } from "@tanstack/react-table";
-import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
-import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
-import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { tv } from "tailwind-variants";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import { tv } from "tailwind-variants";
 
-import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import type { IconType } from "@gc-digital-talent/ui";
-import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
+import type { Radio } from "@gc-digital-talent/forms";
 import type {
   AdvancedOrderByInput,
   PoolCandidateSearchInput,
@@ -29,27 +26,30 @@ import {
   AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Radio } from "@gc-digital-talent/forms";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { IconType } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 
-import {
-  durationToEnumPositionDuration,
-  positionDurationToEmploymentDuration,
-} from "~/utils/userUtils";
+import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
 import type useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   candidateStatusChip,
   getApplicationStatusChip,
 } from "~/utils/poolCandidate";
-import processMessages from "~/messages/processMessages";
-import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 
-import type { FormValues } from "./types";
-import tableMessages from "./tableMessages";
 import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import CandidateFlag from "../CandidateFlag/CandidateFlag";
 import type { PoolCandidateBookmark_Fragment } from "./PoolCandidateBookmark";
 import PoolCandidateBookmark from "./PoolCandidateBookmark";
+import tableMessages from "./tableMessages";
+import type { FormValues } from "./types";
 
 export const priorityCell = (
   weight: number,

@@ -1,17 +1,13 @@
-import { useIntl } from "react-intl";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useEffect } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useEffect } from "react";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import {
-  Button,
-  Notice,
-  Separator,
-  ToggleSection,
-} from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   Checklist,
   DATE_SEGMENT,
@@ -20,19 +16,6 @@ import {
   RadioGroup,
   Submit,
 } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  ExecCoachingStatus,
-  formMessages,
-  getExecCoachingInterest,
-  getExecCoachingStatus,
-  getLearningOpportunitiesInterest,
-  getMentorshipInterest,
-  getMentorshipStatus,
-  localizedEnumArrayToInput,
-  MentorshipStatus,
-} from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   UpdateEmployeeProfileInput,
@@ -46,18 +29,35 @@ import {
   UnauthorizedError,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  ExecCoachingStatus,
+  formMessages,
+  getExecCoachingInterest,
+  getExecCoachingStatus,
+  getLearningOpportunitiesInterest,
+  getMentorshipInterest,
+  getMentorshipStatus,
+  localizedEnumArrayToInput,
+  MentorshipStatus,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import {
+  Button,
+  Notice,
+  Separator,
+  ToggleSection,
+} from "@gc-digital-talent/ui";
 
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import messages from "~/messages/careerDevelopmentMessages";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/employeeProfile/careerDevelopment";
-import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import messages from "~/messages/careerDevelopmentMessages";
 
 import Display from "./Display";
 import {

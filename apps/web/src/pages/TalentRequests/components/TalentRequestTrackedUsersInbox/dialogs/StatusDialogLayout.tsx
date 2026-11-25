@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { Dialog, IconLabel, type IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Dialog, IconLabel, type IconType } from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 

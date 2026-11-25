@@ -1,12 +1,12 @@
 import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { action } from "storybook/actions";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";
-import { Announcer } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Announcer } from "@gc-digital-talent/ui";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";

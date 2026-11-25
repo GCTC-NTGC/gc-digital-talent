@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
+import { useIntl } from "react-intl";
 
 import { Heading, Ul } from "@gc-digital-talent/ui";
 

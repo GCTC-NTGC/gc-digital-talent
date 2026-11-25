@@ -1,13 +1,13 @@
-import type { StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn } from "@storybook/react-vite";
 
 import {
   experienceGenerators,
   fakeUserSkills,
 } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import { Button } from "@gc-digital-talent/ui";
 
 import PersonalExperienceDialog, {
   PersonalExperienceDialog_Fragment,

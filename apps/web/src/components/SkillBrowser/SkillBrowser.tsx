@@ -1,16 +1,16 @@
 import { useId, useEffect } from "react";
-import { useIntl } from "react-intl";
 import type { RegisterOptions } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
-import { normalizeString } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { normalizeString } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import type { FormValues } from "./types";
 import skillBrowserMessages from "./messages";
+import type { FormValues } from "./types";
 import {
   INPUT_NAME,
   getFamilyOptions,

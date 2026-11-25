@@ -1,10 +1,8 @@
-import { useIntl } from "react-intl";
-import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { Checkbox, TextArea } from "@gc-digital-talent/forms";
-import type { Locales } from "@gc-digital-talent/i18n";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -12,17 +10,19 @@ import {
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import type {
   ListItem as SkillProficiencyListItem,
   SkillProficiencyListProps,
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
 import SkillProficiencyList from "~/components/SkillProficiencyList/SkillProficiencyList";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
-import { insertionIndexBySkillName } from "./utils";
 import EssentialBehaviouralSkillsFrontMatter from "./EssentialBehaviouralSkillsFrontMatter";
+import { insertionIndexBySkillName } from "./utils";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 

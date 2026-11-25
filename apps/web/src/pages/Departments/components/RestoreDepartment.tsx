@@ -1,19 +1,19 @@
-import { useIntl } from "react-intl";
 import DocumentArrowUpIcon from "@heroicons/react/24/solid/DocumentArrowUpIcon";
-import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Input } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
 const UnarchiveDepartment_Mutation = graphql(/* GraphQL */ `
   mutation UnarchiveDepartment_Mutation($id: ID!) {

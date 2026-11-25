@@ -2,15 +2,15 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
-import { NextRoleInfo_Fragment, handleCommunity } from "./utils";
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import messages from "./messages";
+import { NextRoleInfo_Fragment, handleCommunity } from "./utils";
 
 interface NextRoleProps {
   nextRoleQuery: FragmentType<typeof NextRoleInfo_Fragment>;

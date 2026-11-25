@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { tv } from "tailwind-variants";
 
+import { UNICODE_CHAR } from "../../utils/unicode";
 import type { ChipProps } from "../Chip/Chip";
 import Chip from "../Chip/Chip";
-import { UNICODE_CHAR } from "../../utils/unicode";
 
 interface MetaDataBase {
   children: ReactNode;

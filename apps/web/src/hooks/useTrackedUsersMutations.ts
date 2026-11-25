@@ -1,6 +1,6 @@
+import type { OperationContext } from "@urql/core";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import type { OperationContext } from "@urql/core";
 
 import type {
   TalentRequestTrackedUserNotReferredReason,

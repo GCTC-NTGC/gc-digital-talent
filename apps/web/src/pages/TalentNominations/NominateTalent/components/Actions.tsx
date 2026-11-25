@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { Button, CardSeparator, Link } from "@gc-digital-talent/ui";
 

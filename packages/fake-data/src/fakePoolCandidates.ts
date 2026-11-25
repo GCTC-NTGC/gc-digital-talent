@@ -18,9 +18,9 @@ import {
 
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences from "./fakeExperiences";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
-import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generatePoolCandidate = (
   pools: ReturnType<typeof fakePools>,

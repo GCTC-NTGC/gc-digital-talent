@@ -1,9 +1,11 @@
-import { useState, type ChangeEventHandler } from "react";
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
+import { useState, type ChangeEventHandler } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import {
   type TalentRequestInProgressDetail,
   type TalentRequestCompletionDetail,
@@ -11,13 +13,7 @@ import {
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  Button,
-  Dialog,
-  StatusButton,
-  type StatusButtonProps,
-} from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -27,9 +23,13 @@ import {
   sortLocalizedEnumOptions,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Button,
+  Dialog,
+  StatusButton,
+  type StatusButtonProps,
+} from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 

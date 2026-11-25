@@ -1,9 +1,13 @@
-import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import TrophyIcon from "@heroicons/react/24/outline/TrophyIcon";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Heading,
@@ -13,27 +17,23 @@ import {
   Notice,
   Separator,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
-import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 import EmployeeVerificationSection from "~/components/EmployeeVerificationSection/EmployeeVerificationSection";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import TalentNominationHistory from "~/components/TalentNominationHistory/TalentNominationHistory";
 import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { checkRole } from "~/utils/teamUtils";
 
+import DownloadButton from "../DownloadButton";
 import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
-import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
-import DownloadButton from "../DownloadButton";
+import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 
 const SECTION_ID = {
   EMPLOYEE_VERIFICATION: "employee-verification",

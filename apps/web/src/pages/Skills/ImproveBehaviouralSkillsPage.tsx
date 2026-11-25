@@ -1,12 +1,9 @@
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useMutation, useQuery } from "urql";
-import StarIcon from "@heroicons/react/24/outline/StarIcon";
 
-import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import type {
   UpdateSkillShowcaseSkillFragment,
   UpdateSkillShowcaseUserSkillFragment,
@@ -16,10 +13,13 @@ import {
   graphql,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { Pending } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import type { FormValues } from "./components/UpdateSkillShowcase";
 import UpdateSkillShowcase, {

@@ -2,14 +2,14 @@ import type { MouseEventHandler, ReactNode } from "react";
 import { forwardRef } from "react";
 import { useIntl } from "react-intl";
 
-import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
+import { toast } from "@gc-digital-talent/toast";
 
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
-import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
+import { linkStyles } from "./styles";
 
 interface NotificationLinkProps {
   id: string;

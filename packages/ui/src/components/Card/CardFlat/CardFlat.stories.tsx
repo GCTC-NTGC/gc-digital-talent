@@ -1,5 +1,5 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

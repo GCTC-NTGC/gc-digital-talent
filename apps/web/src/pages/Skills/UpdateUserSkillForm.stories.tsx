@@ -7,8 +7,8 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData, SkillCategory } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import {
   UpdateUserSkill_Fragment,

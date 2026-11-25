@@ -1,10 +1,15 @@
-import { defineMessage, useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import ArrowTrendingUpIcon from "@heroicons/react/24/outline/ArrowTrendingUpIcon";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { defineMessage, useIntl } from "react-intl";
 
+import {
+  commonMessages,
+  getLocale,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Card,
   CardFlat,
@@ -14,21 +19,16 @@ import {
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getLocale,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import financialManagementTeamImage from "~/assets/img/person-smiling-holding-pen.webp";
-import financialManagementNewsletterImage from "~/assets/img/person-looking-at-tablet-in-thought.webp";
-import financialManagementConnectWithPeersImage from "~/assets/img/people-with-glasses-high-fiving.webp";
 import procurementTeamImage from "~/assets/img/people-sitting-chairs-discussing-something.webp";
-import procurementNewsletterImage from "~/assets/img/person-looking-at-laptop-smiling.webp";
 import procurementConnectWithPeersImage from "~/assets/img/people-standing-semicircle-shaking-hands.webp";
+import financialManagementConnectWithPeersImage from "~/assets/img/people-with-glasses-high-fiving.webp";
+import procurementNewsletterImage from "~/assets/img/person-looking-at-laptop-smiling.webp";
+import financialManagementNewsletterImage from "~/assets/img/person-looking-at-tablet-in-thought.webp";
+import financialManagementTeamImage from "~/assets/img/person-smiling-holding-pen.webp";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 
 const pageTitle = defineMessage({
   defaultMessage: "Comptrollership executives talent management",

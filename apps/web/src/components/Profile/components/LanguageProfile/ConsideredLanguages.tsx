@@ -1,7 +1,7 @@
-import { useFormContext } from "react-hook-form";
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import {
@@ -9,6 +9,8 @@ import {
   Checkbox,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
@@ -16,8 +18,6 @@ import {
   sortEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   getEstimatedAbilityOptions,

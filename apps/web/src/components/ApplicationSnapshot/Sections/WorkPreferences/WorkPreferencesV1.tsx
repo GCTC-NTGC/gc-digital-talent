@@ -8,6 +8,7 @@ import type {
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { graphql, PositionDuration } from "@gc-digital-talent/graphql";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
@@ -15,14 +16,13 @@ import {
   getWorkRegionsDetailed,
   narrowEnumType,
 } from "@gc-digital-talent/i18n";
-import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
-import profileMessages from "~/messages/profileMessages";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { getLabels } from "~/utils/workPreferenceUtils";
-import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import profileMessages from "~/messages/profileMessages";
+import { formatLocation } from "~/utils/userUtils";
+import { getLabels } from "~/utils/workPreferenceUtils";
 
 import type { SnapshotProps } from "../types";
 
@@ -43,15 +43,18 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements:
-    (GenericLocalizedEnum<OperationalRequirement> | null | undefined)[] | null;
+    | (GenericLocalizedEnum<OperationalRequirement> | null | undefined)[]
+    | null;
   positionDuration: (PositionDuration | null | undefined)[] | null;
   locationPreferences:
-    (GenericLocalizedEnum<WorkRegion> | null | undefined)[] | null;
+    | (GenericLocalizedEnum<WorkRegion> | null | undefined)[]
+    | null;
   locationExemptions: string | null;
   currentCity: string | null;
   currentProvince: GenericLocalizedEnum<ProvinceOrTerritory> | null;
   flexibleWorkLocations:
-    (GenericLocalizedEnum<FlexibleWorkLocation> | null | undefined)[] | null;
+    | (GenericLocalizedEnum<FlexibleWorkLocation> | null | undefined)[]
+    | null;
 }
 
 type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;

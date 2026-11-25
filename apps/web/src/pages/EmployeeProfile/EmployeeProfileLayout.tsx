@@ -4,10 +4,10 @@ import { Outlet, useLocation } from "react-router";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Container } from "@gc-digital-talent/ui";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 // index all the sub pages for this layout
 type SubpageIds =

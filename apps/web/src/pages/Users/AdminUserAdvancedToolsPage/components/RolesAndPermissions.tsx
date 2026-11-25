@@ -5,11 +5,11 @@ import { TableOfContents } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 
-import IndividualRoleTable from "./IndividualRoleTable";
-import CommunityRoleTable from "./CommunityRoleTable";
-import ProcessRoleTable from "./ProcessRoleTable";
 import type { RoleTableProps } from "../utils";
+import CommunityRoleTable from "./CommunityRoleTable";
 import DepartmentRoleTable from "./DepartmentRoleTable";
+import IndividualRoleTable from "./IndividualRoleTable";
+import ProcessRoleTable from "./ProcessRoleTable";
 
 export const ROLE_PERMISSIONS_ID = "role-permissions";
 const ROLE_TABLE_IDS = {

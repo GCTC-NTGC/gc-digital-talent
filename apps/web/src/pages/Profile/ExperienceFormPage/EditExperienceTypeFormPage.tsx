@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
-import { useParams } from "react-router";
 import { useIntl } from "react-intl";
+import { useParams } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import {
   isAwardExperience,
@@ -18,9 +18,9 @@ import {
   organizationSuggestionsFromExperiences,
 } from "~/utils/experienceUtils";
 
-import type { ExperienceTypeFormProps } from "./components/ExperienceFormLayout";
 import AwardExperienceForm from "./AwardExperienceForm";
 import CommunityExperienceForm from "./CommunityExperienceForm";
+import type { ExperienceTypeFormProps } from "./components/ExperienceFormLayout";
 import EducationExperienceForm from "./EducationExperienceForm";
 import PersonalExperienceForm from "./PersonalExperienceForm";
 import WorkExperienceForm from "./WorkExperienceForm";

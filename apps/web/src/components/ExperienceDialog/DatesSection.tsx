@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 
+import experienceMessages from "~/messages/experienceMessages";
 import type { ExperienceDate } from "~/utils/experienceUtils";
 import {
   experienceDurationMonths,
   formatDurationMonths,
   getExperienceDate,
 } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 
 import ContentSection from "../ExperienceCard/ContentSection";
 

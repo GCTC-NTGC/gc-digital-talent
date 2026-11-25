@@ -4,15 +4,15 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import { Notice, PreviewList } from "@gc-digital-talent/ui";
 
-import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
-import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
-import NextRolePreview from "~/components/NextRoleAndCareerObjective/NextRolePreview";
 import CareerObjectivePreview from "~/components/NextRoleAndCareerObjective/CareerObjectivePreview";
+import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import NextRolePreview from "~/components/NextRoleAndCareerObjective/NextRolePreview";
 import {
   CareerObjectiveInfo_Fragment,
   NextRoleInfo_Fragment,
 } from "~/components/NextRoleAndCareerObjective/utils";
-import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
+import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 
 interface NextRoleAndCareerObjectiveProps {
   nextRoleAndCareerObjectiveQuery: FragmentType<

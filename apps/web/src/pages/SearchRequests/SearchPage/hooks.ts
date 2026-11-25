@@ -2,16 +2,16 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { useAnnouncer } from "@gc-digital-talent/ui";
 import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useSessionStorage } from "@gc-digital-talent/storage";
+import { useAnnouncer } from "@gc-digital-talent/ui";
 
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 import type {
   FormValues,
   TalentRequestClassification,
 } from "~/types/talentRequestForm";
-import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
 import {
   applicantFilterToQueryArgs,

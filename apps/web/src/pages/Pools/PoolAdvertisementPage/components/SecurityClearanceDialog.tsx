@@ -1,7 +1,9 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import type { HeadingProps } from "@gc-digital-talent/ui";
 import {
   Button,
@@ -11,8 +13,6 @@ import {
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import type { Locales } from "@gc-digital-talent/i18n";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 const securityScreenConsentFormLink = (locale: Locales, chunks: ReactNode) => (
   <Link

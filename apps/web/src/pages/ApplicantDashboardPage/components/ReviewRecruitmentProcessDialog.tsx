@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import { RadioGroup } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -10,6 +16,7 @@ import {
   formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Button,
   Dialog,
@@ -17,23 +24,16 @@ import {
   PreviewList,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { toast } from "@gc-digital-talent/toast";
-import { RadioGroup } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import processMessages from "~/messages/processMessages";
-import { candidateInterestColorMap } from "~/utils/poolCandidate";
-import useRoutes from "~/hooks/useRoutes";
-import { getSalaryRange } from "~/utils/classification";
-import { wrapAbbr } from "~/utils/nameUtils";
 import StatusSummary from "~/components/ReviewApplicationPreviewList/StatusSummary";
 import { candidateInterestDesc } from "~/components/ReviewApplicationPreviewList/utils";
+import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
+import { candidateInterestColorMap } from "~/utils/poolCandidate";
 
 interface FormValues {
   isSuspended: "true" | "false";

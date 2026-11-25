@@ -1,28 +1,28 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { DepartmentDashboardQuery } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   ResourceBlock,
   NotFound,
   Container,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { DepartmentDashboardQuery } from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
-import { getFullNameHtml } from "~/utils/nameUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import messages from "~/messages/profileMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/profileMessages";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
-import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
 import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
+import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
 import type { RoleAssignmentObject } from "./utils";
 import {
   departmentAssignmentsToDepartmentRolesObjects,

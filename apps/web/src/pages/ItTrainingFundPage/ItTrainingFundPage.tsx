@@ -3,11 +3,11 @@ import { defineMessage, useIntl } from "react-intl";
 import { Container } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
+import TrainingFundNotice from "~/components/TrainingFundNotice/TrainingFundNotice";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
 import pageTitles from "~/messages/pageTitles";
-import TrainingFundNotice from "~/components/TrainingFundNotice/TrainingFundNotice";
 
 const pageTitle = defineMessage(pageTitles.itTrainingFund);
 

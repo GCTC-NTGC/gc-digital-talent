@@ -1,5 +1,5 @@
-import omit from "lodash/omit";
 import compact from "lodash/compact";
+import omit from "lodash/omit";
 
 import type {
   ProfileLanguageProfileFragment,

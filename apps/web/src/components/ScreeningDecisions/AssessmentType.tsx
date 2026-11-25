@@ -2,11 +2,11 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, Heading, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
+import { Accordion, Heading, Notice } from "@gc-digital-talent/ui";
 
 import type { ClassificationGroup } from "~/types/classificationGroup";
 

@@ -1,8 +1,8 @@
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
-import { generateUniqueTestId } from "~/utils/id";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 import { me } from "~/utils/user";
 
 test("Can create award experience", { tag: "@uat" }, async ({ appPage }) => {

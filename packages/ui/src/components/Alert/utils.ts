@@ -1,9 +1,9 @@
-import type { IntlShape } from "react-intl";
-import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
+import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

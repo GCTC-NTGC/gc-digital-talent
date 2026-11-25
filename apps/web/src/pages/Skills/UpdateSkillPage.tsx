@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router";
-import { useIntl } from "react-intl";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import pick from "lodash/pick";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import pick from "lodash/pick";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Submit,
   Input,
@@ -16,21 +16,6 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  errorMessages,
-  commonMessages,
-  getLocalizedName,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import {
-  Pending,
-  NotFound,
-  Heading,
-  Link,
-  CardSeparator,
-  Card,
-} from "@gc-digital-talent/ui";
 import type {
   LocalizedString,
   UpdateSkillFragment,
@@ -40,18 +25,33 @@ import type {
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  errorMessages,
+  commonMessages,
+  getLocalizedName,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Pending,
+  NotFound,
+  Heading,
+  Link,
+  CardSeparator,
+  Card,
+} from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
-import { parseKeywords } from "~/utils/skillUtils";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 import pageTitles from "~/messages/pageTitles";
+import { parseKeywords } from "~/utils/skillUtils";
 
 import { SkillFormOptions_Fragment } from "./operations";
 

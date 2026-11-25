@@ -1,11 +1,11 @@
-import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { Card, Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { Card, Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 
 import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 

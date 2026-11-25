@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router";
-import { useIntl } from "react-intl";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Submit,
   Input,
@@ -13,6 +13,13 @@ import {
   TextArea,
   unpackIds,
 } from "@gc-digital-talent/forms";
+import type {
+  LocalizedString,
+  UpdateSkillFamilyFragment,
+  UpdateSkillFamilyInput,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
@@ -20,6 +27,7 @@ import {
   getLocalizedName,
   formMessages,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Pending,
   NotFound,
@@ -28,23 +36,15 @@ import {
   Link,
   CardSeparator,
 } from "@gc-digital-talent/ui";
-import type {
-  LocalizedString,
-  UpdateSkillFamilyFragment,
-  UpdateSkillFamilyInput,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import Hero from "~/components/Hero";
-import SEO from "~/components/SEO/SEO";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 import messages from "./messages";
 

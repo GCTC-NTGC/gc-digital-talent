@@ -1,6 +1,7 @@
 import { resolve } from "path";
-import dotenv from "dotenv";
+
 import type { StorybookConfig } from "@storybook/react-vite";
+import dotenv from "dotenv";
 
 const webStories = "../apps/web/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 const designFormsStories =
@@ -26,7 +27,7 @@ const main: StorybookConfig = {
     "@storybook/addon-designs",
     "@storybook/addon-themes",
     "storybook-react-intl",
-    "@storybook/addon-vitest"
+    "@storybook/addon-vitest",
   ],
   core: {
     builder: "@storybook/builder-vite",

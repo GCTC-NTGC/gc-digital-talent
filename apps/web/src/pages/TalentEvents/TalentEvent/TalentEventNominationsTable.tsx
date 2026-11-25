@@ -8,21 +8,21 @@ import type {
   TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import messages from "~/messages/talentNominationMessages";
-import { normalizedText } from "~/components/Table/sortingFns";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import useRoutes from "~/hooks/useRoutes";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
-import { getSortedNominatorNames } from "~/utils/talentNominations";
-import useSelectedRows from "~/hooks/useSelectedRows";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import { normalizedText } from "~/components/Table/sortingFns";
+import useRoutes from "~/hooks/useRoutes";
+import useSelectedRows from "~/hooks/useSelectedRows";
+import adminMessages from "~/messages/adminMessages";
+import messages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { getSortedNominatorNames } from "~/utils/talentNominations";
 
 import {
   nomineeNameCell,

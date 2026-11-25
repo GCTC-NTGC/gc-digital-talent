@@ -6,9 +6,9 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import type { ExternalWorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import { Loading } from "@gc-digital-talent/ui";
 
 import type { SubExperienceFormProps } from "~/types/experience";

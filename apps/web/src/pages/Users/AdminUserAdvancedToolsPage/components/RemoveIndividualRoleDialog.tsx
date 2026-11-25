@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
+import type { AuthRole } from "@gc-digital-talent/auth";
 import {
   commonMessages,
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { AuthRole } from "@gc-digital-talent/auth";
+import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
@@ -59,10 +59,21 @@ const RemoveIndividualRoleDialog = ({
     },
   );
 
+  const buttonLabel = intl.formatMessage(
+    {
+      defaultMessage: "Remove role {role}",
+      id: "buavit",
+      description: "Label for the form to remove a role from a user",
+    },
+    {
+      role: roleDisplayName,
+    },
+  );
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <IconButton color="error" icon={TrashIcon} label={label} />
+        <IconButton color="error" icon={TrashIcon} label={buttonLabel} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>

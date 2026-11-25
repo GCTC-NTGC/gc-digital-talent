@@ -7,7 +7,10 @@ import type {
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export type EquityKeys =
-  "isWoman" | "indigenousCommunities" | "isVisibleMinority" | "hasDisability";
+  | "isWoman"
+  | "indigenousCommunities"
+  | "isVisibleMinority"
+  | "hasDisability";
 
 export type UserMutationPromise = Promise<
   UpdateUserAsUserMutation["updateUserAsUser"] | undefined

@@ -1,10 +1,31 @@
-import { useIntl } from "react-intl";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { useMutation, useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  convertDateTimeToDate,
+  convertDateTimeZone,
+  currentDate,
+  nowUTCDateTime,
+  TZ_VANCOUVER,
+} from "@gc-digital-talent/date-helpers";
+import { Submit } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  TalentNominationEventStatus,
+} from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  formMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
   CardSeparator,
@@ -13,46 +34,25 @@ import {
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  TalentNominationEventStatus,
-} from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  formMessages,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
-import { Submit } from "@gc-digital-talent/forms";
-import {
-  convertDateTimeToDate,
-  convertDateTimeZone,
-  currentDate,
-  nowUTCDateTime,
-  TZ_VANCOUVER,
-} from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import profileMessages from "~/messages/profileMessages";
 
-import type { RouteParams } from "./TalentEvent/types";
 import ActiveTalentEventForm from "./components/ActiveTalentEventForm";
-import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
 import type { FormValues } from "./components/formValues";
 import {
   TalentNominationEvent_Fragment,
   UpdateTalentNominationEvent_Fragment,
   UpdateTalentNominationEvent_Mutation,
 } from "./components/fragments";
+import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
+import type { RouteParams } from "./TalentEvent/types";
 
 interface UpdateTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;

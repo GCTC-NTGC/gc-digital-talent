@@ -1,21 +1,21 @@
-import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import type { ReactNode, JSX } from "react";
+import { useIntl } from "react-intl";
 
-import { Heading, Link, ScrollToLink } from "@gc-digital-talent/ui";
-import type { Locales } from "@gc-digital-talent/i18n";
-import { getLocale } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
+import { Heading, Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import { wrapAbbr } from "~/utils/nameUtils";
 import {
   isClassificationGroup,
   type ClassificationGroup,
 } from "~/types/classificationGroup";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import type { SectionProps } from "../types";
 

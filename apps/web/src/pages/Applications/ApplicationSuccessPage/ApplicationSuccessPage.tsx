@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { Notice, Link, Ul } from "@gc-digital-talent/ui";
 import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
+import { Notice, Link, Ul } from "@gc-digital-talent/ui";
 
+import ApplicationSnapshot from "~/components/ApplicationSnapshot/ApplicationSnapshot";
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
-import ApplicationSnapshot from "~/components/ApplicationSnapshot/ApplicationSnapshot";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";

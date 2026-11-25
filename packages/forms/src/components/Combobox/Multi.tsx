@@ -1,15 +1,16 @@
-import { useState, useRef, useMemo } from "react";
-import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
+import { useState, useRef, useMemo } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button, Chip, Chips } from "@gc-digital-talent/ui";
 
+import { inputStyles } from "../../styles";
 import Field from "../Field";
-import Menu from "./Menu";
 import Input from "./Input";
+import Menu from "./Menu";
 import type { BaseProps, Option } from "./types";
 import {
   getMultiFilteredItems,
@@ -17,7 +18,6 @@ import {
   isItemSelected,
   comboboxInput,
 } from "./utils";
-import { inputStyles } from "../../styles";
 
 const chipWrapper = tv({
   extend: inputStyles,

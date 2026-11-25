@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 
+import type { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 
 import type { ExperienceName } from "~/utils/experienceUtils";
 import {

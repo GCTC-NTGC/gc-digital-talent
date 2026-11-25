@@ -14,8 +14,8 @@ import {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import fakeDepartments from "./fakeDepartments";
-import { getStaticSkills } from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import { getStaticSkills } from "./fakeSkills";
 
 faker.seed(0);
 

@@ -1,3 +1,4 @@
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import type {
   PoolCandidate,
   Skill,
@@ -12,17 +13,16 @@ import {
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import { createAndSubmitApplication } from "~/utils/applications";
+import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import { createAndSubmitApplication } from "~/utils/applications";
-import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
-import { loginBySub } from "~/utils/auth";
-import { generateUniqueTestId } from "~/utils/id";
 
 const LOCALIZED_STRING = {
   en: "test EN",

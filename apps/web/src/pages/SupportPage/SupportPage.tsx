@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Card, Container } from "@gc-digital-talent/ui";
 
+import flourishTopDark from "~/assets/img/support_top_dark.webp";
+import flourishTopLight from "~/assets/img/support_top_light.webp";
+import supportHeroImg from "~/assets/img/woman-on-cellphone-typing-on-laptop.webp";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import flourishTopLight from "~/assets/img/support_top_light.webp";
-import flourishTopDark from "~/assets/img/support_top_dark.webp";
-import supportHeroImg from "~/assets/img/woman-on-cellphone-typing-on-laptop.webp";
 
 import SupportForm from "./components/SupportForm/SupportForm";
 

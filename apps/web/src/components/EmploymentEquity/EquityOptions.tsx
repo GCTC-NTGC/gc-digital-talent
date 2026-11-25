@@ -1,30 +1,31 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { toast } from "@gc-digital-talent/toast";
-import { Notice, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
+import type {
+  IndigenousCommunity,
+  UpdateUserAsUserInput,
+} from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  IndigenousCommunity,
-  UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { Notice, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 
 import EquityOption from "./EquityOption";
-import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
+import type { EquityKeys, UserMutationPromise } from "./types";
 
 interface EquityOptionsProps {
   hasDisability?: boolean | null;
   indigenousCommunities?:
-    (GenericLocalizedEnum<IndigenousCommunity> | null | undefined)[] | null;
+    | (GenericLocalizedEnum<IndigenousCommunity> | null | undefined)[]
+    | null;
   indigenousDeclarationSignature?: string | null;
   isVisibleMinority?: boolean | null;
   isWoman?: boolean | null;

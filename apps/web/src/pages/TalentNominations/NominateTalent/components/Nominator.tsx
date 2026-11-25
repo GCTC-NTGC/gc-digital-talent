@@ -1,8 +1,16 @@
 import DocumentCheckIcon from "@heroicons/react/24/outline/DocumentCheckIcon";
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import {
+  HiddenInput,
+  Input,
+  localizedEnumToOptions,
+  RadioGroup,
+  Select,
+} from "@gc-digital-talent/forms";
 import type {
   FragmentType,
   UpdateTalentNominationInput,
@@ -14,31 +22,23 @@ import {
   TalentNominationStep,
   TalentNominationSubmitterRelationshipToNominator,
 } from "@gc-digital-talent/graphql";
-import {
-  HiddenInput,
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
-import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
+import labels from "../labels";
+import messages from "../messages";
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
+import EmployeeSearchWell from "./EmployeeSearchWell";
+import SubHeading from "./SubHeading";
 import type { SubmitDataTransformer } from "./UpdateForm";
 import UpdateForm from "./UpdateForm";
-import SubHeading from "./SubHeading";
-import messages from "../messages";
-import EmployeeSearchWell from "./EmployeeSearchWell";
-import labels from "../labels";
-import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 type SubmitterRole = "nominator" | "on-behalf";
 

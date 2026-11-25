@@ -1,8 +1,11 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Container,
   Pending,
@@ -10,16 +13,16 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import profileMessages from "~/messages/profileMessages";
 import { checkRole } from "~/utils/teamUtils";
 
 import DownloadButton from "../DownloadButton";
+import AdminOffPlatformRecruitmentProcesses, {
+  OFF_PLATFORM_RECRUITMENT_PROCESSES_ID,
+} from "./components/OffPlatformRecruitmentProcesses";
 import RecruitmentProcesses, {
   JOB_APPLICATIONS_ID,
 } from "./components/RecruitmentProcesses";
@@ -27,9 +30,6 @@ import RecruitmentTools, {
   RECRUITMENT_TOOLS_ID,
   title as recruitmentToolsTitle,
 } from "./components/RecruitmentTools";
-import AdminOffPlatformRecruitmentProcesses, {
-  OFF_PLATFORM_RECRUITMENT_PROCESSES_ID,
-} from "./components/OffPlatformRecruitmentProcesses";
 
 const AdminUserRecruitment_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserRecruitment on User {

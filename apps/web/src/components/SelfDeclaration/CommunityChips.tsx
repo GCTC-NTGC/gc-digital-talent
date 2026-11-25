@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Chips, Chip } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Chips, Chip } from "@gc-digital-talent/ui";
 
 import type { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 

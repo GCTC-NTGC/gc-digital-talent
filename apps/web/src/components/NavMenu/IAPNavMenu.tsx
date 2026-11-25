@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
+import HomeLink from "./HomeLink";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
-import HomeLink from "./HomeLink";
 
 const IAPNavMenu = () => {
   const intl = useIntl();

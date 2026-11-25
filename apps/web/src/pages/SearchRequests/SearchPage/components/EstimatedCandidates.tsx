@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { Card, Loading, ScrollToLink } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Card, Loading, ScrollToLink } from "@gc-digital-talent/ui";
 
 const testId = (chunks: ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>

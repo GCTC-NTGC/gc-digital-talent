@@ -1,33 +1,33 @@
-import { useIntl } from "react-intl";
-import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useNavigate, useParams, useSearchParams } from "react-router";
+import { useMutation, useQuery, type OperationContext } from "urql";
 
-import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
   UpdateCommunityInterestWithDevelopmentProgramsInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
-import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
+import { messages } from "../messages";
+import AdditionalInformation from "../sections/AdditionalInformation";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
-import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities, {
   DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
 } from "../sections/TrainingAndDevelopmentOpportunities";
@@ -229,15 +229,6 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
         communityInterests(id: $communityInterestId) {
           ...UpdateCommunityInterestPage_Fragment
           ...UpdateCommunityInterestFormData_Fragment
-          interestInDevelopmentPrograms {
-            id
-            communityDevelopmentProgram {
-              id
-              developmentProgram {
-                id
-              }
-            }
-          }
         }
       }
     }
@@ -319,26 +310,8 @@ export const UpdateCommunityInterestPage = () => {
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const interestedDevPrograms = new Map<string, string>();
-    queryData?.me?.employeeProfile?.communityInterests?.forEach(
-      (communityInterest) => {
-        communityInterest.interestInDevelopmentPrograms?.forEach(
-          (interestedDevProgram) => {
-            interestedDevPrograms.set(
-              interestedDevProgram.communityDevelopmentProgram.id,
-              interestedDevProgram.id,
-            );
-          },
-        );
-      },
-    );
-
     const mutationInput: UpdateCommunityInterestWithDevelopmentProgramsInput =
-      formValuesToApiUpdateInput(
-        communityInterestId,
-        // interestedDevPrograms,
-        formValues,
-      );
+      formValuesToApiUpdateInput(communityInterestId, formValues);
     const mutationPromise = executeUpdateMutation({
       communityInterestWithDevelopmentPrograms: mutationInput,
     }).then((response) => {

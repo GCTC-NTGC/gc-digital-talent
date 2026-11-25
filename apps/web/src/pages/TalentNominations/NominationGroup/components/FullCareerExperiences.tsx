@@ -1,16 +1,8 @@
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import type { ComponentProps, ReactNode } from "react";
 import { useId, useState } from "react";
 import { useIntl } from "react-intl";
-import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import {
-  Accordion,
-  Button,
-  Heading,
-  Ul,
-  wrapParens,
-  Card,
-} from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -19,17 +11,25 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  Accordion,
+  Button,
+  Heading,
+  Ul,
+  wrapParens,
+  Card,
+} from "@gc-digital-talent/ui";
 
-import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import experienceMessages from "~/messages/experienceMessages";
 import processMessages from "~/messages/processMessages";
 
+import ErrorNotice from "./ErrorNotice";
 import type { AccordionSection } from "./fullCareerExperiencesUtils";
 import {
   buildExperienceByTypeData,
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
-import ErrorNotice from "./ErrorNotice";
 
 const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiencesUser on User {
@@ -89,7 +89,9 @@ const FullCareerExperiencesTalentNominationGroup_Fragment = graphql(
 
 interface FullCareerExperiencesProps {
   userQuery:
-    FragmentType<typeof FullCareerExperiencesUser_Fragment> | null | undefined;
+    | FragmentType<typeof FullCareerExperiencesUser_Fragment>
+    | null
+    | undefined;
   talentNominationGroupQuery:
     | FragmentType<typeof FullCareerExperiencesTalentNominationGroup_Fragment>
     | null

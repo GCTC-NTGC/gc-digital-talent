@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { Heading, Card, Link } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
@@ -8,6 +7,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Heading, Card, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

@@ -1,15 +1,15 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
+import { faker } from "@faker-js/faker/locale/en";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
-import { faker } from "@faker-js/faker/locale/en";
-import { action } from "storybook/actions";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import type { ComponentPropsWithoutRef } from "react";
 import { useState } from "react";
+import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Accordion from "./Accordion";
 import Button from "../Button";
+import Accordion from "./Accordion";
 import { testMetaData } from "./utils";
 
 const { Item, Trigger, Content, Root } = Accordion;

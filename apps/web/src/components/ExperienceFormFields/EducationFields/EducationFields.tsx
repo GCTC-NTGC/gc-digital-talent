@@ -1,26 +1,27 @@
-import { useIntl } from "react-intl";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useQuery } from "urql";
 import { useCallback, useEffect, useRef } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Input, RadioGroup, TextArea } from "@gc-digital-talent/forms";
-import type { Locales } from "@gc-digital-talent/i18n";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import type { EducationStatus } from "@gc-digital-talent/graphql";
 import {
   DegreeType,
   EducationType,
   FellowshipType,
 } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Loading, Notice } from "@gc-digital-talent/ui";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import type {
   SubExperienceFormProps,
   EducationFormValues,
 } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
+import DateFields from "./DateFields";
 import {
   EducationOptions_Query,
   getDegreeTypeOptions,
@@ -28,7 +29,6 @@ import {
   getEducationTypeOptions,
   getFellowshipTypeOptions,
 } from "./utils";
-import DateFields from "./DateFields";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;

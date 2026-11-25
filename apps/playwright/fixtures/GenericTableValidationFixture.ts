@@ -11,12 +11,12 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 import { ApplicationStatus } from "@gc-digital-talent/graphql/schema-types";
 
-import type { GraphQLContext } from "~/utils/graphql";
 import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
+import type { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
-import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
+import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 
 const MAX_PAGE_SIZE = 500;
 

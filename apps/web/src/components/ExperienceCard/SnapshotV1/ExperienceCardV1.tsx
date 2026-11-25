@@ -1,6 +1,13 @@
-import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import { useIntl } from "react-intl";
 
+import {
+  EmploymentCategory,
+  GovEmployeeType,
+} from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Collapsible,
@@ -13,14 +20,8 @@ import {
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  EmploymentCategory,
-  GovEmployeeType,
-} from "@gc-digital-talent/graphql";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
+import experienceMessages from "~/messages/experienceMessages";
 import {
   getExperienceFormLabels,
   isAwardExperience,
@@ -31,17 +32,16 @@ import {
   useExperienceInfo,
   type SnapshotExperience,
 } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 
-import ContentSection from "../ContentSection";
 import CommunityContent from "../CommunityContent";
+import ContentSection from "../ContentSection";
 import type { ExperienceWorkStream } from "../WorkContent/WorkStreamsContent";
 import WorkStreamContent from "../WorkContent/WorkStreamsContent";
-import { getV1ExperienceName } from "./utils";
-import PersonalContentV1 from "./PersonalContentV1";
 import AwardContentV1 from "./AwardContentV1";
-import WorkContentV1 from "./WorkContentV1";
 import EducationContentV1 from "./EducationContentV1";
+import PersonalContentV1 from "./PersonalContentV1";
+import { getV1ExperienceName } from "./utils";
+import WorkContentV1 from "./WorkContentV1";
 
 interface FlexibleSnapshotExperience extends SnapshotExperience {
   details?: string | null;

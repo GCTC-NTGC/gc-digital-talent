@@ -1,12 +1,12 @@
-import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import type {
   EvaluatedLanguageAbility,
   LocalizedString,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PositionDuration } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   GenericLocalizedEnum,
   TEmploymentDuration,
@@ -44,11 +44,17 @@ export function positionDurationToEmploymentDuration(
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
   comprehensionLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
   writtenLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
   verbalLevel:
-    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+    | GenericLocalizedEnum<EvaluatedLanguageAbility>
+    | null
+    | undefined,
 ): ReactNode => {
   return [
     comprehensionLevel?.label

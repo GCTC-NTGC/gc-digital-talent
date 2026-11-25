@@ -1,7 +1,7 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
-import type { DecoratorFunction, Renderer } from "storybook/internal/types";
 import type { ReactNode } from "react";
 import { useEffect, useMemo } from "react";
+import type { DecoratorFunction, Renderer } from "storybook/internal/types";
 
 import type { Theme, ThemeKey } from "@gc-digital-talent/theme";
 import { ThemeProvider, useTheme } from "@gc-digital-talent/theme";

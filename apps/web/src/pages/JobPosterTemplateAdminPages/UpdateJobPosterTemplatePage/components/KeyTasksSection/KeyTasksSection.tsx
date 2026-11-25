@@ -1,23 +1,23 @@
-import { useIntl } from "react-intl";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateKeyTasksFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import type { FormValues } from "../../../components/KeyTasksForm";
 import KeyTasksForm from "../../../components/KeyTasksForm";

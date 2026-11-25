@@ -1,13 +1,13 @@
-import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestTrackedUsersInbox from "./components/TalentRequestTrackedUsersInbox/TalentRequestTrackedUsersInbox";

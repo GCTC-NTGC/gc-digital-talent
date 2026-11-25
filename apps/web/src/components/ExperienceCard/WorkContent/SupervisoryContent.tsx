@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import { CSuiteRoleTitle } from "@gc-digital-talent/graphql";
-import { Separator } from "@gc-digital-talent/ui";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
@@ -9,6 +8,7 @@ import {
   getLocalizedName,
   localizeCurrency,
 } from "@gc-digital-talent/i18n";
+import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 

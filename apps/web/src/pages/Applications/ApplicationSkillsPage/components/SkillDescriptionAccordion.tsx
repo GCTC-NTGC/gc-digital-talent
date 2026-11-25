@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 
-import { Accordion } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import type { LocalizedString } from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Accordion } from "@gc-digital-talent/ui";
 
 interface AccordionSkill {
   id: string;

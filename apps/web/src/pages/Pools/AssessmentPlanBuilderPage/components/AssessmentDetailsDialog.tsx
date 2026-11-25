@@ -1,16 +1,9 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
-import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  errorMessages,
-  getLocalizedName,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Select,
@@ -22,7 +15,6 @@ import {
   alphaSortOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
@@ -31,10 +23,17 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  getLocalizedName,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
 
 import processMessages from "~/messages/processMessages";
 
-import labels from "./AssessmentDetailsDialogLabels";
 import {
   SCREENING_QUESTIONS_MAX_QUESTIONS,
   SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS,
@@ -42,6 +41,7 @@ import {
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
 import { poolSkillToOption } from "../utils";
+import labels from "./AssessmentDetailsDialogLabels";
 
 interface AssessedSkillsItems {
   essentialSkillItems: CheckboxOption[];

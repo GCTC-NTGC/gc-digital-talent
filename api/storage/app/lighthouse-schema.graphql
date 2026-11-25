@@ -650,9 +650,7 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by createCommunityInterestWithDevelopmentPrograms")
   createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
-  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
   updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
@@ -939,7 +937,6 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
   communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
@@ -957,14 +954,6 @@ type OffPlatformRecruitmentProcess {
   classification: Classification!
   platform: LocalizedHiringPlatform!
   platformOther: String
-}
-
-type DevelopmentProgramInterest {
-  id: UUID!
-  communityDevelopmentProgram: CommunityDevelopmentProgram!
-  developmentProgram: DevelopmentProgram!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
 }
 
 type EmployeeProfile {
@@ -1438,8 +1427,6 @@ type DevelopmentProgram {
   id: UUID!
   name: LocalizedString!
   descriptionForProfile: LocalizedString!
-  descriptionForNominations: LocalizedString @deprecated(reason: "replaced by description on community_development_program_talent_nomination_event pivot")
-  eligibleClassifications: [Classification!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedCommunities: [Community!]
   informationUrl: LocalizedString
@@ -2663,10 +2650,6 @@ input UpdateCommunityInput {
   informationUrl: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
   contactEmail: String
-}
-
-input DevelopmentProgramBelongsToMany {
-  sync: [UUID!]
 }
 
 input CommunityDevelopmentProgramBelongsToMany {
@@ -4314,8 +4297,6 @@ enum ErrorCode {
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID
   DEVELOPMENT_PROGRAM_NOT_FOUND
-  DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
-  DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
   DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED

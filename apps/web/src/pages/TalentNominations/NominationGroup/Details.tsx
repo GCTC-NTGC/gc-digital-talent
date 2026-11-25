@@ -1,10 +1,11 @@
-import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Accordion,
   Button,
@@ -13,15 +14,14 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
-import type { RouteParams } from "./types";
-import { detailTabMessages } from "./messages";
 import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
+import { detailTabMessages } from "./messages";
+import type { RouteParams } from "./types";
 
 const TalentNominationGroupDetailsOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupDetailsOptions on Query {

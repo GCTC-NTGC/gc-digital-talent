@@ -1,5 +1,5 @@
-import { action } from "storybook/actions";
 import type { StoryFn } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

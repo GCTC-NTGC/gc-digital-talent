@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
+import {
+  DevelopmentProgramParticipationStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import CommunityInterest, {
   CommunityInterest_Fragment,
@@ -25,20 +29,24 @@ const communityInterestQuery = makeFragmentData(
     user: {
       __typename: "User",
       developmentProgramUserRecords:
-        mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
-          (interest, index) => {
+        mockCommunityInterests[0].community.associatedDevelopmentPrograms
+          // leave every third program without a record to show "Missing information"
+          ?.filter((_, index) => index % 3 !== 2)
+          .map((developmentProgram, index) => {
+            const statuses = Object.values(
+              DevelopmentProgramParticipationStatus,
+            );
             return {
               __typename: "DevelopmentProgramUser" as const,
               id: index.toString(),
               developmentProgram: {
                 __typename: "DevelopmentProgram" as const,
-                id: interest.developmentProgram.id,
+                id: developmentProgram.id,
               },
-              participationStatus: interest.participationStatus,
-              completionDate: interest.completionDate,
+              participationStatus: statuses[index % statuses.length],
+              completionDate: FAR_PAST_DATE,
             };
-          },
-        ) ?? [],
+          }) ?? [],
     },
   },
   CommunityInterest_Fragment,

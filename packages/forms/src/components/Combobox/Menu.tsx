@@ -1,21 +1,21 @@
-import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
-import { motion, useReducedMotion } from "motion/react";
 import omit from "lodash/omit";
+import { motion, useReducedMotion } from "motion/react";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
   LiHTMLAttributes,
 } from "react";
 import { forwardRef } from "react";
+import { useIntl } from "react-intl";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import type { HTMLSpanProps } from "./types";
 import { inputStyles } from "../../styles";
+import type { HTMLSpanProps } from "./types";
 
 const wrapper = tv({
   extend: inputStyles,

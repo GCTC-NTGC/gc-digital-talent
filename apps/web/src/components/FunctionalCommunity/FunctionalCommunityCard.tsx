@@ -1,11 +1,12 @@
-import { useIntl } from "react-intl";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useState, type ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   DropdownMenu,
@@ -15,7 +16,6 @@ import {
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 

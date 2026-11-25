@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Separator } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Separator } from "@gc-digital-talent/ui";
 
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
 const GoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment GoalsWorkStyle on EmployeeProfile {

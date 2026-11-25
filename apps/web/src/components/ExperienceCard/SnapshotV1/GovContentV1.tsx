@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Separator, type HeadingRank } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";

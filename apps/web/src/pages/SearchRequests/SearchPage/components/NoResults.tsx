@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { Button, Card, Heading, Separator } from "@gc-digital-talent/ui";
 

@@ -3,8 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { IntlProvider } from "react-intl";
 import { createMemoryRouter, RouterProvider } from "react-router";
 import { Provider as GraphqlProvider } from "urql";
-import { delay, fromValue, pipe } from "wonka";
 import { vi } from "vitest";
+import { delay, fromValue, pipe } from "wonka";
 
 import {
   fakeClassifications,

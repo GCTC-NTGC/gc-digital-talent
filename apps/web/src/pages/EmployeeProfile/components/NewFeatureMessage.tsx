@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { ComponentProps } from "react";
+import { useIntl } from "react-intl";
 
 import { Notice } from "@gc-digital-talent/ui";
 

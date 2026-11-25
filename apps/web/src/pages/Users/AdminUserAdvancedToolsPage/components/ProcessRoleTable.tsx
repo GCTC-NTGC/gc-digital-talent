@@ -1,22 +1,22 @@
-import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import { groupBy, unpackMaybes, sortAlphaBy } from "@gc-digital-talent/helpers";
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
+import useRoutes from "~/hooks/useRoutes";
 
-import AddProcessRoleDialog from "./AddProcessRoleDialog";
 import type { PoolAssignment, RoleTableProps } from "../utils";
 import { getRoleTableFragments, isPoolTeamable, roleCell } from "../utils";
-import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
+import AddProcessRoleDialog from "./AddProcessRoleDialog";
 import EditProcessRoleDialog from "./EditProcessRoleDialog";
+import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 
 const columnHelper = createColumnHelper<PoolAssignment>();
 

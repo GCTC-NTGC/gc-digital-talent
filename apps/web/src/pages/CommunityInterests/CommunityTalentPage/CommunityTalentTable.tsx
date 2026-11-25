@@ -1,49 +1,49 @@
-import { useMemo, useRef, useState } from "react";
 import type {
   ColumnDef,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import isEqual from "lodash/isEqual";
+import { useMemo, useRef, useState } from "react";
+import type { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import type { SubmitHandler } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getEmploymentDuration,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 
-import Table, {
-  getTableStateFromSearchParams,
-} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
+import accessors from "~/components/Table/accessors";
+import cells from "~/components/Table/cells";
 import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import { getFullNameLabel } from "~/utils/nameUtils";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
+import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import useRoutes from "~/hooks/useRoutes";
-import cells from "~/components/Table/cells";
+import useSelectedRows from "~/hooks/useSelectedRows";
+import useUserDownloads from "~/hooks/useUserDownloads";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import type { SearchState } from "~/components/Table/ResponsiveTable/types";
-import useUserDownloads from "~/hooks/useUserDownloads";
-import useSelectedRows from "~/hooks/useSelectedRows";
-import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
-import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import talentNominationMessages from "~/messages/talentNominationMessages";
-import { positionDurationToEmploymentDuration } from "~/utils/talentRequestUtils";
 import profileMessages from "~/messages/profileMessages";
-import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
-import accessors from "~/components/Table/accessors";
+import talentNominationMessages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { positionDurationToEmploymentDuration } from "~/utils/talentRequestUtils";
 
 import type { FormValues } from "./components/CommunityTalentFilterDialog";
 import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
