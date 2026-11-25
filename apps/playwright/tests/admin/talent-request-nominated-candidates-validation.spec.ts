@@ -33,22 +33,15 @@ import {
 
 import { test, expect } from "~/fixtures";
 import TalentRequest from "~/fixtures/TalentRequest";
-import type { GraphQLContext } from "~/utils/graphql";
-import graphql from "~/utils/graphql";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { getClassifications } from "~/utils/classification";
-import { getWorkStreams } from "~/utils/workStreams";
 import { createCommunityInterest, getMyCommunity } from "~/utils/communities";
 import { getDepartments } from "~/utils/departments";
 import { defaultWorkExperience } from "~/utils/experiences";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { getSkills } from "~/utils/skills";
-import {
-  createTalentRequest,
-  getTalentRequestSources,
-  setTalentRequestStatus,
-} from "~/utils/talentRequests";
 import {
   createTalentNomination,
   createTalentNominationEvent,
@@ -58,6 +51,13 @@ import {
   updateTalentNomination,
   updateTalentNominationGroup,
 } from "~/utils/talentNominations";
+import {
+  createTalentRequest,
+  getTalentRequestSources,
+  setTalentRequestStatus,
+} from "~/utils/talentRequests";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe(
   "Nominated candidates in Find matching candidates table",

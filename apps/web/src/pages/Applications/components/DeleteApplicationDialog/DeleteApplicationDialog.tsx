@@ -3,14 +3,14 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

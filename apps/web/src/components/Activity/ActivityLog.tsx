@@ -1,6 +1,6 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 import { useId } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import type { HeadingRank } from "@gc-digital-talent/ui";

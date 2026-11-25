@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
-import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { Input, Submit } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
 import EmailVerification, {

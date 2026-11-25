@@ -1,12 +1,14 @@
 import { useFormContext } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 
+import { DateInput, Select } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   PlacementType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -14,11 +16,9 @@ import {
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { DateInput, Select } from "@gc-digital-talent/forms";
 
-import type { FormValues } from "../types";
 import { hasPlacedStartDate } from "../../utils";
+import type { FormValues } from "../types";
 
 const placedStartDateLabel = defineMessage({
   defaultMessage: "Placed position start date",

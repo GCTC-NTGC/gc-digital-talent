@@ -1,16 +1,9 @@
-import { useIntl } from "react-intl";
-import { useState } from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import type { StatusButtonProps } from "@gc-digital-talent/ui";
-import {
-  Dialog,
-  Pending,
-  ThrowNotFound,
-  StatusButton,
-} from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   UpdateTalentNominationGroupInput,
@@ -20,13 +13,20 @@ import {
   graphql,
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Pending,
+  ThrowNotFound,
+  StatusButton,
+} from "@gc-digital-talent/ui";
 
-import { dialogMessages, formMessages } from "./messages";
+import NominationGroupEvaluationForm from "./components/NominationGroupEvaluationForm";
 import type { FormValues } from "./form";
 import { convertFormValuesToMutationInput } from "./form";
-import NominationGroupEvaluationForm from "./components/NominationGroupEvaluationForm";
+import { dialogMessages, formMessages } from "./messages";
 
 const NominationGroupEvaluationDialog_Fragment = graphql(/** GraphQL */ `
   fragment NominationGroupEvaluationDialog on TalentNominationGroup {

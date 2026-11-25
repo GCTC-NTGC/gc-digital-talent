@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef } from "react";
+import { useIntl } from "react-intl";
 import type { Client } from "urql";
 import { Provider } from "urql";
-import { useIntl } from "react-intl";
 
 import type { AuthenticationState } from "@gc-digital-talent/auth";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
-import { isTokenProbablyExpired } from "../../utils/isTokenProbablyExpired";
 import { getClient } from "../../utils/getClient";
+import { isTokenProbablyExpired } from "../../utils/isTokenProbablyExpired";
 
 const ClientProvider = ({
   client,

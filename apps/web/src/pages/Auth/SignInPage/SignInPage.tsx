@@ -1,32 +1,32 @@
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
+import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
-import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
 import { appInsights } from "@gc-digital-talent/app-insights";
-import { Accordion, Container, Heading, Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Accordion, Container, Heading, Link } from "@gc-digital-talent/ui";
 
+import canadaLoginStep3Dark from "~/assets/img/canada_login_banner_dark.webp";
+import canadaLoginStep3 from "~/assets/img/canada_login_banner_light.webp";
+import canadaLoginStep3MobileDark from "~/assets/img/canada_login_banner_mobile_dark.webp";
+import canadaLoginStep3Mobile from "~/assets/img/canada_login_banner_mobile_light.webp";
+import canadaLoginStep1ImageDark from "~/assets/img/sign-in-step-1-dark.webp";
+import canadaLoginStep1Image from "~/assets/img/sign-in-step-1-light.webp";
+import canadaLoginStep1bImageDark from "~/assets/img/sign-in-step-1b-dark.webp";
+import canadaLoginStep1bImage from "~/assets/img/sign-in-step-1b-light.webp";
+import canadaLoginStep1cImageDark from "~/assets/img/sign-in-step-1c-dark.webp";
+import canadaLoginStep1cImage from "~/assets/img/sign-in-step-1c-light.webp";
 import Hero from "~/components/Hero";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import InstructionsStepCard, {
   InstructionsCardGrid,
 } from "~/components/Instructions/RegisterInstructionStep";
-import canadaLoginStep3 from "~/assets/img/canada_login_banner_light.webp";
-import canadaLoginStep3Dark from "~/assets/img/canada_login_banner_dark.webp";
-import canadaLoginStep3Mobile from "~/assets/img/canada_login_banner_mobile_light.webp";
-import canadaLoginStep3MobileDark from "~/assets/img/canada_login_banner_mobile_dark.webp";
-import canadaLoginStep1Image from "~/assets/img/sign-in-step-1-light.webp";
-import canadaLoginStep1ImageDark from "~/assets/img/sign-in-step-1-dark.webp";
-import canadaLoginStep1bImage from "~/assets/img/sign-in-step-1b-light.webp";
-import canadaLoginStep1cImage from "~/assets/img/sign-in-step-1c-light.webp";
-import canadaLoginStep1bImageDark from "~/assets/img/sign-in-step-1b-dark.webp";
-import canadaLoginStep1cImageDark from "~/assets/img/sign-in-step-1c-dark.webp";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 import canadaLoginMessages from "~/messages/canadaLoginMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (

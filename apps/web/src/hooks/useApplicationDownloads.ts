@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import useAsyncFileDownload from "./useAsyncFileDownload";
 

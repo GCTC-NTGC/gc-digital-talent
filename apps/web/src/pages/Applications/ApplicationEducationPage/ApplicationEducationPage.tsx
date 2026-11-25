@@ -2,23 +2,31 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
+import { RadioGroup } from "@gc-digital-talent/forms";
+import {
+  ApplicationStep,
+  EducationRequirementOption,
+} from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Button,
   Heading,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  ApplicationStep,
-  EducationRequirementOption,
-} from "@gc-digital-talent/graphql";
-import { getLogger } from "@gc-digital-talent/logger";
 
+import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
+import type { ExperienceForDate } from "~/types/experience";
+import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import {
   isEducationExperience,
   isAwardExperience,
@@ -26,21 +34,13 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
-import type { ExperienceForDate } from "~/types/experience";
-import { getEducationRequirementOptions } from "~/utils/educationUtils";
-import type { ClassificationGroup } from "~/types/classificationGroup";
-import { isClassificationGroup } from "~/types/classificationGroup";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import processMessages from "~/messages/processMessages";
 
-import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import LinkCareerTimeline from "./LinkCareerTimeline";
-import useApplication from "../useApplication";
 import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
+import useApplication from "../useApplication";
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };

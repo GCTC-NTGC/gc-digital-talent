@@ -1,27 +1,27 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
+import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
-import type { SectionProps } from "~/components/Profile/types";
-import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
-import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
+import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
+import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
+import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import type { SectionProps } from "~/components/Profile/types";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import useRoutes from "~/hooks/useRoutes";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 
-import StepNavigation from "./components/StepNavigation";
 import type { ApplicationPageProps } from "../ApplicationApi";
-import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
+import stepHasError from "../profileStep/profileStepValidation";
 import useApplication from "../useApplication";
+import StepNavigation from "./components/StepNavigation";
 
 const Application_UpdateProfileMutation = graphql(/* GraphQL */ `
   mutation Application_UpdateProfile($id: ID!, $user: UpdateUserAsUserInput!) {

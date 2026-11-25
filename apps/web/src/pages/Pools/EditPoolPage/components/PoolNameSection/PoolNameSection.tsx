@@ -1,19 +1,11 @@
+import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import type { JSX } from "react";
 import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
 
-import { Button, Notice, ToggleSection, Ul } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  uiMessages,
-  sortOpportunityLength,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
@@ -33,22 +25,30 @@ import {
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  formMessages,
+  uiMessages,
+  sortOpportunityLength,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { Button, Notice, ToggleSection, Ul } from "@gc-digital-talent/ui";
 
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 import {
   isInNullState,
   hasEmptyRequiredFields,
 } from "~/validators/process/classification";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import processMessages from "~/messages/processMessages";
 
+import type { SectionProps } from "../../types";
+import ActionWrapper from "../ActionWrapper";
 import { useEditPoolContext } from "../EditPoolContext";
+import CitizensNote from "./CitizensNote";
 import Display from "./Display";
 import type { FormValues, PoolNameSubmitData } from "./utils";
 import { formValuesToSubmitData } from "./utils";
-import type { SectionProps } from "../../types";
-import ActionWrapper from "../ActionWrapper";
-import CitizensNote from "./CitizensNote";
 
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {

@@ -1,7 +1,11 @@
-import { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react-vite";
+import { useState } from "react";
 import { action } from "storybook/actions";
 
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 import {
   fakeClassifications,
   fakePools,
@@ -9,10 +13,6 @@ import {
   fakeSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { ViewPoolProps } from "./ViewPoolPage";

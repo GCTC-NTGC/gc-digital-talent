@@ -5,8 +5,8 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
-import type { ContentProps } from "../types";
 import type { EducationContentExperience } from "../EducationContent";
+import type { ContentProps } from "../types";
 
 const EducationContentV1 = ({
   experience: { areaOfStudy, status, thesisTitle },

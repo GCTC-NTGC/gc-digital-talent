@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import {
+  fakeClassifications,
+  fakeDepartments,
+} from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
   TalentNominationGroupDecision,
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
-import {
-  fakeClassifications,
-  fakeDepartments,
-} from "@gc-digital-talent/fake-data";
 
 import NominationGroupSidebar, {
   NominationGroupSidebar_Fragment,

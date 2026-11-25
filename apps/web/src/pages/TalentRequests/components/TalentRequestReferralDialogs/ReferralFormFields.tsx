@@ -1,6 +1,7 @@
-import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { Select } from "@gc-digital-talent/forms";
 import {
   type FragmentType,
   TalentRequestTrackedUserReferralDecision,
@@ -10,14 +11,13 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   narrowEnumType,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Select } from "@gc-digital-talent/forms";
 import { Notice } from "@gc-digital-talent/ui";
 
 export const TalentRequestReferralDialogOptions_Fragment = graphql(

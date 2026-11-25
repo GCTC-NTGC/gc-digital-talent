@@ -11,9 +11,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import labels from "../../labels";
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
-import labels from "../../labels";
 
 const NominatorReview_Fragment = graphql(/* GraphQL */ `
   fragment NominatorReview on TalentNomination {

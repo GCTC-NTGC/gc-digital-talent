@@ -1,20 +1,20 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useIntl } from "react-intl";
 import { useOutletContext } from "react-router";
+import { useQuery } from "urql";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import Hero from "~/components/Hero";
-import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";

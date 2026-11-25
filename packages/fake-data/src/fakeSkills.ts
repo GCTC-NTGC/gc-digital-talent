@@ -4,9 +4,9 @@ import { UniqueEnforcer } from "enforce-unique";
 import type { SkillFamily } from "@gc-digital-talent/graphql/schema-types";
 import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
 
+import toLocalizedEnum from "./fakeLocalizedEnum";
 import toLocalizedString from "./fakeLocalizedString";
 import staticSkills from "./skills.json" with { type: "json" };
-import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateSkill = (
   skillFamilies: SkillFamily[],

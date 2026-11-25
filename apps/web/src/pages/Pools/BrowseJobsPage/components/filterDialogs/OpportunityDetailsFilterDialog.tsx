@@ -8,16 +8,16 @@ import {
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import {
-  commonMessages,
-  ENUM_SORT_ORDER,
-  narrowEnumType,
-} from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  narrowEnumType,
+} from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
 

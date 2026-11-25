@@ -5,9 +5,9 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Heading, Ul } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 

@@ -187,12 +187,6 @@ class TalentNomination extends Model
             ->withTrashed('community_development_program.deleted_at');
     }
 
-    /** @return BelongsToMany<DevelopmentProgram, $this> */
-    public function developmentPrograms(): BelongsToMany
-    {
-        return $this->belongsToMany(DevelopmentProgram::class, 'development_program_talent_nomination');
-    }
-
     /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {

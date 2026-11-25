@@ -1,7 +1,7 @@
-import { useQuery } from "urql";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useState, type ComponentProps } from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import {
@@ -13,19 +13,19 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import BasicInformation from "~/components/BasicInformation/BasicInformation";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import CommunitySpecificInfo from "~/components/CommunitySpecificInfo/CommunitySpecificInfo";
-import TalentManagementPreferences from "~/components/TalentManagementPreferences/TalentManagementPreferences";
-import NextRoleAndCareerObjective from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 import GoalsAndWorkStyle from "~/components/GoalsAndWorkStyle/GoalsAndWorkStyle";
+import NextRoleAndCareerObjective from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 import RecruitmentProcesses from "~/components/RecruitmentProcesses/RecruitmentProcesses";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import TalentManagementPreferences from "~/components/TalentManagementPreferences/TalentManagementPreferences";
 import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
+import ErrorNotice from "./components/ErrorNotice";
 import type { RouteParams } from "./types";
 import { SECTION_KEY } from "./types";
-import ErrorNotice from "./components/ErrorNotice";
 
 const Nominee_Query = graphql(/* GraphQL */ `
   query Nominee($nomineeId: UUID!) {

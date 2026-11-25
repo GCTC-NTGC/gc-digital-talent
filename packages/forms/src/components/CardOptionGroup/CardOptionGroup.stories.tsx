@@ -1,7 +1,7 @@
+import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
+import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
 import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
-import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

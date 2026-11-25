@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
+import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
+import type { Option } from "@gc-digital-talent/forms";
+import { Select } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type { Option } from "@gc-digital-talent/forms";
-import { Select } from "@gc-digital-talent/forms";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
-import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import type { ProcessDialogProps } from "./types";
 

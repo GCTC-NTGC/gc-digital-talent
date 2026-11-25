@@ -1,3 +1,9 @@
+import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
+import {
+  PositionDuration,
+  FlexibleWorkLocation,
+  TalentRequestSource,
+} from "@gc-digital-talent/graphql";
 import {
   unpackMaybes,
   empty,
@@ -5,12 +11,6 @@ import {
   emptyToNull,
 } from "@gc-digital-talent/helpers";
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
-import {
-  PositionDuration,
-  FlexibleWorkLocation,
-  TalentRequestSource,
-} from "@gc-digital-talent/graphql";
 
 import type {
   FormValues,

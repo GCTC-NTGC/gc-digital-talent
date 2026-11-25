@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
-import type { JSX } from "react";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
+import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationChartLineIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
+import type { JSX } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 const iconStyles = tv({

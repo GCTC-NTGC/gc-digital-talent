@@ -1,18 +1,18 @@
-import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import { useIntl } from "react-intl";
 
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { PreviewList } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
-import useRoutes from "~/hooks/useRoutes";
-import { useMetaDataTalentNominationChip } from "~/hooks/useMetaDataTalentNominationChip";
 import { NominationMetaDataDate } from "~/components/NominationMetaDataDate/NominationMetaDataDate";
 import ReviewTalentNominationDialog from "~/components/ReviewTalentNominationDialog/ReviewTalentNominationDialog";
+import { useMetaDataTalentNominationChip } from "~/hooks/useMetaDataTalentNominationChip";
+import useRoutes from "~/hooks/useRoutes";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {

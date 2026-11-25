@@ -1,7 +1,16 @@
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Card,
   Container,
@@ -11,23 +20,14 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
-import SEO from "~/components/SEO/SEO";
+import DataRow from "~/components/DataRow/DataRow";
 import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
-import DataRow from "~/components/DataRow/DataRow";
 
 import formLabels from "./formLabels";
 

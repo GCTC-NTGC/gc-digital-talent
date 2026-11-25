@@ -2,7 +2,6 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Button, Heading, Notice, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   LanguageAbility,
@@ -17,11 +16,12 @@ import {
 } from "@gc-digital-talent/graphql";
 import { isEnumValue, isUUID, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Heading, Notice, Pending } from "@gc-digital-talent/ui";
 
 import browseJobsMessages from "./browseJobsMessages";
-import ResultsBar from "./components/ResultsBar/ResultsBar";
 import FilterBar from "./components/FilterBar/FilterBar";
 import OpportunityResults from "./components/OpportunityResults/OpportunityResults";
+import ResultsBar from "./components/ResultsBar/ResultsBar";
 import useBrowseJobsSearchParams from "./useBrowseJobsSearchParams";
 
 // features in progress

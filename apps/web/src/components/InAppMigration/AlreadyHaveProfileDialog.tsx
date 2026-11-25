@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 
 const AlreadyHaveProfileDialog = () => {
   const intl = useIntl();

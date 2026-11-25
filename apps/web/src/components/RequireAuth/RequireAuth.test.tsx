@@ -1,13 +1,13 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
 import { waitFor, screen } from "@testing-library/react";
 import type * as ReactRouter from "react-router";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
-import { UnauthorizedError } from "@gc-digital-talent/helpers";
 // eslint-disable-next-line import/no-duplicates
 import type { RoleName, RoleRequirement } from "@gc-digital-talent/auth";
 // eslint-disable-next-line import/no-duplicates
 import type * as GcdtAuth from "@gc-digital-talent/auth";
+import { UnauthorizedError } from "@gc-digital-talent/helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import RequireAuth from "./RequireAuth";
 

@@ -1,7 +1,19 @@
-import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   NotFound,
@@ -10,23 +22,16 @@ import {
   Chip,
   Container,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  DATE_FORMAT_STRING,
-  TZ_VANCOUVER,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
+import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import usePoolMutations from "~/hooks/usePoolMutations";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 import {
   getAdvertisementStatus,
   getShortPoolTitleHtml,
@@ -34,21 +39,16 @@ import {
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
-import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
-import messages from "~/messages/adminMessages";
-import processMessages from "~/messages/processMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
-import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
+import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
+import ChangeDateDialog from "./components/ChangeDateDialog";
+import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import type { DuplicatePoolDepartment_Fragment } from "./components/DuplicateProcessDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
-import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
-import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
-import DeleteProcessDialog from "./components/DeleteProcessDialog";
-import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
+import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
+import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 
 export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {

@@ -1,18 +1,17 @@
-import type { IntlShape } from "react-intl";
-import { useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import type { ReactNode } from "react";
-import { parseISO } from "date-fns/parseISO";
 import { differenceInMonths } from "date-fns/differenceInMonths";
 import { isPast } from "date-fns/isPast";
+import { parseISO } from "date-fns/parseISO";
+import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { IconType } from "@gc-digital-talent/ui";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import type {
   AwardedScope,
   AwardedTo,
@@ -36,18 +35,19 @@ import {
   GovEmployeeType,
   GovPositionType,
 } from "@gc-digital-talent/graphql";
-import type {
-  GenericLocalizedEnum,
-  LocalizedEnumValue,
-} from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   nodeToString,
   uniqueItems,
   unpackMaybes,
   empty,
 } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type {
+  GenericLocalizedEnum,
+  LocalizedEnumValue,
+} from "@gc-digital-talent/i18n";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import type { IconType } from "@gc-digital-talent/ui";
 
 import type {
   AllExperienceFormValues,
@@ -59,9 +59,9 @@ import type {
   FormSkills,
 } from "~/types/experience";
 
-import { formattedDate, getDateRange } from "./dateUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
+import { formattedDate, getDateRange } from "./dateUtils";
 
 /**
  * Gets all of the experience form labels

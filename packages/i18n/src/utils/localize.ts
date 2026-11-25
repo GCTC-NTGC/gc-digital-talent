@@ -4,8 +4,8 @@ import type { IntlShape } from "react-intl";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-import type { Locales } from "../types";
 import { commonMessages } from "../messages";
+import type { Locales } from "../types";
 
 export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";

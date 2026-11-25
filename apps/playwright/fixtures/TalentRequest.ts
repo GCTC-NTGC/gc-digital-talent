@@ -7,13 +7,6 @@ import type {
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
-import type {
-  Classification,
-  LocalizedTalentRequestSource,
-  User,
-  WorkStream,
-} from "@gc-digital-talent/graphql/schema-types";
-import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 import {
   TalentRequestReason,
   TalentRequestStatus,
@@ -21,6 +14,13 @@ import {
   TalentRequestTrackedUserSelectionDecision,
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
+import type {
+  Classification,
+  LocalizedTalentRequestSource,
+  User,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
+import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 import {

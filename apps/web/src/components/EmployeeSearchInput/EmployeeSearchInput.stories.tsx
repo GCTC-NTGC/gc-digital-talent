@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { within, userEvent } from "storybook/test";
 import { CombinedError } from "urql";
 
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import type { EmployeeSearchInputProps } from "./EmployeeSearchInput";
 import EmployeeSearchInput from "./EmployeeSearchInput";

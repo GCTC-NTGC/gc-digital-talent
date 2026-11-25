@@ -1,12 +1,12 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import type { RootProps } from "./Root";
-import Ul from "../List/Ul";
 import Button from "../Button";
 import Link from "../Link";
+import Ul from "../List/Ul";
+import type { RootProps } from "./Root";
 
 import ResourceBlock from "./";
 

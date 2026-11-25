@@ -1,9 +1,9 @@
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import type { ProcessDialogProps } from "./types";
 

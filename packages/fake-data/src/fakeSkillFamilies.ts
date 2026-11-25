@@ -6,8 +6,8 @@ import type {
   Skill,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import staticSkillFamilies from "./skillFamilies.json" with { type: "json" };
 import toLocalizedString from "./fakeLocalizedString";
+import staticSkillFamilies from "./skillFamilies.json" with { type: "json" };
 
 export const getStaticSkillFamilies = (): SkillFamily[] =>
   staticSkillFamilies.data.skillFamilies as SkillFamily[];

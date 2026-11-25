@@ -1,7 +1,7 @@
+import isEqual from "lodash/isEqual";
+import type { CombinedError } from "urql";
 /* eslint-disable camelcase */
 import { vi } from "vitest";
-import type { CombinedError } from "urql";
-import isEqual from "lodash/isEqual";
 
 import { extractErrorMessages } from "../../utils/errors";
 import { exportedForTesting } from "./ClientProvider";

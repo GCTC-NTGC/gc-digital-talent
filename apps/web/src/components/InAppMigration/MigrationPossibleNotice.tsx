@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
+import { useAuthentication } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { useAuthentication } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
-import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
 import type { MigrationNoticeProps } from "./migrationNoticeProps";
+import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
 
 const MigrateMyAccount_Mutation = graphql(/* GraphQL */ `
   mutation MigrateMyAccount {

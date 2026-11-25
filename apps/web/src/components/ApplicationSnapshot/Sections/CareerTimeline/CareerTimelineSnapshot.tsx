@@ -1,33 +1,33 @@
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Button, Heading, Notice } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import type {
   ExperienceCardFragment,
   ExperienceListCardFragment,
 } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Button, Heading, Notice } from "@gc-digital-talent/ui";
 
-import ExperienceCardV1 from "~/components/ExperienceCard/SnapshotV1/ExperienceCardV1";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
+import ExperienceCardV1 from "~/components/ExperienceCard/SnapshotV1/ExperienceCardV1";
+import ExperienceListCard, {
+  ExperienceListCard_Fragment,
+} from "~/components/ExperienceListCard/ExperienceListCard";
+import ExperienceListSortSelector, {
+  type SortValue,
+} from "~/components/ExperienceListCard/ExperienceListSortSelector";
 import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import experienceMessages from "~/messages/experienceMessages";
 import type { SnapshotExperience } from "~/utils/experienceUtils";
-import ExperienceListSortSelector, {
-  type SortValue,
-} from "~/components/ExperienceListCard/ExperienceListSortSelector";
-import ExperienceListCard, {
-  ExperienceListCard_Fragment,
-} from "~/components/ExperienceListCard/ExperienceListCard";
 
 interface CareerTimelineSnapshotProps {
   experiences: SnapshotExperience[];

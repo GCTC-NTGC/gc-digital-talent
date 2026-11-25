@@ -9,7 +9,6 @@ import {
   getStaticSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   CafEmploymentType,
   CafForce,
@@ -24,6 +23,7 @@ import {
   GovPositionType,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import { ExperienceFormSkill_Fragment } from "./ExperienceFormPage";
 import WorkExperienceForm, {

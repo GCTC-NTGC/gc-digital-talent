@@ -4,16 +4,16 @@ import { Outlet } from "react-router";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
 
-import SEO, { Favicon } from "~/components/SEO/SEO";
-import Header from "~/components/Header/Header";
 import Footer from "~/components/Footer/Footer";
+import Header from "~/components/Header/Header";
+import SEO, { Favicon } from "~/components/SEO/SEO";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
-import SitewideBanner from "./SitewideBanner";
-import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import type { Project } from "../SEO/Favicon";
+import SitewideBanner from "./SitewideBanner";
+import SkipLink from "./SkipLink";
 
 interface LayoutProps {
   project: Project;

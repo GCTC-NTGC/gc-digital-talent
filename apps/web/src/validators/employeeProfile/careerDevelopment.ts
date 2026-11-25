@@ -20,10 +20,12 @@ interface RequiredFields {
 interface AllFields extends RequiredFields {
   lateralMoveTimeFrame?: LocalizedEnumValue<TimeFrame> | null;
   lateralMoveOrganizationType?:
-    LocalizedEnumValue<OrganizationTypeInterest>[] | null;
+    | LocalizedEnumValue<OrganizationTypeInterest>[]
+    | null;
   promotionMoveTimeFrame?: LocalizedEnumValue<TimeFrame> | null;
   promotionMoveOrganizationType?:
-    LocalizedEnumValue<OrganizationTypeInterest>[] | null;
+    | LocalizedEnumValue<OrganizationTypeInterest>[]
+    | null;
   mentorshipInterest?: LocalizedEnumValue<Mentorship>[] | null;
   execCoachingInterest?: LocalizedEnumValue<ExecCoaching>[] | null;
 }

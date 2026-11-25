@@ -1,14 +1,14 @@
-import { useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
+import { useFormContext } from "react-hook-form";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 import type { IconType } from "@gc-digital-talent/ui";
 
-import Field from "../Field";
-import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import Field from "../Field";
 
 const cardOption = tv({
   slots: {

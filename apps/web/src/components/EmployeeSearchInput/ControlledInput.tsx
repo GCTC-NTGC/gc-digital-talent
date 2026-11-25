@@ -1,3 +1,5 @@
+import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import type { ChangeEventHandler, KeyboardEvent, MouseEvent } from "react";
 import { useId, useRef, useState } from "react";
 import type {
@@ -5,12 +7,10 @@ import type {
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 import type { CombinedError } from "urql";
 import { useClient } from "urql";
-import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
-import { useIntl } from "react-intl";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { tv } from "tailwind-variants";
 
 import type { FieldState } from "@gc-digital-talent/forms";
 import {
@@ -20,19 +20,19 @@ import {
   inputStateStyles,
 } from "@gc-digital-talent/forms";
 import { graphql } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button } from "@gc-digital-talent/ui";
 
+import ErrorMessage from "./Error";
 import type { SearchMessageCases } from "./Result";
 import Result from "./Result";
-import ErrorMessage from "./Error";
-import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
 import type {
   EmployeeSearchResult,
   ErrorMessages,
   ErrorSeverities,
 } from "./types";
+import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
 
 const wrapper = tv({
   extend: inputStateStyles,

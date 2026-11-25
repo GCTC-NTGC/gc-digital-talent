@@ -1,6 +1,6 @@
-import { TreeView } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { TreeView } from "@gc-digital-talent/ui";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 

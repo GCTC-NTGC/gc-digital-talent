@@ -1,14 +1,14 @@
+import { useIntl } from "react-intl";
 import type { Params } from "react-router";
 import { useParams } from "react-router";
-import { useIntl } from "react-intl";
 
+import { isUUID, notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   defaultLogger,
   type Logger,
   getLogger,
 } from "@gc-digital-talent/logger";
-import { isUUID, notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
 

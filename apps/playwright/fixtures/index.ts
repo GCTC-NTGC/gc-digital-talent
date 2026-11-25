@@ -1,5 +1,5 @@
-import { test as base } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { test as base } from "@playwright/test";
 import { CoverageReport } from "monocart-coverage-reports";
 
 import AppPage from "./AppPage";

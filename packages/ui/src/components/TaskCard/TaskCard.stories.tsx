@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

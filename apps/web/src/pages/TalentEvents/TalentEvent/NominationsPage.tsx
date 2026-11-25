@@ -1,17 +1,17 @@
-import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 import EnvelopeOpenIcon from "@heroicons/react/24/outline/EnvelopeOpenIcon";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import messages from "~/messages/talentNominationMessages";
-import permissionConstants from "~/constants/permissionConstants";
 
-import type { RouteParams } from "./types";
 import TalentEventNominationsTable from "./TalentEventNominationsTable";
+import type { RouteParams } from "./types";
 
 const TalentEventNominations_Query = graphql(/* GraphQL */ `
   query TalentEventNominations($talentEventId: UUID!) {

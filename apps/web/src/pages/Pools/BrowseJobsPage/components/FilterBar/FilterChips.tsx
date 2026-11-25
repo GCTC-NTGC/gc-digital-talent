@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Chip, Chips, wrapQuotes } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Chip, Chips, wrapQuotes } from "@gc-digital-talent/ui";
 
 interface Props {
   filters: {

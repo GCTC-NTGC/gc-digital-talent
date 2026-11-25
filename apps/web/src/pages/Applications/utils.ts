@@ -5,7 +5,6 @@ import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graph
 import type useRoutes from "~/hooks/useRoutes";
 import type { ApplicationStepInfo } from "~/types/applicationStep";
 
-import welcomeStepInfo from "./welcomeStep/welcomeStepInfo";
 import careerTimelineStepInfo from "./careerTimelineStep/careerTimelineStepInfo";
 import educationStepInfo from "./educationStep/educationStepInfo";
 import profileStepInfo from "./profileStep/profileStepInfo";
@@ -13,6 +12,7 @@ import questionsStepInfo from "./questionsStep/questionsStepInfo";
 import reviewStepInfo from "./reviewStep/reviewStepInfo";
 import skillsStepInfo from "./skillsStep/skillsStepInfo";
 import successPageInfo from "./successStep/successStepInfo";
+import welcomeStepInfo from "./welcomeStep/welcomeStepInfo";
 
 interface GetApplicationPagesArgs {
   paths: ReturnType<typeof useRoutes>;

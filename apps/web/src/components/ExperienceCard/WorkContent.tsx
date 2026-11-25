@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 
+import { EmploymentCategory } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EmploymentCategory } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
-import type { ExternalContentExperience } from "./WorkContent/ExternalContent";
-import ExternalContent from "./WorkContent/ExternalContent";
 import type { CafContentExperience } from "./WorkContent/CafContent";
 import CafContent from "./WorkContent/CafContent";
+import type { ExternalContentExperience } from "./WorkContent/ExternalContent";
+import ExternalContent from "./WorkContent/ExternalContent";
 import type { GovContentExperience } from "./WorkContent/GovContent";
 import GovContent from "./WorkContent/GovContent";
 import type { SupervisoryContentExperience } from "./WorkContent/SupervisoryContent";

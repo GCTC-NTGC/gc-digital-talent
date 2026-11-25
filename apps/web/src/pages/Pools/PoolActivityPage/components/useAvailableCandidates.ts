@@ -1,5 +1,5 @@
-import { useQuery } from "urql";
 import { useParams } from "react-router";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

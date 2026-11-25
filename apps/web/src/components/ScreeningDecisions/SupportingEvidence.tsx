@@ -15,10 +15,10 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import type { SnapshotExperience } from "~/utils/experienceUtils";
 
-import ExperienceCardV1 from "../ExperienceCard/SnapshotV1/ExperienceCardV1";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
+import ExperienceCardV1 from "../ExperienceCard/SnapshotV1/ExperienceCardV1";
 import type { DialogType } from "./utils";
 import { DIALOG_TYPE } from "./utils";
 

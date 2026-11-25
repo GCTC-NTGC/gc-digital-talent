@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import { Link } from "@gc-digital-talent/ui";

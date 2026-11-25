@@ -15,9 +15,9 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 import { TalentNominationEventStatus } from "@gc-digital-talent/graphql/schema-types";
 
-import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getMyCommunity } from "./communities";
 import { getCommunityDevelopmentProgramsForCommunity } from "./developmentPrograms";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const oldDate = new Date();
 const newDate = new Date();

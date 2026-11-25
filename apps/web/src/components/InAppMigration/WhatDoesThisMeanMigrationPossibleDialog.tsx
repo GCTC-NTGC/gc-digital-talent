@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
 interface WhatDoesThisMeanMigrationPossibleDialogProps {
   onLinkProfile: () => void;

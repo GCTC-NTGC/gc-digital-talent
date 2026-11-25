@@ -1,5 +1,5 @@
-import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import type { Option } from "@gc-digital-talent/forms";
 import type {

@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Container } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
-import Hero from "~/components/Hero";
 
 import PoolTableApi from "./components/PoolTable";
 

@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 import { useQuery, useMutation } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { SitewideAnnouncementInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { Container, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Container, Pending } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 

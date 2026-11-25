@@ -1,16 +1,16 @@
-import { useIntl } from "react-intl";
-import { useLocation } from "react-router";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 
+import { getLogger } from "@gc-digital-talent/logger";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Container, CTALink, Flourish, Heading } from "@gc-digital-talent/ui";
-import { getLogger } from "@gc-digital-talent/logger";
 
-import useRoutes from "~/hooks/useRoutes";
-import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
+import useErrorMessages from "~/hooks/useErrorMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 const RouteErrorBoundary = () => {
   const intl = useIntl();

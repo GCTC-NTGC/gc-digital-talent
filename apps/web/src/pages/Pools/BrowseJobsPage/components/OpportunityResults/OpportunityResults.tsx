@@ -1,9 +1,8 @@
+import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useClient } from "urql";
 
-import { Button, Ul } from "@gc-digital-talent/ui";
 import {
   graphql,
   type OpenOpportunitiesMoreResultsQuery,
@@ -13,6 +12,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, Ul } from "@gc-digital-talent/ui";
 
 import JobCard from "~/components/JobCard/JobCard";
 

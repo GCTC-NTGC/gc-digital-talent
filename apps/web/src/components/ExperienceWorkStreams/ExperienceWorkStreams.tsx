@@ -1,10 +1,13 @@
-import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Heading,
@@ -13,16 +16,13 @@ import {
   UNICODE_CHAR,
   Notice,
 } from "@gc-digital-talent/ui";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
-import pageTitles from "~/messages/pageTitles";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import pageTitles from "~/messages/pageTitles";
 import type { WorkFormValues } from "~/types/experience";
 
-import type { WorkStreamsWithCommunity } from "./types";
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
+import type { WorkStreamsWithCommunity } from "./types";
 
 const ExperienceWorkStreamsCommunity_Query = graphql(/* GraphQL */ `
   query ExperienceWorkStreamsCommunity {
@@ -198,9 +198,8 @@ const ExperienceWorkStreams = () => {
                         }
                         label={intl.formatMessage(
                           {
-                            defaultMessage:
-                              "Remove<hidden> {communityName}</hidden>",
-                            id: "uTf8vH",
+                            defaultMessage: "Remove {communityName}",
+                            id: "KFgKGg",
                             description:
                               "Title for to remove community from experience",
                           },

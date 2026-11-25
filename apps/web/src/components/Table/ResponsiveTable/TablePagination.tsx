@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { PaginationState, Table } from "@tanstack/react-table";
+import { useIntl } from "react-intl";
 
 import Pagination from "~/components/Pagination";
 

@@ -2,8 +2,8 @@ import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import { FormattedMessage } from "react-intl";
 
-import { defaultLogger } from "@gc-digital-talent/logger";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 interface ErrorBoundaryProps {
   children?: ReactNode;

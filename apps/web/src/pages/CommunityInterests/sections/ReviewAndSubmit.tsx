@@ -1,17 +1,17 @@
-import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
-import { useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Card, Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Card, Heading } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 

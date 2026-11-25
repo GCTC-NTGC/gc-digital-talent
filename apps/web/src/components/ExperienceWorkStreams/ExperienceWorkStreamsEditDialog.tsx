@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import { Checklist, Select } from "@gc-digital-talent/forms";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 import type { WorkFormValues } from "~/types/experience";

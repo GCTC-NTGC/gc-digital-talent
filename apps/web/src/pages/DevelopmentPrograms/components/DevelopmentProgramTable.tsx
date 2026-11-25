@@ -3,14 +3,14 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
 import type {
   DevelopmentProgramTableRowFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";

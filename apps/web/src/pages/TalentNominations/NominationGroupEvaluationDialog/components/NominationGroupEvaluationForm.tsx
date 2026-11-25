@@ -2,19 +2,19 @@ import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Separator, Ul } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Separator, Ul } from "@gc-digital-talent/ui";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import type { FormValues } from "../form";
 import { convertQueryDataToFormData } from "../form";
 import AdvancementSection from "./AdvancementSection";
-import LateralMovementSection from "./LateralMovementSection";
 import DevelopmentProgramsSection from "./DevelopmentProgramsSection";
+import LateralMovementSection from "./LateralMovementSection";
 
 const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupEvaluationForm on TalentNominationGroup {

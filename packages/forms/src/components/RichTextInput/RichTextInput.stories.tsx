@@ -1,16 +1,16 @@
-import { useState } from "react";
-import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn } from "@storybook/react-vite";
+import { useState } from "react";
+import { action } from "storybook/actions";
 
-import { Heading } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Heading } from "@gc-digital-talent/ui";
 
+import { htmlToRichTextJSON } from "../../utils";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import RichTextInput from "./RichTextInput";
 import RichTextRenderer from "./RichTextRenderer";
-import { htmlToRichTextJSON } from "../../utils";
 
 const defaultContent = `
 <p>Paragraph</p>

@@ -5,11 +5,11 @@ import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import Field from "../Field";
-import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
+import type { CommonInputProps, HTMLInputProps } from "../../types";
+import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const input = tv({

@@ -1,11 +1,11 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { useQuery } from "urql";
 import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
-import { Dialog, Pending } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
+import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -13,23 +13,23 @@ import {
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Dialog, Pending } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import type {
-  ApplicationStatusFormProps,
-  FormValues,
-  MutationMessages,
-} from "../types";
-import useApplicationStatusMutation from "./useApplicationStatusMutation";
+import Footer from "../Footer";
 import {
   DisqualifiedFields,
   QualifiedFields,
   RemovedFields,
 } from "../FormFields/StatusFields";
+import type {
+  ApplicationStatusFormProps,
+  FormValues,
+  MutationMessages,
+} from "../types";
 import { StatusChangeNotice } from "./StatusContent";
-import Footer from "../Footer";
+import useApplicationStatusMutation from "./useApplicationStatusMutation";
 
 const ApplicationStatusFormOptions_Query = graphql(/** GraphQL */ `
   query ApplicationStatusFormOptions {

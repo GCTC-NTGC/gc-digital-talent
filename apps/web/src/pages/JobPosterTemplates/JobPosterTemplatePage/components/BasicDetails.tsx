@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";

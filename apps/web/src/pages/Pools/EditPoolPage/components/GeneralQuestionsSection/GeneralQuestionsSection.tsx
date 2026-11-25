@@ -1,22 +1,22 @@
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useState, useMemo } from "react";
 import { useIntl } from "react-intl";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
-import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
 
 import type { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "../EditPoolContext";
+import GeneralQuestionCard from "./GeneralQuestionCard";
+import GeneralQuestionDialog from "./GeneralQuestionDialog";
 import type {
   GeneralQuestionsSubmit,
   GeneralQuestionsSubmitData,
 } from "./utils";
 import { questionToSubmitData } from "./utils";
-import GeneralQuestionCard from "./GeneralQuestionCard";
-import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
 const MAX_GENERAL_QUESTIONS = 10;
 

@@ -22,6 +22,8 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
 
+import fakeClassifications from "./fakeClassifications";
+import fakeDepartments from "./fakeDepartments";
 import type {
   GeneratedAwardExperience,
   GeneratedCommunityExperience,
@@ -29,10 +31,8 @@ import type {
   GeneratedPersonalExperience,
   GeneratedWorkExperience,
 } from "./fakeExperiences";
-import fakeClassifications from "./fakeClassifications";
-import fakeDepartments from "./fakeDepartments";
-import type { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import type { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 
 type GeneratedUser = User & {
   __typename: "User";

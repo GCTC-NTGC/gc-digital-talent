@@ -14,10 +14,10 @@ import {
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import fakeSkills from "./fakeSkills";
-import fakePools from "./fakePools";
-import fakeWorkStreams from "./fakeWorkStreams";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import fakePools from "./fakePools";
+import fakeSkills from "./fakeSkills";
+import fakeWorkStreams from "./fakeWorkStreams";
 
 const generateApplicantFilters = (
   operationalRequirements: OperationalRequirement[],

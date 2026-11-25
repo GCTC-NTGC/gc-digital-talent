@@ -4,19 +4,19 @@ import { useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import pageTitles from "~/messages/pageTitles";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import permissionConstants from "~/constants/permissionConstants";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import pageTitles from "~/messages/pageTitles";
 
 import type { RouteParams } from "./types";
 

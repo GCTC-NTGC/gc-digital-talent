@@ -1,20 +1,20 @@
-import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { defineMessage, useIntl } from "react-intl";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 
-import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
-import BottomHalfEmployeeWithEmail from "./components/BottomHalfEmployeeWithEmail";
 import BottomHalfEmployeeNoEmail from "./components/BottomHalfEmployeeNoEmail";
+import BottomHalfEmployeeWithEmail from "./components/BottomHalfEmployeeWithEmail";
+import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
 
 export const GETTING_STARTED_FORM_ID = "getting-started-form";
 

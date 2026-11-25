@@ -35,10 +35,10 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import type { CommonFilterDialogProps } from "../FilterDialog/FilterDialog";
 import FilterDialog from "../FilterDialog/FilterDialog";
-import type { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
-import tableMessages from "./tableMessages";
 import { candidateSuspendedFilterToCustomOptions } from "./helpers";
+import tableMessages from "./tableMessages";
+import type { FormValues } from "./types";
 
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
@@ -206,7 +206,8 @@ export type PoolCandidateFilterDialogProps =
     hidePoolFilter?: boolean;
     query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
     availableSteps?:
-      FragmentType<typeof PoolCandidateFilterDialog_StepFragment>[] | null;
+      | FragmentType<typeof PoolCandidateFilterDialog_StepFragment>[]
+      | null;
   };
 
 const PoolCandidateFilterDialog = ({

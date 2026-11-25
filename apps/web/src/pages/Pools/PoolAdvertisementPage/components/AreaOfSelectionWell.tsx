@@ -1,6 +1,6 @@
+import type { JSX, ReactNode } from "react";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import type { JSX, ReactNode } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -9,7 +9,6 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
@@ -17,6 +16,7 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 const pseaUrl: Record<Locales, string> = {
   en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",

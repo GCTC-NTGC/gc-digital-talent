@@ -16,8 +16,6 @@
     }
   },
   "scripts": {
-    "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write .",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix"
   },

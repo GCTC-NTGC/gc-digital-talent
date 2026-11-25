@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 import type { PageSectionId as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
+import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 import type { ExperienceType } from "~/types/experience";
 
 const createSearchQuery = (parameters: Map<string, string>): string => {

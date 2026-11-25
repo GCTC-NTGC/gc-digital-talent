@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
 
 import {
   DATE_FORMAT_LOCALIZED,
@@ -9,6 +9,7 @@ import {
   parseDateTimeUtc,
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
+import { DateInput } from "@gc-digital-talent/forms";
 import {
   getFragment,
   graphql,
@@ -21,7 +22,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Chip, Dialog } from "@gc-digital-talent/ui";
-import { DateInput } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { useStableDate } from "~/hooks/useStableDate";

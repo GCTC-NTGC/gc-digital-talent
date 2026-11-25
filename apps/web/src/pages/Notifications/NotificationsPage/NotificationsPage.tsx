@@ -1,17 +1,17 @@
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
-import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useIntl } from "react-intl";
 
-import { Card, Container, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Card, Container, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import NotificationList from "~/components/NotificationList/NotificationList";
-import notificationMessages from "~/messages/notificationMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import notificationMessages from "~/messages/notificationMessages";
 
 const NotificationsPage = () => {
   const intl = useIntl();

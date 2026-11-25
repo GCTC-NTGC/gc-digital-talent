@@ -1,9 +1,9 @@
+import type { ReactNode } from "react";
+import { useEffect, useId } from "react";
 import type { FieldValues, FormState } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import type { ReactNode } from "react";
-import { useEffect, useId } from "react";
 
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import {
@@ -17,9 +17,9 @@ import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import type { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
-import { hasCommunityAndOther } from "./utils";
-import CommunityIcon from "./CommunityIcon";
 import CommunityChips from "./CommunityChips";
+import CommunityIcon from "./CommunityIcon";
+import { hasCommunityAndOther } from "./utils";
 
 interface RowProps {
   children: ReactNode;

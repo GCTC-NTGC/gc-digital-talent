@@ -1,8 +1,8 @@
-import type { IntlShape } from "react-intl";
 import type { AriaAttributes, JSX } from "react";
+import type { IntlShape } from "react-intl";
 
-import { Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Link } from "@gc-digital-talent/ui";
 
 import type { ActionsProps } from "./Actions";
 import Actions from "./Actions";

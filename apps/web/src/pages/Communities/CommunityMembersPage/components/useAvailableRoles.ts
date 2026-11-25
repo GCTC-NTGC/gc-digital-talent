@@ -1,10 +1,10 @@
-import { useQuery } from "urql";
 import { useMemo } from "react";
+import { useQuery } from "urql";
 
-import { graphql } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { AuthRole } from "@gc-digital-talent/auth";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { checkRole } from "~/utils/communityUtils";
 

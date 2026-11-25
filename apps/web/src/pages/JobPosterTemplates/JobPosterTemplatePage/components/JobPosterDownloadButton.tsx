@@ -1,12 +1,12 @@
+import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
+import { useApiRoutes } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Button } from "@gc-digital-talent/ui";
-import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";

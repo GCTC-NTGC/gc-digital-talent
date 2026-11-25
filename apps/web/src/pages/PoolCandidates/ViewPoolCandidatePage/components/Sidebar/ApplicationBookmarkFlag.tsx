@@ -1,19 +1,19 @@
+import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
+import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
+import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import type { OperationContext } from "urql";
-import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
-import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
-import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
-import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
-import type { ButtonProps } from "@gc-digital-talent/ui";
-import { Button, Pending } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import type { ButtonProps } from "@gc-digital-talent/ui";
+import { Button, Pending } from "@gc-digital-talent/ui";
 
-import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 const commonProps: Partial<ButtonProps> = {

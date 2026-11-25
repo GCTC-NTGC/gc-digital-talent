@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getSkillLevelDefinition,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 

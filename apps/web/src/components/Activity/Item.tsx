@@ -4,11 +4,11 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import AssessmentStepActivityItem from "./Items/AssessmentStepActivityItem";
+import type { CommonItemProps } from "./Items/BaseActivityItem";
 import type { PoolActivityItemProps } from "./Items/PoolActivityItem";
 import PoolActivityItem from "./Items/PoolActivityItem";
 import PoolCandidateActivityItem from "./Items/PoolCandidateActivityItem";
 import PoolSkillActivityItem from "./Items/PoolSkillActivityItem";
-import type { CommonItemProps } from "./Items/BaseActivityItem";
 
 type SubComponentProps = Omit<PoolActivityItemProps, "query"> & CommonItemProps;
 type SubComponent = (props: SubComponentProps) => JSX.Element | null;

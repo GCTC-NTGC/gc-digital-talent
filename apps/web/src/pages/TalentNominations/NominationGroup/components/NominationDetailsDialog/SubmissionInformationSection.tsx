@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 
 import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import {
   getFragment,
   graphql,
   TalentNominationSubmitterRelationshipToNominator,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { Heading } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";

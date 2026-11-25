@@ -5,8 +5,8 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/WorkPreferences/Display";
-import { getLabels } from "~/utils/workPreferenceUtils";
 import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import { getLabels } from "~/utils/workPreferenceUtils";
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {
@@ -17,7 +17,8 @@ const WorkPreferences_Fragment = graphql(/** GraphQL */ `
 interface WorkPreferencesProps {
   query: FragmentType<typeof WorkPreferences_Fragment>;
   optionsQuery:
-    FragmentType<typeof FlexibleWorkLocationOptions_Fragment> | undefined;
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
 }
 
 export const WORK_PREFERENCES_ID = "work-preferences";

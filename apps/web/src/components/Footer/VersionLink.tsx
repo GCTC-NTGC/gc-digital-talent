@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const VersionLink = () => {
   const intl = useIntl();

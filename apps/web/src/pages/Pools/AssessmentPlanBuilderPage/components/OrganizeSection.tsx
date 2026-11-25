@@ -1,16 +1,8 @@
+import sortBy from "lodash/sortBy";
 import { useMemo, useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
-import sortBy from "lodash/sortBy";
 import { useMutation } from "urql";
 
-import { toast } from "@gc-digital-talent/toast";
-import {
-  Accordion,
-  CardRepeater,
-  Heading,
-  Notice,
-} from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
@@ -18,14 +10,22 @@ import {
   PoolStatus,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Accordion,
+  CardRepeater,
+  Heading,
+  Notice,
+} from "@gc-digital-talent/ui";
 
-import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
-import { PAGE_SECTION_ID } from "../navigation";
 import {
   ASSESSMENT_STEPS_FEW_STEPS,
   ASSESSMENT_STEPS_MANY_STEPS,
   ASSESSMENT_STEPS_MAX_STEPS,
 } from "../constants";
+import { PAGE_SECTION_ID } from "../navigation";
+import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import AssessmentStepCard from "./AssessmentStepCard";
 
 export const sectionTitle = defineMessage({

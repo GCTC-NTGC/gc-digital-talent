@@ -1,17 +1,24 @@
-import { useState, useMemo, useRef } from "react";
-import { useSearchParams } from "react-router";
-import { useIntl } from "react-intl";
-import type { SubmitHandler } from "react-hook-form";
 import type {
   ColumnDef,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import isEqual from "lodash/isEqual";
+import { useState, useMemo, useRef } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router";
 import type { OperationContext } from "urql";
 import { useMutation, useQuery } from "urql";
-import isEqual from "lodash/isEqual";
 
+import { useApiRoutes } from "@gc-digital-talent/auth";
+import type {
+  PoolCandidateSearchInput,
+  FragmentType,
+  CandidatesTableCandidatesPaginated_QueryQuery,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   notEmpty,
   uniqueItems,
@@ -24,41 +31,40 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type {
-  PoolCandidateSearchInput,
-  FragmentType,
-  CandidatesTableCandidatesPaginated_QueryQuery,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { useApiRoutes } from "@gc-digital-talent/auth";
 
+import cells from "~/components/Table/cells";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import type {
   CandidateNavigationQueryParams,
   CandidateNavigationState,
 } from "~/hooks/usePoolCandidateNavigation";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  INITIAL_STATE,
-  SEARCH_PARAM_KEY,
-} from "~/components/Table/ResponsiveTable/constants";
-import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import Table, {
-  getTableStateFromSearchParams,
-} from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import processMessages from "~/messages/processMessages";
-import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
+import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
-import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
-import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
-import tableMessages from "./tableMessages";
+import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
+import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
+import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
+import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
+import accessors from "../Table/accessors";
+import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import type { SearchState } from "../Table/ResponsiveTable/types";
+import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
+import { normalizedText } from "../Table/sortingFns";
 import {
   flagCell,
   flagHeader,
@@ -78,16 +84,10 @@ import {
   applicationStatusCell,
   screeningResultCell,
 } from "./helpers";
-import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
-import { normalizedText } from "../Table/sortingFns";
-import accessors from "../Table/accessors";
 import type { PoolCandidateFilterDialogProps } from "./PoolCandidateFilterDialog";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import tableMessages from "./tableMessages";
 import type { FormValues } from "./types";
-import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
-import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
-import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
-import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];

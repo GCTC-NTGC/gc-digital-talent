@@ -1,14 +1,8 @@
-import { useIntl } from "react-intl";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
-  getLocalizedName,
-  getSkillLevelName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
@@ -21,11 +15,17 @@ import {
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  getLocalizedName,
+  getSkillLevelName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import useRoutes from "~/hooks/useRoutes";
-import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
 const CreateUserSkill_Mutation = graphql(/* GraphQL */ `
   mutation CreateUserSkill(

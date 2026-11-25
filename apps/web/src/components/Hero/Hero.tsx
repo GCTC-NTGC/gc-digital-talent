@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
+import { uiMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   type HeadingRef,
@@ -12,7 +13,6 @@ import {
   NavTabs,
   Container,
 } from "@gc-digital-talent/ui";
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "./BackgroundPattern";
 import type { ButtonLinkType } from "./ButtonLinksArray";

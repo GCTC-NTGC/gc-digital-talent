@@ -5,10 +5,10 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 

@@ -1,9 +1,9 @@
-import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
-import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
-import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 

@@ -2,9 +2,9 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { DepartmentSize } from "@gc-digital-talent/graphql/schema-types";
 
+import staticDepartments from "./departments.json" with { type: "json" };
 import toLocalizedEnum from "./fakeLocalizedEnum";
 import toLocalizedString from "./fakeLocalizedString";
-import staticDepartments from "./departments.json" with { type: "json" };
 
 const toDepartmentSize = (value: string) =>
   Object.values(DepartmentSize).find((size) => String(size) === value) ??

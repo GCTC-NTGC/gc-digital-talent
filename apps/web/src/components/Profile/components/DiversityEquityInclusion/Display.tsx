@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 
-import {
-  commonMessages,
-  getEmploymentEquityStatement,
-} from "@gc-digital-talent/i18n";
-import { Separator, Ul } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   IndigenousCommunity,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getEmploymentEquityStatement,
+} from "@gc-digital-talent/i18n";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 
 import CommunityIcon from "./CommunityIcon";
 

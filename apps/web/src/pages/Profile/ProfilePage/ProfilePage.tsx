@@ -1,6 +1,14 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery, type OperationContext } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Link,
   Pending,
@@ -8,26 +16,18 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
-import profileMessages from "~/messages/profileMessages";
-import type { SectionProps } from "~/components/Profile/types";
-import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
-import { getSectionTitle } from "~/components/Profile/utils";
-import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
-import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
-import useRoutes from "~/hooks/useRoutes";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
+import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
+import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import type { SectionProps } from "~/components/Profile/types";
+import { getSectionTitle } from "~/components/Profile/utils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import useRoutes from "~/hooks/useRoutes";
+import profileMessages from "~/messages/profileMessages";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {

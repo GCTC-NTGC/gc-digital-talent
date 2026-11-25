@@ -1,5 +1,6 @@
-import { defineConfig, mergeConfig } from "vitest/config";
 import path from "node:path";
+
+import { defineConfig, mergeConfig } from "vitest/config";
 
 import { uiConfig } from "@gc-digital-talent/vitest-helpers/config";
 

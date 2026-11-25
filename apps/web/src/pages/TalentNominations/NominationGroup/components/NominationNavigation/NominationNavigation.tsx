@@ -1,12 +1,12 @@
-import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/20/solid/ChevronDoubleLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/20/solid/ChevronDoubleRightIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Card, Link, Separator } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 
 import useNominationNavigation from "./useNominationNavigation";
 

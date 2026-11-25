@@ -1,27 +1,11 @@
-import { useIntl } from "react-intl";
+import { useId, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useMutation } from "urql";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { useId, useState } from "react";
+import { useMutation } from "urql";
 
-import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
-import {
-  DateInput,
-  Input,
-  RichTextInput,
-  Submit,
-  TextArea,
-} from "@gc-digital-talent/forms";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
@@ -31,27 +15,43 @@ import {
   strToFormDate,
   TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
+import {
+  DateInput,
+  Input,
+  RichTextInput,
+  Submit,
+  TextArea,
+} from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import processMessages from "~/messages/processMessages";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
+import { isCommunity } from "../TalentEvent/util";
+import AddDialog from "./AddDialog";
+import { instructionsWordCountLimits } from "./constants";
+import EditDialog from "./EditDialog";
+import type { FormValues } from "./formValues";
 import {
   TalentNominationEvent_Fragment,
   UpdateTalentNominationEvent_Fragment,
   UpdateTalentNominationEvent_Mutation,
 } from "./fragments";
-import type { FormValues } from "./formValues";
-import { isCommunity } from "../TalentEvent/util";
-import AddDialog from "./AddDialog";
-import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
-import { instructionsWordCountLimits } from "./constants";
 
 interface ActiveTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;

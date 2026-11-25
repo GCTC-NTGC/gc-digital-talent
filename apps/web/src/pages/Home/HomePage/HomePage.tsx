@@ -2,12 +2,12 @@ import { useIntl } from "react-intl";
 
 import SEO from "~/components/SEO/SEO";
 
+import About from "./components/About";
+import Featured from "./components/Featured";
 import type { HeroProps } from "./components/Hero";
 import Hero from "./components/Hero";
 import Opportunities from "./components/Opportunities";
 import Profile from "./components/Profile";
-import Featured from "./components/Featured";
-import About from "./components/About";
 
 export const Component = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();

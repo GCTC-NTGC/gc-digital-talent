@@ -1,8 +1,7 @@
-import { useQuery } from "urql";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   getFragment,
@@ -11,19 +10,20 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { narrowEnumType } from "@gc-digital-talent/i18n";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import { TalentRequestSourceOptions_Fragment } from "~/components/SearchRequestFilters/fragment";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
-import type { RouteParams } from "./types";
-import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
-import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
+import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestEmptyNotice from "./components/TalentRequestEmptyNotice";
-import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
 import type { TalentRequestReferralDialogOptions } from "./components/TalentRequestReferralDialogs/ReferralFormFields";
+import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
+import type { RouteParams } from "./types";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {

@@ -1,7 +1,7 @@
+import { AnimatePresence } from "motion/react";
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet } from "react-router";
-import { AnimatePresence } from "motion/react";
 
 import type { Messages } from "@gc-digital-talent/i18n";
 import {
@@ -10,19 +10,19 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import SEO, { Favicon } from "~/components/SEO/SEO";
-import Header from "~/components/Header/Header";
 import Footer from "~/components/Footer/Footer";
+import Header from "~/components/Header/Header";
 import IAPNavMenu from "~/components/NavMenu/IAPNavMenu";
+import SEO, { Favicon } from "~/components/SEO/SEO";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import crgMessages from "~/lang/crgCompiled.json" with { type: "json" };
 import crkMessages from "~/lang/crkCompiled.json" with { type: "json" };
-import ojwMessages from "~/lang/ojwCompiled.json" with { type: "json" };
 import micMessages from "~/lang/micCompiled.json" with { type: "json" };
+import ojwMessages from "~/lang/ojwCompiled.json" with { type: "json" };
 
-import SkipLink from "./SkipLink";
-import SitewideBanner from "./SitewideBanner";
 import ErrorBoundary from "./RouteErrorBoundary/RouteErrorBoundary";
+import SitewideBanner from "./SitewideBanner";
+import SkipLink from "./SkipLink";
 export { ErrorBoundary };
 
 const messages = new Map<string, Messages>([

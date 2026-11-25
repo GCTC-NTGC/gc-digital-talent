@@ -1,5 +1,5 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import {
   getStaticSkills,
@@ -8,10 +8,6 @@ import {
   fakeLocalizedEnum,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import {
-  GLOBAL_A11Y_EXCLUDES,
-  MockGraphqlDecorator,
-} from "@gc-digital-talent/storybook-helpers";
 import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
@@ -20,6 +16,10 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { setInSessionStorage } from "@gc-digital-talent/storage";
+import {
+  GLOBAL_A11Y_EXCLUDES,
+  MockGraphqlDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 
 import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 

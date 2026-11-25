@@ -1,9 +1,9 @@
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import WorkDialogContent from "./WorkDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
+import WorkDialogContent from "./WorkDialogContent";
 
 export const WorkExperienceDialog_Fragment = graphql(/* GraphQL */ `
   fragment WorkExperienceDialog on WorkExperience {

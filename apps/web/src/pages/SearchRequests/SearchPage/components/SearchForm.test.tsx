@@ -3,13 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
-import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import {
   fakeClassifications,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
 import { WorkRegion } from "@gc-digital-talent/graphql";
 import { setInSessionStorage } from "@gc-digital-talent/storage";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 

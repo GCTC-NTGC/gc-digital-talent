@@ -1,11 +1,10 @@
-import { useIntl } from "react-intl";
+import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
+import isEmpty from "lodash/isEmpty";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import isEmpty from "lodash/isEmpty";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   htmlToRichTextJSON,
   RichTextInput,
@@ -14,12 +13,13 @@ import {
 } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-import adminMessages from "~/messages/adminMessages";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import adminMessages from "~/messages/adminMessages";
 
 const CommentsForm_Fragment = graphql(/* Graphql */ `
   fragment CommentsForm on TalentNominationGroup {

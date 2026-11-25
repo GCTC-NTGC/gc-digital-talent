@@ -1,18 +1,18 @@
-import { useIntl } from "react-intl";
-import StarIcon from "@heroicons/react/20/solid/StarIcon";
-import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
-import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
+import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import { useIntl } from "react-intl";
 
-import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
 import experienceMessages from "~/messages/experienceMessages";
-import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";

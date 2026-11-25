@@ -1,19 +1,16 @@
-import type { IntlShape } from "react-intl";
-import { useIntl } from "react-intl";
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import type { HeadingRank } from "@gc-digital-talent/ui";
-import { Heading, Link, Chip, Chips, Card } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  getLocale,
-  getLocalizedName,
-  commonMessages,
-} from "@gc-digital-talent/i18n";
+  DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
+} from "@gc-digital-talent/date-helpers/const";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   PoolAreaOfSelection,
@@ -24,15 +21,18 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  DATE_FORMAT_LOCALIZED,
-  TZ_VANCOUVER,
-} from "@gc-digital-talent/date-helpers/const";
+  getLocale,
+  getLocalizedName,
+  commonMessages,
+} from "@gc-digital-talent/i18n";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Heading, Link, Chip, Chips, Card } from "@gc-digital-talent/ui";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 import IconLabel from "./IconLabel";
 

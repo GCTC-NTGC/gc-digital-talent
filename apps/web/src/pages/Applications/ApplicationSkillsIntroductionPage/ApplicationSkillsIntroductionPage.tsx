@@ -1,11 +1,11 @@
-import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
+import { useIntl } from "react-intl";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";

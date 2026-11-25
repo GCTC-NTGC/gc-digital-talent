@@ -8,10 +8,10 @@ import type {
 import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
-import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
 import type { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
+import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
 import type { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
 import {
   stringArrayToEnumsCommunityInterestAdditionalDuty,
   stringArrayToEnumsFinanceChiefRole,
@@ -202,7 +202,9 @@ export function apiDataToFormValues(
   userId: string | null | undefined,
   developmentProgramUserRecords: DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType[],
   communityInterest:
-    UpdateCommunityInterestFormData_FragmentFragment | null | undefined,
+    | UpdateCommunityInterestFormData_FragmentFragment
+    | null
+    | undefined,
   developmentProgramsForCommunity: DevelopmentProgramSlice[],
 ): FormValues {
   // the initial values for FormValues.interestInDevelopmentPrograms must have the maximum length possible, otherwise values are skewed

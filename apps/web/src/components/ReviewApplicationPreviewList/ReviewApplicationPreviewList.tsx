@@ -1,6 +1,6 @@
-import { useIntl } from "react-intl";
-import type { RefObject } from "react";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import type { RefObject } from "react";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -8,14 +8,14 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
 import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import { PreviewList, Notice } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { candidateStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+import { candidateStatusChip } from "~/utils/poolCandidate";
 
 import { ApplicationDate } from "./MetadataDate";
 import ReviewApplicationDialog from "./ReviewApplicationDialog";

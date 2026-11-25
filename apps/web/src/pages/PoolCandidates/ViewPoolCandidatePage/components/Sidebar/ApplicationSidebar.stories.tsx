@@ -1,6 +1,12 @@
 import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import {
+  ACCESS_TOKEN,
+  AuthenticationProvider,
+  AuthorizationProvider,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
+import {
   fakeDepartments,
   fakeLocalizedEnum,
   fakePoolCandidates,
@@ -19,12 +25,6 @@ import {
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import { Sidebar } from "@gc-digital-talent/ui";
-import {
-  ACCESS_TOKEN,
-  AuthenticationProvider,
-  AuthorizationProvider,
-  ROLE_NAME,
-} from "@gc-digital-talent/auth";
 
 import ApplicationSidebar, {
   ApplicationSidebar_Fragment,

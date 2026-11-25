@@ -1,13 +1,21 @@
-import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
 
+import {
+  EmploymentCategory,
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { groupBy } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
@@ -18,18 +26,10 @@ import {
   PreviewList,
   type IconType,
 } from "@gc-digital-talent/ui";
-import {
-  EmploymentCategory,
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { groupBy } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import type { ExperienceType } from "~/types/experience";
-import experienceMessages from "~/messages/experienceMessages";
 import useRoutes from "~/hooks/useRoutes";
+import experienceMessages from "~/messages/experienceMessages";
+import type { ExperienceType } from "~/types/experience";
 import {
   compareByDate,
   isAwardExperience,
@@ -40,12 +40,12 @@ import {
   type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 
+import AddExperienceDialog from "../ExperienceDialog/AddExperienceDialog";
 import AwardPreviewListItem from "./AwardPreviewListItem";
 import CommunityPreviewListItem from "./CommunityPreviewListItem";
 import EducationPreviewListItem from "./EducationPreviewListItem";
 import PersonalPreviewListItem from "./PersonalPreviewListItem";
 import WorkPreviewListItem from "./WorkPreviewListItem";
-import AddExperienceDialog from "../ExperienceDialog/AddExperienceDialog";
 
 export const ExperienceListCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceListCard on Experience {

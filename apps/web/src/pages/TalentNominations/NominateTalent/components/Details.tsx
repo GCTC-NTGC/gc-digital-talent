@@ -1,8 +1,17 @@
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect, useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import {
+  Checklist,
+  Combobox,
+  Input,
+  localizedEnumToOptions,
+  RadioGroup,
+  Select,
+} from "@gc-digital-talent/forms";
 import type {
   FragmentType,
   UpdateTalentNominationInput,
@@ -15,14 +24,7 @@ import {
   TalentNominationLateralMovementOption,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import {
-  Checklist,
-  Combobox,
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -30,24 +32,22 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
-import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
-import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 import adminMessages from "~/messages/adminMessages";
 
+import labels from "../labels";
+import messages from "../messages";
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import type { SubmitDataTransformer } from "./UpdateForm";
-import UpdateForm from "./UpdateForm";
-import SubHeading from "./SubHeading";
-import messages from "../messages";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 import NineBoxDescription from "./NineBoxDescription";
-import labels from "../labels";
-import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
+import SubHeading from "./SubHeading";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
   fragment DetailsFieldsOptions on Query {
@@ -116,7 +116,9 @@ const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
 `);
 
 type NominationOption =
-  "advancement" | "lateralMovement" | "developmentProgram";
+  | "advancement"
+  | "lateralMovement"
+  | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
   nineBoxPerformance?: NineBoxRating;

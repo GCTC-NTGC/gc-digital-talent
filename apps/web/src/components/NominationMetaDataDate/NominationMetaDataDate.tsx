@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import type { JSX } from "react";
 import { endOfDay } from "date-fns/endOfDay";
 import { isPast } from "date-fns/isPast";
+import type { JSX } from "react";
+import { useIntl } from "react-intl";
 
 import {
   DATE_FORMAT_LOCALIZED,

@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useState } from "react";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
+import { useHasPermissions } from "@gc-digital-talent/auth";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   Permission,
@@ -12,9 +15,6 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
-import { useHasPermissions } from "@gc-digital-talent/auth";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 

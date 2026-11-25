@@ -4,20 +4,21 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Pending } from "@gc-digital-talent/ui";
 import type {
   DepartmentTableRowFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link, Pending } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
+import labels from "../labels";
 import type { MyRoleDepartment } from "../utils";
 import {
   departmentStatusAccessor,
@@ -27,7 +28,6 @@ import {
   SIZE_SORT_ORDER,
   yesNoAccessor,
 } from "../utils";
-import labels from "../labels";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 

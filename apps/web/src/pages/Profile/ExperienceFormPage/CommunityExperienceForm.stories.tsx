@@ -6,10 +6,10 @@ import {
 } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { ExperienceFormSkill_Fragment } from "./ExperienceFormPage";
 import CommunityExperienceForm, {
   CommunityExperienceForm_Fragment,
 } from "./CommunityExperienceForm";
+import { ExperienceFormSkill_Fragment } from "./ExperienceFormPage";
 
 const skillFragments = getStaticSkills().map((skill) =>
   makeFragmentData(skill, ExperienceFormSkill_Fragment),

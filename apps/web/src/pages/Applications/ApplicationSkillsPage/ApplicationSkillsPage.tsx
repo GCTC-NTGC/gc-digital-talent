@@ -1,20 +1,10 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
-import {
-  Button,
-  Heading,
-  Link,
-  Separator,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
-import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
@@ -24,21 +14,31 @@ import {
   PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Button,
+  Heading,
+  Link,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 
+import SkillTree from "~/components/SkillTree/SkillTree";
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import type { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
-import SkillTree from "~/components/SkillTree/SkillTree";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
-import useApplication from "../useApplication";
 import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
+import useApplication from "../useApplication";
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
+import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 
 const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>

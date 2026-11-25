@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { useIntl } from "react-intl";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";

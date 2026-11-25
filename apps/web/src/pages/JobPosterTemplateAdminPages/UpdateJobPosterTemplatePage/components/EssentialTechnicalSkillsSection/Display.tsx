@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, SkillCategory } from "@gc-digital-talent/graphql";
-import { Heading, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 
 import messages from "~/messages/jobPosterTemplateMessages";
 
 import EssentialTechnicalSkillsFrontMatter from "../../../components/EssentialTechnicalSkillsFrontMatter";
-import { InitialData_Fragment } from "./EssentialTechnicalSkillsSection";
 import { filterEssentialTechnicalSkills } from "../../utils";
+import { InitialData_Fragment } from "./EssentialTechnicalSkillsSection";
 
 interface DisplayProps {
   initialDataQuery: FragmentType<typeof InitialData_Fragment>;

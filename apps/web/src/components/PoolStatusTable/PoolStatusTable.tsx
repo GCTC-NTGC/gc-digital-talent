@@ -1,30 +1,30 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
+import { useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
-import { normalizedText } from "~/components/Table/sortingFns";
 import type { ChangeDateDialog_PoolCandidateFragment } from "~/components/CandidateDialog/ChangeDateDialog";
+import cells from "~/components/Table/cells";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
+import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 import type {
   PoolTitleClassification,
   PoolTitleWorkStream,
 } from "~/utils/poolUtils";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
-import useRoutes from "~/hooks/useRoutes";
-import processMessages from "~/messages/processMessages";
 
 import accessors from "../Table/accessors";
 import { expiryCell } from "./cells";

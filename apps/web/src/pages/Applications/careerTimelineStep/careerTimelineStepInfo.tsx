@@ -5,9 +5,9 @@ import type {
   GetApplicationStepInfo,
 } from "~/types/applicationStep";
 
-import { getPageInfo as careerTimelineIntroductionPageInfo } from "../ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage";
 import { getPageInfo as careerTimelineAddPageInfo } from "../ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage";
 import { getPageInfo as careerTimelineEditPageInfo } from "../ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage";
+import { getPageInfo as careerTimelineIntroductionPageInfo } from "../ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage";
 import { getPageInfo as careerTimelinePageInfo } from "../ApplicationCareerTimelinePage/ApplicationCareerTimelinePage";
 import stepHasError from "./careerTimelineStepValidation";
 

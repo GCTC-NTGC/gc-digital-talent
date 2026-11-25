@@ -1,12 +1,12 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import { THEMES, allModes } from "@gc-digital-talent/storybook-helpers";
 import type { Messages } from "@gc-digital-talent/i18n";
 import { NestedLanguageProvider } from "@gc-digital-talent/i18n";
+import { THEMES, allModes } from "@gc-digital-talent/storybook-helpers";
 
-import * as micMessages from "~/lang/micCompiled.json" with { type: "json" };
 import * as crgMessages from "~/lang/crgCompiled.json" with { type: "json" };
 import * as crkMessages from "~/lang/crkCompiled.json" with { type: "json" };
+import * as micMessages from "~/lang/micCompiled.json" with { type: "json" };
 import * as ojwMessages from "~/lang/ojwCompiled.json" with { type: "json" };
 
 import IAPHomePage from "./Home";

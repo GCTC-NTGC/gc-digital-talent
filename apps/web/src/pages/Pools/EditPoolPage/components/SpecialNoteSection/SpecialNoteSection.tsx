@@ -1,29 +1,29 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
   UpdatePoolInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment, PoolStatus } from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-import { hasAllEmptyFields } from "~/validators/process/specialNote";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import { hasAllEmptyFields } from "~/validators/process/specialNote";
 
-import { useEditPoolContext } from "../EditPoolContext";
 import type { PublishedEditableSectionProps, SectionProps } from "../../types";
-import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
+import { useEditPoolContext } from "../EditPoolContext";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
+import Display from "./Display";
 
 const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolSpecialNote on Pool {

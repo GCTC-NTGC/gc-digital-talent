@@ -1,6 +1,6 @@
+import type { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import type { ReactElement } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 

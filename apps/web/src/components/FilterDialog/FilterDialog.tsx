@@ -1,4 +1,6 @@
-import { useIntl } from "react-intl";
+import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import type {
   FieldValues,
   SubmitHandler,
@@ -6,12 +8,10 @@ import type {
   DefaultValues,
 } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
-import type { ReactNode } from "react";
-import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 // Used by specific dialogs
 export interface CommonFilterDialogProps<

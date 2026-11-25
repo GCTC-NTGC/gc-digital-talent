@@ -1,20 +1,20 @@
 import { useIntl } from "react-intl";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import { Heading, PreviewList, Notice } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import OffPlatformRecruitmentProcessList from "./OffPlatformRecruitmentProcessList";
 import RecruitmentProcessDialog from "./RecruitmentProcessDialog";

@@ -1,14 +1,17 @@
+import type { ChangeEvent } from "react";
 import type {
   ControllerFieldState,
   ControllerRenderProps,
   FieldValues,
 } from "react-hook-form";
 import { useIntl } from "react-intl";
-import type { ChangeEvent } from "react";
 import { tv } from "tailwind-variants";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
+import { inputStyles, selectStyles } from "../../styles";
+import type { FieldState } from "../../types";
+import Field from "../Field";
 import type { DateSegment, RoundingMethod } from "./types";
 import { DATE_SEGMENT } from "./types";
 import {
@@ -17,9 +20,6 @@ import {
   setComputedValue,
   splitSegments,
 } from "./utils";
-import type { FieldState } from "../../types";
-import Field from "../Field";
-import { inputStyles, selectStyles } from "../../styles";
 
 const numberInput = tv({
   extend: inputStyles,

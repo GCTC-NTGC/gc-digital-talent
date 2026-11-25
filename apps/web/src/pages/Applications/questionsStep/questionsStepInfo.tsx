@@ -5,8 +5,8 @@ import type {
   GetApplicationStepInfo,
 } from "~/types/applicationStep";
 
-import { getPageInfo as questionsPageInfo } from "../ApplicationQuestionsPage/ApplicationQuestionsPage";
 import { getPageInfo as questionsIntroductionPageInfo } from "../ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage";
+import { getPageInfo as questionsPageInfo } from "../ApplicationQuestionsPage/ApplicationQuestionsPage";
 import stepHasError from "./questionsStepValidation";
 
 const getStepInfo: GetApplicationStepInfo = ({
