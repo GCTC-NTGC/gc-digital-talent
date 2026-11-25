@@ -27,10 +27,10 @@ PLAYWRIGHT_NO_ROLES_SUB=<sub of any UAT account having no roles at all>
 
 All values must be filled in. `TESTING_ENDPOINT_SECRET` is stored in Azure Key Vault. The `_SUB` values are the `sub` UUID of existing UAT users with the respective roles — use Laravel tinker on the App Service Kudu console to look them up.
 
-**Important:** `PLAYWRIGHT_APPLICANT_SUB` must point to a user with **only** the applicant role and no team memberships. Use this tinker query (single line) to find one:
+**Important:** `PLAYWRIGHT_APPLICANT_SUB` must point to a user with **only** the base user role and no team memberships. Use this tinker query (single line) to find one:
 
 ```php
-App\Models\User::whereNotNull('sub')->whereNull('deleted_at')->whereHas('roles', function($q) { $q->where('name', 'applicant'); })->whereDoesntHave('roles', function($q) { $q->whereIn('name', ['platform_admin', 'community_admin', 'community_recruiter', 'process_operator']); })->whereDoesntHave('teamUsers')->limit(5)->get(['id', 'first_name', 'last_name', 'email', 'sub']);
+App\Models\User::whereNotNull('sub')->whereNull('deleted_at')->whereHas('roles', function($q) { $q->where('name', 'base_user'); })->whereDoesntHave('roles', function($q) { $q->whereIn('name', ['platform_admin', 'community_admin', 'community_recruiter', 'process_operator']); })->whereDoesntHave('teamUsers')->limit(5)->get(['id', 'first_name', 'last_name', 'email', 'sub']);
 ```
 
 ## Step 2 — Run the tests
