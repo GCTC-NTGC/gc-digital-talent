@@ -2,7 +2,6 @@
   "plugins": ["typescript", "react", "jsx-a11y", "import", "vitest"],
   "jsPlugins": [
     "eslint-plugin-turbo",
-    "eslint-plugin-no-only-tests",
     "eslint-plugin-testing-library",
     "eslint-plugin-formatjs"
   ],
@@ -18,8 +17,6 @@
     "es2020": true
   },
   "ignorePatterns": [
-    "**/eslint.config.js",
-    "**/eslint.config.mjs",
     "**/index.js",
     "**/styleMock.ts",
     "**/fileMock.ts",
@@ -48,7 +45,6 @@
     "import/no-named-as-default-member": "warn",
     "no-alert": "error",
     "no-console": "error",
-    "no-only-tests/no-only-tests": "error",
     "no-param-reassign": "error",
     "no-shadow": "error",
     "no-underscore-dangle": [
@@ -152,6 +148,7 @@
       }
     ],
     "turbo/no-undeclared-env-vars": "error",
+    "vitest/no-focused-tests": "error",
     "vitest/require-mock-type-parameters": "off",
     "vitest/expect-expect": [
       "error",

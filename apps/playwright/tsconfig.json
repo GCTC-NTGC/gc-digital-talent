@@ -14,7 +14,6 @@
   },
   "include": [
     "e2e-coverage-teardown.ts",
-    "eslint.config.mjs",
     "playwright.config.ts",
     "constants",
     "fixtures",
