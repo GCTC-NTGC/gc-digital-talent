@@ -2,8 +2,8 @@
 import { screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { ThemeProvider } from "@gc-digital-talent/theme";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import ThemeSwitcher from "./ThemeSwitcher";
 

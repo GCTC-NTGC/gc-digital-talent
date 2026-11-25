@@ -1,10 +1,21 @@
-import { useIntl } from "react-intl";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import { FormProvider, useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { useMutation, useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  convertDateTimeZone,
+  currentDate,
+  nowUTCDateTime,
+  TZ_VANCOUVER,
+} from "@gc-digital-talent/date-helpers";
+import { Submit } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
   CardSeparator,
@@ -13,28 +24,17 @@ import {
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { Submit } from "@gc-digital-talent/forms";
-import {
-  convertDateTimeZone,
-  currentDate,
-  nowUTCDateTime,
-  TZ_VANCOUVER,
-} from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import adminMessages from "~/messages/adminMessages";
+import profileMessages from "~/messages/profileMessages";
 
-import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
 import type { FormValues } from "./components/formValues";
+import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
 
 const CreateTalentNominationEvent_Query = graphql(/* GraphQL */ `
   query CreateTalentNominationEventQuery {

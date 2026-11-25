@@ -1,23 +1,23 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Pending,
   Separator,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
+import profileMessages from "~/messages/profileMessages";
 
-import SharedTocLinks from "./components/SharedTocLinks";
 import NewFeatureMessage from "./components/NewFeatureMessage";
+import SharedTocLinks from "./components/SharedTocLinks";
 import YourFunctionalCommunities from "./components/YourFunctionalCommunitiesSection/YourFunctionalCommunitiesSection";
 
 const SECTION_ID = {

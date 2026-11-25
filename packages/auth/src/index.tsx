@@ -1,22 +1,9 @@
 import { AuthenticationContext } from "./components/AuthenticationContainer";
+import AuthenticationProvider from "./components/AuthenticationProvider";
 import AuthorizationContainer, {
   AuthorizationContext,
 } from "./components/AuthorizationContainer";
-import AuthenticationProvider from "./components/AuthenticationProvider";
 import AuthorizationProvider from "./components/AuthorizationProvider";
-import useAuthentication from "./hooks/useAuthentication";
-import useAuthorization from "./hooks/useAuthorization";
-import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
-import {
-  hasRequiredRoles,
-  type HasRequiredRolesArgs,
-  type RoleRequirement,
-} from "./utils/hasRequiredRoles";
-import checkPermissions, {
-  type PermissionRequirement,
-} from "./utils/checkPermissions";
-import useHasPermissions from "./hooks/useHasPermissions";
-import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
@@ -31,7 +18,10 @@ import {
   DEPARTMENT_ROLES,
 } from "./const";
 import type { LogoutReason, RoleName } from "./const";
-import getAuthenticationState from "./utils/authenticationState";
+import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
+import useAuthentication from "./hooks/useAuthentication";
+import useAuthorization from "./hooks/useAuthorization";
+import useHasPermissions from "./hooks/useHasPermissions";
 import type {
   AuthCommunityTeamable,
   AuthDepartmentTeamable,
@@ -42,6 +32,16 @@ import type {
   AuthTeamable,
   AuthTeamTeamable,
 } from "./types";
+import getAuthenticationState from "./utils/authenticationState";
+import checkPermissions, {
+  type PermissionRequirement,
+} from "./utils/checkPermissions";
+import {
+  hasRequiredRoles,
+  type HasRequiredRolesArgs,
+  type RoleRequirement,
+} from "./utils/hasRequiredRoles";
+import { narrowTeamableType } from "./utils/narrowTeamableType";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {

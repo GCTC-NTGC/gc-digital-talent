@@ -1,0 +1,41 @@
+{
+  "semi": true,
+  "trailingComma": "all",
+  "singleQuote": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "sortPackageJson": false,
+  "sortTailwindcss": {
+    "stylesheet": "./apps/web/src/assets/css/tailwind.css",
+    "functions": ["tv"]
+  },
+  "sortImports": {
+    "newlinesBetween": true,
+    "internalPattern": ["~/"],
+    "customGroups": [
+      {
+        "groupName": "gcDigitalTalent",
+        "elementNamePattern": ["@gc-digital-talent/**"]
+      }
+    ],
+    "groups": [
+      "builtin",
+      "external",
+      "gcDigitalTalent",
+      "internal",
+      ["parent", "sibling"],
+      "index"
+    ]
+  },
+  "ignorePatterns": [
+    "pnpm-lock.yaml",
+    "**/*Compiled.json",
+    "dist",
+    "**/src/gql/**",
+    "packages/graphql/src/index.ts",
+    ".react-router",
+    "tc-report",
+    "__snapshots__"
+  ]
+}

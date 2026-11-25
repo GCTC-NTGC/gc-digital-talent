@@ -1,5 +1,5 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { parseISO } from "date-fns/parseISO";
 
 import { fakePools } from "@gc-digital-talent/fake-data";

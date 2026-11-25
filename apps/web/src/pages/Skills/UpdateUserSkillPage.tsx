@@ -1,30 +1,13 @@
-import { useNavigate, useSearchParams } from "react-router";
-import { defineMessage, useIntl } from "react-intl";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import { useMutation, useQuery } from "urql";
 import type { ReactNode } from "react";
+import { defineMessage, useIntl } from "react-intl";
+import { useNavigate, useSearchParams } from "react-router";
+import { useMutation, useQuery } from "urql";
 
-import {
-  ThrowNotFound,
-  TableOfContents,
-  Pending,
-  Notice,
-  Button,
-  Dialog,
-  Ul,
-  Container,
-} from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 import type {
   FragmentType,
   SkillLevel,
@@ -35,17 +18,34 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  ThrowNotFound,
+  TableOfContents,
+  Pending,
+  Notice,
+  Button,
+  Dialog,
+  Ul,
+  Container,
+} from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
-import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 
 import {
   CreateUserSkill_Mutation,

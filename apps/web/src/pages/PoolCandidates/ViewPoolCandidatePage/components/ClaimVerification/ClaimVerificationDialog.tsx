@@ -1,16 +1,16 @@
-import { useIntl } from "react-intl";
+import { useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useState } from "react";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
 import type { UpdatePoolCandidateClaimVerificationInput } from "@gc-digital-talent/graphql";
 import { ClaimVerificationResult, graphql } from "@gc-digital-talent/graphql";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import profileMessages from "~/messages/profileMessages";
 

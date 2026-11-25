@@ -9,6 +9,7 @@ import {
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
+import experienceMessages from "~/messages/experienceMessages";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -17,7 +18,6 @@ import {
   isWorkExperience,
   type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 
 export interface ExperienceName extends SimpleAnyExperience {
   title?: string | null;

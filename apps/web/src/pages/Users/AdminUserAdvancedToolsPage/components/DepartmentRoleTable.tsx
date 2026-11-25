@@ -1,26 +1,26 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
 import { useMemo } from "react";
+import { useIntl } from "react-intl";
 
 import { groupBy, unpackMaybes, sortAlphaBy } from "@gc-digital-talent/helpers";
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
+import useRoutes from "~/hooks/useRoutes";
 
-import AddDepartmentRoleDialog from "./AddDepartmentRoleDialog";
 import type { DepartmentAssignment, RoleTableProps } from "../utils";
 import {
   getRoleTableFragments,
   isDepartmentTeamable,
   roleCell,
 } from "../utils";
-import RemoveDepartmentRoleDialog from "./RemoveDepartmentRoleDialog";
+import AddDepartmentRoleDialog from "./AddDepartmentRoleDialog";
 import EditDepartmentRoleDialog from "./EditDepartmentRoleDialog";
+import RemoveDepartmentRoleDialog from "./RemoveDepartmentRoleDialog";
 
 const columnHelper = createColumnHelper<DepartmentAssignment>();
 

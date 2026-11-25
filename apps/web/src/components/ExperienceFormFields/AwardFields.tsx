@@ -1,8 +1,9 @@
+import { useEffect } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useEffect } from "react";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   DateInput,
   Input,
@@ -12,6 +13,8 @@ import {
   RadioGroup,
   Combobox,
 } from "@gc-digital-talent/forms";
+import { AwardedScope, AwardedTo, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
@@ -19,11 +22,10 @@ import {
   sortAwardedScope,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { AwardedScope, AwardedTo, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 import type {
   AwardFormValues,
   SubExperienceFormProps,
@@ -33,7 +35,6 @@ import {
   getExperienceName,
   isAwardExperience,
 } from "~/utils/experienceUtils";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const AwardOptions_Query = graphql(/* GraphQL */ `
   query AwardOptions {
@@ -131,7 +132,7 @@ const AwardFields = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   const [{ data, fetching }] = useQuery({ query: AwardOptions_Query });
   const myExperiences = unpackMaybes(data?.me?.experiences).filter(
     (experience) => !isAwardExperience(experience),
@@ -219,7 +220,13 @@ const AwardFields = ({
             {organizationSuggestions.length > 0 && (
               <datalist id="organizationSuggestions">
                 {organizationSuggestions.map((suggestion) => {
-                  return <option key={suggestion} value={suggestion}></option>;
+                  return (
+                    <option
+                      key={suggestion}
+                      value={suggestion}
+                      aria-label={suggestion}
+                    />
+                  );
                 })}
               </datalist>
             )}

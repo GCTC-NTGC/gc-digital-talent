@@ -1,19 +1,19 @@
-import { useMemo, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { getNonce } from "get-nonce";
+import get from "lodash/get";
+import { useMemo, useEffect } from "react";
 import type {
   ControllerRenderProps,
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
 import { tv } from "tailwind-variants";
-import get from "lodash/get";
 
-import MenuBar from "./MenuBar";
-import Footer from "./Footer";
-import type { FieldState } from "../../types";
-import { buildExtensions } from "./utils";
 import { inputStyles } from "../../styles";
+import type { FieldState } from "../../types";
+import Footer from "./Footer";
+import MenuBar from "./MenuBar";
+import { buildExtensions } from "./utils";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;

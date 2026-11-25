@@ -1,16 +1,16 @@
-import { useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
-import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
+import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import { DropdownMenu, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
-import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
+import { DOTS, usePagination } from "./usePagination";
 
 const pagination = tv({
   base: "flex flex-col items-center gap-y-6 text-sm sm:flex-row sm:gap-x-3 sm:gap-y-0",

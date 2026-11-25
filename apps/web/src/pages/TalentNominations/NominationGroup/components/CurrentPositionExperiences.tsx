@@ -1,11 +1,8 @@
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import type { ComponentProps } from "react";
 import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
-import type { ComponentProps } from "react";
 
-import type { FragmentType, GovPositionType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   currentDate,
   DATE_FORMAT_LOCALIZED,
@@ -14,8 +11,11 @@ import {
   sortDateBy,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
-import { Heading, Ul, Notice, Card } from "@gc-digital-talent/ui";
+import type { FragmentType, GovPositionType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Ul, Notice, Card } from "@gc-digital-talent/ui";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import {
@@ -60,7 +60,9 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 
 interface CurrentPositionExperiencesProps {
   query:
-    FragmentType<typeof CurrentPositionExperiences_Fragment> | null | undefined;
+    | FragmentType<typeof CurrentPositionExperiences_Fragment>
+    | null
+    | undefined;
   contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
 }
 

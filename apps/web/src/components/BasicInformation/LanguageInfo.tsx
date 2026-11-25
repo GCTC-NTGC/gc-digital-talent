@@ -1,14 +1,14 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Caption, Ul } from "@gc-digital-talent/ui";
 
 import { getLabels } from "~/utils/languageUtils";
 
-import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
+import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import { getEstimatedLanguageAbility } from "./utils";
 
 const LanguageInfo_Fragment = graphql(/* GraphQL */ `

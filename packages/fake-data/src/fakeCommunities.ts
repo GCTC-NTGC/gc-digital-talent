@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker/locale/en";
 
+import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 import toLocalizedString from "./fakeLocalizedString";
 import fakeWorkStreams from "./fakeWorkStreams";
-import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 
 const generateCommunity = (
   developmentPrograms: ReturnType<typeof fakeDevelopmentPrograms>,

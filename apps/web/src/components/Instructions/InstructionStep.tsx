@@ -1,5 +1,5 @@
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
+import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import type { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";

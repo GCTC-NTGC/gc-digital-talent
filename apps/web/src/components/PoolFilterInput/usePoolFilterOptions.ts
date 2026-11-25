@@ -1,11 +1,11 @@
-import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import type { ComboboxOption } from "@gc-digital-talent/forms";
 import type { PoolFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { ComboboxOption } from "@gc-digital-talent/forms";
 
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 

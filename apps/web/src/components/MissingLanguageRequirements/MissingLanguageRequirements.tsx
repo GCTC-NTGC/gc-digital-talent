@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
-import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import type { PoolLanguage } from "@gc-digital-talent/graphql";
 import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
+import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
+import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 
 import type { PartialUser } from "~/utils/languageUtils";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
@@ -34,7 +34,7 @@ const MissingLanguageRequirementsBlock = ({
   languageRequirementsBlurb,
   icon,
   missingLanguageRequirements,
-  headingRank = "h2",
+  headingRank,
   className,
   ...rest
 }: MissingLanguageRequirementsBlockProps) => {

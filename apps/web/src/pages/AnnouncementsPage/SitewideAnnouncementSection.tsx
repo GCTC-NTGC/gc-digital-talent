@@ -1,6 +1,6 @@
+import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
-import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 
 import type {
   FragmentType,
@@ -11,11 +11,11 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { IconType } from "@gc-digital-talent/ui";
 import { ToggleSection } from "@gc-digital-talent/ui";
 
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
-import SitewideAnnouncementForm from "./SitewideAnnouncementForm";
 import SitewideAnnouncementDisplay from "./SitewideAnnouncementDisplay";
+import SitewideAnnouncementForm from "./SitewideAnnouncementForm";
 
 export const SitewideAnnouncementSection_Fragment = graphql(/* GraphQL */ `
   fragment SitewideAnnouncementSection on SitewideAnnouncement {

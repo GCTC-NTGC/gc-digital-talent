@@ -1,5 +1,5 @@
-import { defineMessages, useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -111,6 +111,7 @@ const EducationExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="education"
+      focusField="educationType"
       experienceQuery={experience}
       hasRelatedAwards={!!experience?.awardExperiences?.length}
       detailsDefaultValues={

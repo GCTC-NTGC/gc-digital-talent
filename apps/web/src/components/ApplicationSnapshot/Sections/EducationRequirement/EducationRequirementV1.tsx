@@ -6,12 +6,12 @@ import {
   graphql,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getEducationRequirementOption,
 } from "@gc-digital-talent/i18n";
 import { TreeView } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import ExperienceTreeItems, {
   ExperienceTreeItems_Fragment,

@@ -23,13 +23,19 @@ import {
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
+  PoolAreaOfSelection,
+  PoolPublishedRange,
+  LanguageAbility,
+  SalaryRange,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  (LocalizedEnumString | null | undefined)[] | null | undefined;
+  | (LocalizedEnumString | null | undefined)[]
+  | null
+  | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -124,7 +130,9 @@ export function enumInputToLocalizedEnum<T extends string>(
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
-        GenericLocalizedEnum<T> | null | undefined)
+        | GenericLocalizedEnum<T>
+        | null
+        | undefined)
     : undefined;
 }
 
@@ -180,6 +188,11 @@ export const ENUM_SORT_ORDER = {
     FlexibleWorkLocation.Hybrid,
     FlexibleWorkLocation.Onsite,
   ],
+  LANGUAGE_ABILITY: [
+    LanguageAbility.English,
+    LanguageAbility.French,
+    LanguageAbility.Bilingual,
+  ],
   PLACEMENT_TYPE: [
     PlacementType.NotPlaced,
     PlacementType.UnderConsideration,
@@ -188,6 +201,15 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTerm,
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
+  ],
+  POOL_AREA_OF_SELECTION: [
+    PoolAreaOfSelection.Public,
+    PoolAreaOfSelection.Employees,
+  ],
+  POOL_PUBLISHED_RANGE: [
+    PoolPublishedRange.Under_48Hours,
+    PoolPublishedRange.Under_30Days,
+    PoolPublishedRange.Over_30Days,
   ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
@@ -200,6 +222,14 @@ export const ENUM_SORT_ORDER = {
     CandidateRemovalReason.NotResponsive,
     CandidateRemovalReason.Ineligible,
     CandidateRemovalReason.Other,
+  ],
+  SALARY_RANGE: [
+    SalaryRange.Between_0_39999,
+    SalaryRange.Between_40000_59999,
+    SalaryRange.Between_60000_79999,
+    SalaryRange.Between_80000_99999,
+    SalaryRange.Between_100000_119999,
+    SalaryRange.Over_120000,
   ],
   SCREENING_STAGE: [
     ScreeningStage.NewApplication,

@@ -1,15 +1,15 @@
-import { useIntl } from "react-intl";
-import type { Editor } from "@tiptap/react";
-import { useEditorState } from "@tiptap/react";
-import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
 import ArrowUturnLeftIcon from "@heroicons/react/20/solid/ArrowUturnLeftIcon";
 import ArrowUturnRightIcon from "@heroicons/react/20/solid/ArrowUturnRightIcon";
 import H3Icon from "@heroicons/react/20/solid/H3Icon";
+import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
+import type { Editor } from "@tiptap/react";
+import { useEditorState } from "@tiptap/react";
+import { useIntl } from "react-intl";
 
 import { richTextMessages } from "@gc-digital-talent/i18n";
 
-import MenuButton from "./MenuButton";
 import LinkDialog from "./LinkDialog";
+import MenuButton from "./MenuButton";
 
 interface MenuBarProps {
   editor: Editor | null;

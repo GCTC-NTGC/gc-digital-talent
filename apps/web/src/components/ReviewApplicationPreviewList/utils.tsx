@@ -1,10 +1,10 @@
-import type { IntlShape, MessageDescriptor } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 
 import { CandidateInterest, CandidateStatus } from "@gc-digital-talent/graphql";
 import { compareStrings } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
 import {
   applicationStatusDescriptions,

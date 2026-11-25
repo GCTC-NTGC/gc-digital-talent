@@ -1,10 +1,10 @@
-import { useIntl } from "react-intl";
-import type { CombinedError } from "urql";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
+import { useIntl } from "react-intl";
+import type { CombinedError } from "urql";
 
-import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { isUuidError, NotFoundError } from "@gc-digital-talent/helpers";
+import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import type { LoadingProps } from "../Loading";
 import Loading from "../Loading";

@@ -2,18 +2,18 @@ import { AnimatePresence, m } from "motion/react";
 import { useFormContext } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
-import firstNationsOn from "~/assets/img/first-nations-true.webp";
-import firstNationsOff from "~/assets/img/first-nations-false.webp";
 import firstNationsOffDark from "~/assets/img/first-nations-false-dark.webp";
-import inuitOn from "~/assets/img/inuit-true.webp";
-import inuitOff from "~/assets/img/inuit-false.webp";
+import firstNationsOff from "~/assets/img/first-nations-false.webp";
+import firstNationsOn from "~/assets/img/first-nations-true.webp";
 import inuitOffDark from "~/assets/img/inuit-false-dark.webp";
-import metisOn from "~/assets/img/metis-true.webp";
-import metisOff from "~/assets/img/metis-false.webp";
+import inuitOff from "~/assets/img/inuit-false.webp";
+import inuitOn from "~/assets/img/inuit-true.webp";
 import metisOffDark from "~/assets/img/metis-false-dark.webp";
-import otherOn from "~/assets/img/other-true.webp";
-import otherOff from "~/assets/img/other-false.webp";
+import metisOff from "~/assets/img/metis-false.webp";
+import metisOn from "~/assets/img/metis-true.webp";
 import otherOffDark from "~/assets/img/other-false-dark.webp";
+import otherOff from "~/assets/img/other-false.webp";
+import otherOn from "~/assets/img/other-true.webp";
 
 import { partOfCommunity } from "./utils";
 

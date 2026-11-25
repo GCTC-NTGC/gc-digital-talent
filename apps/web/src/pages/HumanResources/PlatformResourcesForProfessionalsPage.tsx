@@ -1,12 +1,17 @@
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
-import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useIntl } from "react-intl";
+import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
+import {
+  getLocale,
+  navigationMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Button,
@@ -16,11 +21,6 @@ import {
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  getLocale,
-  navigationMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

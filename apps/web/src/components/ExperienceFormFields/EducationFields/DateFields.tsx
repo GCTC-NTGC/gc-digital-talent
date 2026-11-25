@@ -1,13 +1,14 @@
-import { useIntl } from "react-intl";
-import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { DATE_SEGMENT, DateInput } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { nodeToString } from "@gc-digital-talent/helpers";
+import { DATE_SEGMENT, DateInput } from "@gc-digital-talent/forms";
 import { EducationType, EducationStatus } from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
+import { useStableDate } from "~/hooks/useStableDate";
 import type {
   EducationFormValues,
   SubExperienceFormProps,
@@ -15,7 +16,7 @@ import type {
 
 const DateFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = new Date();
+  const todayDate = useStableDate();
 
   const { resetField, formState } = useFormContext<EducationFormValues>();
 

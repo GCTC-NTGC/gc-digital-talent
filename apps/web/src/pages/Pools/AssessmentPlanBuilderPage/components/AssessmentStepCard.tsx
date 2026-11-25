@@ -1,5 +1,11 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   appendLanguageName,
@@ -14,12 +20,6 @@ import {
   Notice,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  AssessmentStepType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
 
 import processMessages from "~/messages/processMessages";
 

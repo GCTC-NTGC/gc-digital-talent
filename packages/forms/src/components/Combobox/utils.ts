@@ -1,11 +1,11 @@
-import type { ValidationRule } from "react-hook-form";
 import orderBy from "lodash/orderBy";
+import type { ValidationRule } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import type { ComboboxValue, Option } from "./types";
 import { inputStyles } from "../../styles";
+import type { ComboboxValue, Option } from "./types";
 
 const orderItems = (options: Option[]): Option[] => {
   return orderBy(options, (o) => nodeToString(o?.label).toLowerCase(), "asc");

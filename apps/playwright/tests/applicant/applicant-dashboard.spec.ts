@@ -1,3 +1,4 @@
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -8,18 +9,17 @@ import {
   ProvinceOrTerritory,
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
+import { expect, test } from "~/fixtures";
+import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
+import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
+import { defaultWorkExperience } from "~/utils/experiences";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
-import { defaultWorkExperience } from "~/utils/experiences";
-import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
-import { expect, test } from "~/fixtures";
-import { loginBySub } from "~/utils/auth";
 
 interface UserInfo {
   id: string;

@@ -1,5 +1,10 @@
 import { useIntl } from "react-intl";
 
+import {
+  formatDate,
+  isDateStringExpired,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -8,18 +13,13 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul, wrapParens } from "@gc-digital-talent/ui";
-import {
-  formatDate,
-  isDateStringExpired,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import messages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
-import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 import ApplicationPauseReferralsDialog from "../Dialog/ApplicationPauseReferralsDialog";
+import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferralsDialog";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `

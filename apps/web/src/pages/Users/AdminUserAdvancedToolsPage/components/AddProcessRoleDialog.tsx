@@ -1,10 +1,10 @@
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import debounce from "lodash/debounce";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import debounce from "lodash/debounce";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Combobox } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -13,11 +13,11 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
-import messages from "~/messages/processMessages";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import messages from "~/messages/processMessages";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 import useAvailablePools from "../useAvailablePools";
 import type { RoleTableProps } from "../utils";

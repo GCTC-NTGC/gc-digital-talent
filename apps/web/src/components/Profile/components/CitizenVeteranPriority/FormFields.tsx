@@ -1,9 +1,8 @@
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Link, Notice } from "@gc-digital-talent/ui";
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import {
@@ -12,6 +11,7 @@ import {
   getCitizenshipStatusesProfile,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import type { FormValues } from "./types";

@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Heading, TableOfContents } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
 import skillMessages from "~/messages/skillMessages";

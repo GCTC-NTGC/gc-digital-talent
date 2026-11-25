@@ -23,7 +23,10 @@ interface DepartmentTeamable {
 }
 
 type Teamable =
-  PoolTeamable | CommunityTeamable | TeamTeamable | DepartmentTeamable;
+  | PoolTeamable
+  | CommunityTeamable
+  | TeamTeamable
+  | DepartmentTeamable;
 
 export const isDepartmentTeamable = (
   teamable: Teamable | undefined | null,

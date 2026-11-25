@@ -1,3 +1,4 @@
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import type {
   AssessmentStep,
   AssessmentStepInput,
@@ -17,16 +18,15 @@ import {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
+import { getClassifications } from "./classification";
+import { getCommunities } from "./communities";
+import { getDepartments } from "./departments";
 import type {
   GraphQLContext,
   GraphQLRequestFunc,
   GraphQLResponse,
 } from "./graphql";
-import { getCommunities } from "./communities";
-import { getClassifications } from "./classification";
-import { getDepartments } from "./departments";
 import { getSkills } from "./skills";
 import { getWorkStreams } from "./workStreams";
 
@@ -533,4 +533,40 @@ export const archivePool: GraphQLRequestFunc<Pool, ArchivePoolArgs> = async (
 export const retirePublishedPool = async (ctx: GraphQLContext, id: string) => {
   await closePool(ctx, { id });
   await archivePool(ctx, { id });
+};
+
+const Test_PublishedPoolsQueryDocument = /* GraphQL */ `
+  query Test_PublishedPools {
+    poolsPaginated(
+      first: 100
+      where: { statuses: [PUBLISHED], canAdmin: true }
+    ) {
+      data {
+        id
+        poolCandidatesCount
+      }
+    }
+  }
+`;
+
+/**
+ * Get a published process the user manages that has at least one candidate
+ */
+export const getPublishedPoolWithCandidates: GraphQLRequestFunc<Pool> = async (
+  ctx,
+) => {
+  const pool = await ctx
+    .post<GraphQLResponse<"poolsPaginated", { data: Pool[] }>>(
+      Test_PublishedPoolsQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) =>
+      res.poolsPaginated.data.find(
+        ({ poolCandidatesCount }) => (poolCandidatesCount ?? 0) > 0,
+      ),
+    );
+  if (!pool) {
+    throw new Error("No published process with candidates");
+  }
+  return pool;
 };

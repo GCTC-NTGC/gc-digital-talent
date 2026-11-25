@@ -1,13 +1,13 @@
 import uniqueId from "lodash/uniqueId";
-import { defineMessages, useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
 import type { ReactNode } from "react";
+import { useWatch } from "react-hook-form";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import { Checklist } from "@gc-digital-talent/forms";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
-import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import type { ExperienceName } from "~/utils/experienceUtils";
 import {

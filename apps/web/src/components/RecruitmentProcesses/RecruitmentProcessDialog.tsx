@@ -1,19 +1,19 @@
-import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
 

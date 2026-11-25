@@ -3,16 +3,16 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import { Checkbox, Combobox } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
 export const ProfessionalizationEditDialog_Query = graphql(/* GraphQL */ `
   query ProfessionalizationEditDialog {

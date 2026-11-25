@@ -5,8 +5,8 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const PersonalContact_Fragment = graphql(/* GraphQL */ `
   fragment PersonalContact on User {

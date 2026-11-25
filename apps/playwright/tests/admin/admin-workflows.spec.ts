@@ -1,5 +1,5 @@
-import type AppPage from "~/fixtures/AppPage";
 import { test, expect } from "~/fixtures";
+import type AppPage from "~/fixtures/AppPage";
 import { loginBySub } from "~/utils/auth";
 
 const USERS_PAGINATED_QUERY = "UsersPaginated";

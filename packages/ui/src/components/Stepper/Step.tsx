@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
-import type { ReactNode } from "react";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import type { IconType } from "../../types";
+import Link from "../Link";
 import type { StepVariants } from "./utils";
 import { messageMap, step } from "./utils";
-import Link from "../Link";
-import type { IconType } from "../../types";
 
 interface StepLinkProps {
   children: ReactNode;
@@ -28,7 +28,13 @@ const StepLink = ({
     return (
       // NOTE: This is a custom disabled link component
       // eslint-disable-next-line react/forbid-elements
-      <a role="link" aria-disabled="true" {...rest}>
+      <a
+        // The anchor has no href, so it has no implicit link role
+        // oxlint-disable-next-line jsx-a11y/no-redundant-roles
+        role="link"
+        aria-disabled="true"
+        {...rest}
+      >
         {children}
       </a>
     );

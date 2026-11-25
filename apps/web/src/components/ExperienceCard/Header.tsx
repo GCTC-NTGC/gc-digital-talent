@@ -1,17 +1,17 @@
-import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useIntl } from "react-intl";
 
 import type { IconType } from "@gc-digital-talent/ui";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
+import type { ExperienceType } from "~/types/experience";
 
 interface ExperienceDetailsType {
   title: string;

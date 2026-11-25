@@ -1,8 +1,8 @@
-import uniqueId from "lodash/uniqueId";
-import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
+import uniqueId from "lodash/uniqueId";
 import type { HTMLProps } from "react";
 import { useEffect } from "react";
+import { useIntl } from "react-intl";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 

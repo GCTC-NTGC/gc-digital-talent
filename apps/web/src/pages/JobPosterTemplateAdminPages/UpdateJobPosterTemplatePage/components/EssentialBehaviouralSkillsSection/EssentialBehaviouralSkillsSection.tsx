@@ -1,13 +1,11 @@
-import { useIntl } from "react-intl";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import sortBy from "lodash/sortBy";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import sortBy from "lodash/sortBy";
 
-import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   UpdateJobPosterTemplateInput,
@@ -20,19 +18,21 @@ import {
   getFragment,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import type { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
-import type { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import type { FormValues } from "../../../components/EssentialBehaviouralSkillsForm";
 import EssentialBehaviouralSkillsForm from "../../../components/EssentialBehaviouralSkillsForm";
+import { isEssentialBehaviouralSkill } from "../../utils";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
-import { isEssentialBehaviouralSkill } from "../../utils";
 
 export const InitialData_Fragment = graphql(/* GraphQL */ `
   fragment UpdateJobPosterTemplateEssentialBehaviouralSkills on JobPosterTemplate {

@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
+import type { AuthRole } from "@gc-digital-talent/auth";
 import {
   commonMessages,
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { AuthRole } from "@gc-digital-talent/auth";
+import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 

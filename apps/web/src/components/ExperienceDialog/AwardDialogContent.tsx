@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { AwardedTo } from "@gc-digital-talent/graphql";
 import type { AwardedScope } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
+import { formattedDate } from "~/utils/dateUtils";
 import type { ExperienceForInfo } from "~/utils/experienceUtils";
 import {
   getExperienceFormLabels,
   useExperienceInfo,
 } from "~/utils/experienceUtils";
-import { formattedDate } from "~/utils/dateUtils";
 
 import ContentSection from "../ExperienceCard/ContentSection";
 import type { ContentProps } from "../ExperienceCard/types";

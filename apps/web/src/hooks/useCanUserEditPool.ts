@@ -1,6 +1,6 @@
 import { useAuthorization, ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PoolStatus } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { checkRole } from "../utils/teamUtils";
 

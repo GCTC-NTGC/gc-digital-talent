@@ -1,21 +1,33 @@
-import { useRef, useState, type ChangeEvent } from "react";
-import { useIntl } from "react-intl";
-import { useQuery, type OperationContext } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
-import { tv } from "tailwind-variants";
-import EllipsisHorizontalIcon from "@heroicons/react/24/outline/EllipsisHorizontalIcon";
-import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
-import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
-import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
+import EllipsisHorizontalIcon from "@heroicons/react/24/outline/EllipsisHorizontalIcon";
 import NoSymbolIcon from "@heroicons/react/24/outline/NoSymbolIcon";
+import { useRef, useState, type ChangeEvent } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
+import { useQuery, type OperationContext } from "urql";
 
+import { CheckButton, Input, Select } from "@gc-digital-talent/forms";
 import {
   graphql,
   type TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
-import { CheckButton, Input, Select } from "@gc-digital-talent/forms";
+import {
+  notEmpty,
+  unpackMaybes,
+  uniqueItems,
+} from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   DropdownMenu,
@@ -25,32 +37,20 @@ import {
   Toolbar,
   Tooltip,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  ENUM_SORT_ORDER,
-  narrowEnumType,
-  sortLocalizedEnumOptions,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import {
-  notEmpty,
-  unpackMaybes,
-  uniqueItems,
-} from "@gc-digital-talent/helpers";
 
-import adminMessages from "~/messages/adminMessages";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import tableMessages from "~/components/Table/tableMessages";
 import Pagination from "~/components/Pagination";
+import tableMessages from "~/components/Table/tableMessages";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import useUserDownloads from "~/hooks/useUserDownloads";
+import adminMessages from "~/messages/adminMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
-import Inbox from "./Inbox";
-import TrackedUserListItem from "./TrackedUserListItem";
-import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
 import NotReferTrackedUsersDialog from "./dialogs/NotReferTrackedUsersDialog";
 import NotSelectTrackedUsersDialog from "./dialogs/NotSelectTrackedUsersDialog";
+import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
+import Inbox from "./Inbox";
+import TrackedUserListItem from "./TrackedUserListItem";
 
 const TalentRequestTrackedUsersInbox_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersInbox(

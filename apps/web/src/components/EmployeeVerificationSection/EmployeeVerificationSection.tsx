@@ -1,21 +1,21 @@
-import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import { tv, type VariantProps } from "tailwind-variants";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import { useId } from "react";
+import { useIntl } from "react-intl";
+import { tv, type VariantProps } from "tailwind-variants";
 
-import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
-import { getExperienceName } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
+import { getExperienceName } from "~/utils/experienceUtils";
 
 const grid = tv({
   base: "mt-6 grid grid-cols-1 gap-3 xs:grid-cols-3",
@@ -116,6 +116,8 @@ const EmployeeVerificationSection = ({
       <div className={grid({ context })}>
         <Card
           className="grid gap-3"
+          // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+          // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
           role="group"
           aria-labelledby={workEmailCardHeadingId}
         >
@@ -209,6 +211,8 @@ const EmployeeVerificationSection = ({
         </Card>
         <Card
           className="grid gap-3"
+          // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+          // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
           role="group"
           aria-labelledby={workExperienceCardHeadingId}
         >
@@ -291,6 +295,8 @@ const EmployeeVerificationSection = ({
         {context === "applicant" && (
           <Card
             className="grid gap-3"
+            // NOTE: Maybe not necessary if we can use headings instead of bold paragraph
+            // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
             role="group"
             aria-labelledby={communityCardHeadingId}
           >

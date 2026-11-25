@@ -1,5 +1,5 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import {
   getStaticSkills,
@@ -8,16 +8,20 @@ import {
   fakeLocalizedEnum,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import {
-  GLOBAL_A11Y_EXCLUDES,
-  MockGraphqlDecorator,
-} from "@gc-digital-talent/storybook-helpers";
+import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
   PoolSkillType,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { setInSessionStorage } from "@gc-digital-talent/storage";
+import {
+  GLOBAL_A11Y_EXCLUDES,
+  MockGraphqlDecorator,
+} from "@gc-digital-talent/storybook-helpers";
+
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
 import { SearchForm } from "./SearchForm";
 
@@ -63,7 +67,17 @@ const SearchRequestOptions = {
 
 const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
 
+// Result cards only show once a filter is added, so seed one through the stored request state
+const requestStateLoader = (applicantFilter?: ApplicantFilterInput) => {
+  return () => {
+    setInSessionStorage(TALENT_REQUEST_STATE_KEY, {
+      applicantFilter: applicantFilter ?? {},
+    });
+  };
+};
+
 export const Default = Template.bind({});
+Default.loaders = [requestStateLoader()];
 Default.parameters = {
   apiResponses: {
     SearchRequestOptions,
@@ -82,6 +96,9 @@ Default.parameters = {
 };
 
 export const WithResults = Template.bind({});
+WithResults.loaders = [
+  requestStateLoader({ locationPreferences: [WorkRegion.Ontario] }),
+];
 WithResults.parameters = {
   apiResponsesConfig: {
     latency: {

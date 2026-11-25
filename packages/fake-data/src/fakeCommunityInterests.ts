@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker/locale/en";
 
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   CommunityInterestAdditionalDuty,
   DevelopmentProgramParticipationStatus,
   FinanceChiefRole,
 } from "@gc-digital-talent/graphql/schema-types";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";
 import toLocalizedEnum from "./fakeLocalizedEnum";

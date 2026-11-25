@@ -38,37 +38,41 @@ import {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
+import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
+import TalentRequest from "~/fixtures/TalentRequest";
+import type { TalentRequestSourceOfTalent } from "~/fixtures/TalentRequest";
+import TalentSearch from "~/fixtures/TalentSearch";
+import type {
+  TalentRequestCandidateCriteria,
+  TalentRequestContact,
+} from "~/fixtures/TalentSearch";
 import {
   createAndSubmitApplication,
   pauseCandidateReferral,
   QualifyAndPlaceCandidate,
   ResumeCandidateReferrals,
 } from "~/utils/applications";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { loginBySub } from "~/utils/auth";
+import { getClassifications } from "~/utils/classification";
+import { getMyCommunity } from "~/utils/communities";
+import { getDepartments } from "~/utils/departments";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
+import {
+  fetchIdentificationNumber,
+  generateUniqueNumber,
+  generateUniqueTestId,
+} from "~/utils/id";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
+import { createSkill, deleteSkill } from "~/utils/skills";
 import {
   getTalentRequestSources,
   getTalentRequestTrackedUsers,
   updateTalentRequestTrackedUser,
 } from "~/utils/talentRequests";
-import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
-import { getClassifications } from "~/utils/classification";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { getWorkStreams } from "~/utils/workStreams";
-import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
-import TalentSearch from "~/fixtures/TalentSearch";
-import type {
-  TalentRequestCandidateCriteria,
-  TalentRequestContact,
-} from "~/fixtures/TalentSearch";
-import TalentRequest from "~/fixtures/TalentRequest";
-import type { TalentRequestSourceOfTalent } from "~/fixtures/TalentRequest";
-import { loginBySub } from "~/utils/auth";
-import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
-import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
-import { getMyCommunity } from "~/utils/communities";
-import { getDepartments } from "~/utils/departments";
 
 test.describe("Talent search", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
@@ -176,8 +180,13 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     ).filter(({ value }) => value !== TalentRequestSource.AtLevel);
 
     await test.step("Create a test pool", async () => {
-      technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
-        return skills.find((s) => s.category.value === SkillCategory.Technical);
+      technicalSkill = await createSkill(platformAdminCtx, {
+        key: `pw_skill_${generateUniqueNumber()}`,
+        name: {
+          en: `Playwright skill ${uniqueTestId}`,
+          fr: `Playwright skill ${uniqueTestId} (FR)`,
+        },
+        category: SkillCategory.Technical,
       });
       skill = technicalSkill;
       community = await getMyCommunity(adminCtx, {});
@@ -264,6 +273,9 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     }
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
+    }
+    if (technicalSkill) {
+      await deleteSkill(platformAdminCtx, technicalSkill.id);
     }
   });
 

@@ -1,9 +1,8 @@
-import { useIntl } from "react-intl";
 import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
-import { useFormContext } from "react-hook-form";
 import { useEffect, useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Heading } from "@gc-digital-talent/ui";
 import {
   Checkbox,
   Checklist,
@@ -11,13 +10,14 @@ import {
   localizedEnumToOptions,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FinanceChiefRole,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

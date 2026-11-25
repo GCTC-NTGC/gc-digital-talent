@@ -1,18 +1,23 @@
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import type { ComponentProps } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import type { ComponentProps } from "react";
 
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status =
-  "error" | "success" | "warning" | "optional" | "not done" | "locked";
+  | "error"
+  | "success"
+  | "warning"
+  | "optional"
+  | "not done"
+  | "locked";
 type Layout = "compact" | "hero";
 
 const statusItem = tv({

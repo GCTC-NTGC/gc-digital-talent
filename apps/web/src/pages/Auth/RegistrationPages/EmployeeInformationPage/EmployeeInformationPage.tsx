@@ -1,9 +1,18 @@
-import { useNavigate, useSearchParams } from "react-router";
-import { defineMessage, useIntl } from "react-intl";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { defineMessage, useIntl } from "react-intl";
+import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Submit } from "@gc-digital-talent/forms";
+import {
+  EmploymentCategory,
+  GovPositionType,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Link,
   Card,
@@ -11,31 +20,22 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Submit } from "@gc-digital-talent/forms";
-import {
-  EmploymentCategory,
-  GovPositionType,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import Hero from "~/components/Hero";
-import SEO from "~/components/SEO/SEO";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WorkFields from "~/components/ExperienceFormFields/WorkFields/WorkFields";
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import Hero from "~/components/Hero";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import useRoutes from "~/hooks/useRoutes";
+import profileMessages from "~/messages/profileMessages";
 import type {
   ExperienceDetailsSubmissionData,
   WorkFormValues,
 } from "~/types/experience";
-import { useExperienceMutations } from "~/hooks/useExperienceMutations";
-import profileMessages from "~/messages/profileMessages";
-import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
-import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import messages from "../messages";
 
@@ -171,6 +171,7 @@ const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   } = formValues;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -212,6 +213,7 @@ const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   };
 
   return mappedData;

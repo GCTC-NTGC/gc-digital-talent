@@ -1,3 +1,8 @@
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+  PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 import type {
   PoolCandidate,
   Skill,
@@ -20,17 +25,9 @@ import {
   WorkRegion,
   CandidateRemovalReason,
 } from "@gc-digital-talent/graphql/schema-types";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-  PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import type { GraphQLContext } from "~/utils/graphql";
-import graphql from "~/utils/graphql";
-import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, deleteUser, getUserById, me } from "~/utils/user";
+import AssessmentPage from "~/fixtures/AssessmentPage";
 import {
   createAndSubmitApplication,
   disqualifyCandidate,
@@ -38,15 +35,18 @@ import {
   removeCandidate,
   revertFinalDecision,
 } from "~/utils/applications";
+import { loginBySub } from "~/utils/auth";
+import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 import {
   createAndPublishPool,
   getPoolSkills,
   retirePublishedPool,
 } from "~/utils/pools";
-import { loginBySub } from "~/utils/auth";
-import { generateUniqueTestId } from "~/utils/id";
-import AssessmentPage from "~/fixtures/AssessmentPage";
-import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
+import { getSkills } from "~/utils/skills";
+import { createUserWithRoles, deleteUser, getUserById, me } from "~/utils/user";
 
 const LOCALIZED_STRING = {
   en: "test EN",

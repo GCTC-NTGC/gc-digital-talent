@@ -1,6 +1,12 @@
-import { useIntl, type MessageDescriptor } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
+import { useIntl, type MessageDescriptor } from "react-intl";
 
+import {
+  Checklist,
+  Combobox,
+  enumToOptions,
+  Select,
+} from "@gc-digital-talent/forms";
 import {
   WorkRegion,
   type EmployeeVerification,
@@ -13,6 +19,7 @@ import {
   type TalentRequestUserSkillMatchFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -25,20 +32,13 @@ import {
   type TEmploymentDuration,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-import {
-  Checklist,
-  Combobox,
-  enumToOptions,
-  Select,
-} from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
-import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import usePoolFilterOptions from "~/components/PoolFilterInput/usePoolFilterOptions";
-import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
+import adminMessages from "~/messages/adminMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";

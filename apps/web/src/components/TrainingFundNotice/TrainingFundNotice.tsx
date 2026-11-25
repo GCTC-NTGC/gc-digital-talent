@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import { useIntl } from "react-intl";
 
-import { Link, Notice } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 const TrainingFundNotice = () => {
   const intl = useIntl();

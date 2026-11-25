@@ -6,7 +6,8 @@ export interface PartialUser {
   hasDisability?: boolean | null;
   isVisibleMinority?: boolean | null;
   indigenousCommunities?:
-    (LocalizedEnumValue<IndigenousCommunity> | null | undefined)[] | null;
+    | (LocalizedEnumValue<IndigenousCommunity> | null | undefined)[]
+    | null;
 }
 
 export function hasEmptyRequiredFields(): boolean {

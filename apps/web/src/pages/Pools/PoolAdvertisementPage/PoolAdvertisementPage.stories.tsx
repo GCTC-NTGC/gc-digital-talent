@@ -1,11 +1,11 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
-import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 
 import {
   PoolAdvertisement_Fragment,

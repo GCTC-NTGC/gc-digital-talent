@@ -1,13 +1,25 @@
-import { useIntl } from "react-intl";
-import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import type { OperationContext } from "urql";
-import { useQuery } from "urql";
 import type { JSX } from "react";
 import { useMemo } from "react";
+import { useIntl } from "react-intl";
 import { useOutletContext } from "react-router";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  FragmentType,
+  UpdatePublishedPoolInput,
+} from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import {
+  notEmpty,
+  NotFoundError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   NotFound,
   Pending,
@@ -16,39 +28,45 @@ import {
   Container,
   Separator,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  notEmpty,
-  NotFoundError,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
-import type {
-  FragmentType,
-  UpdatePublishedPoolInput,
-} from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import type { EditPoolSectionMetadata } from "~/types/pool";
-import SEO from "~/components/SEO/SEO";
-import StatusItem from "~/components/StatusItem/StatusItem";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
-import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
-import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
-import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
-import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
-import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
-import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
-import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
-import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
-import usePoolMutations from "~/hooks/usePoolMutations";
-import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
-import processMessages from "~/messages/processMessages";
-import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
+import usePoolMutations from "~/hooks/usePoolMutations";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import processMessages from "~/messages/processMessages";
+import type { EditPoolSectionMetadata } from "~/types/pool";
+import { getAdvertisementStatus } from "~/utils/poolUtils";
+import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
+import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
+import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
+import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
+import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
+import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
+import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
+import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
+import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 
+import type { ContextType } from "../PoolLayout";
+import type { AboutUsSubmitData } from "./components/AboutUsSection/AboutUsSection";
+import AboutUsSection from "./components/AboutUsSection/AboutUsSection";
+import AssetSkillsSection from "./components/AssetSkillsSection";
+import ClosingDateSection, {
+  type ClosingDateSubmitData,
+} from "./components/ClosingDateSection/ClosingDateSection";
+import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
+import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
+import CoreRequirementsSection, {
+  type CoreRequirementsSubmitData,
+} from "./components/CoreRequirementsSection/CoreRequirementsSection";
+import EditPoolContext from "./components/EditPoolContext";
+import EducationRequirementsSection from "./components/EducationRequirementsSection";
+import EssentialSkillsSection from "./components/EssentialSkillsSection";
+import GeneralQuestionsSection, {
+  type GeneralQuestionsSubmitData,
+} from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import type {
   PoolClassification_Fragment,
   PoolNameSubmitData,
@@ -57,39 +75,21 @@ import PoolNameSection from "./components/PoolNameSection/PoolNameSection";
 import ProcessNumberSection, {
   type ProcessNumberSubmitData,
 } from "./components/ProcessNumberSection";
-import ClosingDateSection, {
-  type ClosingDateSubmitData,
-} from "./components/ClosingDateSection/ClosingDateSection";
-import YourImpactSection, {
-  type YourImpactSubmitData,
-} from "./components/YourImpactSection/YourImpactSection";
-import WorkTasksSection, {
-  type WorkTasksSubmitData,
-} from "./components/WorkTasksSection/WorkTasksSection";
-import CoreRequirementsSection, {
-  type CoreRequirementsSubmitData,
-} from "./components/CoreRequirementsSection/CoreRequirementsSection";
-import EssentialSkillsSection from "./components/EssentialSkillsSection";
-import AssetSkillsSection from "./components/AssetSkillsSection";
 import type { SkillTableSkill_Fragment } from "./components/SkillTable";
-import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import GeneralQuestionsSection, {
-  type GeneralQuestionsSubmitData,
-} from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import type { SpecialNoteSubmitData } from "./components/SpecialNoteSection/SpecialNoteSection";
 import SpecialNoteSection from "./components/SpecialNoteSection/SpecialNoteSection";
+import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
-import EditPoolContext from "./components/EditPoolContext";
+import WorkTasksSection, {
+  type WorkTasksSubmitData,
+} from "./components/WorkTasksSection/WorkTasksSection";
+import YourImpactSection, {
+  type YourImpactSubmitData,
+} from "./components/YourImpactSection/YourImpactSection";
 import type { PoolSkillMutationsType, SectionKey } from "./types";
-import type { AboutUsSubmitData } from "./components/AboutUsSection/AboutUsSection";
-import AboutUsSection from "./components/AboutUsSection/AboutUsSection";
-import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
-import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
-import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
-import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
-import type { ContextType } from "../PoolLayout";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {

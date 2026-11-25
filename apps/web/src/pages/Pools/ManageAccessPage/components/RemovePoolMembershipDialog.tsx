@@ -1,19 +1,19 @@
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useMutation } from "urql";
 
-import { Dialog, Button, Chip, Chips, IconButton } from "@gc-digital-talent/ui";
+import type {
+  RoleInput,
+  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type {
-  RoleInput,
-  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
-} from "@gc-digital-talent/graphql";
+import { Dialog, Button, Chip, Chips, IconButton } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 

@@ -1,12 +1,13 @@
 // @ts-check
 
-import react from "eslint-plugin-react";
-import baseConfig from "./index.mjs";
-import globals from "globals";
-import jsxA11Y from "eslint-plugin-jsx-a11y";
-import reactHooks from "eslint-plugin-react-hooks";
-import formatjs from "eslint-plugin-formatjs";
 import vitest from "@vitest/eslint-plugin";
+import formatjs from "eslint-plugin-formatjs";
+import jsxA11Y from "eslint-plugin-jsx-a11y";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import globals from "globals";
+
+import baseConfig from "./index.mjs";
 
 export default [
   ...baseConfig,

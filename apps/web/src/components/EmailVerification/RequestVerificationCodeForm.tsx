@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import { ErrorCode, graphql } from "@gc-digital-talent/graphql";
 import {
   emptyToNull,
   notEmpty,
   workEmailDomainRegex,
 } from "@gc-digital-talent/helpers";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import {
   getTooManyRequestsExtension,

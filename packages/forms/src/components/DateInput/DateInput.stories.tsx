@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { isAfter } from "date-fns/isAfter";
 import { parseISO } from "date-fns/parseISO";
+import { useState, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { action } from "storybook/actions";
 
 import {
   formatDate,
   formDateStringToDate,
   DATE_FORMAT_STRING,
 } from "@gc-digital-talent/date-helpers";
-import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Pending } from "@gc-digital-talent/ui";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
 import Input from "../Input/Input";
-import { DATE_SEGMENT } from "./types";
+import Submit from "../Submit";
 import type { DateInputProps } from "./DateInput";
 import DateInput from "./DateInput";
+import { DATE_SEGMENT } from "./types";
 
 export default {
   component: DateInput,
@@ -155,12 +155,13 @@ export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   const { watch } = useFormContext<Record<string, string>>();
+  const [now] = useState(() => new Date());
   const watchFirstInput = watch(name);
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;
 
-  return inputDate && isAfter(new Date(), inputDate) ? (
+  return inputDate && isAfter(now, inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
     <p className="my-6 text-black dark:text-white">

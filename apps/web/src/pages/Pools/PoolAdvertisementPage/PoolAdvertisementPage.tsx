@@ -1,17 +1,38 @@
-import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
-import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { defineMessage, useIntl } from "react-intl";
 import { Navigate } from "react-router";
+import { useQuery } from "urql";
 
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  PoolStatus,
+  PoolSkillType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  localizeSalaryRange,
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
 import {
   ThrowNotFound,
   Pending,
@@ -26,61 +47,40 @@ import {
   IconLink,
   Container,
 } from "@gc-digital-talent/ui";
-import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  getLocale,
-  localizeSalaryRange,
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  PoolStatus,
-  PoolSkillType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
-import { getLogger } from "@gc-digital-talent/logger";
 
+import type { ApplicationLinkProps } from "~/components/ApplicationLink/ApplicationLink";
+import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
+import DataRow from "~/components/DataRow/DataRow";
+import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
+import Hero from "~/components/Hero";
+import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import {
   contactEmailTag,
   getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-import type { ApplicationLinkProps } from "~/components/ApplicationLink/ApplicationLink";
-import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
-import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
-import type { ClassificationGroup } from "~/types/classificationGroup";
-import { isClassificationGroup } from "~/types/classificationGroup";
-import DataRow from "~/components/DataRow/DataRow";
-import processMessages from "~/messages/processMessages";
 
-import Text from "./components/Text";
-import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
-import DeadlineDialog from "./components/DeadlineDialog";
-import WorkLocationDialog from "./components/WorkLocationDialog";
-import SkillLevelDialog from "./components/SkillLevelDialog";
-import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
-import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
-import DeadlineValue from "./components/DeadlineValue";
 import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
-import WhoCanApplyText from "./components/WhoCanApplyText";
+import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
+import DeadlineDialog from "./components/DeadlineDialog";
+import DeadlineValue from "./components/DeadlineValue";
+import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
+import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 import SalaryRangeDialog from "./components/SalaryRangeDialog";
 import SecurityClearanceDialog from "./components/SecurityClearanceDialog";
+import SkillLevelDialog from "./components/SkillLevelDialog";
+import Text from "./components/Text";
+import WhoCanApplyText from "./components/WhoCanApplyText";
+import WorkLocationDialog from "./components/WorkLocationDialog";
 
 interface SectionContent {
   id: string;

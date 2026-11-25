@@ -4,9 +4,9 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
+import type { AwardContentExperience } from "../AwardContent";
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
-import type { AwardContentExperience } from "../AwardContent";
 
 const AwardContentV1 = ({
   experience: { awardedTo, issuedBy, awardedScope },

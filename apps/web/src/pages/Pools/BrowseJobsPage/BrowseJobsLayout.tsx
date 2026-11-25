@@ -1,20 +1,20 @@
 import { useIntl } from "react-intl";
-import { tv } from "tailwind-variants";
 import { Outlet } from "react-router";
+import { tv } from "tailwind-variants";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Container, Flourish } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { useTheme } from "@gc-digital-talent/theme";
+import { Container, Flourish } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import flourishTopLight from "~/assets/img/browse_top_light.webp";
+import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
-import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
+import flourishTopLight from "~/assets/img/browse_top_light.webp";
+import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import browseJobsMessages from "./browseJobsMessages";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";

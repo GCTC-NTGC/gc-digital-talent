@@ -1,12 +1,12 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
-import { useFieldArray, useFormContext } from "react-hook-form";
 import type { ReactNode } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { action } from "storybook/actions";
 
 import BasicForm from "./BasicForm";
+import Input from "./Input/Input";
 import Repeater from "./Repeater/Repeater";
 import Submit from "./Submit";
-import Input from "./Input/Input";
 
 const labels = {
   requiredField: "Required field",

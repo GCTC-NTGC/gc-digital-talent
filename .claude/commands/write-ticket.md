@@ -23,20 +23,20 @@ When referring to people by name, use their role or team instead (e.g. "the prod
 
 ### Choosing the Right Type
 
-| Type | Template | When to Use |
-|------|----------|-------------|
-| Bug `🐛` | bug_report | Something broken or behaving unexpectedly |
-| Feature `✨` | feature | New functionality or changes to existing behavior |
-| Refactor `♻️` | refactor | Improving code without changing user-facing behavior |
-| Copy `🔤` | copy | Text/translation additions or corrections (auto-labeled `copy`) |
-| Testing `🧪` | testing | Writing or updating automated tests |
+| Type              | Template      | When to Use                                                                   |
+| ----------------- | ------------- | ----------------------------------------------------------------------------- |
+| Bug `🐛`          | bug_report    | Something broken or behaving unexpectedly                                     |
+| Feature `✨`      | feature       | New functionality or changes to existing behavior                             |
+| Refactor `♻️`     | refactor      | Improving code without changing user-facing behavior                          |
+| Copy `🔤`         | copy          | Text/translation additions or corrections (auto-labeled `copy`)               |
+| Testing `🧪`      | testing       | Writing or updating automated tests                                           |
 | Accessibility `⌨` | accessibility | WCAG compliance or assistive technology issues (auto-labeled `accessibility`) |
-| Platform `🛠️` | platform | Tooling, infrastructure, CI/CD, dependencies |
+| Platform `🛠️`     | platform      | Tooling, infrastructure, CI/CD, dependencies                                  |
 
 ### Titles
 
 - Keep under ~80 characters after the emoji prefix.
-- Use backticks for code references: `` ✨ `TalentRequest` policies ``
+- Use backticks for code references: ``✨ `TalentRequest` policies``
 - Lead with the user-visible problem or change, not the implementation: "🐛 Can't rollback migration" not "🐛 Fix column drop order in migration".
 - Bug titles often start with the environment if scoped: "🐛 UAT | Follow-up date validation allows..."
 

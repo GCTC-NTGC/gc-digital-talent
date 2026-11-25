@@ -6,15 +6,15 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
+import labels from "../../labels";
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
-import labels from "../../labels";
 
 const RationaleReview_Fragment = graphql(/* GraphQL */ `
   fragment RationaleReview on TalentNomination {

@@ -6,18 +6,18 @@ import {
   formDateTimeStringToDate,
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
-import type {
-  FragmentType,
-  LocalizedString,
-  SitewideAnnouncementInput,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Input,
   RichTextInput,
   Submit,
   SwitchInput,
 } from "@gc-digital-talent/forms";
+import type {
+  FragmentType,
+  LocalizedString,
+  SitewideAnnouncementInput,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -103,7 +103,9 @@ const formValuesToApiData = (
 
 interface SitewideAnnouncementFormProps {
   query:
-    FragmentType<typeof SitewideAnnouncementForm_Fragment> | null | undefined;
+    | FragmentType<typeof SitewideAnnouncementForm_Fragment>
+    | null
+    | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   onOpenChange: (isOpen: boolean) => void;
   isSubmitting: boolean;

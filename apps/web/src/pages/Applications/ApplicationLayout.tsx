@@ -1,15 +1,12 @@
-import { useIntl, defineMessage, type PrimitiveType } from "react-intl";
+import { useEffect } from "react";
+import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useEffect } from "react";
 
-import {
-  TableOfContents,
-  Stepper,
-  Loading,
-  Container,
-} from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   empty,
   isUuidError,
@@ -17,30 +14,33 @@ import {
   NotFoundError,
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
+import {
+  TableOfContents,
+  Stepper,
+  Loading,
+  Container,
+} from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
-import useCurrentPage from "~/hooks/useCurrentPage";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { poolTitle } from "~/utils/poolUtils";
+import useCurrentPage from "~/hooks/useCurrentPage";
+import useRoutes from "~/hooks/useRoutes";
 import {
   applicationStepsToStepperArgs,
   getNextStepToSubmit,
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import { poolTitle } from "~/utils/poolUtils";
 
-import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
-import useApplicationId from "./useApplicationId";
-import type { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
+import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
+import type { ContextType } from "./useApplication";
+import useApplicationId from "./useApplicationId";
 import { getApplicationSteps } from "./utils";
 
 interface RouteParams extends Record<string, string> {
@@ -71,7 +71,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   };
   const title = poolTitle(intl, application.pool);
 
-  const pageTitle = defineMessage<{ poolName: PrimitiveType }>({
+  const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
     description: "Heading for the application page",

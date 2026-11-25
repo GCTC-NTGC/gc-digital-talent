@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, Separator } from "@gc-digital-talent/ui";
 import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import { Button, Separator } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 

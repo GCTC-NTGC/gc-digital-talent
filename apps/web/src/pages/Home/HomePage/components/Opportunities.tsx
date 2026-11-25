@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { Heading, CardFlat } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { Heading, CardFlat } from "@gc-digital-talent/ui";
 
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import useRoutes from "~/hooks/useRoutes";

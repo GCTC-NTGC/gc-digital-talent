@@ -5,13 +5,6 @@ import type {
   EquitySelectionsInput,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import type {
-  Classification,
-  LocalizedTalentRequestSource,
-  Skill,
-  WorkStream,
-} from "@gc-digital-talent/graphql/schema-types";
-import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -19,6 +12,13 @@ import {
   PositionDuration,
   TalentRequestReason,
 } from "@gc-digital-talent/graphql";
+import type {
+  Classification,
+  LocalizedTalentRequestSource,
+  Skill,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
+import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -180,7 +180,10 @@ class TalentSearch extends AppPage {
     criteria: TalentRequestCandidateCriteria,
     talentSources: LocalizedTalentRequestSource[],
   ) {
-    const poolCard = await this.poolCardVisibility(poolName);
+    // Result cards only show once a filter is added, so check the card after selecting a classification
+    const poolCard = this.page.getByRole("article", {
+      name: new RegExp(poolName, "i"),
+    });
 
     for (const { value, label } of talentSources) {
       // Find talent labels the qualified in pool source "Pool candidates" instead of its API label
@@ -194,6 +197,16 @@ class TalentSearch extends AppPage {
         }),
       ).toBeChecked();
     }
+
+    // Counts are cached by filter, so set the skill before checking one.
+    const skillFilter = this.page.getByRole("combobox", {
+      name: /^skill$/i,
+    });
+
+    await skillFilter.fill(`${criteria.skill?.name.en}`);
+    await skillFilter.press("ArrowDown");
+    await skillFilter.press("Enter");
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
@@ -204,6 +217,7 @@ class TalentSearch extends AppPage {
     await classificationFilter.selectOption({
       value: selectedClassification,
     });
+    await this.poolCardVisibility(poolName);
 
     const streamFilter = this.page.getByRole("combobox", {
       name: /stream/i,
@@ -244,14 +258,6 @@ class TalentSearch extends AppPage {
         })
         .click();
     }
-
-    const skillFilter = this.page.getByRole("combobox", {
-      name: /^skill$/i,
-    });
-
-    await skillFilter.fill(`${criteria.skill?.name.en}`);
-    await skillFilter.press("ArrowDown");
-    await skillFilter.press("Enter");
 
     await this.page
       .getByRole("radio", {

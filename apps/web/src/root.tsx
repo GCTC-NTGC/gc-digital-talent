@@ -10,9 +10,9 @@ import "~/assets/css/tailwind.css";
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { getDocumentNonce } from "./utils/csp";
-import { makeServerConfigJS } from "./utils/runtime";
 // eslint-disable-next-line import/extensions
 import initTheme from "./utils/initTheme.js?raw";
+import { makeServerConfigJS } from "./utils/runtime";
 
 declare global {
   interface Window {

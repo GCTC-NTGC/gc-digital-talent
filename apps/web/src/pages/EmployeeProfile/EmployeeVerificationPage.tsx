@@ -1,26 +1,26 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Pending,
   Separator,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
+import profileMessages from "~/messages/profileMessages";
 
 import EmployeeVerificationSection from "../../components/EmployeeVerificationSection/EmployeeVerificationSection";
-import SharedTocLinks from "./components/SharedTocLinks";
 import NewFeatureMessage from "./components/NewFeatureMessage";
+import SharedTocLinks from "./components/SharedTocLinks";
 
 const SECTION_ID = {
   EMPLOYEE_VERIFICATION: "employee-verification-section",

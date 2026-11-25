@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ReactNode } from "react";
 
-import Heading from "../Heading";
 import Button from "../Button/Button";
+import Heading from "../Heading";
 
 const meta: Meta = {};
 

@@ -1,26 +1,7 @@
-import fr from "./lang/frCompiled.json" with { type: "json" };
 import LanguageProvider from "./components/LanguageProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
-import getIntl from "./utils/getIntl";
-import {
-  isLocale,
-  getLocale,
-  oppositeLocale,
-  changeLocale,
-  localizePath,
-  localeRedirect,
-  getLocalizedName,
-  localizeCurrency,
-  localizeSalaryRange,
-} from "./utils/localize";
-import {
-  combineMessages,
-  getDesiredLocale,
-  getIntlForLocale,
-  getPathLocale,
-  STORED_LOCALE,
-} from "./utils/utils";
+import fr from "./lang/frCompiled.json" with { type: "json" };
 import {
   apiMessages,
   commonMessages,
@@ -60,6 +41,7 @@ import {
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
 } from "./messages/localizedConstants";
+import type { Locales, Messages } from "./types";
 import {
   type MaybeLocalizedEnums,
   type GenericLocalizedEnum,
@@ -85,8 +67,26 @@ import {
   sortLocalizedEnumOptions,
   ENUM_SORT_ORDER,
 } from "./utils/enum";
-import type { Locales, Messages } from "./types";
+import getIntl from "./utils/getIntl";
 import { appendLanguageName, appendShortenedLanguageName } from "./utils/lang";
+import {
+  isLocale,
+  getLocale,
+  oppositeLocale,
+  changeLocale,
+  localizePath,
+  localeRedirect,
+  getLocalizedName,
+  localizeCurrency,
+  localizeSalaryRange,
+} from "./utils/localize";
+import {
+  combineMessages,
+  getDesiredLocale,
+  getIntlForLocale,
+  getPathLocale,
+  STORED_LOCALE,
+} from "./utils/utils";
 
 export {
   isLocale,

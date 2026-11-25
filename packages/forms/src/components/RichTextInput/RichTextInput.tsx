@@ -1,16 +1,19 @@
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import type { CommonInputProps } from "../../types";
-import Field from "../Field";
-import ControlledInput from "./ControlledInput";
-import { countNumberOfWordsAfterReplacingHTML } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import type { CommonInputProps } from "../../types";
+import {
+  countNumberOfWordsAfterReplacingHTML,
+  parseValidationRules,
+} from "../../utils";
+import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
+import ControlledInput from "./ControlledInput";
 
 type BaseHTMLProps = Omit<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
@@ -84,7 +87,7 @@ const RichTextInput = ({
         rules={{
           ...rules,
           validate: {
-            ...rules.validate,
+            ...parseValidationRules(rules.validate),
             ...wordLimitRule,
           },
         }}

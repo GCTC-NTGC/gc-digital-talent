@@ -1,38 +1,38 @@
-import { useNavigate } from "react-router";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import uniqBy from "lodash/uniqBy";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import uniqBy from "lodash/uniqBy";
 
-import { toast } from "@gc-digital-talent/toast";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
 import type { Option } from "@gc-digital-talent/forms";
 import { Select, Submit } from "@gc-digital-talent/forms";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 import type {
   CreatePoolInput,
   CreatePoolMutation,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import type { RoleName } from "@gc-digital-talent/auth";
-import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
-import messages from "~/messages/adminMessages";
-import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import permissionConstants from "~/constants/permissionConstants";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/adminMessages";
+import pageTitles from "~/messages/pageTitles";
 
 import FunctionalCommunitySection from "./FunctionalCommunitySection";
 import YourRolesSection from "./YourRolesSection";

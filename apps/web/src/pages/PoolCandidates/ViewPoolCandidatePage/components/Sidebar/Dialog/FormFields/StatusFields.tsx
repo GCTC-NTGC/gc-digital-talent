@@ -1,6 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import {
+  hasRequiredRoles,
+  ROLE_NAME,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
@@ -9,7 +16,7 @@ import {
   graphql,
   PlacementType,
 } from "@gc-digital-talent/graphql";
-import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -17,18 +24,12 @@ import {
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import {
-  hasRequiredRoles,
-  ROLE_NAME,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import { useStableDate } from "~/hooks/useStableDate";
 import applicationMessages from "~/messages/applicationMessages";
 
-import type { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
+import type { FormValues } from "../types";
 import PauseReferralsFormFields from "./PauseReferralsFormFields";
 
 const QualifiedFieldsOptions_Fragment = graphql(/** GraphQL */ `
@@ -44,6 +45,7 @@ interface QualifiedFieldsProps {
 
 export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
   const intl = useIntl();
+  const todayDate = useStableDate();
   const { userAuthInfo } = useAuthorization();
   const { watch } = useFormContext<FormValues>();
   const options = getFragment(QualifiedFieldsOptions_Fragment, query);
@@ -77,7 +79,7 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
         rules={{
           required: intl.formatMessage(errorMessages.required),
           min: {
-            value: strToFormDate(new Date().toISOString()),
+            value: strToFormDate(todayDate.toISOString()),
             message: intl.formatMessage(errorMessages.futureDate),
           },
         }}

@@ -1,5 +1,5 @@
-import { action } from "storybook/actions";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import Pagination from "./Pagination";
 

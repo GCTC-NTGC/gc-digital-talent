@@ -7,11 +7,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
+import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import Inbox from "./Inbox";
 import { getStatusIcon } from "./utils";
 

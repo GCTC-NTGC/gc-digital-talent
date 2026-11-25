@@ -2,13 +2,13 @@ import { Fragment, useId } from "react";
 import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 import { twMerge } from "tailwind-merge";
 
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
   type ButtonProps,
   type CardProps,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import useBrowseJobsSearchParams, {
   sortByOptions,
@@ -85,6 +85,7 @@ const ResultsBar = ({
       )}
       {...rest}
     >
+      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role */}
       <div role="status" className="grow font-bold">
         {!fetching
           ? intl.formatMessage(resultMessage, {
@@ -92,15 +93,14 @@ const ResultsBar = ({
             })
           : null}
       </div>
-      <div
-        role="group"
-        aria-labelledby={sortByLabelId}
-        className="flex flex-row flex-wrap items-center gap-3 whitespace-nowrap"
-      >
-        <span id={sortByLabelId} className="text-gray-500 dark:text-gray-200">
+      <fieldset className="flex flex-row flex-wrap items-center gap-3 whitespace-nowrap">
+        <legend
+          id={sortByLabelId}
+          className="float-left text-gray-500 dark:text-gray-200"
+        >
           {intl.formatMessage(formMessages.sortBy)}
           {intl.formatMessage(commonMessages.dividingColon)}
-        </span>
+        </legend>
         {sortByOptions.map((option, index) => (
           <Fragment key={option}>
             {index > 0 && (
@@ -118,7 +118,7 @@ const ResultsBar = ({
             </Button>
           </Fragment>
         ))}
-      </div>
+      </fieldset>
     </Card>
   );
 };

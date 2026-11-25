@@ -1,17 +1,17 @@
-import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import PuzzlePieceIcon from "@heroicons/react/16/solid/PuzzlePieceIcon";
+import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import { useState } from "react";
-import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Input } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, Button, TableOfContents } from "@gc-digital-talent/ui";
-import { Input } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Accordion, Button, TableOfContents } from "@gc-digital-talent/ui";
 
 import DeleteUserDialog from "./DeleteUserDialog";
 import RestoreUserDialog from "./RestoreUserDialog";

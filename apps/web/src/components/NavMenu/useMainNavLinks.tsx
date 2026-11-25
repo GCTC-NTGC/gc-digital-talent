@@ -1,8 +1,7 @@
-import { useIntl } from "react-intl";
 import uniqBy from "lodash/uniqBy";
+import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type { RoleName } from "@gc-digital-talent/auth";
 import {
   hasRequiredRoles,
@@ -10,22 +9,23 @@ import {
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
+import permissionConstants from "~/constants/permissionConstants";
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
-import permissionConstants from "~/constants/permissionConstants";
 import pageTitles from "~/messages/pageTitles";
 
-import navMenuMessages from "./messages";
-import useNavContext from "../NavContext/useNavContext";
 import {
   convertRoleToNavRole,
   isNavRole,
   NAV_ROLES_BY_PRIVILEGE,
 } from "../NavContext/NavContextContainer";
+import useNavContext from "../NavContext/useNavContext";
 import NavItem from "./MenuItem";
+import navMenuMessages from "./messages";
 
 /**
  * Builds the navigation structure depending on the current role and if the user is logged in

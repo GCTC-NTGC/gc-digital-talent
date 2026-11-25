@@ -11,14 +11,14 @@ import {
 import ClientProvider from "@gc-digital-talent/client";
 import { FeatureFlagProvider } from "@gc-digital-talent/env";
 import { LanguageProvider } from "@gc-digital-talent/i18n";
-import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 import Toast from "@gc-digital-talent/toast";
+import { Announcer } from "@gc-digital-talent/ui";
 
 import frMessages from "~/lang/frCompiled.json" with { type: "json" };
 
-import NavContextProvider from "../NavContext/NavContextProvider";
 import ActivityContainer from "../ActivityContext/ActivityContainer";
+import NavContextProvider from "../NavContext/NavContextProvider";
 
 const ToastPortal = () => ReactDOM.createPortal(<Toast />, document.body);
 

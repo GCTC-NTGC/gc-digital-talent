@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
-import debounce from "lodash/debounce";
-import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
+import type { StoryFn } from "@storybook/react-vite";
+import debounce from "lodash/debounce";
+import { useState, useMemo } from "react";
+import { action } from "storybook/actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";

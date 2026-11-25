@@ -57,6 +57,8 @@ services:
       - ./.git:/var/www/html/.git
       - ./.gitignore:/var/www/html/.gitignore
       - ./.gitattributes:/var/www/html/.gitattributes
+      - ./.oxfmtrc.json:/var/www/html/.oxfmtrc.json
+      - ./.oxlintrc.json:/var/www/html/.oxlintrc.json
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
       - ./apps:/var/www/html/apps

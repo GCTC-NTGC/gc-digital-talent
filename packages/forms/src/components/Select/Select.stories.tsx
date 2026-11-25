@@ -1,16 +1,16 @@
 import type { StoryFn } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
+import { action } from "storybook/actions";
 
 import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
+import type { OptGroup, Option } from "../../types";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import Select, { type SelectProps } from "./Select";
-import type { OptGroup, Option } from "../../types";
 
 export default {
   component: Select,

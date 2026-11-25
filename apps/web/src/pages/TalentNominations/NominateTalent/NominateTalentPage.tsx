@@ -1,37 +1,37 @@
-import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
 import { useEffect } from "react";
+import { defineMessage, useIntl } from "react-intl";
 import { useLocation, useSearchParams, type Location } from "react-router";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Container,
   Pending,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 
-import type { RouteParams } from "./types";
-import Nominator from "./components/Nominator";
-import Nominee from "./components/Nominee";
 import Details from "./components/Details";
-import Rationale from "./components/Rationale";
-import ReviewAndSubmit from "./components/ReviewAndSubmit";
 import Instructions from "./components/Instructions";
 import Navigation from "./components/Navigation";
-import useCurrentStep, { stepOrder } from "./useCurrentStep";
+import Nominator from "./components/Nominator";
+import Nominee from "./components/Nominee";
+import Rationale from "./components/Rationale";
+import ReviewAndSubmit from "./components/ReviewAndSubmit";
 import Success from "./components/Success";
+import type { RouteParams } from "./types";
+import useCurrentStep, { stepOrder } from "./useCurrentStep";
 import useMutations from "./useMutations";
 
 const tryGetCurrentStep = (

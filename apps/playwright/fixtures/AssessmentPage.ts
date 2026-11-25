@@ -1,6 +1,19 @@
 import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
+import type {
+  AssessmentDecisionLevel,
+  AssessmentResultJustification,
+  CandidateRemovalReason,
+  DisqualificationReason,
+} from "@gc-digital-talent/graphql/schema-types";
+import {
+  ApplicationStatus,
+  AssessmentDecision,
+  AssessmentResultType,
+  ScreeningStage,
+} from "@gc-digital-talent/graphql/schema-types";
+
 import {
   createAssessmentResult,
   getCandidateScreeningStage,
@@ -9,18 +22,6 @@ import {
 import type { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
-import type {
-  AssessmentDecisionLevel,
-  AssessmentResultJustification,
-  CandidateRemovalReason,
-  DisqualificationReason,
-} from "../../../packages/graphql/src/gql/graphql";
-import {
-  ApplicationStatus,
-  AssessmentDecision,
-  AssessmentResultType,
-  ScreeningStage,
-} from "../../../packages/graphql/src/gql/graphql";
 
 const FIELD = {
   SCREENING_STAGE_HEADING: "screeningStageHeading",

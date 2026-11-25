@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
+import { UNICODE_CHAR } from "../../utils/unicode";
 import Button from "../Button";
 import Collapsible from "../Collapsible";
-import { UNICODE_CHAR } from "../../utils/unicode";
 
 export interface SpoilerProps {
   // Accessible name for the "read more" button

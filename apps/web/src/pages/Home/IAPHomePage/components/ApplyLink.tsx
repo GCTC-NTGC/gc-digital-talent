@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import { Button, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { Button, Link } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import useApplyToPool from "~/hooks/useApplyToPool";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
+import useApplyToPool from "~/hooks/useApplyToPool";
+import useRoutes from "~/hooks/useRoutes";
 
 interface ApplyLinkProps {
   id: string;

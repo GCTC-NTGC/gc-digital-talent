@@ -1,4 +1,3 @@
-import { useIntl } from "react-intl";
 import type {
   ColumnDef,
   PaginationState,
@@ -6,37 +5,40 @@ import type {
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
-import type { SubmitHandler } from "react-hook-form";
-import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { Link } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type {
   UserFilterInput,
   UserTableRowFragment as UserTableRowFragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
+import accessors from "~/components/Table/accessors";
+import cells from "~/components/Table/cells";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
-import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
-import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  INITIAL_STATE,
-  SEARCH_PARAM_KEY,
-} from "~/components/Table/ResponsiveTable/constants";
-import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
+import adminMessages from "~/messages/adminMessages";
+import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
+import type { FormValues } from "./UserFilterDialog";
+import UserFilterDialog from "./UserFilterDialog";
 import {
   rolesAccessor,
   transformFormValuesToUserFilterInput,
@@ -44,8 +46,6 @@ import {
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import type { FormValues } from "./UserFilterDialog";
-import UserFilterDialog from "./UserFilterDialog";
 
 const columnHelper = createColumnHelper<UserTableRowFragmentType>();
 

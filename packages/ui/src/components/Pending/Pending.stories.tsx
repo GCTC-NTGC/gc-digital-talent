@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import type { StoryFn, Meta } from "@storybook/react-vite";
-import type { CombinedError } from "urql";
 import isChromatic from "chromatic/isChromatic";
+import { useState, useEffect } from "react";
+import type { CombinedError } from "urql";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 

@@ -1,24 +1,24 @@
-import { useMemo } from "react";
-import { useIntl } from "react-intl";
-import { Controller, useFormContext } from "react-hook-form";
 import omit from "lodash/omit";
+import { useMemo } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { formMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import useFieldState from "../../hooks/useFieldState";
-import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
+import Field from "../Field";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
+import Multi from "./Multi";
+import Single from "./Single";
+import type { BaseProps, ComboboxValue } from "./types";
 import {
   getErrorMessage,
   getMinMaxValue,
   getMultiDefaultValue,
   getSingleDefaultValue,
 } from "./utils";
-import type { BaseProps, ComboboxValue } from "./types";
-import Single from "./Single";
-import Multi from "./Multi";
-import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 type BaseHTMLProps = Omit<HTMLInputProps, "ref" | "id" | "name">;
 

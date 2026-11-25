@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 const stateIcon = tv({
@@ -39,7 +39,7 @@ export interface BaseItemProps {
 }
 
 const BaseItem = ({ title, content, state }: BaseItemProps) => (
-  <div
+  <li
     className={baseItem({
       class:
         state === "incomplete"
@@ -47,7 +47,6 @@ const BaseItem = ({ title, content, state }: BaseItemProps) => (
             "bg-radial-[circle_7.5rem_at_top_1.6875rem_right_1.6875rem] from-error/10 to-transparent"
           : undefined,
     })}
-    role="listitem"
   >
     <StateIcon state={state} />
     <div
@@ -58,7 +57,7 @@ const BaseItem = ({ title, content, state }: BaseItemProps) => (
       {title}
     </div>
     {content}
-  </div>
+  </li>
 );
 
 export default BaseItem;

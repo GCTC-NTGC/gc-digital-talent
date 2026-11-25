@@ -2,13 +2,13 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType, SkillCategory } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import adminMessages from "~/messages/adminMessages";
 import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
+import adminMessages from "~/messages/adminMessages";
 
 export const SkillFilterFamily_Fragment = graphql(/* GraphQL */ `
   fragment SkillFilterFamily on SkillFamily {

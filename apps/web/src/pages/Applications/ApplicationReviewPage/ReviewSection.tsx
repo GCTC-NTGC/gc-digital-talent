@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 interface ReviewSectionProps {
   title: string;

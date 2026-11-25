@@ -1,5 +1,5 @@
-import { pipe, tap } from "wonka";
 import type { Exchange, OperationContext } from "@urql/core";
+import { pipe, tap } from "wonka";
 
 import { apiHost, protectedUrl } from "../constants";
 import { hasForcedProtectedEndpoint } from "../utils/protectedEndpointContext";

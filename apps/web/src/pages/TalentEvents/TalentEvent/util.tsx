@@ -1,11 +1,11 @@
-import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
+import type { IntlShape } from "react-intl";
 
 import type { TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupStatus } from "@gc-digital-talent/graphql";
-import { Chip, Link } from "@gc-digital-talent/ui";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { GraphqlType } from "@gc-digital-talent/helpers";
+import { Chip, Link } from "@gc-digital-talent/ui";
 
 import type useRoutes from "~/hooks/useRoutes";
 import messages from "~/messages/talentNominationMessages";

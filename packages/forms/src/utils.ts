@@ -1,25 +1,26 @@
-import type { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
-import type { FieldErrors, FieldValues } from "react-hook-form";
-
 import type {
-  LocalizedEnumString,
-  LocalizedString,
-} from "@gc-digital-talent/graphql";
-import type { Locales } from "@gc-digital-talent/i18n";
+  FieldErrors,
+  FieldValues,
+  RegisterOptions,
+} from "react-hook-form";
+import type { IntlShape } from "react-intl";
+
+import type { LocalizedString } from "@gc-digital-talent/graphql";
+import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import type { Node } from "./components/RichTextInput/types";
-import descriptionList from "./components/RichTextInput/descriptionList";
-import type { OptGroupOrOption } from "./types";
 import Anchor from "./components/RichTextInput/anchor";
+import descriptionList from "./components/RichTextInput/descriptionList";
+import type { Node } from "./components/RichTextInput/types";
+import type { OptGroupOrOption } from "./types";
 
 /**
  * Filters out empty data from data response, and returns list of ids.
@@ -82,9 +83,9 @@ export function enumToOptions(
  * field options array
  */
 export function localizedEnumToOptions(
-  list: (LocalizedEnumString | null | undefined)[] | undefined | null,
+  list: (GenericLocalizedEnum<string> | null | undefined)[] | undefined | null,
   intl: IntlShape,
-  sortOrder?: LocalizedEnumString["value"][],
+  sortOrder?: readonly string[],
 ): Option[] {
   const localizedEnums = unpackMaybes(list);
   if (sortOrder) {
@@ -297,4 +298,8 @@ export function alphaSortOptions(
         ),
       )
     : [];
+}
+
+export function parseValidationRules(validators: RegisterOptions["validate"]) {
+  return typeof validators === "function" ? { validators } : validators;
 }

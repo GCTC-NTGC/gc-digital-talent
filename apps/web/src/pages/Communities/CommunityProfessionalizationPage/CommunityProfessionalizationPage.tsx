@@ -1,9 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery, type OperationContext } from "urql";
-import { useOutletContext } from "react-router";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useOutletContext } from "react-router";
+import { useQuery, type OperationContext } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -14,18 +19,13 @@ import {
   Button,
   Notice,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
+import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import Hero from "~/components/Hero";
-import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 import AddDialog from "./components/AddDialog";
@@ -142,18 +142,14 @@ export const CommunityProfessionalizationForm = ({
               })}
             </p>
             <AddDialog community={community} />
-            <div
-              role="group"
-              aria-labelledby="sortFilter"
-              className="mt-6 flex items-center gap-3"
-            >
-              <span
+            <fieldset className="mt-6 flex items-center gap-3">
+              <legend
                 id="sortFilter"
-                className="text-gray-500 dark:text-gray-200"
+                className="float-left text-gray-500 dark:text-gray-200"
               >
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
-              </span>
+              </legend>
               <Button
                 onClick={() => setSortBy("recentlyAdded")}
                 {...(sortBy === "recentlyAdded"
@@ -174,7 +170,7 @@ export const CommunityProfessionalizationForm = ({
               >
                 {intl.formatMessage(commonMessages.name)}
               </Button>
-            </div>
+            </fieldset>
           </div>
           {sortedCommunityDevelopmentPrograms.length > 0 ? (
             <div className="-mr-6 -mb-5 -ml-6">

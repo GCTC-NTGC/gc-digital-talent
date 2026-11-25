@@ -69,9 +69,9 @@ const PoolCard = ({ pool: poolFragment }: PoolCardProps) => {
 Since the props require a specific type that comes from the code generator, the mocked data passed into stories needs to be massaged. Thankfully, there is a nice little helper (`makeFragmentData`) to do this.
 
 ```tsx
+import { fakePools } from "@gc-digital-talent/fake-data";
 // PoolCard.stories.tsx
 import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { fakePools } from "@gc-digital-talent/fake-data";
 
 import PoolCard, { PoolCard__PoolFragment } from "./PoolCard";
 
@@ -86,9 +86,9 @@ const Template = () => <PoolCard pool={mockPoolFragment} />;
 Similar to storybook, create the fragment using the helper (`makeFragmentData`).
 
 ```tsx
+import { fakePools } from "@gc-digital-talent/fake-data";
 // PoolCard.tests.tsx
 import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { fakePools } from "@gc-digital-talent/fake-data";
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import PoolCard, { PoolCard__PoolFragment } from "./PoolCard";
@@ -122,33 +122,32 @@ export const PoolList_QueryFragment = graphql(/* GraphQL */ `
       }
     }
   }
-`)
+`);
 
 type PoolListProps = {
   query: FragmentType<typeof PoolList_QueryFragment>;
-}
+};
 
 const PoolList = ({ query }: PoolListProps) => {
   const pools = getFragment(PoolList_QueryFragment, query);
 
-  return pools.map((pool) => (
-    <PoolCard key={pool.id} pool={pool} />
-  ))
-}
+  return pools.map((pool) => <PoolCard key={pool.id} pool={pool} />);
+};
 
 // PoolPage.tsx
 import { useQuery } from "urql";
+
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 export const PoolPage_Query = graphql(/* GraphQL */ `
   query PoolPage_Query {
     ...PoolList_QueryFragment
   }
-`)
+`);
 
 const PoolPage = ({ pools: poolsFragment }: PoolPageProps) => {
-  const [{data}] = useQuery({ query: PoolPage_Query })
+  const [{ data }] = useQuery({ query: PoolPage_Query });
 
   return <PoolList query={data} />;
-}
+};
 ```

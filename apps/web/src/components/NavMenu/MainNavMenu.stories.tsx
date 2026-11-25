@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
-  allModes,
-  MockGraphqlDecorator,
-} from "@gc-digital-talent/storybook-helpers";
-import {
   ACCESS_TOKEN,
   AuthenticationProvider,
   AuthorizationProvider,
   ROLE_NAME,
 } from "@gc-digital-talent/auth";
+import {
+  allModes,
+  MockGraphqlDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 
-import MainNavMenu from "./MainNavMenu";
 import NavContextProvider from "../NavContext/NavContextProvider";
+import MainNavMenu from "./MainNavMenu";
 
 const meta = {
   component: MainNavMenu,

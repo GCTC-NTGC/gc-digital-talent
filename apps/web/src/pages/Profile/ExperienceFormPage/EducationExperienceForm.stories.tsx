@@ -5,7 +5,6 @@ import {
   fakeLocalizedEnum,
   getStaticSkills,
 } from "@gc-digital-talent/fake-data";
-import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   DegreeType,
   EducationStatus,
@@ -13,11 +12,12 @@ import {
   FellowshipType,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import { ExperienceFormSkill_Fragment } from "./ExperienceFormPage";
 import EducationExperienceForm, {
   EducationExperienceForm_Fragment,
 } from "./EducationExperienceForm";
+import { ExperienceFormSkill_Fragment } from "./ExperienceFormPage";
 
 const skillFragments = getStaticSkills().map((skill) =>
   makeFragmentData(skill, ExperienceFormSkill_Fragment),

@@ -1,15 +1,8 @@
-import { useIntl } from "react-intl";
-import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect, useId, useRef, useState } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { CardSeparator, Heading } from "@gc-digital-talent/ui";
-import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Checkbox,
   DateInput,
@@ -18,20 +11,27 @@ import {
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
+import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { CardSeparator, Heading } from "@gc-digital-talent/ui";
 
-import processMessages from "~/messages/processMessages";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
 import { isCommunity } from "../TalentEvent/util";
+import AddDialog from "./AddDialog";
+import { instructionsWordCountLimits } from "./constants";
+import EditDialog from "./EditDialog";
 import type { FormValues } from "./formValues";
 import { TalentNominationEvent_Fragment } from "./fragments";
-import AddDialog from "./AddDialog";
-import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
-import { instructionsWordCountLimits } from "./constants";
 
 interface UpcomingTalentEventFormProps {
   query?: FragmentType<typeof TalentNominationEvent_Fragment>;

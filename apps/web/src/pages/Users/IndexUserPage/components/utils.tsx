@@ -1,12 +1,6 @@
-import type { IntlShape } from "react-intl";
 import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
 
-import {
-  notEmpty,
-  uniqueItems,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
-import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
   QueryUsersPaginatedOrderByOrderByClause,
@@ -18,12 +12,18 @@ import {
   Trashed,
   UsersOrderByColumn,
 } from "@gc-digital-talent/graphql";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
+import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
+import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 import type { FormValues, OtherFilter } from "./UserFilterDialog";
 import { OTHER_FILTER } from "./UserFilterDialog";
-import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 interface DisplayRole {
   name: string;

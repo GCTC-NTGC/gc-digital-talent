@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button, Separator } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   NominatorInfoDialog_NominationFragment as NominatorInfoDialogNominationFragmentType,
@@ -14,10 +13,11 @@ import {
   TalentNominationSubmitterRelationshipToNominator,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Dialog, Button, Separator } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import messages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   getNominatorDepartment,
   getNominatorName,

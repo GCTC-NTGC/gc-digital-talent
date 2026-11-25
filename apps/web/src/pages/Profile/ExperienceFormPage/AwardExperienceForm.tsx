@@ -1,5 +1,5 @@
-import { defineMessages, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -102,6 +102,7 @@ const AwardExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="award"
+      focusField="awardTitle"
       experienceQuery={experience}
       detailsDefaultValues={
         experience ? queryResultToDefaultValues("award", experience) : undefined

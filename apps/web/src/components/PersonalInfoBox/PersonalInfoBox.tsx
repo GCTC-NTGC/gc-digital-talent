@@ -7,8 +7,8 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Link, Notice } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link, Notice } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 

@@ -1,11 +1,11 @@
 import { screen } from "@testing-library/react";
 
+import { fakePools } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { PoolCardProps } from "./PoolCard";
 import PoolCard, { PoolCard_Fragment } from "./PoolCard";

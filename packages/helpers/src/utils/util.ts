@@ -160,3 +160,15 @@ export function pickMap<T, K extends keyof T>(
     (item) => Object.fromEntries(keyArr.map((k) => [k, item[k]])) as Pick<T, K>,
   );
 }
+
+/**
+ * Builds a type guard that checks whether a value is a member of a string enum.
+ * Useful for narrowing untrusted strings (e.g. URL search params) to enum types.
+ * @param enumObj the enum to check membership against
+ * @example
+ * rawValues.filter(isEnumValue(PoolAreaOfSelection)) // PoolAreaOfSelection[]
+ */
+export const isEnumValue =
+  <E extends Record<string, string>>(enumObj: E) =>
+  (value: string | null | undefined): value is E[keyof E] =>
+    Object.values(enumObj).some((enumValue) => enumValue === value);

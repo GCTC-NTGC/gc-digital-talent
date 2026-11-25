@@ -1,13 +1,21 @@
-import { useIntl } from "react-intl";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
 
+import {
+  EmploymentCategory,
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { groupBy } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
@@ -18,18 +26,10 @@ import {
   PreviewList,
   type IconType,
 } from "@gc-digital-talent/ui";
-import {
-  EmploymentCategory,
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { groupBy } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import type { ExperienceType } from "~/types/experience";
-import experienceMessages from "~/messages/experienceMessages";
 import useRoutes from "~/hooks/useRoutes";
+import experienceMessages from "~/messages/experienceMessages";
+import type { ExperienceType } from "~/types/experience";
 import {
   compareByDate,
   isAwardExperience,
@@ -40,12 +40,12 @@ import {
   type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 
+import AddExperienceDialog from "../ExperienceDialog/AddExperienceDialog";
 import AwardPreviewListItem from "./AwardPreviewListItem";
 import CommunityPreviewListItem from "./CommunityPreviewListItem";
 import EducationPreviewListItem from "./EducationPreviewListItem";
 import PersonalPreviewListItem from "./PersonalPreviewListItem";
 import WorkPreviewListItem from "./WorkPreviewListItem";
-import AddExperienceDialog from "../ExperienceDialog/AddExperienceDialog";
 
 export const ExperienceListCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceListCard on Experience {
@@ -224,12 +224,12 @@ const ExperienceListCard = ({
 
   return (
     <Card space="md" className="relative">
-      <div className="absolute top-0 right-0 h-12.5 w-12.5 bg-gray-100 drop-shadow-[1rem_-10px_5px_var(--gcdt-color-gray-100)] lg:h-13.75 lg:w-13.75 dark:bg-gray-700 dark:drop-shadow-[1rem_-10px_5px_var(--gcdt-color-gray-700)]">
+      <div className="absolute top-0 right-0 z-4 h-15 w-15 bg-[#EEF1F9] drop-shadow-[1rem_-10px_5px_#EEF1F9] lg:h-16 lg:w-16 dark:bg-gray-700 dark:drop-shadow-[1rem_-10px_5px_var(--gcdt-color-gray-700)]">
         <div
           id="corner-shape"
           className="absolute top-0 right-0 h-full w-full bg-white [clip-path:polygon(25%_12.5%,25%_12.5%,24.836%_10.472%,24.363%_8.549%,23.605%_6.756%,22.588%_5.118%,21.339%_3.661%,19.882%_2.412%,18.244%_1.395%,16.451%_0.637%,14.528%_0.164%,12.5%_0%,0%_0%,0%_100%,50%_100%,100%_100%,100%_87.5%,100%_87.5%,99.836%_85.472%,99.363%_83.549%,98.605%_81.756%,97.588%_80.118%,96.339%_78.661%,94.882%_77.412%,93.244%_76.395%,91.451%_75.637%,89.528%_75.164%,87.5%_75%,66.667%_75%,66.667%_75%,59.908%_74.455%,53.497%_72.876%,47.518%_70.349%,42.059%_66.961%,37.204%_62.796%,33.039%_57.941%,29.651%_52.482%,27.124%_46.503%,25.545%_40.092%,25%_33.333%,25%_12.5%)] dark:bg-gray-600"
         ></div>
-        <div className="absolute top-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md dark:bg-gray-600">
+        <div className="absolute top-0 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md dark:bg-gray-600">
           <Icon
             aria-hidden="true"
             focusable="false"
@@ -244,7 +244,9 @@ const ExperienceListCard = ({
       >
         {title}
       </Heading>
-      <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
+      <p className="relative z-5 mb-4.5 text-gray-500 dark:text-gray-200">
+        {description}
+      </p>
       {showEdit &&
         (addLink ? (
           <Link href={addLink} icon={PlusCircleIcon} className="font-bold">

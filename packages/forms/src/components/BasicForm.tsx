@@ -1,3 +1,4 @@
+import isEqual from "lodash/isEqual";
 import type { PropsWithChildren, ReactElement } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
@@ -9,7 +10,6 @@ import type {
   UseFormProps,
 } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 
 import {
   getFromSessionStorage,
@@ -17,11 +17,11 @@ import {
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
 
-import ErrorSummary from "./ErrorSummary";
-import UnsavedChanges from "./UnsavedChanges";
-import { flattenErrors } from "../utils";
 import type { FieldLabels } from "../types";
+import { flattenErrors } from "../utils";
+import ErrorSummary from "./ErrorSummary";
 import { FormLabelsProvider } from "./FormLabelsProvider";
+import UnsavedChanges from "./UnsavedChanges";
 
 /**
  * Basic Form Props
@@ -123,7 +123,8 @@ function BasicForm<TFieldValues extends FieldValues>({
             Path<TFieldValues>
           >;
           const defaultValues = options?.defaultValues as
-            TFieldValues | undefined;
+            | TFieldValues
+            | undefined;
           const defaultValue: unknown = defaultValues
             ? defaultValues[field]
             : null;

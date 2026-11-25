@@ -1,14 +1,14 @@
-import { useIntl } from "react-intl";
 import ArchiveBoxXMarkIcon from "@heroicons/react/24/solid/ArchiveBoxXMarkIcon";
-import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
 const ArchiveDepartment_Mutation = graphql(/* GraphQL */ `
   mutation ArchiveDepartment_Mutation($id: ID!) {

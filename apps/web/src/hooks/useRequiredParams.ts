@@ -1,23 +1,16 @@
+import { useIntl } from "react-intl";
 import type { Params } from "react-router";
 import { useParams } from "react-router";
-import { useIntl } from "react-intl";
 
+import { isUUID, notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   defaultLogger,
   type Logger,
   getLogger,
 } from "@gc-digital-talent/logger";
-import { notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
-
-const uuidRegEx =
-  /^[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}$/;
-
-const isUUID = (str: string): boolean => {
-  return !!uuidRegEx.exec(str);
-};
 
 /**
  * Assert Param
@@ -64,7 +57,7 @@ const useRequiredParams = <
 >(
   keys: K | K[],
   enforceUUID = true,
-  message: string | undefined = undefined,
+  message?: string,
 ): Record<K, string> => {
   const intl = useIntl();
   const logger = getLogger();

@@ -1,8 +1,22 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
+import { appInsights } from "@gc-digital-talent/app-insights";
+import { Input } from "@gc-digital-talent/forms";
+import {
+  PoolSkillType,
+  SkillCategory,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Button,
   Heading,
@@ -11,39 +25,25 @@ import {
   Ul,
   Notice,
 } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
-import { Input } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  PoolSkillType,
-  SkillCategory,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { appInsights } from "@gc-digital-talent/app-insights";
 
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import SkillTree from "~/components/SkillTree/SkillTree";
 import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import {
   categorizeSkill,
   filterPoolSkillsByType,
   poolSkillsToSkills,
 } from "~/utils/skillUtils";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import SkillTree from "~/components/SkillTree/SkillTree";
-import processMessages from "~/messages/processMessages";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import ReviewSection from "./ReviewSection";
-import useApplication from "../useApplication";
 import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
+import useApplication from "../useApplication";
+import ReviewSection from "./ReviewSection";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {

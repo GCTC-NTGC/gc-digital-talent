@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   Checkbox,
   DATE_SEGMENT,
@@ -10,16 +11,16 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
+import { nodeToString } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 import type {
   PersonalFormValues,
   SubExperienceFormProps,
 } from "~/types/experience";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 300;
@@ -30,7 +31,7 @@ const PersonalFields = ({
 }: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   const {
     setValue,
     formState: { defaultValues },
@@ -149,7 +150,13 @@ const PersonalFields = ({
         {organizationSuggestions.length > 0 && (
           <datalist id="organizationSuggestions">
             {organizationSuggestions.map((suggestion) => {
-              return <option key={suggestion} value={suggestion}></option>;
+              return (
+                <option
+                  key={suggestion}
+                  value={suggestion}
+                  aria-label={suggestion}
+                />
+              );
             })}
           </datalist>
         )}

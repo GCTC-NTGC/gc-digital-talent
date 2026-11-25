@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
+import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 

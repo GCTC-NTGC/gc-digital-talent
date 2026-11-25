@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, Card } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Card } from "@gc-digital-talent/ui";
 
 interface CommunityResultCardProps {
   community: { id: string; name?: { localized?: string | null } | null };

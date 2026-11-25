@@ -1,20 +1,20 @@
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Dialog, Button, IconButton, Ul } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Combobox } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Dialog, Button, IconButton, Ul } from "@gc-digital-talent/ui";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 import type { PoolAssignment, RoleTableProps } from "../utils";
 import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";

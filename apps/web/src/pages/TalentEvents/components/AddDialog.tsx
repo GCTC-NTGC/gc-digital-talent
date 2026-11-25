@@ -1,7 +1,7 @@
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useState } from "react";
 
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import {

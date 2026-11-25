@@ -16,6 +16,17 @@ const nomineeMessages = defineMessages({
     id: "wRsQe+",
     description: "Label for the type(s) of a received nomination",
   },
+  classificationAtTimeOfLastApproval: {
+    defaultMessage: "Your classification at the time",
+    id: "tP4ulX",
+    description:
+      "Label for the nominee's classification at the time their nomination was approved",
+  },
+  noticeTitle: {
+    defaultMessage: "Congratulations on being nominated to {eventName}!",
+    id: "ZlD1Sv",
+    description: "Title for important update notice",
+  },
 });
 
 export default nomineeMessages;

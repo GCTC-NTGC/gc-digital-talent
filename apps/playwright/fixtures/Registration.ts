@@ -2,9 +2,9 @@ import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 import { loginBySub } from "~/utils/auth";
-import { deleteUser } from "~/utils/user";
-import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import graphql from "~/utils/graphql";
+import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
+import { deleteUser } from "~/utils/user";
 
 import AppPage from "./AppPage";
 import UserPage from "./UserPage";

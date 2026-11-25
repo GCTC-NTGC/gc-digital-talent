@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { Dispatch, SetStateAction } from "react";
+import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";

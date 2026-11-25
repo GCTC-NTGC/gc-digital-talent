@@ -1053,6 +1053,7 @@ type TalentNominationGroupAsNominee
   nominatorNames: [String!]!
     @rename(attribute: "approved_nominator_names")
     @with(relation: "nominations.nominator")
+  classificationAtTimeOfLastApproval: Classification @belongsTo
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
@@ -1209,7 +1210,8 @@ type TalentRequestTrackedUser {
   matchingLateralMovementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
     @with(relation: "talentRequest.applicantFilter")
-  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
+  referralSummary: TalentRequestReferralSummary!
+    # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
 
@@ -1649,7 +1651,8 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
   matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int @rename(attribute: "skill_count")
-  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
+  referralSummary: TalentRequestReferralSummary!
+    # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
 }
 
@@ -1820,13 +1823,15 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
+  # Cached for 15mins
   countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
+    @cache(maxAge: 900)
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchPoolCount!]!
+  ): [TalentRequestMatchPoolCount!]! @cache(maxAge: 900)
   countTalentRequestMatchesByCommunity(
     where: TalentRequestMatchFilterInput
-  ): [TalentRequestMatchCommunityCount!]!
+  ): [TalentRequestMatchCommunityCount!]! @cache(maxAge: 900)
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
@@ -1853,12 +1858,10 @@ type Query {
     where: PublishedPoolsSearchInput
     orderBy: _ @orderBy(columnsEnum: "PublishedPoolsSearchOrderByColumn")
   ): [Pool]!
-    @paginate(
-      defaultCount: 10
+    @cursorPaginate(
       maxCount: 100
       scopes: ["wherePublished", "whereNotArchived", "whereNotHidden"]
     )
-    @orderBy(column: "id", direction: DESC)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard

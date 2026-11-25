@@ -29,6 +29,7 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 ## Essential Commands
 
 All commands run from the repository root. There are two setup paths:
+
 - **Docker**: Most devs use `make` targets that wrap these commands inside Docker via the maintenance container. See the `Makefile` for available targets and `infrastructure/README.md` for setup.
 - **Local**: Run commands directly if you have PHP, Node, and PostgreSQL installed locally. See `documentation/linux-setup.md`.
 
@@ -47,7 +48,7 @@ php artisan migrate:fresh --seed  # Reset and seed database
 # Code Quality
 pnpm lint:fix               # ESLint auto-fix
 pnpm tsc                    # TypeScript type check
-pnpm prettier:fix           # Prettier auto-fix
+pnpm fmt:fix                # Oxfmt auto-format
 ./vendor/bin/pint           # PHP linting (Pint)
 ./vendor/bin/phpstan        # PHP static analysis
 
@@ -76,6 +77,7 @@ php artisan test --filter=ExampleTest
 **Functional Programming**: Use pure functions, immutable variables (`const`), and avoid side effects. Replace loops with `map`, `filter`, `reduce`. Use ternary operators and `&&` instead of if/else when possible.
 
 **React Components**: Follow this hierarchy:
+
 - `*Page` - Router target, arranges layout and breadcrumbs
 - `*Container` - Handles API requests and mutations
 - Primary (`*Form`, `*Table`) - User interaction, receives data via props
@@ -114,16 +116,19 @@ Michif (crg), Plains Cree (crk), Western Ojibway (ojw), Mi'kmaw (mic) in special
 The `/documentation/` folder contains detailed guides. Key references by category:
 
 **Essential Reading** (understand codebase patterns):
+
 - `documentation/style-guide.md` - Functional programming principles, React component hierarchy, file naming conventions
 - `documentation/graphql.md` - Fragment masking, collocation pattern, bottom-up query composition with examples
 - `api/README.md` - Schema-first design, database migrations, Eloquent models, Lighthouse directives
 
 **Development Guides** (reference as needed):
+
 - `documentation/accessibility.md` - WCAG compliance, axe-core testing, manual testing checklist
 - `documentation/translation.md` - i18n workflow, bulk translation process, source control guidelines
 - `documentation/environment-variables.md` - Build-time vs runtime env vars, feature flags
 - `documentation/notifications.md` - GC Notify integration for email/SMS
 
 **Setup & Infrastructure**:
+
 - `documentation/linux-setup.md` - Local environment setup (Node, PHP, PostgreSQL, Docker)
 - `infrastructure/README.md` - Docker Compose configuration

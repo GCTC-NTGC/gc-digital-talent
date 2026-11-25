@@ -16,6 +16,18 @@ const recruiterMessages = defineMessages({
     id: "65Ocoa",
     description: "Label for the type(s) of nomination an employee received",
   },
+  classificationAtTimeOfLastApproval: {
+    defaultMessage: "Their substantive classification at the time",
+    id: "ThOac9",
+    description:
+      "Label for the nominee's classification at the time their nomination was approved",
+  },
+  noticeTitle: {
+    defaultMessage: "This employee was nominated for {eventName}",
+    id: "y9M/D2",
+    description:
+      "Notice Title for nomination details dialog for recruiter view on the GC profile",
+  },
 });
 
 export default recruiterMessages;

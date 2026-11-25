@@ -1,10 +1,9 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
 import InboxStackIcon from "@heroicons/react/24/outline/InboxStackIcon";
 import isEmpty from "lodash/isEmpty";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
@@ -12,25 +11,27 @@ import {
   Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   formMessages,
   sortPoolLanguage,
   sortSecurityStatus,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/process/coreRequirements";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import processMessages from "~/messages/processMessages";
 
-import { useEditPoolContext } from "../EditPoolContext";
 import type { SectionProps } from "../../types";
+import ActionWrapper from "../ActionWrapper";
+import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import type { FormValues, CoreRequirementsSubmitData } from "./utils";
 import {
@@ -38,7 +39,6 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
 } from "./utils";
-import ActionWrapper from "../ActionWrapper";
 
 const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolCoreRequirements on Pool {

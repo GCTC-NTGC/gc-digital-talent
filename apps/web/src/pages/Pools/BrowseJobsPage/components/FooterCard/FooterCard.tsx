@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+import { useIntl } from "react-intl";
 
-import { Card, Heading, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

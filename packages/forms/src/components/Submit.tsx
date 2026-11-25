@@ -1,10 +1,10 @@
+import type { ReactNode } from "react";
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
-import type { ReactNode } from "react";
 
+import { formMessages } from "@gc-digital-talent/i18n";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
 
 export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
   text?: string | ReactNode;

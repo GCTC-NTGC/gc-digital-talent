@@ -1,8 +1,7 @@
-import { useIntl } from "react-intl";
-import { useForm } from "react-hook-form";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, Card } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
@@ -10,9 +9,10 @@ import {
   errorMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { Button, Card } from "@gc-digital-talent/ui";
 
-import type { FormSkills } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import type { FormSkills } from "~/types/experience";
 
 interface SkillsInDetailProps {
   skills: FormSkills;
@@ -83,7 +83,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 })}
               />
               <TextArea
-                id={`skill-in-detail-${id}`}
+                id={`skills.${index}.details`}
                 name={`skills.${index}.details`}
                 wordLimit={wordCountLimits[locale]}
                 aria-label={intl.formatMessage(

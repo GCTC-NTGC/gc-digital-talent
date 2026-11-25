@@ -11,10 +11,8 @@
     "./frCompiled.json": "./src/lang/frCompiled.json"
   },
   "scripts": {
-    "prettier": "prettier --check . --ignore-path=../../.prettierignore",
-    "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "tsc": "tsc --project tsconfig.json",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -31,7 +29,7 @@
     "react-router": "^8.5.0"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.18.0",
+    "@formatjs/cli": "^6.18.2",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/node": "^26.6.6",

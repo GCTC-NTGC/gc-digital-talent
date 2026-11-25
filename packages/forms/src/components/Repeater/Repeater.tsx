@@ -1,21 +1,21 @@
-import { motion, useReducedMotion } from "motion/react";
-import { useIntl } from "react-intl";
-import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
-import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
-import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
+import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import { useFormContext } from "react-hook-form";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
+import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode, HTMLProps } from "react";
 import { useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 
-import Field from "../Field";
 import { flattenErrors } from "../../utils";
+import Field from "../Field";
 import ActionButton from "./ActionButton";
 
 const innerBounding = tv({

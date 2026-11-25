@@ -1,11 +1,15 @@
 import { useIntl, type MessageDescriptor } from "react-intl";
 
+import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
+import {
+  TalentRequestSource,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
 import {
   notEmpty,
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
@@ -13,26 +17,22 @@ import {
   getLocalizedName,
   type GenericLocalizedEnum,
 } from "@gc-digital-talent/i18n";
-import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
-import {
-  TalentRequestSource,
-  FlexibleWorkLocation,
-} from "@gc-digital-talent/graphql";
+import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import adminMessages from "~/messages/adminMessages";
+import messages from "~/messages/profileMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import type { PartialApplicantFilter } from "~/types/talentRequestForm";
 import { wrapAbbr } from "~/utils/nameUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import {
   equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
 } from "~/utils/talentRequestUtils";
-import adminMessages from "~/messages/adminMessages";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import messages from "~/messages/profileMessages";
-import type { PartialApplicantFilter } from "~/types/talentRequestForm";
 
-import FilterBlock from "./FilterBlock";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
+import FilterBlock from "./FilterBlock";
 
 const ApplicantFilters = ({
   applicantFilter,

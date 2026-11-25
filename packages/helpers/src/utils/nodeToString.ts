@@ -1,6 +1,6 @@
-import { createRoot } from "react-dom/client";
-import { flushSync } from "react-dom";
 import type { ReactNode } from "react";
+import { flushSync } from "react-dom";
+import { createRoot } from "react-dom/client";
 
 /**
  * Convert a ReactNode to a string

@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Notice, ScrollToLink, Ul } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { formMessages } from "@gc-digital-talent/i18n";
+import { Notice, ScrollToLink, Ul } from "@gc-digital-talent/ui";
 
 import type { FieldLabels } from "../types";
 

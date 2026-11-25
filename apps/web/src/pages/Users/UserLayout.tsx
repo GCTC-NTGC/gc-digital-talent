@@ -2,19 +2,19 @@ import { useIntl } from "react-intl";
 import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { ThrowNotFound, Pending, Notice } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { ThrowNotFound, Pending, Notice } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const AdminUserHeader_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserHeader on User {

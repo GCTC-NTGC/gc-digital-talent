@@ -1,5 +1,3 @@
-import type { SetStateAction, Dispatch } from "react";
-import { useState, useMemo } from "react";
 import type {
   OnChangeFn,
   ColumnFiltersState,
@@ -9,9 +7,11 @@ import type {
   Updater,
   VisibilityState,
 } from "@tanstack/react-table";
+import type { SetStateAction, Dispatch } from "react";
+import { useState, useMemo } from "react";
 
-import type { InitialState } from "./types";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
+import type { InitialState } from "./types";
 import { getColumnVisibility, getColumnFilters } from "./utils";
 
 type UpdateStateCallback<State> = (newState: State | null) => void;

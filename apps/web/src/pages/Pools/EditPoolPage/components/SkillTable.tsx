@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
-import { Button } from "@gc-digital-talent/ui";
 import type {
   SkillLevel,
   FragmentType,
   SkillTablePoolSkillFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
+import { Button } from "@gc-digital-talent/ui";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { normalizedText } from "~/components/Table/sortingFns";
 import type { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
 export const SkillTableSkill_Fragment = graphql(/* GraphQL */ `

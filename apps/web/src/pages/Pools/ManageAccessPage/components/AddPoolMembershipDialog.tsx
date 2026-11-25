@@ -1,30 +1,30 @@
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import debounce from "lodash/debounce";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import debounce from "lodash/debounce";
-import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useMutation } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
+import type {
+  RoleInput,
+  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  RoleInput,
-  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
-} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type { ManageAccessFormValues, PoolTeamMember } from "./types";
-import useAvailableUsers from "./useAvailableUsers";
-import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserProcessRoles_Mutation } from "./operations";
+import type { ManageAccessFormValues, PoolTeamMember } from "./types";
+import useAvailableRoles from "./useAvailableRoles";
+import useAvailableUsers from "./useAvailableUsers";
 
 interface AddPoolMembershipDialogProps {
   pool: ManageAccessPagePoolFragmentType;

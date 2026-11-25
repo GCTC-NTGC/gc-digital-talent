@@ -91,6 +91,20 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->suspend($owner, $submitted)));
     }
 
+    public function testOwnerCanToggleDashboardVisibilityOfExpiredDraftApplication(): void
+    {
+        $owner = User::factory()->asApplicant()->create();
+        $expiredDraft = PoolCandidate::factory()
+            ->for($owner)
+            ->for($this->primaryPool)
+            ->create([
+                'submitted_at' => null,
+                'expiry_date' => config('constants.past_date'),
+            ]);
+
+        $this->assertTrue($this->ensureBool($this->policy->toggleDashboardVisibility($owner, $expiredDraft)));
+    }
+
     public function testOwnerCannotViewTheirOwnApplicationStatus(): void
     {
         $owner = User::factory()->asApplicant()->create();

@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
-import { useQuery } from "urql";
 import { tv } from "tailwind-variants";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 

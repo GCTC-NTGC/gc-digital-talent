@@ -1,13 +1,13 @@
-import type { IntlShape } from "react-intl";
 import { differenceInCalendarDays } from "date-fns/differenceInCalendarDays";
+import type { IntlShape } from "react-intl";
 
-import { EmploymentDuration } from "@gc-digital-talent/i18n";
-import type { ChipProps } from "@gc-digital-talent/ui";
 import {
   PositionDuration,
   TalentRequestPositionType,
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
+import { EmploymentDuration } from "@gc-digital-talent/i18n";
+import type { ChipProps } from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 

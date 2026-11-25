@@ -1,6 +1,6 @@
-import { notEmpty } from "@gc-digital-talent/helpers";
 import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import type { AddedSkill } from "~/utils/skillUtils";

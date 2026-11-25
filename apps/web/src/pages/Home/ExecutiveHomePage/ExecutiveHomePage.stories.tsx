@@ -1,8 +1,8 @@
 import type { StoryFn } from "@storybook/react-vite";
 
-import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import { ExecutiveHomePagePools_Fragment, HomePage } from "./ExecutiveHomePage";
 

@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
+import ExclamationCircleIcon from "@heroicons/react/16/solid/ExclamationCircleIcon";
 import { format } from "date-fns/format";
 import { isPast } from "date-fns/isPast";
-import ExclamationCircleIcon from "@heroicons/react/16/solid/ExclamationCircleIcon";
+import { useIntl } from "react-intl";
 
 import {
   DATE_FORMAT_LOCALIZED,
@@ -10,9 +10,9 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { CandidateInterest } from "@gc-digital-talent/graphql";
 import { CandidateStatus } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { deadlineToApply } from "~/utils/poolCandidate";
 
@@ -86,6 +86,8 @@ export const ApplicationDate = ({
       >
         {expired && (
           <ExclamationCircleIcon
+            // The svg needs role="img" to expose its aria-label name
+            // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
             role="img"
             aria-hidden="false"
             aria-label={intl.formatMessage(commonMessages.warning)}

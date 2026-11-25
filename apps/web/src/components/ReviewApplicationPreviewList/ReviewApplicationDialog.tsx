@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
 import { useRef, useState } from "react";
 import type { RefObject } from "react";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
@@ -11,7 +17,9 @@ import {
   PoolAreaOfSelection,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Accordion,
   Button,
@@ -22,26 +30,18 @@ import {
   Ul,
   wrapParens,
 } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_LOCALIZED,
-  TZ_VANCOUVER,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
 import {
   candidateStatusColorMap,
   deadlineToApply,
 } from "~/utils/poolCandidate";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-import useRoutes from "~/hooks/useRoutes";
-import { getSalaryRange } from "~/utils/classification";
-import { wrapAbbr } from "~/utils/nameUtils";
 
 import StatusSummary from "./StatusSummary";
 import { candidateStatusDesc } from "./utils";

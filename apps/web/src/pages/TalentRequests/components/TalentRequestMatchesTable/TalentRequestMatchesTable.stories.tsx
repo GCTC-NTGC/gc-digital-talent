@@ -1,6 +1,14 @@
 import type { StoryObj, Meta } from "@storybook/react-vite";
 
 import {
+  fakeClassifications,
+  fakeDepartments,
+  fakeSkills,
+  fakeUsers,
+  fakeWorkStreams,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
+import {
   FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
@@ -9,14 +17,6 @@ import {
   TalentRequestSource,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import {
-  fakeClassifications,
-  fakeDepartments,
-  fakeSkills,
-  fakeUsers,
-  fakeWorkStreams,
-  toLocalizedEnum,
-} from "@gc-digital-talent/fake-data";
 
 import TalentRequestMatchesTable, {
   TalentRequestMatchesTable_TalentRequestFragment,

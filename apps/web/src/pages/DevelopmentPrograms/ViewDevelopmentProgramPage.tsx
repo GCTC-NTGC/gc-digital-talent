@@ -1,7 +1,10 @@
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -11,14 +14,11 @@ import {
   Card,
   CardSeparator,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
 export const DevelopmentProgramView_Fragment = graphql(/* GraphQL */ `

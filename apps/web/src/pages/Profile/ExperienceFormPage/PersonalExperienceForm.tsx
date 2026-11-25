@@ -1,5 +1,5 @@
-import { defineMessages, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -80,6 +80,7 @@ const PersonalExperienceForm = ({
     <ExperienceFormLayout
       edit={edit}
       experienceType="personal"
+      focusField="experienceTitle"
       experienceQuery={experience}
       hasRelatedAwards={!!experience?.awardExperiences?.length}
       detailsDefaultValues={

@@ -1,7 +1,7 @@
+import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 import { useState } from "react";
 import type { TypedMessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -9,19 +9,19 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import type { StatusButtonProps } from "@gc-digital-talent/ui";
-import { Dialog, StatusButton } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
+import { Dialog, StatusButton } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import ToAssessStatusForm from "./ToAssessStatusForm";
 import type { ApplicationStatusFormProps, MutationHandler } from "../types";
 import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
+import messages from "./messages";
 import QualifiedStatusForm from "./QualifiedStatusForm";
 import RemovedStatusForm from "./RemovedStatusForm";
-import messages from "./messages";
+import ToAssessStatusForm from "./ToAssessStatusForm";
 
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {

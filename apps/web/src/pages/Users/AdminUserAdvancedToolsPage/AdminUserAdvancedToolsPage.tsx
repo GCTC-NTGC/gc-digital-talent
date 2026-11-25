@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -9,28 +10,27 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
+import profileMessages from "~/messages/profileMessages";
 
 import AccountInformation, {
   ACCOUNT_INFORMATION_ID,
   accountInformationTitle,
 } from "./components/AccountInformation/AccountInformation";
-import SupportTools, {
-  SUPPORT_TOOLS_ID,
-  supportToolsTitle,
-} from "./components/SupportTools";
-import RolePermissions, {
-  ROLE_PERMISSIONS_ID,
-} from "./components/RolesAndPermissions";
 import ActivityDetails, {
   ACTIVITY_DETAILS_ID,
   activityDetailsTitle,
 } from "./components/ActivityDetails";
+import RolePermissions, {
+  ROLE_PERMISSIONS_ID,
+} from "./components/RolesAndPermissions";
+import SupportTools, {
+  SUPPORT_TOOLS_ID,
+  supportToolsTitle,
+} from "./components/SupportTools";
 
 const AdminUserAdvancedTools_Fragment = graphql(/** GraphQL */ `
   fragment AdminUserAdvancedTools on User {

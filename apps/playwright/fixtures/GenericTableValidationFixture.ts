@@ -1,5 +1,5 @@
 import type { Locator, Page } from "playwright/test";
-import { expect } from "playwright/test";
+import { expect, test } from "playwright/test";
 
 import type {
   CandidateRemovalReason,
@@ -11,12 +11,14 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 import { ApplicationStatus } from "@gc-digital-talent/graphql/schema-types";
 
-import type { GraphQLContext } from "~/utils/graphql";
 import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
+import type { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
-import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
+import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
+
+const MAX_PAGE_SIZE = 500;
 
 export function escapeRegExp(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -36,6 +38,12 @@ const FIELD = {
   APPLICATION_STATUS_FILTER: "applicationStatusFilter",
   CLEAR_FILTERS: "clearFilters",
   NO_CANDIDATES_FOUND: "noCandidatesFound",
+  COMMUNITY_FILTER: "communityFilter",
+  TABLE_RESULTS: "tableResults",
+  TABLE_LOADING: "tableLoading",
+  CLASSIFICATION_COLUMN: "classificationColumn",
+  PAGE_SIZE: "pageSize",
+  PAGE_SIZE_500: "pageSize500",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -78,6 +86,19 @@ class GenericTableValidationFixture extends AppPage {
       [FIELD.NO_CANDIDATES_FOUND]: page.getByRole("heading", {
         name: /There aren't any items here./i,
         level: 2,
+      }),
+      [FIELD.COMMUNITY_FILTER]: page.getByRole("combobox", {
+        name: "Community",
+        exact: true,
+      }),
+      [FIELD.TABLE_RESULTS]: page.getByText(/^showing results/i),
+      [FIELD.TABLE_LOADING]: page.locator("[aria-busy='true']"),
+      [FIELD.CLASSIFICATION_COLUMN]: page.getByRole("columnheader", {
+        name: /^Classification/,
+      }),
+      [FIELD.PAGE_SIZE]: page.getByRole("button", { name: /^show \d+$/i }),
+      [FIELD.PAGE_SIZE_500]: page.getByRole("menuitemradio", {
+        name: String(MAX_PAGE_SIZE),
       }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
@@ -265,6 +286,69 @@ class GenericTableValidationFixture extends AppPage {
       await this.selectOptionFromCombobox("Reason for removal", removalReason);
     }
     await this.locators[FIELD.SHOW_RESULTS].click();
+  }
+
+  async filterCandidatesByCommunity(communityName: string) {
+    await this.locators[FIELD.FILTERS].click();
+    await this.locators[FIELD.COMMUNITY_FILTER].selectOption({
+      label: communityName,
+    });
+    const tableResponse = this.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
+    await this.locators[FIELD.SHOW_RESULTS].click();
+    await tableResponse;
+  }
+
+  private async filterCommunityTalent(filter: string, option: string) {
+    await this.locators[FIELD.FILTERS].click();
+    await this.selectOptionFromCombobox(filter, option);
+    const tableResponse = this.waitForGraphqlResponse("CommunityTalentTable");
+    await this.locators[FIELD.SHOW_RESULTS].click();
+    await tableResponse;
+  }
+
+  async filterCommunityTalentByWorkStream(workStreamName: string) {
+    await this.filterCommunityTalent("Work streams", workStreamName);
+  }
+
+  async filterCommunityTalentByClassification(classification: string) {
+    await this.filterCommunityTalent("Classifications", classification);
+  }
+
+  async getFirstRowClassification() {
+    await expect(this.locators[FIELD.TABLE_LOADING]).toHaveCount(0);
+    const column = await this.locators[FIELD.CLASSIFICATION_COLUMN].evaluate(
+      (header: HTMLTableCellElement) => header.cellIndex,
+    );
+    return this.locators[FIELD.GENERIC_TABLE_ROW]
+      .first()
+      .locator("td, th")
+      .nth(column)
+      .innerText();
+  }
+
+  async getTableTotal() {
+    await expect(this.locators[FIELD.TABLE_LOADING]).toHaveCount(0);
+    const results = await this.locators[FIELD.TABLE_RESULTS].textContent();
+    return Number(results?.split(" of ").pop());
+  }
+
+  async showFirst500Rows() {
+    const total = await this.getTableTotal();
+    if (total > MAX_PAGE_SIZE) {
+      test.info().annotations.push({
+        type: "warning",
+        description: `The table has ${total} rows, more than the largest page size of ${MAX_PAGE_SIZE}`,
+      });
+    }
+    await this.locators[FIELD.PAGE_SIZE].click();
+    await this.locators[FIELD.PAGE_SIZE_500].click();
+    await this.page.keyboard.press("Escape");
+    await expect(this.locators[FIELD.GENERIC_TABLE_ROW]).toHaveCount(
+      Math.min(total, MAX_PAGE_SIZE),
+    );
+    return total;
   }
 
   async verifyPlacementAndReferralStatus(

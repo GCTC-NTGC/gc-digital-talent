@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
+use UnexpectedValueException;
 
 class PaginationArgs
 {
@@ -41,12 +42,28 @@ class PaginationArgs
             // reverse pagination
             $perPageArg = $args['last'];
             $cursorArg = $args['before'] ?? null;
+            // without a cursor, Laravel would return the first items, not the last
+            if ($cursorArg === null) {
+                throw new Error('Paginating backward with last needs a before cursor.');
+            }
         } else {
             throw new Error('Missing pagination arguments.'); // Calling validateArgs first should prevent this from ever hitting.
         }
 
         $perPage = $perPageArg;
         $cursor = Cursor::fromEncoded($cursorArg);
+        // an undecodable cursor comes back null, which would silently return the first page
+        if ($cursorArg !== null && $cursor === null) {
+            throw new Error('The cursor is not valid.');
+        }
+        // the cursor's own flag decides the direction, so a cursor for the other direction would page the wrong way
+        if ($cursor !== null && $cursor->pointsToNextItems() !== array_key_exists('first', $args)) {
+            throw new Error('The cursor is for the other direction. Use endCursor with after, and startCursor with before.');
+        }
+        // Laravel can't compare against a null sort value, so the next page would fail
+        if ($cursor !== null && in_array(null, Arr::except($cursor->toArray(), '_pointsToNextItems'), true)) {
+            throw new Error('The cursor holds an empty sort value, so no more items can be loaded.');
+        }
 
         if ($perPage < 0) {
             throw new Error(self::requestedLessThanZeroItems($perPage));
@@ -93,11 +110,41 @@ class PaginationArgs
             $builder instanceof Relation => $builder->getQuery()->getQuery()
         };
         // Builder->ensureOrderForCursorPagination filters out any ordering that does not include a `direction` property.
-        if (! Arr::every($query->orders, fn ($o) => array_key_exists('direction', $o))) {
+        // orders is null when nothing was sorted; Laravel then sorts by the primary key
+        if (! Arr::every($query->orders ?? [], fn ($o) => array_key_exists('direction', $o))) {
             throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
-        return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
+        $this->ensureUniqueOrder($builder, $query);
+
+        try {
+            return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);
+        } catch (UnexpectedValueException) {
+            // the cursor lacks one of this query's sort columns
+            // a cursor for the same columns sorted the other way isn't caught: cursors don't record the direction
+            throw new Error('The cursor does not match the ordering of this query.');
+        }
+    }
+
+    /**
+     * Sort by the primary key last, unless it's already sorted on
+     *
+     * Rows that tie on every sort column can be skipped or repeated between pages otherwise.
+     */
+    private function ensureUniqueOrder(QueryBuilder|EloquentBuilder|Relation $builder, QueryBuilder $query): void
+    {
+        // with no sort at all, Laravel already sorts models by the primary key
+        // a plain query builder has no model to find the primary key from, so its own sort has to be unique
+        if (empty($query->orders) || $builder instanceof QueryBuilder) {
+            return;
+        }
+
+        $model = $builder instanceof Relation ? $builder->getRelated() : $builder->getModel();
+
+        $keyColumns = [$model->getKeyName(), $model->getQualifiedKeyName()];
+        if (! Arr::first($query->orders, fn ($order) => in_array($order['column'], $keyColumns, true))) {
+            $query->orderBy($model->getQualifiedKeyName(), Arr::last($query->orders)['direction']);
+        }
     }
 
     /*

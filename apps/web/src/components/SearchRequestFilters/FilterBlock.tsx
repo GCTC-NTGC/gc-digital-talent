@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
+import uniqueId from "lodash/uniqueId";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
 import { Ul } from "@gc-digital-talent/ui";
 

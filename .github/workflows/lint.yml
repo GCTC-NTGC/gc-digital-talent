@@ -69,7 +69,7 @@ jobs:
           pnpm store prune
           df -h
 
-      - name: "Run ESlint: all workspaces"
+      - name: "Run oxlint: all workspaces"
         working-directory: ./
         run: pnpm run lint
 
@@ -79,11 +79,11 @@ jobs:
         working-directory: ./
         run: pnpm run tsc
 
-      - name: "Run prettier check: all workspaces"
+      - name: "Run oxfmt check: all workspaces"
         # Allow tsc linting to happen even if js linting step raises errors.
         if: always()
         working-directory: ./
-        run: pnpm run prettier
+        run: pnpm run fmt
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

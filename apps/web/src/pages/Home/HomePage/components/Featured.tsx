@@ -1,15 +1,15 @@
-import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
+import { useIntl } from "react-intl";
 
-import { CardFlat, Heading } from "@gc-digital-talent/ui";
 import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
+import { CardFlat, Heading } from "@gc-digital-talent/ui";
 
+import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
+import platformResourcesImg from "~/assets/img/platform-resources-hero-card.webp";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
-import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
-import platformResourcesImg from "~/assets/img/platform-resources-hero-card.webp";
 import pageTitles from "~/messages/pageTitles";
 
 const Featured = () => {

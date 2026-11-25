@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { useMemo, useState } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   Container,
@@ -10,19 +16,13 @@ import {
   Heading,
   Button,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 export const ApplicationsPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsPage on PoolCandidate {
@@ -102,19 +102,15 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
               description: "Description for all applications",
             })}
           </p>
-          <div
-            role="group"
-            aria-labelledby="sortFilter"
-            className="my-6 flex items-center gap-3"
-          >
-            <span id="sortFilter">
+          <fieldset className="my-6 flex items-center gap-3">
+            <legend className="float-left">
               {intl.formatMessage({
                 defaultMessage: "Order by",
                 id: "idkbRt",
                 description: "Text to filter order",
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
+            </legend>
             <Button
               onClick={() => setOrderBy("newest")}
               mode="inline"
@@ -139,7 +135,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
                 description: "Order by oldest",
               })}
             </Button>
-          </div>
+          </fieldset>
           <Card>
             <ReviewApplicationPreviewList
               applicationsQuery={sortedApplications}

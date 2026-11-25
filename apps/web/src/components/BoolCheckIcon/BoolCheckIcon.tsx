@@ -1,5 +1,5 @@
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type { ReactNode } from "react";
 import { useId } from "react";
 import { tv } from "tailwind-variants";
@@ -57,6 +57,8 @@ const BoolCheckIcon = ({
       )}
       <Icon
         className={icon()}
+        // The svg needs role="img" to expose its aria-labelledby name
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
         role="img"
         {...(hasLabels && {
           "aria-hidden": "false",

@@ -1,49 +1,107 @@
+import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
-import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { useQuery } from "urql";
 
+import {
+  graphql,
+  LanguageAbility,
+  PoolAreaOfSelection,
+  PoolPublishedRange,
+  PoolStatus,
+  SalaryRange,
+  PublishedPoolsSearchOrderByColumn,
+  SortOrder,
+  type PublishedPoolsSearchInput,
+  type QueryPublishedPoolsSearchOrderByOrderByClause,
+} from "@gc-digital-talent/graphql";
+import { isEnumValue, isUUID, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Heading, Notice, Pending, Ul } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import JobCard from "~/components/JobCard/JobCard";
 
 import browseJobsMessages from "./browseJobsMessages";
-import ResultsBar from "./components/ResultsBar/ResultsBar";
 import FilterBar from "./components/FilterBar/FilterBar";
+import ResultsBar from "./components/ResultsBar/ResultsBar";
 import useBrowseJobsSearchParams from "./useBrowseJobsSearchParams";
 
 // features in progress
 const featurePaginationButton = true;
 const featureManageAlertButtons = true;
 
-// this will soon be replaced with a new search query
 const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
-  query OpenOpportunitiesPage {
-    poolsPaginated(
-      where: { statuses: [PUBLISHED], isHidden: false }
-      first: 500
-      orderBy: { column: CLOSING_DATE, order: ASC }
-    ) {
-      data {
-        id
-        ...JobCard
+  query OpenOpportunitiesPage(
+    $where: PublishedPoolsSearchInput
+    $first: Int!
+    $orderBy: [QueryPublishedPoolsSearchOrderByOrderByClause!]
+  ) {
+    publishedPoolsSearch(where: $where, first: $first, orderBy: $orderBy) {
+      edges {
+        node {
+          id
+          ...JobCard
+        }
       }
+      totalCount
     }
+
+    ...BrowseJobsFilterBarOptions
   }
 `);
 
 export const OpenOpportunitiesPage = () => {
   const intl = useIntl();
 
-  const { resetFilters } = useBrowseJobsSearchParams();
+  const { sortBy, resetAllFilters, getFilterValue, getFilterValues } =
+    useBrowseJobsSearchParams();
+
+  const whereVariable: PublishedPoolsSearchInput = {
+    keywordSearch: getFilterValues("keywords"),
+    eligibility: getFilterValues("applicationEligibilities").filter(
+      isEnumValue(PoolAreaOfSelection),
+    ),
+    departments: getFilterValues("organizations").filter(isUUID),
+    classifications: getFilterValues("classifications").filter(isUUID),
+    publishedAtRange: getFilterValues("advertisementTimings").filter(
+      isEnumValue(PoolPublishedRange),
+    ),
+    languages: getFilterValues("languageRequirements").filter(
+      isEnumValue(LanguageAbility),
+    ),
+    salaryRange: getFilterValues("minimumSalary").find(
+      isEnumValue(SalaryRange),
+    ),
+    processNumber: getFilterValue("processNumber"),
+    poolStatuses: [PoolStatus.Published], // this page doesn't show closed pools
+  };
+
+  const orderByVariable: Record<
+    typeof sortBy,
+    QueryPublishedPoolsSearchOrderByOrderByClause
+  > = {
+    datePosted: {
+      column: PublishedPoolsSearchOrderByColumn.PublishedAt,
+      order: SortOrder.Desc,
+    },
+    deadline: {
+      column: PublishedPoolsSearchOrderByColumn.ClosingDate,
+      order: SortOrder.Asc,
+    },
+  };
 
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
+    variables: {
+      where: whereVariable,
+      first: 20,
+      orderBy: [orderByVariable[sortBy]],
+    },
   });
 
-  const pools = unpackMaybes(data?.poolsPaginated?.data);
+  const pools = unpackMaybes(data?.publishedPoolsSearch?.edges).map(
+    (edge) => edge.node,
+  );
 
   return (
     <>
@@ -74,56 +132,72 @@ export const OpenOpportunitiesPage = () => {
             "Description of how the application process works, paragraph two",
         })}
       </p>
-      <div className="flex flex-col gap-6 xs:flex-row">
-        <FilterBar featureManageAlertButtons={featureManageAlertButtons} />
-        <div className="flex w-full flex-col">
-          <ResultsBar fetching={fetching} resultCount={pools.length} />
-          <Pending fetching={fetching} error={error}>
-            {pools.length ? (
-              <Ul unStyled className="flex flex-col gap-1.5">
-                {pools.map((pool) => (
-                  <li key={pool.id}>
-                    <JobCard poolQuery={pool} />
-                  </li>
-                ))}
-              </Ul>
-            ) : (
-              <Notice.Root mode="card">
-                <Notice.Content>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "There aren’t any active opportunities that match your search criteria. You can try a different set of filters, or you can save the current ones as an alert, which will notify you through email when a matching job is posted.",
-                    id: "yBV0YH",
-                    description: "Null state for opportunity search",
-                  })}
-                </Notice.Content>
-                <Notice.Actions>
-                  {/* Eventually there will be a "Create an alert" button here too */}
-                  <Button mode="inline" color="black" onClick={resetFilters}>
+      <Pending fetching={fetching} error={error}>
+        {data ? (
+          <div className="flex flex-col gap-6 xs:flex-row">
+            <FilterBar
+              featureManageAlertButtons={featureManageAlertButtons}
+              optionsFragment={data}
+            />
+            <div className="flex w-full flex-col">
+              <ResultsBar
+                fetching={fetching}
+                resultCount={data.publishedPoolsSearch.totalCount}
+              />
+
+              {pools.length ? (
+                <Ul unStyled className="flex flex-col gap-1.5">
+                  {pools.map((pool) => (
+                    <li key={pool.id}>
+                      <JobCard poolQuery={pool} />
+                    </li>
+                  ))}
+                </Ul>
+              ) : (
+                <Notice.Root mode="card">
+                  <Notice.Content>
                     {intl.formatMessage({
-                      defaultMessage: "Reset all filters",
-                      id: "0/jj1v",
-                      description: "Button text to reset a filter form",
+                      defaultMessage:
+                        "There aren’t any active opportunities that match your search criteria. You can try a different set of filters, or you can save the current ones as an alert, which will notify you through email when a matching job is posted.",
+                      id: "yBV0YH",
+                      description: "Null state for opportunity search",
+                    })}
+                  </Notice.Content>
+                  <Notice.Actions>
+                    {/* Eventually there will be a "Create an alert" button here too */}
+                    <Button
+                      mode="inline"
+                      color="black"
+                      onClick={resetAllFilters}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Reset all filters",
+                        id: "0/jj1v",
+                        description: "Button text to reset a filter form",
+                      })}
+                    </Button>
+                  </Notice.Actions>
+                </Notice.Root>
+              )}
+
+              {featurePaginationButton ? (
+                <div className="mt-6 self-center">
+                  <Button color="secondary" icon={ArrowPathIcon}>
+                    {intl.formatMessage({
+                      defaultMessage: "Load more results",
+                      id: "HuA8aL",
+                      description:
+                        "Button text to load the next set of results",
                     })}
                   </Button>
-                </Notice.Actions>
-              </Notice.Root>
-            )}
-          </Pending>
-
-          {featurePaginationButton ? (
-            <div className="mt-6 self-center">
-              <Button color="secondary" icon={ArrowPathIcon}>
-                {intl.formatMessage({
-                  defaultMessage: "Load more results",
-                  id: "HuA8aL",
-                  description: "Button text to load the next set of results",
-                })}
-              </Button>
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-      </div>
+          </div>
+        ) : (
+          <p>{intl.formatMessage(commonMessages.notFound)}</p>
+        )}
+      </Pending>
     </>
   );
 };

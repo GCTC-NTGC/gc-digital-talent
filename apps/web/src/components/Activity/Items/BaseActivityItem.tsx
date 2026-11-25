@@ -1,16 +1,16 @@
+import type { ReactNode } from "react";
 import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
-import type { ReactNode } from "react";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   TIME_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

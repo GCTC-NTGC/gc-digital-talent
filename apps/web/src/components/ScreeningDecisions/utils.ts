@@ -1,5 +1,5 @@
-import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import type {
   AssessmentResultType,
@@ -17,20 +17,20 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getLocale,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import type { NullableDecision } from "~/utils/assessmentResults";
-import { NO_DECISION } from "~/utils/assessmentResults";
-import type { ExperienceWithSkills } from "~/utils/skillUtils";
-import { getExperienceSkills } from "~/utils/skillUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
+import type { NullableDecision } from "~/utils/assessmentResults";
+import { NO_DECISION } from "~/utils/assessmentResults";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
+import { getExperienceSkills } from "~/utils/skillUtils";
 
 import type { FormValues } from "./types";
 
@@ -151,10 +151,10 @@ export const convertApiToFormValues = (
       ACCEPTED_EDUCATION_JUSTIFICATIONS.includes(justification.value),
   );
   let justifications:
-    AssessmentResultJustification[] | AssessmentResultJustification =
-    unpackMaybes(
-      data?.justifications?.flatMap((justification) => justification?.value),
-    );
+    | AssessmentResultJustification[]
+    | AssessmentResultJustification = unpackMaybes(
+    data?.justifications?.flatMap((justification) => justification?.value),
+  );
   if (isEducationAcceptedJustification) {
     justifications = justifications[0];
   }
@@ -246,6 +246,11 @@ export const DIALOG_TYPE = {
 
 type ObjectValues<T> = T[keyof T];
 export type DialogType = ObjectValues<typeof DIALOG_TYPE>;
+
+export const SUPPORTING_EVIDENCE_TYPES: DialogType[] = [
+  DIALOG_TYPE.ApplicationScreening,
+  DIALOG_TYPE.Education,
+];
 
 export function getDialogType(
   type?: AssessmentStepType | null,

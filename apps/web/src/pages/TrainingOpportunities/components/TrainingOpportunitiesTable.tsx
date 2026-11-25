@@ -1,13 +1,13 @@
-import { useQuery } from "urql";
-import { useMemo, useState } from "react";
 import type {
   ColumnDef,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
+import { useQuery } from "urql";
 
 import type {
   CourseLanguage,
@@ -30,13 +30,13 @@ import {
 import type { ChipProps } from "@gc-digital-talent/ui";
 import { Chip, Link } from "@gc-digital-talent/ui";
 
+import accessors from "~/components/Table/accessors";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import type { InitialState } from "~/components/Table/ResponsiveTable/types";
-import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
-import accessors from "~/components/Table/accessors";
+import adminMessages from "~/messages/adminMessages";
 
 import formLabels from "../formLabels";
 

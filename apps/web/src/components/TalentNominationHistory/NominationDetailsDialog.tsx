@@ -1,7 +1,14 @@
+import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { useState, type ReactNode } from "react";
 import { useIntl, type MessageDescriptor } from "react-intl";
-import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   Link,
   Button,
@@ -9,17 +16,10 @@ import {
   Notice,
   PreviewList,
 } from "@gc-digital-talent/ui";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
-import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import nomineeMessages from "./nomineeMessages";
 import recruiterMessages from "./recruiterMessages";
@@ -33,6 +33,8 @@ const variantMessages: Record<
     subtitle: MessageDescriptor;
     whoNominated: MessageDescriptor;
     whatNominatedFor: MessageDescriptor;
+    classificationAtTimeOfLastApproval: MessageDescriptor;
+    noticeTitle: MessageDescriptor;
   }
 > = {
   nominee: nomineeMessages,
@@ -61,6 +63,9 @@ export const NominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
     approvedForLateralMovement
     approvedForDevelopmentPrograms
     nominatorNames
+    classificationAtTimeOfLastApproval {
+      groupAndLevel
+    }
   }
 `);
 
@@ -74,6 +79,7 @@ const NominationDetailsDialog = ({
   variant,
 }: NominationDetailsDialogProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const nominationGroup = getFragment(
     NominationDetailsDialog_Fragment,
     nominationGroupQuery,
@@ -98,6 +104,8 @@ const NominationDetailsDialog = ({
   const nominatedBy =
     nominatorNames.length > 0 ? intl.formatList(nominatorNames) : notProvided;
 
+  const classificationAtTimeOfApproval =
+    nominationGroup.classificationAtTimeOfLastApproval?.groupAndLevel;
   // Filter and build the nomination options list only showing what they were approved for
   const nominationOptionsList = [
     nominationGroup.approvedForAdvancement
@@ -173,53 +181,52 @@ const NominationDetailsDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          {variant === "nominee" ? (
-            <Notice.Root mode="inline" className="mb-6" color="success">
-              <Notice.Title>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Congratulations on being nominated to {eventName}!",
-                    id: "ZlD1Sv",
-                    description: "Title for important update notice",
-                  },
-                  { eventName },
-                )}
-              </Notice.Title>
-              {eventDescription ? (
-                <Notice.Content>
-                  <p>{eventDescription}</p>
-                </Notice.Content>
-              ) : null}
-            </Notice.Root>
-          ) : eventDescription ? (
-            <Notice.Root mode="inline" className="mb-6" color="success">
-              <Notice.Title>{eventName}</Notice.Title>
+          <Notice.Root mode="inline" className="mb-6" color="success">
+            <Notice.Title>
+              {intl.formatMessage(messages.noticeTitle, { eventName })}
+            </Notice.Title>
+            {eventDescription ? (
               <Notice.Content>
                 <p>{eventDescription}</p>
               </Notice.Content>
-            </Notice.Root>
-          ) : null}
+            ) : null}
+          </Notice.Root>
 
           <div className="flex flex-col gap-6">
             <FieldDisplay label={intl.formatMessage(messages.whoNominated)}>
               {nominatedBy}
             </FieldDisplay>
-
-            <FieldDisplay label={intl.formatMessage(messages.whatNominatedFor)}>
-              {nominationOptionsList.length > 0 ? (
-                <ul className="space-y-1">
-                  {nominationOptionsList.map((option, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckIcon className="h-5 w-5 text-success" />
-                      <span>{option}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
+            <div
+              className={
+                locale === "fr"
+                  ? "grid grid-cols-1 gap-6"
+                  : "grid grid-cols-1 gap-6 sm:grid-cols-2"
+              }
+            >
+              <FieldDisplay
+                label={intl.formatMessage(messages.whatNominatedFor)}
+              >
+                {nominationOptionsList.length > 0 ? (
+                  <ul className="space-y-1">
+                    {nominationOptionsList.map((option, index) => (
+                      <li key={index} className="flex items-center gap-2">
+                        <CheckIcon className="h-5 w-5 text-success" />
+                        <span>{option}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  notProvided
+                )}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  messages.classificationAtTimeOfLastApproval,
+                )}
+              >
+                {classificationAtTimeOfApproval ?? notProvided}
+              </FieldDisplay>
+            </div>
             {nominationMeanings.length > 0
               ? nominationMeanings.map((nominationMeaning) => (
                   <FieldDisplay

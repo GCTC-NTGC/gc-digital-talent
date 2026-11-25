@@ -1,10 +1,10 @@
-import { useIntl } from "react-intl";
-import { useMutation } from "urql";
-import { tv } from "tailwind-variants";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
+import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
+import { useMutation } from "urql";
 
-import { Button, IconButton, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Button, IconButton, Link, useAnnouncer } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

@@ -1,3 +1,4 @@
+import { GLOBAL_A11Y_EXCLUDES } from "./a11y";
 import ContainerDecorator from "./decorators/ContainerDecorator";
 import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
@@ -10,7 +11,6 @@ import type { RuntimeVariables } from "./decorators/RuntimeVariableDecorator";
 import ThemeDecorator, { THEMES } from "./decorators/ThemeDecorator";
 import allModes from "./modes";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
-import { GLOBAL_A11Y_EXCLUDES } from "./a11y";
 
 export type { RuntimeVariables };
 

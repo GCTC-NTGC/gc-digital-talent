@@ -1,46 +1,47 @@
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
+import debounce from "lodash/debounce";
+import { useState, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useQuery } from "urql";
-import { useState, useEffect, useMemo } from "react";
-import debounce from "lodash/debounce";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
-import {
-  Container,
-  Heading,
-  Loading,
-  Pending,
-  Separator,
-} from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   ApplicantFilterInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  Container,
+  Heading,
+  Loading,
+  Notice,
+  Pending,
+  Separator,
+} from "@gc-digital-talent/ui";
 
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
+import useRoutes from "~/hooks/useRoutes";
 import type {
   FormValues,
   TalentRequestClassification,
   TalentRequestWorkStream,
 } from "~/types/talentRequestForm";
-import useRoutes from "~/hooks/useRoutes";
-import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
 
-import { formValuesToData } from "../utils";
 import {
   useCandidateCount,
   useInitialFilters,
   useTalentRequestState,
 } from "../hooks";
-import FormFields from "./FormFields";
-import EstimatedCandidates from "./EstimatedCandidates";
-import SearchFilterAdvice from "./SearchFilterAdvice";
-import NoResults from "./NoResults";
-import SearchResultCard from "./SearchResultCard";
+import { formValuesToData } from "../utils";
 import CommunityResultCard from "./CommunityResultCard";
+import EstimatedCandidates from "./EstimatedCandidates";
+import FormFields from "./FormFields";
+import NoResults from "./NoResults";
+import SearchFilterAdvice from "./SearchFilterAdvice";
+import SearchResultCard from "./SearchResultCard";
 
 const defaultRequestState = {
   applicantFilter: {},
@@ -100,7 +101,7 @@ export const SearchForm = ({
   );
   const [filterPending, setFilterPending] = useState(false);
 
-  const { fetching, candidateCount, results, communities } =
+  const { fetching, hasFilters, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
@@ -264,7 +265,21 @@ export const SearchForm = ({
                 }) + intl.formatMessage(commonMessages.dividingColon)}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
-              {communities.length || results?.length ? (
+              {!hasFilters ? (
+                <Notice.Root color="warning" className="mt-2">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Use the filters to get an estimated number of candidates matching your criteria.",
+                        id: "SRlyiJ",
+                        description:
+                          "Message shown in the results section of the search page before any filters are added",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              ) : communities.length || results?.length ? (
                 <>
                   {communities.length ? (
                     <div className="flex flex-col gap-y-6">

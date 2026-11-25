@@ -1,22 +1,22 @@
-import { useFormContext } from "react-hook-form";
-import { useIntl } from "react-intl";
 import type {
   DetailedHTMLProps,
   TextareaHTMLAttributes,
   FocusEvent,
 } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import Field from "../Field";
-import WordCounter from "../WordCounter";
-import type { CommonInputProps } from "../../types";
-import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
+import type { CommonInputProps } from "../../types";
+import { countNumberOfWords, parseValidationRules } from "../../utils";
+import Field from "../Field";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
+import WordCounter from "../WordCounter";
 
 type BaseHTMLProps = Omit<
   DetailedHTMLProps<
@@ -134,7 +134,7 @@ const TextArea = ({
           {...register(name, {
             ...rules,
             validate: {
-              ...rules.validate,
+              ...parseValidationRules(rules.validate),
               ...wordLimitRule,
             },
             onBlur: normalizeInput,
