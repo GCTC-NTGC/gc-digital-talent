@@ -12,7 +12,6 @@ export type LogoutReason =
 // These constants come from api/config/rolepermission.php
 export const ROLE_NAME = {
   BaseUser: "base_user",
-  Applicant: "applicant",
   ProcessOperator: "process_operator",
   CommunityRecruiter: "community_recruiter",
   CommunityAdmin: "community_admin",
