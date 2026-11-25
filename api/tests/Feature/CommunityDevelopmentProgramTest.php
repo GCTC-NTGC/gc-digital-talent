@@ -14,6 +14,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
@@ -30,30 +31,6 @@ class CommunityDevelopmentProgramTest extends TestCase
     protected $communityId;
 
     protected $developmentProgramId;
-
-    protected $createMutation = <<<'GRAPHQL'
-        mutation CreateTalentNominationEvent($talentNominationEvent: CreateTalentNominationEventInput!) {
-            createTalentNominationEvent(talentNominationEvent: $talentNominationEvent) {
-                id
-                name { en fr }
-                description { en fr }
-                openDate
-                closeDate
-                learnMoreUrl { en fr }
-                includeLeadershipCompetencies
-                community { id }
-                communityDevelopmentPrograms {
-                     id
-                     pivot {
-                        descriptionForNominations {
-                            localized
-                        }
-                     }
-                     }
-                developmentPrograms { id }
-            }
-        }
-    GRAPHQL;
 
     protected function setUp(): void
     {
@@ -190,5 +167,38 @@ class CommunityDevelopmentProgramTest extends TestCase
         $recordAfterRestoring = CommunityDevelopmentProgram::withTrashed()->sole()->toArray();
         assertSame($createdRecord['id'], $recordAfterRestoring['id']);
         assertNull($recordAfterRestoring['deleted_at']);
+    }
+
+    // the classifications a community makes a program available to, as read by the community interest form
+    public function testEmployeeCanReadCommunityProgramClassifications()
+    {
+        $classificationIds = Classification::factory()->count(2)->create()->pluck('id')->all();
+        CommunityDevelopmentProgram::where('development_program_id', $this->developmentProgramId)
+            ->sole()
+            ->classifications()
+            ->sync($classificationIds);
+
+        $employee = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+
+        $response = $this->actingAs($employee, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                query {
+                    communities {
+                        id
+                        communityDevelopmentPrograms {
+                            developmentProgram { id }
+                            classifications { id }
+                        }
+                    }
+                }
+            GRAPHQL)
+            ->assertGraphQLErrorFree();
+
+        $community = collect($response->json('data.communities'))->firstWhere('id', $this->communityId);
+        assertSame($this->developmentProgramId, $community['communityDevelopmentPrograms'][0]['developmentProgram']['id']);
+        assertEqualsCanonicalizing(
+            $classificationIds,
+            array_column($community['communityDevelopmentPrograms'][0]['classifications'], 'id')
+        );
     }
 }

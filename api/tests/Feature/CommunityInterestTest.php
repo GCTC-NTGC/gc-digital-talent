@@ -178,7 +178,7 @@ class CommunityInterestTest extends TestCase
      */
     public function testBaseUserCanCreateOwnCommunityInterestWithDevelopmentPrograms()
     {
-        $developmentProgram = DevelopmentProgram::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
         $educationExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
         $this->actingAs($this->baseUser, 'api')
@@ -720,7 +720,7 @@ class CommunityInterestTest extends TestCase
      */
     public function testBaseUserCanUpdateLinkedExperience(): void
     {
-        $developmentProgram = DevelopmentProgram::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
         $originalExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
         $newExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
@@ -767,7 +767,7 @@ class CommunityInterestTest extends TestCase
      */
     public function testBaseUserCanUnlinkExperience(): void
     {
-        $developmentProgram = DevelopmentProgram::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
         $experience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
         $communityInterest = CommunityInterest::factory()->create([
@@ -813,7 +813,7 @@ class CommunityInterestTest extends TestCase
      */
     public function testCompletedStatusWithNullCompletionDateIsValid(): void
     {
-        $developmentProgram = DevelopmentProgram::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
 
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
@@ -840,6 +840,72 @@ class CommunityInterestTest extends TestCase
             'user_id' => $this->baseUser->id,
             'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
             'completion_date' => null,
+        ]);
+    }
+
+    public function testCreateRejectsDevelopmentProgramNotInCommunity(): void
+    {
+        $otherCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($otherCommunity->id)->create();
+
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($this->createMutation, [
+                'communityInterestWithDevelopmentPrograms' => [
+                    'userId' => $this->baseUser->id,
+                    'communityInterest' => [
+                        'communityId' => $this->communityId,
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+                    ],
+                    'developmentPrograms' => [
+                        [
+                            'developmentProgramId' => $developmentProgram->id,
+                            'participationStatus' => DevelopmentProgramParticipationStatus::INTERESTED->name,
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'communityInterestWithDevelopmentPrograms.developmentPrograms.0.developmentProgramId',
+                ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name
+            );
+
+        $this->assertDatabaseMissing('development_program_user', [
+            'development_program_id' => $developmentProgram->id,
+        ]);
+    }
+
+    public function testUpdateRejectsDevelopmentProgramNotInCommunity(): void
+    {
+        $otherCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->withCommunity($otherCommunity->id)->create();
+
+        $communityInterest = CommunityInterest::factory()->create([
+            'user_id' => $this->baseUser->id,
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+        ]);
+
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($this->updateMutation, [
+                'communityInterestWithDevelopmentPrograms' => [
+                    'id' => $communityInterest->id,
+                    'communityInterest' => ['consentToShareProfile' => true],
+                    'developmentPrograms' => [
+                        [
+                            'developmentProgramId' => $developmentProgram->id,
+                            'participationStatus' => DevelopmentProgramParticipationStatus::INTERESTED->name,
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'communityInterestWithDevelopmentPrograms.developmentPrograms.0.developmentProgramId',
+                ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name
+            );
+
+        $this->assertDatabaseMissing('development_program_user', [
+            'development_program_id' => $developmentProgram->id,
         ]);
     }
 
