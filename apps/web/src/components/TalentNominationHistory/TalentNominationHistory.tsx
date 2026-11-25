@@ -2,8 +2,8 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Card, Notice, PreviewList } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Card, Notice, PreviewList } from "@gc-digital-talent/ui";
 
 import NominationDetailsListItem from "./NominationDetailsListItem";
 

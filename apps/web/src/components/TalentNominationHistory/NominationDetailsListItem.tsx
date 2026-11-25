@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { PreviewList } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { PreviewList } from "@gc-digital-talent/ui";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import NominationDetailsDialog, {
   type NominationDetailsVariant,

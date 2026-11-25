@@ -1,6 +1,6 @@
-import { Link } from "react-router";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import type { ReactNode } from "react";
+import { Link } from "react-router";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 

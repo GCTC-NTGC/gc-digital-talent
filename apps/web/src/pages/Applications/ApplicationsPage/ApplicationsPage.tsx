@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { useMemo, useState } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   Container,
@@ -10,19 +16,13 @@ import {
   Heading,
   Button,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 export const ApplicationsPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsPage on PoolCandidate {

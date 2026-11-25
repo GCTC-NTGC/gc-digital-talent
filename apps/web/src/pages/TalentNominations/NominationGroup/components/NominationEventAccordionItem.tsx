@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type React from "react";
+import { useIntl } from "react-intl";
 
 import {
   getFragment,
@@ -11,6 +11,8 @@ import {
   TalentNominationGroupDecision,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Button,
@@ -20,12 +22,10 @@ import {
   type IconType,
   PreviewList,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
-import useNominationDownloads from "~/hooks/useNominationDownloads";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
+import useNominationDownloads from "~/hooks/useNominationDownloads";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import NominationHistoryListItem from "./NominationHistoryListItem";
 

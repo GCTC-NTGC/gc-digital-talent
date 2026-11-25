@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -8,9 +7,10 @@ import {
   commonMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
+import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 
-import { labels } from "./utils";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
+import { labels } from "./utils";
 
 const GeneralQuestionCard_Fragment = graphql(/* GraphQL */ `
   fragment GeneralQuestionCard on GeneralQuestion {

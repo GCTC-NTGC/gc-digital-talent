@@ -7,9 +7,9 @@ import {
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import fakeUsers from "./fakeUsers";
-import { getStaticSkills } from "./fakeSkills";
 import type { AnyGeneratedExperience } from "./fakeExperiences";
+import { getStaticSkills } from "./fakeSkills";
+import fakeUsers from "./fakeUsers";
 
 const staticSkills = getStaticSkills();
 const randomSkill = faker.helpers.arrayElement(staticSkills);

@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
+import { useApiRoutes } from "@gc-digital-talent/auth";
 import type {
   UserFilterInput,
   TalentRequestTrackedUserFilterInput,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { useApiRoutes } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
 
 import useAsyncFileDownload from "./useAsyncFileDownload";
 

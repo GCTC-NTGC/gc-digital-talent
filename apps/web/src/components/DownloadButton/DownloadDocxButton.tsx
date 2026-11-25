@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { DropdownMenu } from "@gc-digital-talent/ui";
 import { empty } from "@gc-digital-talent/helpers";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 
 import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
 

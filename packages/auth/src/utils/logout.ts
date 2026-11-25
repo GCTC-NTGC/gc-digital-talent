@@ -1,7 +1,7 @@
-import type { Locales } from "@gc-digital-talent/i18n";
-import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
-import { defaultLogger } from "@gc-digital-talent/logger";
 import { appInsights } from "@gc-digital-talent/app-insights";
+import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 export function getLogoutVars(locale: Locales) {
   const logoutUri = getRuntimeVariableNotNull("OAUTH_LOGOUT_URI");

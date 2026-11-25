@@ -11,10 +11,10 @@ import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
-import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import type { SnapshotProps } from "../types";
 

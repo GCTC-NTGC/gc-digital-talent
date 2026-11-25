@@ -1,9 +1,9 @@
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/tabs
  */
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
 
 import { divide, handleTabFocus, inner, list, root, trigger } from "./utils";
 

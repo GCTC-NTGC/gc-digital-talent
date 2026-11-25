@@ -1,32 +1,32 @@
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import debounce from "lodash/debounce";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import debounce from "lodash/debounce";
-import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
-import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
+import { useMutation } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
+import type {
+  RoleInput,
+  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  RoleInput,
-  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
-} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type { CommunityMemberFormValues, ContextType } from "./types";
-import { getTeamBasedRoleOptions } from "./utils";
-import useAvailableUsers from "./useAvailableUsers";
-import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
+import type { CommunityMemberFormValues, ContextType } from "./types";
+import useAvailableRoles from "./useAvailableRoles";
+import useAvailableUsers from "./useAvailableUsers";
+import { getTeamBasedRoleOptions } from "./utils";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;

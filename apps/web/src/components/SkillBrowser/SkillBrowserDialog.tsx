@@ -1,30 +1,30 @@
-import { useIntl } from "react-intl";
-import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
+import { useForm, FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import type { ButtonProps, IconType } from "@gc-digital-talent/ui";
-import { Button, Dialog, Link } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, SkillCategory } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import type { ButtonProps, IconType } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
+import useRoutes from "../../hooks/useRoutes";
 import SkillDetails from "./SkillDetails";
+import SkillDetailsPool from "./SkillDetailsPool";
 import SkillSelection, { SkillBrowserSkill_Fragment } from "./SkillSelection";
-import {
-  defaultFormValues,
-  getSkillBrowserDialogMessages,
-  showDetails,
-} from "./utils";
 import type {
   SkillBrowserDialogContext,
   FormValues,
   SelectedSkill,
 } from "./types";
-import SkillDetailsPool from "./SkillDetailsPool";
-import useRoutes from "../../hooks/useRoutes";
+import {
+  defaultFormValues,
+  getSkillBrowserDialogMessages,
+  showDetails,
+} from "./utils";
 
 interface SkillBrowserDialogProps {
   // All available skills

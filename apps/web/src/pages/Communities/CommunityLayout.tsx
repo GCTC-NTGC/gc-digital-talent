@@ -1,22 +1,22 @@
+import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
+import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useQuery } from "urql";
-import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import type { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import pageTitles from "~/messages/pageTitles";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import pageTitles from "~/messages/pageTitles";
+import type { PageNavInfo } from "~/types/pages";
+import { checkRole } from "~/utils/communityUtils";
 
 import type { ContextType } from "./CommunityMembersPage/components/types";
 

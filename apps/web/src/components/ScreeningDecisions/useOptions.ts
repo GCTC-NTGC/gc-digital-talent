@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
-import OutlineExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import SolidExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import OutlineCheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import SolidCheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
-import OutlineXCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
-import SolidXCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
+import OutlineExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import OutlinePauseCircleIcon from "@heroicons/react/24/outline/PauseCircleIcon";
+import OutlineXCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
+import SolidCheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import SolidExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import SolidPauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import SolidXCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import type { CardOption, CheckboxOption } from "@gc-digital-talent/forms";
@@ -22,17 +22,17 @@ import { getLocalizedEnumStringByValue } from "@gc-digital-talent/i18n";
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import OutlineEducationIcon from "./Icons/outline/EducationIcon";
-import SolidEducationIcon from "./Icons/solid/EducationIcon";
 import OutlineEducationWorkIcon from "./Icons/outline/EducationWorkIcon";
-import SolidEducationWorkIcon from "./Icons/solid/EducationWorkIcon";
-import OutlineWorkIcon from "./Icons/outline/WorkIcon";
-import SolidWorkIcon from "./Icons/solid/WorkIcon";
 import OutlineOneBarIcon from "./Icons/outline/OneBarIcon";
-import SolidOneBarIcon from "./Icons/solid/OneBarIcon";
-import OutlineTwoBarsIcon from "./Icons/outline/TwoBarsIcon";
-import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
 import OutlineThreeBarsIcon from "./Icons/outline/ThreeBarsIcon";
+import OutlineTwoBarsIcon from "./Icons/outline/TwoBarsIcon";
+import OutlineWorkIcon from "./Icons/outline/WorkIcon";
+import SolidEducationIcon from "./Icons/solid/EducationIcon";
+import SolidEducationWorkIcon from "./Icons/solid/EducationWorkIcon";
+import SolidOneBarIcon from "./Icons/solid/OneBarIcon";
 import SolidThreeBarsIcon from "./Icons/solid/ThreeBarsIcon";
+import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
+import SolidWorkIcon from "./Icons/solid/WorkIcon";
 import type { DialogType } from "./utils";
 
 const ScreeningOptions_Query = graphql(/* GraphQL */ `

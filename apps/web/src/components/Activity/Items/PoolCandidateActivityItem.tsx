@@ -1,20 +1,20 @@
-import type { ReactNode } from "react";
 import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
+import type { ReactNode } from "react";
 import { useIntl, type IntlShape } from "react-intl";
 
-import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocale,
-  type Locales,
-} from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
   TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getLocale,
+  type Locales,
+} from "@gc-digital-talent/i18n";
 
 import type { CommonItemProps } from "./BaseActivityItem";
 import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";

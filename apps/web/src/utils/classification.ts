@@ -1,5 +1,5 @@
-import type { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
+import type { IntlShape } from "react-intl";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { getLocalizedName, localizeSalaryRange } from "@gc-digital-talent/i18n";

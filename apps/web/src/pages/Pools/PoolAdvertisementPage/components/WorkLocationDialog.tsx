@@ -1,8 +1,8 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+import { useIntl } from "react-intl";
 
-import { Button, Dialog, IconButton, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, IconButton, Ul } from "@gc-digital-talent/ui";
 
 interface WorkLocationDialogProps {
   workLocation: string;

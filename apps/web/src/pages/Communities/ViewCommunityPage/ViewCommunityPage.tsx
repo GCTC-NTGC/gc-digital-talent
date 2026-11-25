@@ -1,8 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { useIntl } from "react-intl";
 import { useOutletContext } from "react-router";
+import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  FragmentType,
+  ViewCommunityQuery,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -13,20 +19,14 @@ import {
   Link,
   Container,
 } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  ViewCommunityQuery,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
-import Hero from "~/components/Hero";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 

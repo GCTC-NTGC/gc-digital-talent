@@ -8,12 +8,12 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { PreviewList } from "@gc-digital-talent/ui";
 
-import { useExperienceInfo } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 import WorkExperienceDialog from "~/components/ExperienceDialog/WorkExperienceDialog";
+import experienceMessages from "~/messages/experienceMessages";
+import { useExperienceInfo } from "~/utils/experienceUtils";
 
 import type { ExperienceItemProps } from "./types";
 

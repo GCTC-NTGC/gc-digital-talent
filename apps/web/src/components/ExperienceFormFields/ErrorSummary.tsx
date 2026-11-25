@@ -7,11 +7,11 @@ import {
   flattenErrors,
 } from "@gc-digital-talent/forms";
 
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import type {
   AllExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 interface ErrorSummaryProps {
   experienceType?: ExperienceType | "";

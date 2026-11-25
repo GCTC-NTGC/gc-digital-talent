@@ -1,12 +1,14 @@
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useState, type ReactNode } from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Accordion,
@@ -15,34 +17,32 @@ import {
   NotFound,
   Ul,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
-import profileMessages from "~/messages/profileMessages";
 import processMessages from "~/messages/processMessages";
+import profileMessages from "~/messages/profileMessages";
 
-import { ALL_SECTIONS, SECTION_KEY } from "./types";
-import PersonalInformationSnapshot from "./Sections/PersonalInformation/PersonalInformationSnapshot";
-import ScreeningQuestionResponsesSnapshot from "./Sections/QuestionResponses/ScreeningQuestionResponsesSnapshot";
-import GeneralQuestionResponsesSnapshot from "./Sections/QuestionResponses/GeneralQuestionResponsesSnapshot";
-import EducationRequirementSnapshot from "./Sections/EducationRequirement/EducationRequirementSnapshot";
-import TechnicalAssetSkillsSnapshot from "./Sections/Skills/TechnicalAssetSkillsSnapshot";
-import TechnicalEssentialSkillsSnapshot from "./Sections/Skills/TechnicalEssentialSkillsSnapshot";
-import LanguageProfileSnapshot from "./Sections/LanguageProfile/LanguageProfileSnapshot";
-import WorkPreferencesSnapshot from "./Sections/WorkPreferences/WorkPreferencesSnapshot";
-import GovernmentInformationSnapshot from "./Sections/GovernmentInformation/GovernmentInformationSnapshot";
-import DiversityEquityInclusionSnapshot from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
-import CitizenVeteranPrioritySnapshot from "./Sections/CitizenVeteranPriority/CitizenVeteranPrioritySnapshot";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import CareerTimelineSnapshot from "./Sections/CareerTimeline/CareerTimelineSnapshot";
-import type { PersonalInformationSnapshotV1 } from "./Sections/PersonalInformation/PersonalInformationV1";
-import type { LanguageProfileSnapshotV1 } from "./Sections/LanguageProfile/LanguageProfileV1";
-import type { WorkPreferencesSnapshotV1 } from "./Sections/WorkPreferences/WorkPreferencesV1";
-import type { GovernmentInformationSnapshotV1 } from "./Sections/GovernmentInformation/GovernmentInformationV1";
-import type { DiversityEquityInclusionSnapshotV1 } from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionV1";
+import CitizenVeteranPrioritySnapshot from "./Sections/CitizenVeteranPriority/CitizenVeteranPrioritySnapshot";
 import type { CitizenVeteranPrioritySnapshotV1 } from "./Sections/CitizenVeteranPriority/CitizenVeteranPriorityV1";
+import DiversityEquityInclusionSnapshot from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
+import type { DiversityEquityInclusionSnapshotV1 } from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionV1";
+import EducationRequirementSnapshot from "./Sections/EducationRequirement/EducationRequirementSnapshot";
 import type { EducationRequirementSnapshotV1 } from "./Sections/EducationRequirement/EducationRequirementV1";
+import GovernmentInformationSnapshot from "./Sections/GovernmentInformation/GovernmentInformationSnapshot";
+import type { GovernmentInformationSnapshotV1 } from "./Sections/GovernmentInformation/GovernmentInformationV1";
+import LanguageProfileSnapshot from "./Sections/LanguageProfile/LanguageProfileSnapshot";
+import type { LanguageProfileSnapshotV1 } from "./Sections/LanguageProfile/LanguageProfileV1";
+import PersonalInformationSnapshot from "./Sections/PersonalInformation/PersonalInformationSnapshot";
+import type { PersonalInformationSnapshotV1 } from "./Sections/PersonalInformation/PersonalInformationV1";
+import GeneralQuestionResponsesSnapshot from "./Sections/QuestionResponses/GeneralQuestionResponsesSnapshot";
+import ScreeningQuestionResponsesSnapshot from "./Sections/QuestionResponses/ScreeningQuestionResponsesSnapshot";
+import TechnicalAssetSkillsSnapshot from "./Sections/Skills/TechnicalAssetSkillsSnapshot";
+import TechnicalEssentialSkillsSnapshot from "./Sections/Skills/TechnicalEssentialSkillsSnapshot";
+import WorkPreferencesSnapshot from "./Sections/WorkPreferences/WorkPreferencesSnapshot";
+import type { WorkPreferencesSnapshotV1 } from "./Sections/WorkPreferences/WorkPreferencesV1";
+import { ALL_SECTIONS, SECTION_KEY } from "./types";
 
 export const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationSnapshot on PoolCandidate {

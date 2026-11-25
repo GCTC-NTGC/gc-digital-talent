@@ -1,35 +1,35 @@
-import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
+import { useQuery } from "urql";
 
-import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import type { CommunityMember } from "~/utils/communityUtils";
-import { groupRoleAssignmentsByUser, checkRole } from "~/utils/communityUtils";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableMessages from "~/components/Table/tableMessages";
-import Hero from "~/components/Hero";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import type { CommunityMember } from "~/utils/communityUtils";
+import { groupRoleAssignmentsByUser, checkRole } from "~/utils/communityUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
-import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
+import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 import type {
   CommunityMembersPageFragment,
   ContextType,
 } from "./components/types";
-import { CommunityMembersPage_CommunityFragment } from "./components/operations";
+import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 
 const pageTitle = defineMessage({
   defaultMessage: "Community members",

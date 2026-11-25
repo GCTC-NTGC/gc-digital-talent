@@ -1,13 +1,14 @@
-/* eslint-disable react/forbid-elements */
-import { FocusOn } from "react-focus-on";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { m, AnimatePresence } from "motion/react";
 import type { KeyboardEventHandler, ReactNode, ReactElement } from "react";
 import { useEffect, useState, useRef } from "react";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
+/* eslint-disable react/forbid-elements */
+import { FocusOn } from "react-focus-on";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
+import { useAuthentication } from "@gc-digital-talent/auth";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
   getLocale,
@@ -22,7 +23,6 @@ import {
   NavMenuProvider,
   Container,
 } from "@gc-digital-talent/ui";
-import { useAuthentication } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";

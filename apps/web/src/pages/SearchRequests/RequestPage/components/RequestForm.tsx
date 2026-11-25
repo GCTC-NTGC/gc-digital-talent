@@ -1,10 +1,10 @@
-import { useBlocker, useNavigate } from "react-router";
+import type { ReactNode } from "react";
+import { useEffect } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useBlocker, useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import type { ReactNode } from "react";
-import { useEffect } from "react";
 
 import {
   Checkbox,
@@ -16,17 +16,6 @@ import {
   localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
-import {
-  errorMessages,
-  enumInputToLocalizedEnum,
-  narrowEnumType,
-  sortTalentRequestReason,
-  getLocale,
-} from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
-import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import {
   graphql,
   getFragment,
@@ -39,17 +28,28 @@ import type {
   CreateTalentRequestMutation,
   CreateTalentRequestInput,
 } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  errorMessages,
+  enumInputToLocalizedEnum,
+  narrowEnumType,
+  sortTalentRequestReason,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
+import { toast } from "@gc-digital-talent/toast";
+import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
+import SEO from "~/components/SEO/SEO";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 import useRoutes from "~/hooks/useRoutes";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import type {
   PartialApplicantFilter,
   FormValues as SearchFormValues,
 } from "~/types/talentRequestForm";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 import { getBasicFullNameLabel } from "~/utils/nameUtils";
-import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
 import { useTalentRequestState } from "../../SearchPage/hooks";
 

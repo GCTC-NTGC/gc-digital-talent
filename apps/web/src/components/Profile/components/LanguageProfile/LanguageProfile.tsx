@@ -1,32 +1,32 @@
-import { useIntl } from "react-intl";
-import type { SubmitHandler } from "react-hook-form";
 import LanguageIcon from "@heroicons/react/24/outline/LanguageIcon";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import profileMessages from "~/messages/profileMessages";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
 } from "~/validators/profile/languageInformation";
-import { getMissingLanguageRequirements } from "~/utils/languageUtils";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
+import useSectionInfo from "../../hooks/useSectionInfo";
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import FormActions from "../FormActions";
-import useSectionInfo from "../../hooks/useSectionInfo";
-import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import type { FormValues } from "./types";
-import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
+import NullDisplay from "./NullDisplay";
+import type { FormValues } from "./types";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 
 const LanguageProfile_Query = graphql(/* GraphQL */ `
   query LanguageProfile {

@@ -1,6 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import type { MessageDescriptor } from "react-intl";
 
+import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -8,18 +9,17 @@ import {
   NineBoxRating,
   TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
-import { Accordion, Ul } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Accordion, Ul } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
+import { formMessages } from "../messages";
 
 const performanceLabels: Record<NineBoxRating, MessageDescriptor> = {
   [NineBoxRating.Low]: nominationLabels.lowPerformance,

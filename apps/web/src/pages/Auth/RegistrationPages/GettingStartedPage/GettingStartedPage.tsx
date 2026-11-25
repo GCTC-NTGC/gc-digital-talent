@@ -1,23 +1,23 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
-import { setInLocalStorage } from "@gc-digital-talent/storage";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { graphql } from "@gc-digital-talent/graphql";
+import { setInLocalStorage } from "@gc-digital-talent/storage";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import profileMessages from "~/messages/profileMessages";
 import {
   KEY_NEW_USER_LANGUAGE_PRESET,
   KEY_NEW_USER_MIGRATION_NOTICE,
 } from "~/constants/storageKeys";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import profileMessages from "~/messages/profileMessages";
 
 import messages from "../messages";
 import GettingStartedForm, {

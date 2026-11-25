@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Notice } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import type { EditPoolSpecialNoteFragment } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Notice } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-import type { DisplayProps } from "../../types";
 import { hasAllEmptyFields } from "../../../../../validators/process/specialNote";
+import type { DisplayProps } from "../../types";
 
 const Display = ({
   pool,

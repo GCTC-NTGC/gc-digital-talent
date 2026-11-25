@@ -1,10 +1,10 @@
 import { screen } from "@testing-library/react";
 
+import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { ActiveRecruitmentSectionProps } from "./ActiveRecruitmentSection";
 import ActiveRecruitmentSection, {

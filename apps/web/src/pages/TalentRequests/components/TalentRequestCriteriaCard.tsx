@@ -1,17 +1,17 @@
-import { useIntl } from "react-intl";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import { useIntl } from "react-intl";
 
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getEmploymentDuration,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

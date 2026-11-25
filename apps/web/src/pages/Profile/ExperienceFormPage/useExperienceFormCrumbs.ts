@@ -4,11 +4,11 @@ import { useQuery } from "urql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { poolTitle } from "~/utils/poolUtils";
-import { CAREER_TIMELINE_STEP_ORDINAL } from "~/utils/applicationUtils";
+import useRoutes from "~/hooks/useRoutes";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { CAREER_TIMELINE_STEP_ORDINAL } from "~/utils/applicationUtils";
+import { poolTitle } from "~/utils/poolUtils";
 
 const ExperienceFormApplication_Query = graphql(/* GraphQL */ `
   query ExperienceFormApplication($id: UUID!) {

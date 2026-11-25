@@ -1,9 +1,9 @@
-import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { Button, CardRepeater, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, CardRepeater, Dialog } from "@gc-digital-talent/ui";
 
 interface RemoveDialogProps {
   onRemove: () => Promise<void>;

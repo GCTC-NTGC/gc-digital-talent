@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { tv } from "tailwind-variants";
 
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   localizePath,
   oppositeLocale,
 } from "@gc-digital-talent/i18n";
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { Container } from "@gc-digital-talent/ui";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";

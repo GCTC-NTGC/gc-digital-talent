@@ -1,12 +1,12 @@
+import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import orderBy from "lodash/orderBy";
 import type { IntlShape } from "react-intl";
-import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 
+import type { AuthRole } from "@gc-digital-talent/auth";
+import type { CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType } from "@gc-digital-talent/graphql";
-import type { AuthRole } from "@gc-digital-talent/auth";
 
 import type { CommunityMember } from "~/utils/communityUtils";
 

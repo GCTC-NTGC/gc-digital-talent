@@ -1,17 +1,17 @@
-import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { flexRender } from "@tanstack/react-table";
 import type { Header, Cell } from "@tanstack/react-table";
-import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
   TableHTMLAttributes,
   ReactNode,
 } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 
 import SortButton from "./SortButton";
 import type { AddDef } from "./types";

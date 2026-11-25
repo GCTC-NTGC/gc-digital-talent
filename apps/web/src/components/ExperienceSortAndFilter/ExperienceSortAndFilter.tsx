@@ -1,10 +1,10 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
 

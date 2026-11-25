@@ -2,8 +2,8 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import type { EmployeeSearchResult } from "./types";

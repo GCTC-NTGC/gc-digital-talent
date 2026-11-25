@@ -1,17 +1,17 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
 
+import { HiddenInput } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Dialog } from "@gc-digital-talent/ui";
-import { HiddenInput } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Dialog } from "@gc-digital-talent/ui";
 
 import type { ApplicationStatusFormProps, MutationMessages } from "../types";
+import messages from "./messages";
 import { ReinstateCandidate_Mutation } from "./mutations";
 import { Content } from "./StatusContent";
-import messages from "./messages";
 
 const RemovedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusForm on PoolCandidate {

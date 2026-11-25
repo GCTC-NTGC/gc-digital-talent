@@ -1,30 +1,30 @@
-import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+import { defineMessage, useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
-import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { PoolCandidateSnapshotQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
-import Hero from "~/components/Hero";
 import ApplicationSnapshot from "~/components/ApplicationSnapshot/ApplicationSnapshot";
+import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
+import Hero from "~/components/Hero";
+import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
-import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
 import ApplicationDownloadButton from "./components/Sidebar/ApplicationDownloadButton";
+import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",

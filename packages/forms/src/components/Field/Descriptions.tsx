@@ -1,10 +1,10 @@
-import type { FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import type { FieldErrors } from "react-hook-form";
 
-import Context from "./Context";
-import Error from "./Error";
 import type { DescriptionIds } from "../../hooks/useInputDescribedBy";
 import type { CommonInputProps } from "../../types";
+import Context from "./Context";
+import Error from "./Error";
 
 export interface DescriptionsProps {
   name?: string;

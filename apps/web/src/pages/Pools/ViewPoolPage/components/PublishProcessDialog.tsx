@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
   TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 
 import type { ProcessDialogProps } from "./types";
 

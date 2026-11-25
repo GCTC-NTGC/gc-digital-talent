@@ -1,16 +1,16 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 
-import { getLogger } from "@gc-digital-talent/logger";
-import { Loading } from "@gc-digital-talent/ui";
-import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
 import type { RoleName, RoleRequirement } from "@gc-digital-talent/auth";
 import {
   hasRequiredRoles,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
+import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
+import { getLogger } from "@gc-digital-talent/logger";
+import { Loading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

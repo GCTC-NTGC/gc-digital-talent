@@ -1,10 +1,10 @@
-import { useState, useRef, useMemo, useEffect } from "react";
 import { useCombobox } from "downshift";
 import isEqual from "lodash/isEqual";
+import { useState, useRef, useMemo, useEffect } from "react";
 
 import Field from "../Field";
-import Menu from "./Menu";
 import Input from "./Input";
+import Menu from "./Menu";
 import type { BaseProps, Option } from "./types";
 import { comboboxInput, getSingleFilteredItems, itemToString } from "./utils";
 

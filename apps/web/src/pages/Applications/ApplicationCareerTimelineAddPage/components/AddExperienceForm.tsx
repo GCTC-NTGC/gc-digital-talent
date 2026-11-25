@@ -1,32 +1,32 @@
 import { useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm, FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
-import { toast } from "@gc-digital-talent/toast";
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
+import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
+import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import {
   useExperienceMutations,
   isSuccessfulCreate,
 } from "~/hooks/useExperienceMutations";
-import {
-  formValuesToSubmitData,
-  getExperienceFormLabels,
-} from "~/utils/experienceUtils";
+import useRoutes from "~/hooks/useRoutes";
+import experienceMessages from "~/messages/experienceMessages";
 import type {
   ExperienceFormValues,
   AllExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
-import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
-import experienceMessages from "~/messages/experienceMessages";
+import {
+  formValuesToSubmitData,
+  getExperienceFormLabels,
+} from "~/utils/experienceUtils";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =

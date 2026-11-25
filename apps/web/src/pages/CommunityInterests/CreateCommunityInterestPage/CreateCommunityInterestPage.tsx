@@ -1,32 +1,32 @@
-import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
+import { useMutation, useQuery } from "urql";
 
-import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import type {
   CreateCommunityInterestWithDevelopmentProgramsInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Card, Pending } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
-import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { apiDataToFormValues, formValuesToApiCreateInput } from "../form";
+import { messages } from "../messages";
+import AdditionalInformation from "../sections/AdditionalInformation";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
-import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities, {
   DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
 } from "../sections/TrainingAndDevelopmentOpportunities";

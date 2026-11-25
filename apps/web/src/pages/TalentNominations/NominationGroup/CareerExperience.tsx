@@ -1,18 +1,18 @@
-import { useQuery } from "urql";
 import type { ComponentProps } from "react";
+import { useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
-import type { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
-import FullCareerExperiences from "./components/FullCareerExperiences";
 import type ErrorNotice from "./components/ErrorNotice";
+import FullCareerExperiences from "./components/FullCareerExperiences";
+import type { RouteParams } from "./types";
 
 const TalentNominationGroupCareerExperience_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupCareerExperience on TalentNominationGroup {

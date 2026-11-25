@@ -2,9 +2,9 @@ import { useWatch } from "react-hook-form";
 import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 
+import { ScreeningStage } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
-import { ScreeningStage } from "@gc-digital-talent/graphql";
 
 import {
   applicationStatusDescriptions,

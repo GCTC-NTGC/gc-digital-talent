@@ -1,6 +1,4 @@
-import { useState } from "react";
 import type { StoryFn, Meta } from "@storybook/react-vite";
-import { action } from "storybook/actions";
 import type {
   ColumnDef,
   CellContext,
@@ -8,9 +6,11 @@ import type {
   PaginationState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useState } from "react";
+import { action } from "storybook/actions";
 
-import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { Button, Dialog } from "@gc-digital-talent/ui";

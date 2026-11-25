@@ -1,9 +1,12 @@
-import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useState, type ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
@@ -12,9 +15,6 @@ import {
   TaskCard,
   Notice,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 

@@ -1,15 +1,15 @@
-import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useIntl } from "react-intl";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Container, Heading } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
 import JobPosterTemplateTableApi from "./JobPosterTemplateTable";
 

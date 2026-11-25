@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { ReactNode, JSX } from "react";
+import { useIntl } from "react-intl";
 
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";

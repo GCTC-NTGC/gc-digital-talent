@@ -1,12 +1,18 @@
-import { useIntl } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
-import { useMutation } from "urql";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
+import { useMutation } from "urql";
 
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Card,
   DialogPrimitive,
@@ -14,12 +20,6 @@ import {
   IconButton,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useNotificationInfo from "~/hooks/useNotificationInfo";
 
@@ -27,10 +27,10 @@ import {
   MarkNotificationAsRead_Mutation,
   MarkNotificationAsUnread_Mutation,
 } from "./mutations";
-import RemoveDialog from "./RemoveDialog";
+import NotificationButton from "./NotificationButton";
 import NotificationDownload from "./NotificationDownload";
 import NotificationLink from "./NotificationLink";
-import NotificationButton from "./NotificationButton";
+import RemoveDialog from "./RemoveDialog";
 
 interface LinkWrapperProps {
   inDialog?: boolean;

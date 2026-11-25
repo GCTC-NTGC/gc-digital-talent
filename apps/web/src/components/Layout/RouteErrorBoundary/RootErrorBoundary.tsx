@@ -1,12 +1,18 @@
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import type { ReactNode } from "react";
 /* eslint-disable react/forbid-elements */
 // NOTE: `a` needed here to avoid styling, etc
 import { IntlProvider, useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
-import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
-import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
+import {
+  combineMessages,
+  commonMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import { getLogger } from "@gc-digital-talent/logger";
 import { ThemeProvider, useTheme } from "@gc-digital-talent/theme";
 import {
   Button,
@@ -15,15 +21,7 @@ import {
   Flourish,
   Heading,
 } from "@gc-digital-talent/ui";
-import { getLogger } from "@gc-digital-talent/logger";
-import {
-  combineMessages,
-  commonMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
 
-import messages from "~/lang/frCompiled.json" with { type: "json" };
-import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
 import {
@@ -32,7 +30,9 @@ import {
   GocLogoWhiteEn,
   GocLogoWhiteFr,
 } from "~/components/Svg";
+import useErrorMessages from "~/hooks/useErrorMessages";
 import useRoutes from "~/hooks/useRoutes";
+import messages from "~/lang/frCompiled.json" with { type: "json" };
 
 const logo = tv({
   base: "h-auto w-72",

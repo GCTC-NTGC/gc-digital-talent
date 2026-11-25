@@ -1,9 +1,10 @@
-import { defineMessage, useIntl } from "react-intl";
-import type { ReactNode } from "react";
-import { useState } from "react";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import type { ReactNode } from "react";
+import { useState } from "react";
+import { defineMessage, useIntl } from "react-intl";
 
+import { navigationMessages, uiMessages } from "@gc-digital-talent/i18n";
 import {
   Notice,
   Container,
@@ -13,13 +14,12 @@ import {
   Accordion,
   Button,
 } from "@gc-digital-talent/ui";
-import { navigationMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import SkillTable from "./components/SkillTable";
 

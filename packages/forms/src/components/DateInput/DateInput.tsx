@@ -1,27 +1,27 @@
-import { useIntl } from "react-intl";
-import omit from "lodash/omit";
 import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
 import { isSameDay } from "date-fns/isSameDay";
 import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
-import { useFormContext, Controller } from "react-hook-form";
+import omit from "lodash/omit";
 import type { ReactNode } from "react";
+import { useFormContext, Controller } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
-import Field from "../Field";
-import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import Field from "../Field";
+import { useRegisterFormLabel } from "../FormLabelsProvider";
 import ControlledInput from "./ControlledInput";
-import { splitSegments } from "./utils";
 import type { DateRegisterOptions, DateSegment, RoundingMethod } from "./types";
 import { DATE_SEGMENT } from "./types";
-import { useRegisterFormLabel } from "../FormLabelsProvider";
+import { splitSegments } from "./utils";
 
 const legendStyles = tv({
   base: "text-base font-bold",

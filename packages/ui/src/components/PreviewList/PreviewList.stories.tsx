@@ -1,6 +1,6 @@
+import { faker } from "@faker-js/faker";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

@@ -1,12 +1,12 @@
-import type { IntlShape } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
-import type { Locales } from "@gc-digital-talent/i18n";
-import { Link, Ul } from "@gc-digital-talent/ui";
 import type { Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { Link, Ul } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 import type { ClassificationGroup } from "~/types/classificationGroup";

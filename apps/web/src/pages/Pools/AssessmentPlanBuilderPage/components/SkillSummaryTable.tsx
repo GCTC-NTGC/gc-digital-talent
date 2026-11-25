@@ -1,11 +1,10 @@
-import type { JSX } from "react";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
+import type { JSX } from "react";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
@@ -18,10 +17,11 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Chip } from "@gc-digital-talent/ui";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import { assessmentStepDisplayName } from "../utils";
 

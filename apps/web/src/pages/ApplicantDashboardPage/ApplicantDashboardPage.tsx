@@ -1,47 +1,47 @@
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router";
 
-import { Pending, ResourceBlock, NotFound, Ul } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   getFromLocalStorage,
   useLocalStorage,
 } from "@gc-digital-talent/storage";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Pending, ResourceBlock, NotFound, Ul } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
-import { getFullNameHtml } from "~/utils/nameUtils";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
+import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
+import {
+  KEY_NEW_USER_LANGUAGE_PRESET,
+  KEY_NEW_USER_MIGRATION_NOTICE,
+} from "~/constants/storageKeys";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 import messages from "~/messages/profileMessages";
+import { getFullNameHtml } from "~/utils/nameUtils";
+import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import {
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
   priorityEntitlementsHasEmptyRequiredFields,
 } from "~/validators/profile";
-import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import StatusItem from "~/components/StatusItem/StatusItem";
-import {
-  KEY_NEW_USER_LANGUAGE_PRESET,
-  KEY_NEW_USER_MIGRATION_NOTICE,
-} from "~/constants/storageKeys";
-import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
-import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
-import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
 
-import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
-import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
-import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 import ApplicantDashboardProvider from "./ApplicantDashboardProvider";
+import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
+import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
+import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 import { ACCORDION_ID } from "./constants";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `

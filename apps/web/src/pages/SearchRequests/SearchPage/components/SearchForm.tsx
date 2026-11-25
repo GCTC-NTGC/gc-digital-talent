@@ -1,11 +1,18 @@
+import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
+import debounce from "lodash/debounce";
+import { useState, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useQuery } from "urql";
-import { useState, useEffect, useMemo } from "react";
-import debounce from "lodash/debounce";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
+import type {
+  ApplicantFilterInput,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
+import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Container,
   Heading,
@@ -14,34 +21,27 @@ import {
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  ApplicantFilterInput,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
-import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
+import useRoutes from "~/hooks/useRoutes";
 import type {
   FormValues,
   TalentRequestClassification,
   TalentRequestWorkStream,
 } from "~/types/talentRequestForm";
-import useRoutes from "~/hooks/useRoutes";
-import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
 
-import { formValuesToData } from "../utils";
 import {
   useCandidateCount,
   useInitialFilters,
   useTalentRequestState,
 } from "../hooks";
-import FormFields from "./FormFields";
-import EstimatedCandidates from "./EstimatedCandidates";
-import SearchFilterAdvice from "./SearchFilterAdvice";
-import NoResults from "./NoResults";
-import SearchResultCard from "./SearchResultCard";
+import { formValuesToData } from "../utils";
 import CommunityResultCard from "./CommunityResultCard";
+import EstimatedCandidates from "./EstimatedCandidates";
+import FormFields from "./FormFields";
+import NoResults from "./NoResults";
+import SearchFilterAdvice from "./SearchFilterAdvice";
+import SearchResultCard from "./SearchResultCard";
 
 const defaultRequestState = {
   applicantFilter: {},

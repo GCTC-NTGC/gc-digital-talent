@@ -6,8 +6,8 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Accordion } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Accordion } from "@gc-digital-talent/ui";
 
 import RecruitmentProcessPreviewList from "./RecruitmentProcessesPreviewList";
 import { recruitmentProcessesTitle } from "./utils";

@@ -1,23 +1,23 @@
-import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import { useFormContext } from "react-hook-form";
 import type { ComponentProps } from "react";
 import { useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { defineMessage, useIntl } from "react-intl";
 
-import { Heading, Notice } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   assertUnreachable,
   nodeToString,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { Heading, Notice } from "@gc-digital-talent/ui";
 
 import type { FormValues } from "../form";
 

@@ -1,23 +1,23 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useLocation } from "react-router";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Link, Pending } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   WorkStreamTableRowFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link, Pending } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 const WorkStreamTableRow_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamTableRow on WorkStream {

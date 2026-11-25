@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 import ArrowLongRightIcon from "@heroicons/react/16/solid/ArrowLongRightIcon";
+import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Link } from "@gc-digital-talent/ui";

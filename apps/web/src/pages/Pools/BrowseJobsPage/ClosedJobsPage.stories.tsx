@@ -1,11 +1,11 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
+import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 import {
   CHROMATIC_VIEWPORTS,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
-import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import ClosedJobs from "./ClosedJobsPage";
 

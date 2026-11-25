@@ -1,10 +1,10 @@
+import type { Logger } from "./types";
+import { defaultLogger, getLogger } from "./utils/getLogger";
 import {
   tryParseSeverityLevelString,
   levelIncludes,
   getLoggingLevel,
 } from "./utils/logger";
-import { defaultLogger, getLogger } from "./utils/getLogger";
-import type { Logger } from "./types";
 
 export {
   tryParseSeverityLevelString,

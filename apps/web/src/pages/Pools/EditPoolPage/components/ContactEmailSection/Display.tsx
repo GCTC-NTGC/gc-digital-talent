@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { EditPoolContactEmailFragment } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";

@@ -1,5 +1,5 @@
-import type { JSX } from "react";
 import type { Decorator } from "@storybook/react-vite";
+import type { JSX } from "react";
 import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {

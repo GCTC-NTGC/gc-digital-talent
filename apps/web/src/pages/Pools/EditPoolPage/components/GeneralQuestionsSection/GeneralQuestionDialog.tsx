@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { TextArea } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   CardRepeater,
   Dialog,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import { TextArea } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FormValues } from "./utils";
 import { dataToFormValues, labels } from "./utils";

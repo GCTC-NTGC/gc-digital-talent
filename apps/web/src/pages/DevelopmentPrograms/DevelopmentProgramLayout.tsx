@@ -5,18 +5,18 @@ import { Outlet, useMatches } from "react-router";
 import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
 
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import pageTitles from "~/messages/pageTitles";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRequiredParams from "~/hooks/useRequiredParams";
 
 interface DevelopmentProgramHandle {
   pageTitle?: MessageDescriptor;

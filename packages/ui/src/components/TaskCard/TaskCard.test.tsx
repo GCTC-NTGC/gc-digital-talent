@@ -6,8 +6,8 @@ import {
   expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
-import TaskCard from "./TaskCard";
 import Notice from "../Notice/Notice";
+import TaskCard from "./TaskCard";
 
 function renderComponent() {
   return renderWithProviders(

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
+import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
@@ -9,14 +10,21 @@ import {
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { BasicForm, Submit } from "@gc-digital-talent/forms";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import type { SnapshotExperience } from "~/utils/experienceUtils";
 
+import AssessmentType from "./AssessmentType";
+import Header from "./Header";
+import ScreeningDecisionDialogForm from "./ScreeningDecisionDialogForm";
+import ScreeningQuestions from "./ScreeningQuestions";
+import SupportingEvidence from "./SupportingEvidence";
+import { Trigger } from "./Trigger";
 import type { FormValues } from "./types";
+import useLabels from "./useLabels";
+import useSaveHandler from "./useSaveHandler";
 import {
   convertApiToFormValues,
   DIALOG_TYPE,
@@ -24,14 +32,6 @@ import {
   hasAttachedExperiences,
   SUPPORTING_EVIDENCE_TYPES,
 } from "./utils";
-import { Trigger } from "./Trigger";
-import Header from "./Header";
-import AssessmentType from "./AssessmentType";
-import ScreeningQuestions from "./ScreeningQuestions";
-import SupportingEvidence from "./SupportingEvidence";
-import useSaveHandler from "./useSaveHandler";
-import useLabels from "./useLabels";
-import ScreeningDecisionDialogForm from "./ScreeningDecisionDialogForm";
 
 export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDecisionDialog on PoolCandidate {

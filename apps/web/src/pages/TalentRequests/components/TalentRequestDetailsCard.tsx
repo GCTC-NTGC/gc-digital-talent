@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useIntl } from "react-intl";
 
 import {
   getFragment,

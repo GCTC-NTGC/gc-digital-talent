@@ -1,5 +1,5 @@
-import { action } from "storybook/actions";
 import type { StoryFn } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm } from "@gc-digital-talent/forms";

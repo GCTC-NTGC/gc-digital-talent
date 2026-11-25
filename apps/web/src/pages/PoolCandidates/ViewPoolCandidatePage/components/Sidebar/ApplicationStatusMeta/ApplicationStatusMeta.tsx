@@ -6,9 +6,9 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import DisqualifiedStatusMeta from "./DisqualifiedStatusMeta";
+import QualifiedStatusMeta from "./QualifiedStatusMeta";
 import RemovedStatusMeta from "./RemovedStatusMeta";
 import ToAssessStatusMeta from "./ToAssessStatusMeta";
-import QualifiedStatusMeta from "./QualifiedStatusMeta";
 
 const ApplicationStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusMeta on PoolCandidate {

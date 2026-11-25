@@ -1,5 +1,5 @@
-import { Fragment } from "react/jsx-runtime";
 import { useIntl } from "react-intl";
+import { Fragment } from "react/jsx-runtime";
 
 import type {
   ExperienceCardFragment,
@@ -10,22 +10,22 @@ import {
   graphql,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   ScrollToLink,
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
-import type { SnapshotExperience } from "~/utils/experienceUtils";
-import { getExperienceName } from "~/utils/experienceUtils";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
-import { groupExperiencesBySkill } from "~/utils/skillUtils";
 import ExperienceCardV1 from "~/components/ExperienceCard/SnapshotV1/ExperienceCardV1";
+import type { SnapshotExperience } from "~/utils/experienceUtils";
+import { getExperienceName } from "~/utils/experienceUtils";
+import { groupExperiencesBySkill } from "~/utils/skillUtils";
 
 interface SnapshotSkill {
   id: string;

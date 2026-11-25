@@ -1,24 +1,24 @@
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { Input, Submit } from "@gc-digital-talent/forms";
 import type { FragmentType, UpdatePoolInput } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Input, Submit } from "@gc-digital-talent/forms";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-import processMessages from "~/messages/processMessages";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 
-import { useEditPoolContext } from "./EditPoolContext";
 import type { PublishedEditableSectionProps, SectionProps } from "../types";
+import ActionWrapper from "./ActionWrapper";
+import { useEditPoolContext } from "./EditPoolContext";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "./UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
-import ActionWrapper from "./ActionWrapper";
 
 export type ProcessNumberSubmitData = Pick<UpdatePoolInput, "processNumber">;
 

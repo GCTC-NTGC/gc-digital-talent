@@ -1,26 +1,26 @@
-import { useIntl } from "react-intl";
-import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
+import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   TableOfContents,
   Link,
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import useRoutes from "~/hooks/useRoutes";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type {
   SkillPortfolioTable_SkillFragment,
   SkillPortfolioTable_UserSkillFragment,
 } from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
 import SkillPortfolioTable from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 
 interface PageSection {

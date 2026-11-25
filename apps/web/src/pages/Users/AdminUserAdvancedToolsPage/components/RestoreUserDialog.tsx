@@ -1,14 +1,14 @@
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { useMutation } from "urql";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 

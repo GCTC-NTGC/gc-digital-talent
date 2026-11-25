@@ -1,8 +1,8 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import {
   DepartmentTable,

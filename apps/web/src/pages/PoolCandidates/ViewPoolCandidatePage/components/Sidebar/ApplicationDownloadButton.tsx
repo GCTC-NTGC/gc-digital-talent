@@ -1,14 +1,14 @@
-import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
+import { useIntl } from "react-intl";
 
-import { DropdownMenu } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
-import useUserDownloads from "~/hooks/useUserDownloads";
 import useApplicationDownloads from "~/hooks/useApplicationDownloads";
+import useUserDownloads from "~/hooks/useUserDownloads";
 
 const ApplicationDownloadButton_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationDownloadButton on PoolCandidate {

@@ -1,7 +1,7 @@
-import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import type { DefaultValues, FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import type {
   AuthCommunityTeamable,
@@ -15,9 +15,9 @@ import type {
   UpdateUserRolesInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Chip, Chips } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 export const UserRoleTable_Fragment = graphql(/** GraphQL */ `
   fragment UserRoleTable on User {

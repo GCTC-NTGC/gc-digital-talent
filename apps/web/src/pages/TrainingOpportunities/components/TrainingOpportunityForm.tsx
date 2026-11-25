@@ -1,6 +1,7 @@
-import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { currentDate } from "@gc-digital-talent/date-helpers";
 import {
   Checkbox,
   DATE_SEGMENT,
@@ -10,13 +11,12 @@ import {
   RichTextInput,
   Select,
 } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { currentDate } from "@gc-digital-talent/date-helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
-import formLabels from "../formLabels";
 import type { FormValues } from "../apiUtils";
+import formLabels from "../formLabels";
 
 export const TrainingOpportunityFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment TrainingOpportunityFormOptions on Query {

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
+import { TextArea } from "@gc-digital-talent/forms";
 import type {
   FragmentType,
   UpdatePublishedPoolInput,
@@ -13,10 +13,10 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { TextArea } from "@gc-digital-talent/forms";
+import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
 import type { PublishedEditableSectionProps } from "../../types";
 

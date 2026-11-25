@@ -1,6 +1,9 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   Heading,
   Separator,
@@ -8,9 +11,6 @@ import {
   UNICODE_CHAR,
   wrapQuotes,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
 

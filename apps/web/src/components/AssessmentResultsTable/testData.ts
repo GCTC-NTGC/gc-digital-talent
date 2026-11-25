@@ -10,7 +10,6 @@ import {
   toLocalizedEnum,
   toLocalizedString,
 } from "@gc-digital-talent/fake-data";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
@@ -20,6 +19,7 @@ import {
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 faker.seed(0);
 

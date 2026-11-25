@@ -1,11 +1,11 @@
 import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { isAfter } from "date-fns/isAfter";
+import type { ReactNode } from "react";
 import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
-import type { ReactNode } from "react";
 
-import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import activityMessages from "~/messages/activityMessages";

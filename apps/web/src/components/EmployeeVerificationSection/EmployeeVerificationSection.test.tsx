@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 
-import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import EmployeeVerificationSection, {
   UserEmployeeVerification_Fragment,

@@ -1,6 +1,6 @@
-import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import type { ReactNode, JSX } from "react";
+import { useIntl } from "react-intl";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 

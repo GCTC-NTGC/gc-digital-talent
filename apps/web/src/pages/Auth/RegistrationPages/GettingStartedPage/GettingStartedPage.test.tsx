@@ -1,14 +1,14 @@
 import { fireEvent, act, screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
-import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
+import { pipe, fromValue, delay } from "wonka";
 
+import { fakeUsers, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { fakeUsers, toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 import { PersonalInfoBox_Fragment } from "~/components/PersonalInfoBox/PersonalInfoBox";

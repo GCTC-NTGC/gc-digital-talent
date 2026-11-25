@@ -3,8 +3,8 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import ExperienceFormContainer from "./ExperienceFormPage";
 import EditExperienceTypeFormContainer from "./EditExperienceTypeFormPage";
+import ExperienceFormContainer from "./ExperienceFormPage";
 
 export const Component = () => {
   const { careerExperience } = useFeatureFlags();

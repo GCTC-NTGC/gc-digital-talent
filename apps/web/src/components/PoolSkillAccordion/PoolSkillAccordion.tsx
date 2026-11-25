@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { Accordion, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getLocalizedName,
-  getSkillLevelMessages,
-} from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   SkillCategory,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getLocalizedName,
+  getSkillLevelMessages,
+} from "@gc-digital-talent/i18n";
+import { Accordion, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const context = tv({
   base: "font-bold",

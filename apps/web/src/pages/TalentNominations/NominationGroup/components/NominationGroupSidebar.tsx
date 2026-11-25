@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 
-import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import richTextElements from "@gc-digital-talent/rich-text-elements";
+import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
+import DownloadNominationDocxButton from "~/components/DownloadButton/DownloadNominationDocxButton";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
-import DownloadNominationDocxButton from "~/components/DownloadButton/DownloadNominationDocxButton";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import NominatedForList from "./NominatedForList";
-import NominatorList from "./NominatorList";
-import NominationNavigation from "./NominationNavigation/NominationNavigation";
-import CommentsForm from "./CommentsForm";
 import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
+import CommentsForm from "./CommentsForm";
+import NominatedForList from "./NominatedForList";
+import NominationNavigation from "./NominationNavigation/NominationNavigation";
+import NominatorList from "./NominatorList";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 

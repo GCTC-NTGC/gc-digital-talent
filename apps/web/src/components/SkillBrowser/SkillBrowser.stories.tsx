@@ -3,8 +3,8 @@ import { action } from "storybook/actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { Button } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { Button } from "@gc-digital-talent/ui";
 
 import SkillBrowser, { SkillBrowser_Fragment } from "./SkillBrowser";
 import type { FormValues } from "./types";

@@ -1,8 +1,8 @@
-import { empty } from "@gc-digital-talent/helpers";
 import type {
   ArmedForcesStatus,
   CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 export interface PartialUser {

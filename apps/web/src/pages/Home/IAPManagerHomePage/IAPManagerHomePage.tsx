@@ -1,9 +1,10 @@
-import { useIntl } from "react-intl";
+import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
 import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
-import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import { buildMailToUri } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
 import {
   Container,
@@ -14,17 +15,16 @@ import {
   Ul,
   Notice,
 } from "@gc-digital-talent/ui";
-import { buildMailToUri } from "@gc-digital-talent/helpers";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
-import section1Img from "~/assets/img/IAPManager-Section-01.webp";
 import section1FlourishImg from "~/assets/img/IAPManager-Section-01-flourish.webp";
-import section2Img from "~/assets/img/IAPManager-Section-02.webp";
+import section1Img from "~/assets/img/IAPManager-Section-01.webp";
 import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.webp";
-import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
-import section5Img from "~/assets/img/IAPManager-Section-05.webp";
+import section2Img from "~/assets/img/IAPManager-Section-02.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
+import section5Img from "~/assets/img/IAPManager-Section-05.webp";
+import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";

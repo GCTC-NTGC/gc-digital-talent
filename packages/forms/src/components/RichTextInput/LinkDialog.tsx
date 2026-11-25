@@ -1,22 +1,22 @@
-import { useIntl } from "react-intl";
+import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
 import type { Editor } from "@tiptap/react";
 import { useEditorState } from "@tiptap/react";
-import type { SubmitHandler } from "react-hook-form";
-import { useForm, FormProvider } from "react-hook-form";
-import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
 import type { KeyboardEventHandler } from "react";
 import { useState } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { sanitizeUrl } from "@gc-digital-talent/helpers";
 import {
   richTextMessages,
   errorMessages,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { sanitizeUrl } from "@gc-digital-talent/helpers";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 
-import Input from "../Input/Input";
 import Checkbox from "../Checkbox/Checkbox";
+import Input from "../Input/Input";
 import MenuButton from "./MenuButton";
 
 const validLinkRegex =

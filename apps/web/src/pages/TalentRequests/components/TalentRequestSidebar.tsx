@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 
+import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import {
   getFragment,
   graphql,
@@ -8,14 +9,13 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
-import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 import adminMessages from "~/messages/adminMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import TalentRequestNotes from "./TalentRequestNotes";
 import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
+import TalentRequestNotes from "./TalentRequestNotes";
 import TalentRequestStatusDialog from "./TalentRequestStatusDialog";
 import type { TalentRequestStatusOptions } from "./TalentRequestStatusDialog";
 

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
 import {
   DevelopmentProgramParticipationStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
-import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import CommunityInterest, {
   CommunityInterest_Fragment,

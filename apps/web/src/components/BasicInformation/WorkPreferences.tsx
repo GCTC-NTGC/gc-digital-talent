@@ -1,24 +1,24 @@
 import { useIntl } from "react-intl";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  EmploymentDuration,
-  getEmploymentDuration,
-} from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  EmploymentDuration,
+  getEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 import { Caption, Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 
-import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
+import FieldDisplay from "../FieldDisplay/FieldDisplay";
 
 const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferences on User {

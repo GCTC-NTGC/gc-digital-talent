@@ -1,8 +1,8 @@
 import stringify from "json-stable-stringify";
 
+import { groupBy, notEmpty } from "@gc-digital-talent/helpers";
 import rawI18nEnMessages from "@gc-digital-talent/i18n/en.json" with { type: "json" };
 import rawI18nFrMessages from "@gc-digital-talent/i18n/fr.json" with { type: "json" };
-import { groupBy, notEmpty } from "@gc-digital-talent/helpers";
 
 import rawWebEnMessages from "./en.json" with { type: "json" };
 import rawWebFrMessages from "./fr.json" with { type: "json" };

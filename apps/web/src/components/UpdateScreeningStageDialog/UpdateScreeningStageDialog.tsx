@@ -1,16 +1,17 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
 
+import { Select } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   ScreeningStage,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -21,15 +22,14 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Select } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
-import { getScreeningStageIndex } from "~/utils/poolCandidate";
 import applicationMessages from "~/messages/applicationMessages";
+import { getScreeningStageIndex } from "~/utils/poolCandidate";
 
-import type { FormValues } from "./types";
 import CandidateFacingScreeningStageNotice from "./CandidateFacingScreeningStageNotice";
 import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
+import type { FormValues } from "./types";
 
 const UpdateScreeningStageDialog_Fragment = graphql(/** GraphQL */ `
   fragment UpdateScreeningStageDialog on PoolCandidate {

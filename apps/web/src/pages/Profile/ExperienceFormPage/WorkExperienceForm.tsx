@@ -1,5 +1,5 @@
-import { defineMessages, useIntl } from "react-intl";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";

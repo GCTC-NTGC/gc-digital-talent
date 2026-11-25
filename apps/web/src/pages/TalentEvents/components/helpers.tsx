@@ -1,9 +1,9 @@
 import type { IntlShape } from "react-intl";
 
-import type { ChipProps } from "@gc-digital-talent/ui";
-import { Chip, Link } from "@gc-digital-talent/ui";
 import { TalentNominationEventStatus } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
 
 import type useRoutes from "~/hooks/useRoutes";
 

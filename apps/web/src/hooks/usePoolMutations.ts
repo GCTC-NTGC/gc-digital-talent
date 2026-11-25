@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation } from "urql";
 
-import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdatePoolInput,
   CreatePoolSkillInput,
@@ -10,6 +9,7 @@ import type {
   UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 

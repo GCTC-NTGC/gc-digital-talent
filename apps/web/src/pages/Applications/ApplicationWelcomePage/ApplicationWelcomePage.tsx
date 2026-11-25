@@ -1,22 +1,22 @@
+import type { SubmitEvent } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import type { SubmitEvent } from "react";
 
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import type { GetPageNavInfo } from "~/types/applicationStep";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,

@@ -1,25 +1,25 @@
 import { Fragment } from "react";
-import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import type { GetPageNavInfo } from "~/types/applicationStep";
-import processMessages from "~/messages/processMessages";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 
-import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";
-import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import type { FormValues } from "./types";
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
+import type { FormValues } from "./types";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,

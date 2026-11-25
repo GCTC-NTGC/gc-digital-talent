@@ -1,10 +1,10 @@
+import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
-import { Button, Card, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Button, Card, Notice } from "@gc-digital-talent/ui";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 import RemoveWorkEmailDialog from "~/components/RemoveWorkEmailDialog/RemoveWorkEmailDialog";

@@ -1,39 +1,39 @@
-import type { IntlShape, MessageDescriptor } from "react-intl";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
-import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import type { ReactNode } from "react";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
 import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
 import {
   PROCESS_ACTIVITY_LOG_ROLES,
   ROLE_NAME,
   useAuthorization,
 } from "@gc-digital-talent/auth";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 import {
   nodeToString,
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import type { LocalizedString } from "@gc-digital-talent/graphql";
-import { PoolStatus } from "@gc-digital-talent/graphql";
 
-import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
-import poolMessages from "~/messages/poolMessages";
-import type { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
+import poolMessages from "~/messages/poolMessages";
+import type { PageNavInfo } from "~/types/pages";
+import type { PageNavKeys, PoolCompleteness } from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";
 import { checkRole } from "./teamUtils";

@@ -1,14 +1,14 @@
 import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
-import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 import { lazy, Suspense } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { graphql } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Loading } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useLocalStorage } from "@gc-digital-talent/storage";
+import { Loading } from "@gc-digital-talent/ui";
 
 import { useStableDate } from "~/hooks/useStableDate";
 

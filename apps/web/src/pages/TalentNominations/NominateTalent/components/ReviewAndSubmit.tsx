@@ -1,6 +1,6 @@
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -12,15 +12,15 @@ import { Card, CardSeparator } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 
-import useCurrentStep from "../useCurrentStep";
 import type { BaseFormValues } from "../types";
-import Actions from "./Actions";
-import SubHeading from "./SubHeading";
+import useCurrentStep from "../useCurrentStep";
 import type { TalentNominationMutations } from "../useMutations";
+import Actions from "./Actions";
+import NominationDetailsReview from "./ReviewAndSubmit/NominationDetailsReview";
 import NominatorReview from "./ReviewAndSubmit/NominatorReview";
 import NomineeReview from "./ReviewAndSubmit/NomineeReview";
-import NominationDetailsReview from "./ReviewAndSubmit/NominationDetailsReview";
 import RationaleReview from "./ReviewAndSubmit/RationaleReview";
+import SubHeading from "./SubHeading";
 
 const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentReviewAndSubmit on TalentNomination {

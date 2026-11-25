@@ -1,18 +1,18 @@
-import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import uniqBy from "lodash/uniqBy";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import { Accordion, TaskCard, wrapParens } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import YourProcessesPreviewList from "./YourProcessesPreviewList";
 import { isPoolTeamable } from "../utils";
+import YourProcessesPreviewList from "./YourProcessesPreviewList";
 
 const ACCORDION_ID = {
   BOOKMARKED_PROCESSES: "your_bookmarked_processes",

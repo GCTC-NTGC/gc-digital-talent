@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+import { useState } from "react";
 /* eslint-disable camelcase */
 // Note: Disable camelcase since variables are being used by API
 import type { SubmitHandler } from "react-hook-form";
@@ -6,25 +8,23 @@ import { defineMessage, useIntl } from "react-intl";
 import type { Location } from "react-router";
 import { useLocation, useSearchParams } from "react-router";
 import { useQuery } from "urql";
-import type { ReactNode } from "react";
-import { useState } from "react";
 
-import { toast } from "@gc-digital-talent/toast";
+import { appInsights } from "@gc-digital-talent/app-insights";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   getLocale,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { appInsights } from "@gc-digital-talent/app-insights";
+import { toast } from "@gc-digital-talent/toast";
+import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import type { FormValues } from "./utils";
 import { submitTicket, SUPPORT_TICKET_ERROR } from "./utils";

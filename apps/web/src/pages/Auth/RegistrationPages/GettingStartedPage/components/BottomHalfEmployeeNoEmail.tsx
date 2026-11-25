@@ -1,19 +1,19 @@
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
-import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Caption, Link, Separator } from "@gc-digital-talent/ui";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
 import { Input, Submit } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
+import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import EmailVerification, {
   useEmailVerification,
 } from "~/components/EmailVerification/EmailVerification";
-import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
+import useRoutes from "~/hooks/useRoutes";
 
 import labels from "../labels";
 

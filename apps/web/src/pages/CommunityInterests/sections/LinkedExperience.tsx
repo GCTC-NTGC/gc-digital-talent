@@ -1,8 +1,8 @@
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import {
   DropdownMenu,

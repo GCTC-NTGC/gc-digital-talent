@@ -1,5 +1,16 @@
 import { useIntl } from "react-intl";
 
+import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
+import type {
+  ExecCoaching,
+  FragmentType,
+  Mentorship,
+  OrganizationTypeInterest,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -8,25 +19,14 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
-import type {
-  ExecCoaching,
-  FragmentType,
-  Mentorship,
-  OrganizationTypeInterest,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  formatDate,
-  formDateStringToDate,
-} from "@gc-digital-talent/date-helpers";
 
-import messages from "~/messages/careerDevelopmentMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
 } from "~/components/CareerDevelopmentPreferences/utils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import messages from "~/messages/careerDevelopmentMessages";
 
 const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopment on EmployeeProfile {

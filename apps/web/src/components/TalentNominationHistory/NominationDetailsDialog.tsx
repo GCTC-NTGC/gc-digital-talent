@@ -1,7 +1,14 @@
+import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { useState, type ReactNode } from "react";
 import { useIntl, type MessageDescriptor } from "react-intl";
-import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   Link,
   Button,
@@ -9,17 +16,10 @@ import {
   Notice,
   PreviewList,
 } from "@gc-digital-talent/ui";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
-import talentNominationMessages from "~/messages/talentNominationMessages";
-import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import adminMessages from "~/messages/adminMessages";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import nomineeMessages from "./nomineeMessages";
 import recruiterMessages from "./recruiterMessages";

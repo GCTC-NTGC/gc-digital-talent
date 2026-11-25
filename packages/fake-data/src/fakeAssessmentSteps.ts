@@ -6,8 +6,8 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 import { AssessmentStepType } from "@gc-digital-talent/graphql/schema-types";
 
-import toLocalizedString from "./fakeLocalizedString";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import toLocalizedString from "./fakeLocalizedString";
 
 const generateAssessmentStep = (
   amount: number,

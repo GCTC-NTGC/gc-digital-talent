@@ -1,8 +1,6 @@
 import { useIntl } from "react-intl";
 
 import type { LocalizedString } from "@gc-digital-talent/graphql";
-import type { HeadingRank } from "@gc-digital-talent/ui";
-import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
   groupBy,
   sortAlphaBy,
@@ -10,6 +8,8 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import pageTitles from "~/messages/pageTitles";

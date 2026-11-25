@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Notice } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Notice } from "@gc-digital-talent/ui";
 
 interface SkillDescriptionProps {
   name?: string | null;

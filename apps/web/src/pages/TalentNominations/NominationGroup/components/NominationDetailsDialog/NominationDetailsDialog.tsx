@@ -6,17 +6,17 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import SubmissionInformationSection from "./SubmissionInformationSection";
-import NominatorInformationSection from "./NominatorInformationSection";
 import NominationDetailsSection from "./NominationDetailsSection";
+import NominatorInformationSection from "./NominatorInformationSection";
 import RationaleAndAdditionalCommentsSection from "./RationaleAndAdditionalCommentsSection";
+import SubmissionInformationSection from "./SubmissionInformationSection";
 
 const TalentNominationDetailsDialogNomination_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationDetailsDialogNomination on TalentNomination {

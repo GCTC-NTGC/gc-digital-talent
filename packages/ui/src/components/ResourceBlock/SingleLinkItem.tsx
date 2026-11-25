@@ -4,11 +4,11 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import type { HeadingRank } from "../Heading";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
 import type { BaseItemProps } from "./BaseItem";
 import BaseItem from "./BaseItem";
-import type { HeadingRank } from "../Heading";
 
 interface WrapperProps {
   as?: HeadingRank;

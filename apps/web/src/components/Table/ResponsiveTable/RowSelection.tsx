@@ -1,5 +1,4 @@
-import type { IntlShape } from "react-intl";
-import { useIntl } from "react-intl";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import type {
   Row,
   Table,
@@ -10,7 +9,6 @@ import type {
   OnChangeFn,
   Updater,
 } from "@tanstack/react-table";
-import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import type {
   DetailedHTMLProps,
   Dispatch,
@@ -19,10 +17,13 @@ import type {
   SetStateAction,
 } from "react";
 import { useState } from "react";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import type { CheckButtonProps } from "@gc-digital-talent/forms";
 import { CheckButton } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   Button,
@@ -31,11 +32,10 @@ import {
   Loading,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 
-import type { DownloadDef, TableAction } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
+import type { DownloadDef, TableAction } from "./types";
 
 type BaseProps = Omit<
   CheckButtonProps,

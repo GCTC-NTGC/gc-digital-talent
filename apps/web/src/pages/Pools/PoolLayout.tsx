@@ -5,33 +5,33 @@ import { Outlet } from "react-router";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  FragmentType,
+  PoolLayoutFragment,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Pending,
   Chip,
   ThrowNotFound,
   useAnnouncer,
 } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  PoolLayoutFragment,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import type { PageNavInfo } from "~/types/pages";
+import type { PageNavKeys } from "~/types/pool";
 import {
   getAdvertisementStatus,
   getPoolCompletenessBadge,
   getShortPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
-import type { PageNavKeys } from "~/types/pool";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import type { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import Hero from "~/components/Hero";
 
 export interface ContextType {
   communityTeamId: string | null | undefined;

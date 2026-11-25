@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 
