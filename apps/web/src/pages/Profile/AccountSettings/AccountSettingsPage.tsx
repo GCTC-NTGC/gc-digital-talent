@@ -240,7 +240,7 @@ const AccountSettingsPage = () => {
 };
 
 const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
     <AccountSettingsPage />
   </RequireAuth>
 );

@@ -118,7 +118,7 @@ const EmployeeVerificationPage = () => {
 };
 
 const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
     <EmployeeVerificationPage />
   </RequireAuth>
 );
