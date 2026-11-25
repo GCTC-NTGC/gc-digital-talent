@@ -9828,6 +9828,10 @@
     "defaultMessage": "Confirmer une autre adresse courriel professionnelle",
     "description": "Link to update to a different email when initially your work email and contact email are the same"
   },
+  "buavit": {
+    "defaultMessage": "Retirer le rôle {role}",
+    "description": "Label for the form to remove a role from a user"
+  },
   "bw4CAS": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
     "description": "Title for applicant dashboard on the talent cloud admin portal."
