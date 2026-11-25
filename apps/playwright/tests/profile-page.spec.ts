@@ -12,7 +12,7 @@ test.describe("Profile Page", { tag: "@uat" }, () => {
     });
   });
 
-  test.describe("Signed in user without applicant role", () => {
+  test.describe("Signed in user without any roles", () => {
     test("Render not authorized message for /en/applicant", async ({
       appPage,
     }) => {
@@ -58,7 +58,7 @@ test.describe("Profile Page", { tag: "@uat" }, () => {
     });
   });
 
-  test.describe("Signed in user with applicant role", () => {
+  test.describe("Signed in user with base user role", () => {
     const applicantSub =
       process.env.PLAYWRIGHT_APPLICANT_SUB ?? "applicant@test.com";
 

@@ -85,6 +85,9 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
+            ->afterCreating(function (User $user) {
+                $user->removeRole('base_user');
+            })
             ->create([
                 'first_name' => 'Hilary',
                 'last_name' => 'Seward',
