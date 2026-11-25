@@ -25,11 +25,7 @@ const MainNavMenu = () => {
     useMainNavLinks();
 
   const usefulRoleAssignments =
-    userAuthInfo?.roleAssignments
-      ?.filter(notEmpty)
-      ?.filter(
-        (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
-      ) ?? [];
+    userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
 
   const roleNames = {
     applicant: intl.formatMessage(navMenuMessages.applicant),
@@ -41,12 +37,12 @@ const MainNavMenu = () => {
   const hasMoreThanOneRole =
     navRole !== null && usefulRoleAssignments.length > 1;
 
-  const onlyHasOneRoleNotApplicant =
+  const onlyHasOneRoleNotBaseUser =
     navRole !== null &&
     usefulRoleAssignments.length === 1 &&
-    usefulRoleAssignments[0].role?.name !== ROLE_NAME.Applicant;
+    usefulRoleAssignments[0].role?.name !== ROLE_NAME.BaseUser;
 
-  const showRoleSwitcher = onlyHasOneRoleNotApplicant || hasMoreThanOneRole;
+  const showRoleSwitcher = onlyHasOneRoleNotBaseUser || hasMoreThanOneRole;
 
   return (
     <Menu

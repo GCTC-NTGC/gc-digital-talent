@@ -5,7 +5,6 @@ import { useLocation } from "react-router";
 import type { RoleName } from "@gc-digital-talent/auth";
 import {
   hasRequiredRoles,
-  ROLE_NAME,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
@@ -287,7 +286,7 @@ const useMainNavLinks = () => {
   ) : null;
 
   const getRoleName: Record<string, string> = {
-    ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
+    ["base_user"]: intl.formatMessage(navMenuMessages.applicant),
     ["process_operator"]: intl.formatMessage(navMenuMessages.community),
     ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
     ["community_admin"]: intl.formatMessage(navMenuMessages.community),
@@ -300,7 +299,7 @@ const useMainNavLinks = () => {
   };
 
   const getRoleLink: Record<string, string> = {
-    ["applicant"]: paths.applicantDashboard(),
+    ["base_user"]: paths.applicantDashboard(),
     ["process_operator"]: paths.communityDashboard(),
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
@@ -310,26 +309,22 @@ const useMainNavLinks = () => {
     ["platform_admin"]: paths.adminDashboard(),
   };
 
-  const roleLinks = roleAssignments
-    .filter(
-      (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
-    )
-    .map((roleAssignment) => {
-      const role = roleAssignment.role?.name;
+  const roleLinks = roleAssignments.map((roleAssignment) => {
+    const role = roleAssignment.role?.name;
 
-      if (role === undefined) {
-        return {
-          name: intl.formatMessage(commonMessages.notFound),
-          href: paths.notFound(),
-        };
-      }
-
+    if (role === undefined) {
       return {
-        id: convertRoleToNavRole(role as RoleName),
-        name: getRoleName[role],
-        href: getRoleLink[role],
+        name: intl.formatMessage(commonMessages.notFound),
+        href: paths.notFound(),
       };
-    });
+    }
+
+    return {
+      id: convertRoleToNavRole(role as RoleName),
+      name: getRoleName[role],
+      href: getRoleLink[role],
+    };
+  });
 
   const roleLinksNoDuplicatesAndSorted = uniqBy(roleLinks, "name").sort(
     (a, b) => {

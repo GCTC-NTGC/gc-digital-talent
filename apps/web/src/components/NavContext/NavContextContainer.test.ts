@@ -11,7 +11,6 @@ describe("NavContextContainer", () => {
     expect(
       chooseNavRole("community", [
         "base_user",
-        "applicant",
         "process_operator",
         "community_recruiter",
         "community_admin",
@@ -24,7 +23,7 @@ describe("NavContextContainer", () => {
   it("chooses the least privileged nav role if it has to change", () => {
     expect(
       chooseNavRole("admin", [
-        "applicant",
+        "base_user",
         "process_operator",
         "community_recruiter",
         "community_admin",

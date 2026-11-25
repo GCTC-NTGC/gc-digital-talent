@@ -65,7 +65,7 @@ export const Authenticated: Story = {
           myAuth: {
             id: "nav-user",
             roleAssignments: Object.values([
-              ROLE_NAME.Applicant,
+              ROLE_NAME.BaseUser,
               ROLE_NAME.CommunityAdmin,
               ROLE_NAME.PlatformAdmin,
             ]).map((role) => ({
