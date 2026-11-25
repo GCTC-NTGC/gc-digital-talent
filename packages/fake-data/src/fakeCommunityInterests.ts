@@ -1,9 +1,7 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   CommunityInterestAdditionalDuty,
-  DevelopmentProgramParticipationStatus,
   FinanceChiefRole,
 } from "@gc-digital-talent/graphql/schema-types";
 
@@ -16,9 +14,6 @@ const generateCommunityInterest = (
 ) => {
   const community = faker.helpers.arrayElement(communities);
   const workStreams = faker.helpers.arrayElements(community.workStreams);
-  const developmentPrograms = faker.helpers.arrayElements(
-    community.associatedDevelopmentPrograms,
-  );
   const financeIsChief =
     community.key === "finance" ? faker.datatype.boolean() : null;
   const procurementIsSDO =
@@ -55,23 +50,6 @@ const generateCommunityInterest = (
               toLocalizedEnum(duty, "LocalizedCommunityInterestAdditionalDuty"),
             )
         : [],
-    interestInDevelopmentPrograms: developmentPrograms.map(
-      (developmentProgram) => ({
-        __typename: "DevelopmentProgramInterest" as const,
-        id: faker.string.uuid(),
-        communityDevelopmentProgram: {
-          __typename: "CommunityDevelopmentProgram" as const,
-          id: faker.string.uuid(),
-          community: community,
-          developmentProgram: developmentProgram,
-        },
-        developmentProgram,
-        completionDate: FAR_PAST_DATE,
-        participationStatus: faker.helpers.arrayElement(
-          Object.values(DevelopmentProgramParticipationStatus),
-        ),
-      }),
-    ),
   };
 };
 

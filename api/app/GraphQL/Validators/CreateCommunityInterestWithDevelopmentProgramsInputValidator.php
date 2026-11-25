@@ -29,6 +29,7 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
         $communityId = $communityInterest['communityId'];
         $community = Community::with(['workStreams', 'communityDevelopmentPrograms'])->find($communityId);
         $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
+        $developmentProgramIds = $community?->communityDevelopmentPrograms->pluck('development_program_id')->toArray() ?? [];
 
         return [
             // User block
@@ -92,7 +93,7 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
 
             // Development programs block
             'developmentPrograms' => ['array', 'nullable'],
-            'developmentPrograms.*.developmentProgramId' => ['uuid', 'required', 'exists:development_programs,id'],
+            'developmentPrograms.*.developmentProgramId' => ['uuid', 'required', 'exists:development_programs,id', Rule::in($developmentProgramIds)],
             'developmentPrograms.*.educationExperienceId' => [
                 'uuid',
                 'nullable',
@@ -112,6 +113,7 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
             'communityInterest.workStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
             'communityInterest.workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
             'developmentPrograms.*.developmentProgramId.exists' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'developmentPrograms.*.developmentProgramId.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
             'developmentPrograms.*.educationExperienceId.in' => ErrorCode::DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE->name,
         ];
     }
