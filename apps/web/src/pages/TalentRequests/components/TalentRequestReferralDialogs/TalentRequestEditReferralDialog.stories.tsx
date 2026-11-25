@@ -19,12 +19,12 @@ import {
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 
-import TalentRequestEditReferralDialog, {
-  TalentRequestEditReferralDialog_Fragment,
-} from "./TalentRequestEditReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
 import { ReferralHistory_Fragment } from "./ReferralHistory";
 import { ReferralMatchingPoolSource_Fragment } from "./ReferralMatchingSources";
+import TalentRequestEditReferralDialog, {
+  TalentRequestEditReferralDialog_Fragment,
+} from "./TalentRequestEditReferralDialog";
 
 const [user] = fakeUsers(1);
 

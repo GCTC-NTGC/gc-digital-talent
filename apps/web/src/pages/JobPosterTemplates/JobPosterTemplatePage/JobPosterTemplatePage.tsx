@@ -1,9 +1,10 @@
+import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Container,
   Pending,
@@ -11,23 +12,22 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import useRequiredParams from "~/hooks/useRequiredParams";
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
-import pageMessages from "./messages";
 import jobPosterTemplatesPageMessages from "../JobPosterTemplatesPage/messages";
-import sections from "./sections";
-import BasicDetails from "./components/BasicDetails";
-import KeyTasks from "./components/KeyTasks";
-import EssentialTechnicalSkills from "./components/EssentialTechnicalSkills";
-import EssentialBehaviouralSkills from "./components/EssentialBehaviouralSkills";
 import AssetTechnicalSkills from "./components/AssetTechnicalSkills";
+import BasicDetails from "./components/BasicDetails";
+import EssentialBehaviouralSkills from "./components/EssentialBehaviouralSkills";
+import EssentialTechnicalSkills from "./components/EssentialTechnicalSkills";
 import JobPosterDownloadButton from "./components/JobPosterDownloadButton";
+import KeyTasks from "./components/KeyTasks";
+import pageMessages from "./messages";
+import sections from "./sections";
 
 const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateTopLevel on JobPosterTemplate {

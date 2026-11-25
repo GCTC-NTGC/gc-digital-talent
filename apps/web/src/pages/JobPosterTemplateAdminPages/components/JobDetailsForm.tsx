@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import { useId } from "react";
+import { useIntl } from "react-intl";
 
 import type { Option } from "@gc-digital-talent/forms";
 import {
@@ -9,15 +9,15 @@ import {
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import type { Locales } from "@gc-digital-talent/i18n";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 
+import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
-import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
 const TEXT_AREA_MAX_WORDS_EN = 65;
 

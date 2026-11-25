@@ -1,30 +1,30 @@
 import { useIntl } from "react-intl";
 
 import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
   commonMessages,
   getExecCoachingInterest,
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment } from "@gc-digital-talent/graphql";
 import { Ul, Separator } from "@gc-digital-talent/ui";
-import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  formatDate,
-  formDateStringToDate,
-} from "@gc-digital-talent/date-helpers";
 
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 
+import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
   CareerDevelopmentPreferences_Fragment,
   CareerDevelopmentPreferencesOptions_Fragment,
 } from "./utils";
-import FieldDisplay from "../FieldDisplay/FieldDisplay";
 
 interface CareerDevelopmentPreferencesProps {
   careerDevelopmentPreferencesQuery: FragmentType<

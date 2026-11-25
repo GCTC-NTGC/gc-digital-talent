@@ -1,18 +1,18 @@
-import { useIntl } from "react-intl";
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
 
-import { Dialog } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Dialog } from "@gc-digital-talent/ui";
 
-import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
+import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import type { FormValuesWithBoolean as FormValues } from "~/utils/indigenousDeclaration";
 import {
   apiCommunitiesToFormValuesWithBoolean as apiCommunitiesToFormValues,

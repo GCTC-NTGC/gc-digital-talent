@@ -1,9 +1,9 @@
 import path from "path";
-import { defineConfig } from "vite";
-import dotenv from "dotenv";
 
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import dotenv from "dotenv";
+import { defineConfig } from "vite";
 import { compression } from "vite-plugin-compression2";
 
 import { gitVersionPlugin } from "./src/utils/gitVersionPlugin.ts";

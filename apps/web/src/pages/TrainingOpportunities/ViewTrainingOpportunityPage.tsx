@@ -1,7 +1,14 @@
-import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import type {
+  FragmentType,
+  ViewTrainingOpportunityPageQuery,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   NotFound,
@@ -13,26 +20,19 @@ import {
   Chip,
   Container,
 } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  ViewTrainingOpportunityPageQuery,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
-import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import pageTitles from "~/messages/pageTitles";
 
-import formLabels from "./formLabels";
 import { TrainingOpportunityForm_Fragment } from "./apiUtils";
+import formLabels from "./formLabels";
 
 interface ViewTrainingOpportunityFormProps {
   query: FragmentType<typeof TrainingOpportunityForm_Fragment>;

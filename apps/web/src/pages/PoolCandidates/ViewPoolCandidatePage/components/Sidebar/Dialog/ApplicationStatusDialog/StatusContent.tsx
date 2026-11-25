@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Notice } from "@gc-digital-talent/ui";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Notice } from "@gc-digital-talent/ui";
 
 import type { FooterProps } from "../Footer";
 import Footer from "../Footer";

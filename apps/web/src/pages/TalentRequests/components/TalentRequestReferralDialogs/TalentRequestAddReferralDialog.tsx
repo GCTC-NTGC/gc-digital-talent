@@ -1,6 +1,6 @@
 import { useState, type ChangeEventHandler, type ReactNode } from "react";
-import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import {
@@ -8,17 +8,17 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import ReferralDialogFooter from "./ReferralDialogFooter";
+import ReferralDialogHeader from "./ReferralDialogHeader";
 import ReferralFormFields, {
   type FormValues,
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
-import ReferralDialogHeader from "./ReferralDialogHeader";
 import ReferralHistory from "./ReferralHistory";
 import ReferralMatchingSources from "./ReferralMatchingSources";
 

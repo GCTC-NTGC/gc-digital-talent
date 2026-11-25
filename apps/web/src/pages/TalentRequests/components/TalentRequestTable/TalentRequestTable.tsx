@@ -1,37 +1,38 @@
-import { useRef, useMemo, useState } from "react";
 import type {
   ColumnDef,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
-import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
+import { useRef, useMemo, useState } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   TalentRequestInput,
   TalentRequestTableRowFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import adminMessages from "~/messages/adminMessages";
-import useRoutes from "~/hooks/useRoutes";
-import processMessages from "~/messages/processMessages";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import { useStableDate } from "~/hooks/useStableDate";
+import accessors from "~/components/Table/accessors";
+import cells from "~/components/Table/cells";
 import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import cells from "~/components/Table/cells";
-import accessors from "~/components/Table/accessors";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
+import useRoutes from "~/hooks/useRoutes";
+import { useStableDate } from "~/hooks/useStableDate";
+import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
+import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
 import {
   classificationsAccessor,
   classificationsCell,
@@ -45,7 +46,6 @@ import {
   transformSortStateToOrderByClause,
   transformTalentRequestInput,
 } from "./utils";
-import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
 import type { FormValues } from "./utils";
 
 const columnHelper = createColumnHelper<TalentRequestTableRowFragment>();

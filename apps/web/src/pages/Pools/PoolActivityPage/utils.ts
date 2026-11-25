@@ -1,9 +1,9 @@
-import type { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 import {
   getUtcStartOfDayForLocalDate,
   getUserTimeZone,
   getUtcEndOfDayForLocalDate,
 } from "@gc-digital-talent/date-helpers";
+import type { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 

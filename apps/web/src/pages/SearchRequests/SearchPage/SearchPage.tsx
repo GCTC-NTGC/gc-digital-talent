@@ -2,10 +2,10 @@ import { defineMessage, useIntl } from "react-intl";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import SearchFormApi from "./components/SearchForm";
 

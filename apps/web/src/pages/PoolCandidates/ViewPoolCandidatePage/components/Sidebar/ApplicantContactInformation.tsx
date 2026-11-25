@@ -1,11 +1,11 @@
 import ChevronRightIcon from "@heroicons/react/16/solid/ChevronRightIcon";
+import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
+import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
+import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
+import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
-import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
-import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
-import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -14,8 +14,8 @@ import type { IconType } from "@gc-digital-talent/ui";
 import { Button, Collapsible, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { formatLocation } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
+import { formatLocation } from "~/utils/userUtils";
 
 interface IconLabelProps {
   icon: IconType;

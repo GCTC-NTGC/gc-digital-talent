@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import type { ReactNode, JSX } from "react";
+import { useIntl } from "react-intl";
 
 import { GenericJobTitleKey } from "@gc-digital-talent/graphql";
 

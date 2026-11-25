@@ -1,5 +1,5 @@
-import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import {
   fakePoolCandidates,
@@ -7,9 +7,9 @@ import {
   fakePoolSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 import { makeFragmentData, PoolSkillType } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { ApplicationSkillsProps } from "./ApplicationSkillsPage";
 import {

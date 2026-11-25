@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import ExperienceSkillForm, {
   ExperienceSkillFormExperience_Fragment,

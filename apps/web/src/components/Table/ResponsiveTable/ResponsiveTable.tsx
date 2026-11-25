@@ -1,7 +1,3 @@
-import { useLocation, useSearchParams } from "react-router";
-import { useIntl } from "react-intl";
-import isEqual from "lodash/isEqual";
-import debounce from "lodash/debounce";
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -11,26 +7,27 @@ import {
   type ColumnDef,
   type RowSelectionState,
 } from "@tanstack/react-table";
+import debounce from "lodash/debounce";
 import isEmpty from "lodash/isEmpty";
+import isEqual from "lodash/isEqual";
 import { useEffect, useId, useMemo, useRef } from "react";
+import { useIntl } from "react-intl";
+import { useLocation, useSearchParams } from "react-router";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
-import Table from "./Table";
-import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
+import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type { NullMessageProps } from "./NullMessage";
 import NullMessage from "./NullMessage";
 import RowSelection, {
   getRowSelectionColumn,
   useRowSelection,
 } from "./RowSelection";
-import useControlledTableState, {
-  getTableStateFromSearchParams,
-} from "./useControlledTableState";
+import SearchForm from "./SearchForm";
+import Table from "./Table";
 import TablePagination from "./TablePagination";
-import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
   AddDef,
   DownloadDef,
@@ -42,6 +39,9 @@ import type {
   SortDef,
   TableAction,
 } from "./types";
+import useControlledTableState, {
+  getTableStateFromSearchParams,
+} from "./useControlledTableState";
 import { getColumnHeader } from "./utils";
 
 interface TableProps<TData, TFilters> {

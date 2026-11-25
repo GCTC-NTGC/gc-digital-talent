@@ -1,10 +1,10 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import { getLocale } from "@gc-digital-talent/i18n";
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Button, Dialog, IconButton, Link, Ol } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 const generateLink = (href: LinkProps["href"], chunks: ReactNode) => (
   <Link newTab external href={href}>

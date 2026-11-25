@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
+import { useIntl } from "react-intl";
 
 import {
   getFragment,
@@ -7,16 +7,16 @@ import {
   type FragmentType,
   type TalentRequestSource,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   type GenericLocalizedEnum,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import TalentRequestSectionCard from "./TalentRequestSectionCard";
 

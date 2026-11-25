@@ -1,13 +1,13 @@
-import { useIntl } from "react-intl";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import { useIntl } from "react-intl";
 
-import { IconButton } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { IconButton } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Bookmark on User {

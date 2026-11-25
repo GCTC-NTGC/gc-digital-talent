@@ -1,7 +1,10 @@
 import type { SortingState } from "@tanstack/react-table";
 import type { IntlShape } from "react-intl";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import {
   type AdvancedOrderByInput,
   type TalentRequestStatus,
@@ -9,22 +12,19 @@ import {
   type TalentRequestTableRowFragment,
 } from "@gc-digital-talent/graphql";
 import { SortOrder } from "@gc-digital-talent/graphql";
-import { Chip, Chips, Link, Spoiler } from "@gc-digital-talent/ui";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   type GenericLocalizedEnum,
 } from "@gc-digital-talent/i18n";
-import {
-  DATE_FORMAT_LOCALIZED,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { Chip, Chips, Link, Spoiler } from "@gc-digital-talent/ui";
 
+import cells from "~/components/Table/cells";
 import type useRoutes from "~/hooks/useRoutes";
 import {
   followUpDateOverdueInfo,
   TALENT_REQUEST_STATUS_COLOUR_MAP,
 } from "~/utils/talentRequestUtils";
-import cells from "~/components/Table/cells";
 
 export interface FormValues {
   status?: TalentRequestStatus[];

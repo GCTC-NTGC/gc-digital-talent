@@ -1,12 +1,12 @@
 import type { IntlShape } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import {
   DepartmentSize,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Chip } from "@gc-digital-talent/ui";
 
 export type DepartmentType =

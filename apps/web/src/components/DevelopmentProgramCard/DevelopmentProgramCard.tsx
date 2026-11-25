@@ -1,9 +1,10 @@
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useState } from "react";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useIntl } from "react-intl";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Chip,
   Chips,
@@ -13,7 +14,6 @@ import {
   Ul,
   type HeadingRank,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 interface ClassificationRestriction {
   id: string;

@@ -1,15 +1,23 @@
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
-import { useIntl } from "react-intl";
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
@@ -19,22 +27,14 @@ import {
   IconLabel,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_LOCALIZED,
-  DATE_FORMAT_STRING,
-  TZ_VANCOUVER,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import { useStableDate } from "~/hooks/useStableDate";
+import { getSalaryRange } from "~/utils/classification";
 import {
   getShortPoolTitleHtml,
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
-import { getSalaryRange } from "~/utils/classification";
-import { useStableDate } from "~/hooks/useStableDate";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
 

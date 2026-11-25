@@ -1,12 +1,12 @@
-import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
-import { CardFlat, Container, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { CardFlat, Container, Heading } from "@gc-digital-talent/ui";
 
-import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const About = () => {
   const intl = useIntl();

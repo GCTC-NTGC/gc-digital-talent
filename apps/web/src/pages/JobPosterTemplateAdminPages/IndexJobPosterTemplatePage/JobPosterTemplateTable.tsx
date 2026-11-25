@@ -4,18 +4,18 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Pending } from "@gc-digital-talent/ui";
 import type {
   JobPosterTemplateTableRowFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link, Pending } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText, numeric } from "~/components/Table/sortingFns";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import jobPosterTemplate from "~/messages/jobPosterTemplateMessages";
 

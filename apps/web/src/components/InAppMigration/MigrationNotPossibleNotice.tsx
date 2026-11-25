@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 
 import HowToLinkMyProfileDialog from "./HowToLinkMyProfileDialog";
-import WhatDoesThisMeanMigrationNotPossibleDialog from "./WhatDoesThisMeanMigrationNotPossibleDialog";
 import type { MigrationNoticeProps } from "./migrationNoticeProps";
+import WhatDoesThisMeanMigrationNotPossibleDialog from "./WhatDoesThisMeanMigrationNotPossibleDialog";
 
 const MigrationNotPossibleNotice = ({
   scrollToIdOnIgnore,

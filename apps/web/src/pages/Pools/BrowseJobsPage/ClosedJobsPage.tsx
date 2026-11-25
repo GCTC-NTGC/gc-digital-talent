@@ -1,26 +1,26 @@
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
 import { tv } from "tailwind-variants";
+import { useQuery } from "urql";
 
-import { Container, Flourish, Pending } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { useTheme } from "@gc-digital-talent/theme";
+import { Container, Flourish, Pending } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import browseHeroImg from "~/assets/img/two-people-looking-at-laptop-with-coffee.webp";
-import flourishTopLight from "~/assets/img/browse_top_light.webp";
+import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
-import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
+import flourishTopLight from "~/assets/img/browse_top_light.webp";
+import browseHeroImg from "~/assets/img/two-people-looking-at-laptop-with-coffee.webp";
+import Hero from "~/components/Hero";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 
 import ClosedJobOpportunitiesSection from "./components/ClosedJobOpportunitiesSection/ClosedJobOpportunitiesSection";
-import FooterCard from "./components/FooterCard/FooterCard";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
+import FooterCard from "./components/FooterCard/FooterCard";
 
 const flourish = tv({
   base: "absolute z-1 w-[25vw]",

@@ -2,9 +2,9 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import AwardDialogContent from "./AwardDialogContent";
+import DetailsSection from "./DetailsSection";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
-import DetailsSection from "./DetailsSection";
 
 export const AwardExperienceDialog_Fragment = graphql(/* GraphQL */ `
   fragment AwardExperienceDialog on AwardExperience {

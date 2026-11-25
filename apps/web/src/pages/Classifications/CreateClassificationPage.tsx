@@ -1,31 +1,31 @@
-import { useNavigate } from "react-router";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation } from "urql";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
+import type { CreateClassificationInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { CreateClassificationInput } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
-import messages from "./messages";
 import { getClassificationLevels } from "./helpers";
+import messages from "./messages";
 
 type FormValues = CreateClassificationInput;
 

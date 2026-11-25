@@ -1,20 +1,20 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Container, Pending } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Container, Pending } from "@gc-digital-talent/ui";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
-import SEO from "~/components/SEO/SEO";
-import adminMessages from "~/messages/adminMessages";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import adminMessages from "~/messages/adminMessages";
 
 interface RouteParams extends Record<string, string> {
   poolId: string;

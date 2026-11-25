@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { Provider as GraphqlProvider } from "urql";
-import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
+import { pipe, fromValue, delay } from "wonka";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 

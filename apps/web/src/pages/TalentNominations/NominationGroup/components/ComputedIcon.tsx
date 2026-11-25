@@ -1,12 +1,12 @@
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import NoSymbolIcon from "@heroicons/react/24/solid/NoSymbolIcon";
+import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
-import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
-import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
-import NoSymbolIcon from "@heroicons/react/24/solid/NoSymbolIcon";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const iconStyles = tv({
   base: "mr-1.5 mb-1 inline-block size-4 align-text-bottom",

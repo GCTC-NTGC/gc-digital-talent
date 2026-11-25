@@ -1,20 +1,20 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardSeparator, Notice, Separator, Ul } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
+import { CardSeparator, Notice, Separator, Ul } from "@gc-digital-talent/ui";
 
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import {
   getEstimatedAbilityOptions,
   getExamValidityOptions,
   getLabels,
 } from "~/utils/languageUtils";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
-import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {

@@ -1,12 +1,30 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
+import debounce from "lodash/debounce";
+import { useCallback, useMemo } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
-import { useQuery } from "urql";
-import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
-import debounce from "lodash/debounce";
+import { useQuery } from "urql";
 
+import {
+  Checklist,
+  Combobox,
+  Input,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
+import type {
+  LocalizedString,
+  SupervisoryStatus,
+} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  formMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
@@ -20,31 +38,13 @@ import {
   Notice,
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
-import type {
-  LocalizedString,
-  SupervisoryStatus,
-} from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
-import {
-  Checklist,
-  Combobox,
-  Input,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  formMessages,
-  getLocale,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
-import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 
 import pageMessages from "./messages";
 

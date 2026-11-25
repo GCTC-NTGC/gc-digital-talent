@@ -1,6 +1,9 @@
-import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Button,
@@ -10,14 +13,11 @@ import {
   Notice,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import type { ExperienceWithSkills } from "~/utils/skillUtils";
-import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
+import { getExperienceSkills } from "~/utils/skillUtils";
 
 export interface SkillTreeSkill {
   id: string;

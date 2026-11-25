@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useIntl } from "react-intl";
 
 import type {
   FragmentType,
@@ -7,11 +7,11 @@ import type {
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Accordion, Button, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Accordion, Button, Notice } from "@gc-digital-talent/ui";
 
-import SkillProficiencyAccordionItem from "./SkillProficiencyAccordionItem";
 import SkillBrowserDialog from "../SkillBrowser/SkillBrowserDialog";
+import SkillProficiencyAccordionItem from "./SkillProficiencyAccordionItem";
 
 export const Options_Fragment = graphql(/* GraphQL */ `
   fragment SkillProficiencyListOptions on Query {

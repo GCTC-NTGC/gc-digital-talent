@@ -1,5 +1,5 @@
-import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+import { useIntl } from "react-intl";
 
 import { Button, Dialog, IconButton } from "@gc-digital-talent/ui";
 

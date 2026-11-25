@@ -1,14 +1,14 @@
 import { useIntl } from "react-intl";
 
-import { Container } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Container } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import TalentRequestTable from "./components/TalentRequestTable/TalentRequestTable";
 

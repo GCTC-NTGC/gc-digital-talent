@@ -1,5 +1,5 @@
-import { useMutation } from "urql";
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";

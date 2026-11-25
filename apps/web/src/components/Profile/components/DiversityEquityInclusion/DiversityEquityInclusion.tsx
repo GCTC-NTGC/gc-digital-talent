@@ -1,18 +1,18 @@
-import { useState } from "react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import type { EquityKeys } from "~/components/EmploymentEquity/types";
-import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import applicationMessages from "~/messages/applicationMessages";
+import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";

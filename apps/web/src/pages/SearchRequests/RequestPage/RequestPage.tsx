@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Card } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Card } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";

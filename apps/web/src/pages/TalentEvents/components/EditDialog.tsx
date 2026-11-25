@@ -1,6 +1,6 @@
+import { type Dispatch, type SetStateAction } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { type Dispatch, type SetStateAction } from "react";
 
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import {

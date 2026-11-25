@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
 
+import { Select } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
@@ -11,7 +12,7 @@ import {
   graphql,
   ScreeningStage,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -19,8 +20,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Select } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 

@@ -1,6 +1,6 @@
+import debounce from "lodash/debounce";
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import debounce from "lodash/debounce";
 
 import { Combobox } from "@gc-digital-talent/forms";
 

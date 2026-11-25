@@ -1,14 +1,27 @@
-import { useQuery } from "urql";
-import { useIntl } from "react-intl";
-import { useState } from "react";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 import type {
   FragmentType,
   TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getLocale,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   Card,
@@ -18,31 +31,18 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getLocale,
-  type GenericLocalizedEnum,
-} from "@gc-digital-talent/i18n";
-import {
-  DATE_FORMAT_LOCALIZED,
-  TZ_VANCOUVER,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import permissionConstants from "~/constants/permissionConstants";
-import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
-import type { RouteParams } from "./types";
 import { statusCell } from "../components/helpers";
+import type { RouteParams } from "./types";
 
 const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventDetails on TalentNominationEvent {

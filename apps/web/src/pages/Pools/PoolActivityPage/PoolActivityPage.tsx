@@ -1,28 +1,28 @@
-import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { useQuery } from "urql";
-import { useSearchParams } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router";
+import { useQuery } from "urql";
 
+import { PROCESS_ACTIVITY_LOG_ROLES } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Container,
   Heading,
   Loading,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { PROCESS_ACTIVITY_LOG_ROLES } from "@gc-digital-talent/auth";
 
 import ActivityLog from "~/components/Activity/ActivityLog";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import {
   formatActivityDayGroup,
   groupByDay,
 } from "~/components/Activity/Items/utils";
 import Pagination from "~/components/Pagination";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import type { FormValues } from "./components/PoolActivityFilterDialog";
 import PoolActivityFilterDialog from "./components/PoolActivityFilterDialog";

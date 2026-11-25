@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { tv } from "tailwind-variants";
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import type { Locales } from "@gc-digital-talent/i18n";
 import { appendLanguageName } from "@gc-digital-talent/i18n";

@@ -1,19 +1,19 @@
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 
-import type {
-  FragmentType,
-  PreviewListItemTalentRequestFragment,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import type {
+  FragmentType,
+  PreviewListItemTalentRequestFragment,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { PreviewList } from "@gc-digital-talent/ui";
 
 import { TALENT_REQUEST_STATUS_COLOUR_MAP } from "~/utils/talentRequestUtils";
 

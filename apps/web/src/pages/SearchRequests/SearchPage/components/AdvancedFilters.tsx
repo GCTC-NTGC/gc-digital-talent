@@ -1,22 +1,22 @@
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import { useQuery } from "urql";
 
-import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import {
   Checklist,
   RadioGroup,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getEmploymentDuration,
   EmploymentDuration,
   getOperationalRequirement,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import type { FormValues } from "~/types/talentRequestForm";

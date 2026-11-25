@@ -1,17 +1,23 @@
-import { useNavigate } from "react-router";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
-import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Submit } from "@gc-digital-talent/forms";
+import type {
+  FragmentType,
+  UpdateTrainingOpportunityInput,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Heading,
   Link,
@@ -20,20 +26,14 @@ import {
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  UpdateTrainingOpportunityInput,
-} from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useRoutes from "~/hooks/useRoutes";
+import pageTitles from "~/messages/pageTitles";
 
 import type { FormValues } from "./apiUtils";
 import {

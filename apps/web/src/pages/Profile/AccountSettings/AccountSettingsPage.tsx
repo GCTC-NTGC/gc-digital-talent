@@ -1,7 +1,13 @@
-import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useIntl, defineMessage } from "react-intl";
 import { useQuery } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Container,
   Link,
@@ -10,26 +16,20 @@ import {
   Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import useRoutes from "~/hooks/useRoutes";
-import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
+import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import SEO from "~/components/SEO/SEO";
 import type { Status } from "~/components/StatusItem/StatusItem";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
 import messages from "~/messages/profileMessages";
-import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
-import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
 
-import NotificationSettings from "./NotificationSettings";
 import AccountAndContactInformation from "./AccountAndContactInformation";
+import NotificationSettings from "./NotificationSettings";
 
 export const PersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformation on User {

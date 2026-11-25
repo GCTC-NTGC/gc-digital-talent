@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Container, Flourish } from "@gc-digital-talent/ui";
 
-import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
 import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.webp";
+import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
 
 interface SkewedContainerProps {
   children: ReactNode;

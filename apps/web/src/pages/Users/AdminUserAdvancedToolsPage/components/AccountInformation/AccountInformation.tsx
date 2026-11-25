@@ -1,23 +1,17 @@
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { useWatch } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useWatch } from "react-hook-form";
 
-import { toast } from "@gc-digital-talent/toast";
-import type { FragmentType, Language } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  Button,
-  Loading,
-  TableOfContents,
-  ToggleSection,
-} from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
   Select,
   SwitchInput,
 } from "@gc-digital-talent/forms";
+import type { FragmentType, Language } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -25,11 +19,17 @@ import {
   narrowEnumType,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  Button,
+  Loading,
+  TableOfContents,
+  ToggleSection,
+} from "@gc-digital-talent/ui";
 
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import NullDisplay from "~/components/ToggleForm/NullDisplay";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import Display from "./Display";
 import {

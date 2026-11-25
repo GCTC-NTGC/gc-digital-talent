@@ -1,18 +1,18 @@
-import { useIntl } from "react-intl";
-import { useState } from "react";
 import PlusIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { endOfDay } from "date-fns/endOfDay";
 import { isPast } from "date-fns/isPast";
+import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Link, PreviewList, ToggleGroup } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   parseDateTimeUtc,
   sortSafeDates,
 } from "@gc-digital-talent/date-helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link, PreviewList, ToggleGroup } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

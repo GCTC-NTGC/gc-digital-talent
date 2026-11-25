@@ -1,9 +1,11 @@
-import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useContext, useState } from "react";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
@@ -13,15 +15,13 @@ import {
   Notice,
   wrapParens,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import messages from "~/messages/careerDevelopmentMessages";
-import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import FunctionalCommunityListItem from "~/components/FunctionalCommunity/FunctionalCommunityListItem";
+import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
+import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/careerDevelopmentMessages";
 
 import { ApplicantDashboardContext } from "../ApplicantDashboardProvider";
 import { ACCORDION_ID } from "../constants";

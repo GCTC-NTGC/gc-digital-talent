@@ -1,16 +1,18 @@
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateTrainingOpportunityInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
@@ -20,15 +22,13 @@ import {
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
-import { Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import SEO from "~/components/SEO/SEO";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import type { FormValues } from "./apiUtils";
 import { convertFormValuesToCreateInput } from "./apiUtils";

@@ -1,6 +1,5 @@
 import type { IntlShape } from "react-intl";
 
-import { boolToYesNo } from "@gc-digital-talent/helpers";
 import type {
   ProfileCitizenVeteranPriorityFragment,
   UpdateUserAsUserInput,
@@ -9,6 +8,7 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
+import { boolToYesNo } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 

@@ -2,15 +2,15 @@ import { useIntl } from "react-intl";
 
 import type { GovPositionType } from "@gc-digital-talent/graphql";
 import { GovEmployeeType } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { empty } from "@gc-digital-talent/helpers";
 
-import governmentMessages from "~/messages/governmentMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { wrapAbbr } from "~/utils/nameUtils";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
+import governmentMessages from "~/messages/governmentMessages";
 import { formattedDate } from "~/utils/dateUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import type { RelatedSnapshotModel, SnapshotProps } from "../types";
 

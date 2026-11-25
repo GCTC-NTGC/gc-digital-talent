@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { vi } from "vitest";
 
-import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
 import type { FormValues } from "~/types/talentRequestForm";
 

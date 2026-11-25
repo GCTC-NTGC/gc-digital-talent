@@ -1,10 +1,10 @@
 import orderBy from "lodash/orderBy";
 import type { IntlShape } from "react-intl";
 
+import type { ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import type { ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType } from "@gc-digital-talent/graphql";
 
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
 import type {

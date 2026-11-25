@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   GovContractorRoleSeniority,
   GovPositionType,
 } from "@gc-digital-talent/graphql";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Separator,
   UNICODE_CHAR,

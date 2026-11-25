@@ -1,11 +1,14 @@
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Heading,
   Pending,
@@ -13,27 +16,26 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { NotFoundError } from "@gc-digital-talent/helpers";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
+import profileMessages from "~/messages/profileMessages";
 
-import messages from "./messages";
-import GoalsWorkStyleSection, {
-  EmployeeProfileGoalsWorkStyle_Fragment,
-} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
-import NextRoleSection, {
-  EmployeeProfileNextRole_Fragment,
-} from "./components/NextRoleSection/NextRoleSection";
 import CareerObjectiveSection, {
   EmployeeProfileCareerObjective_Fragment,
 } from "./components/CareerObjective/CareerObjectiveSection";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import NewFeatureMessage from "./components/NewFeatureMessage";
+import NextRoleSection, {
+  EmployeeProfileNextRole_Fragment,
+} from "./components/NextRoleSection/NextRoleSection";
+import SharedTocLinks from "./components/SharedTocLinks";
+import messages from "./messages";
 import {
   getCareerDevelopmentStatus,
   getCareerObjectiveStatus,
@@ -41,8 +43,6 @@ import {
   getNextRoleStatus,
   getCareerPlanningStatus,
 } from "./utils";
-import SharedTocLinks from "./components/SharedTocLinks";
-import NewFeatureMessage from "./components/NewFeatureMessage";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",

@@ -1,16 +1,16 @@
-import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import ClockIcon from "@heroicons/react/24/outline/ClockIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 
-import { Button, Dialog, IconLabel, Image } from "@gc-digital-talent/ui";
-import { useTheme } from "@gc-digital-talent/theme";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { useTheme } from "@gc-digital-talent/theme";
+import { Button, Dialog, IconLabel, Image } from "@gc-digital-talent/ui";
 
-import authMessages from "~/messages/authMessages";
 import pugDarkLg from "~/assets/img/inactive-pug-dark-lg.webp";
-import pugLightLg from "~/assets/img/inactive-pug-light-lg.webp";
 import pugDarkSm from "~/assets/img/inactive-pug-dark-sm.webp";
+import pugLightLg from "~/assets/img/inactive-pug-light-lg.webp";
 import pugLightSm from "~/assets/img/inactive-pug-light-sm.webp";
+import authMessages from "~/messages/authMessages";
 
 const timerMessages: Record<
   InactivityDialogProps["remainingTimeUnit"],

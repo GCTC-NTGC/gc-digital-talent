@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 
+import type { SnapshotProps } from "../types";
+import { getSupportedVersionComponent } from "../utils";
 import type { WorkPreferencesSnapshotV1 } from "./WorkPreferencesV1";
 import WorkPreferencesV1 from "./WorkPreferencesV1";
-import { getSupportedVersionComponent } from "../utils";
-import type { SnapshotProps } from "../types";
 
 type WorkPreferencesSnapshotProps = SnapshotProps<WorkPreferencesSnapshotV1>;
 

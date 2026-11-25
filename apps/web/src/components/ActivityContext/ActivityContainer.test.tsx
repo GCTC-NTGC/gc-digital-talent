@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
 import { act, screen } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 
 import type * as GcdtAuth from "@gc-digital-talent/auth";
 import type * as GcdtEnv from "@gc-digital-talent/env";

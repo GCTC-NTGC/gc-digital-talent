@@ -3,21 +3,21 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type {
   TalentEventTableRowFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { Link } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
-import { checkRole } from "~/utils/teamUtils";
 import adminMessages from "~/messages/adminMessages";
+import { checkRole } from "~/utils/teamUtils";
 
 import { nominationsCell, statusCell } from "./helpers";
 

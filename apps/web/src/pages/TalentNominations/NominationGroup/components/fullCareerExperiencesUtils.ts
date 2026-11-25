@@ -4,8 +4,8 @@ import type {
   FullCareerExperiencesTalentNominationGroupFragment,
   FullCareerExperiencesUserFragment,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
 import {

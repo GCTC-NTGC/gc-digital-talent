@@ -1,11 +1,12 @@
-import { useIntl } from "react-intl";
+import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
-import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
@@ -13,7 +14,6 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import type { IconType } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 interface StatusInfo {
   Icon: IconType;

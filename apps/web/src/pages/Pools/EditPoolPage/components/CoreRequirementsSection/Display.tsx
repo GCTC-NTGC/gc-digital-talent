@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
+import type { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";

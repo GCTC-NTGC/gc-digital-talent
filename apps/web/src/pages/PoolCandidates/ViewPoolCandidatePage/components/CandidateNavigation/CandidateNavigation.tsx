@@ -1,11 +1,11 @@
-import { defineMessages, useIntl } from "react-intl";
-import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
+import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
+import { defineMessages, useIntl } from "react-intl";
 
 import { Card, Link, Separator } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
 import usePoolCandidateNavigation from "~/hooks/usePoolCandidateNavigation";
+import useRoutes from "~/hooks/useRoutes";
 
 const messages = defineMessages({
   nextCandidate: {

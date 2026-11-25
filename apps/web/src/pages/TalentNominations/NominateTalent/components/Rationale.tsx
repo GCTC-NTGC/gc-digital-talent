@@ -1,7 +1,9 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
-import { defineMessage, useIntl } from "react-intl";
 import { useId } from "react";
+import { defineMessage, useIntl } from "react-intl";
 
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import { Combobox, TextArea } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -9,23 +11,21 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Combobox, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
+import labels from "../labels";
+import messages from "../messages";
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
+import SubHeading from "./SubHeading";
 import type { SubmitDataTransformer } from "./UpdateForm";
 import UpdateForm from "./UpdateForm";
-import SubHeading from "./SubHeading";
-import messages from "../messages";
-import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
   nominationRationale?: string | null;

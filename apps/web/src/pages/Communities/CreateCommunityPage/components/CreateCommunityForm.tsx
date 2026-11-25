@@ -1,9 +1,16 @@
-import type { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useIntl } from "react-intl";
-import kebabCase from "lodash/kebabCase";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import kebabCase from "lodash/kebabCase";
+import type { SubmitHandler } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
+import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
+import type {
+  CreateCommunityInput,
+  LocalizedStringInput,
+} from "@gc-digital-talent/graphql";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
   CardSeparator,
@@ -11,17 +18,10 @@ import {
   Link,
   Notice,
 } from "@gc-digital-talent/ui";
-import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
-import type {
-  CreateCommunityInput,
-  LocalizedStringInput,
-} from "@gc-digital-talent/graphql";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(

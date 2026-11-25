@@ -1,22 +1,12 @@
+import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
+import CogIcon from "@heroicons/react/24/outline/CogIcon";
+import ComputerDesktopIcon from "@heroicons/react/24/outline/ComputerDesktopIcon";
+import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
+import uniqBy from "lodash/uniqBy";
 import type { IntlShape } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
-import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
-import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
-import ComputerDesktopIcon from "@heroicons/react/24/outline/ComputerDesktopIcon";
-import CogIcon from "@heroicons/react/24/outline/CogIcon";
-import uniqBy from "lodash/uniqBy";
 
-import {
-  Card,
-  Chip,
-  Chips,
-  Container,
-  Heading,
-  Link,
-  Pending,
-  Ul,
-} from "@gc-digital-talent/ui";
 import type {
   AuthRole,
   AuthRoleAssignment,
@@ -30,21 +20,31 @@ import {
 } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  Card,
+  Chip,
+  Chips,
+  Container,
+  Heading,
+  Link,
+  Pending,
+  Ul,
+} from "@gc-digital-talent/ui";
 
-import pageTitles from "~/messages/pageTitles";
-import SEO from "~/components/SEO/SEO";
-import { getFullNameHtml } from "~/utils/nameUtils";
-import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import adminMessages from "~/messages/adminMessages";
+import SEO from "~/components/SEO/SEO";
 import permissionConstants from "~/constants/permissionConstants";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
+import pageTitles from "~/messages/pageTitles";
+import { getFullNameHtml } from "~/utils/nameUtils";
 
 import { orderRoles } from "../Communities/CommunityMembersPage/helpers";
 

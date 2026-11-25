@@ -1,15 +1,15 @@
+import { type Dispatch, type SetStateAction } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { type Dispatch, type SetStateAction } from "react";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 
 export const ProfessionalizationRemoveDialog_Fragment = graphql(/* GraphQL */ `
   fragment ProfessionalizationRemoveDialog on Community {

@@ -1,6 +1,6 @@
-import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import { useRef, useState } from "react";
+import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -8,14 +8,14 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import { Accordion, TaskCard, wrapParens } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
 import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
 import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
+import useRoutes from "~/hooks/useRoutes";
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
 

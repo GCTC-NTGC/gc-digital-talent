@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
-import { AnimatePresence, m, usePresence } from "motion/react";
-import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
+import { AnimatePresence, m, usePresence } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { useIntl } from "react-intl";
 import type { UseQueryExecute } from "urql";
 import { useQuery, useSubscription } from "urql";
 
-import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql, NotificationType } from "@gc-digital-talent/graphql";
+import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
@@ -18,16 +19,15 @@ import {
   Link,
   IconButton,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 
+import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
 import notificationMessages from "~/messages/notificationMessages";
-import { NOTIFICATION_POLLING_INTERVAL } from "~/constants/notifications";
 
-import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationActions from "../NotificationList/NotificationActions";
 import NotificationDialogList from "./NotificationDialogList";
+import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 
 const Overlay = m.create(DialogPrimitive.Overlay);
 

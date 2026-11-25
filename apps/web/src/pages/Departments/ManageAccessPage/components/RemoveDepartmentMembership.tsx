@@ -1,9 +1,20 @@
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { useState, forwardRef } from "react";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
+import { useMutation } from "urql";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  RoleInput,
+  DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
+} from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 import {
   Dialog,
   Button,
@@ -11,23 +22,12 @@ import {
   Chips,
   Chip,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  formMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import type {
-  RoleInput,
-  DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
-} from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import type { DepartmentMember } from "~/utils/departmentUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import type { ContextType } from "./types";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";
+import type { ContextType } from "./types";
 
 interface RemoveDepartmentMembershipDialogProps extends ComponentPropsWithoutRef<
   typeof DropdownMenu.Item

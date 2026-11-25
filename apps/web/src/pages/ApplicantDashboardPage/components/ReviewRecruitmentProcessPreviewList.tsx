@@ -7,6 +7,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import {
@@ -16,13 +17,12 @@ import {
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { candidateInterestChip } from "~/utils/poolCandidate";
-import { wrapAbbr } from "~/utils/nameUtils";
-import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
+import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import { RecruitmentDate } from "~/components/ReviewApplicationPreviewList/MetadataDate";
+import { wrapAbbr } from "~/utils/nameUtils";
+import { candidateInterestChip } from "~/utils/poolCandidate";
 
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 

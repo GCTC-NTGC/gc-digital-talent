@@ -7,9 +7,9 @@ import {
 } from "@gc-digital-talent/graphql";
 import { PreviewList } from "@gc-digital-talent/ui";
 
-import { useExperienceInfo } from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 import EducationExperienceDialog from "~/components/ExperienceDialog/EducationExperienceDialog";
+import experienceMessages from "~/messages/experienceMessages";
+import { useExperienceInfo } from "~/utils/experienceUtils";
 
 import type { ExperienceItemProps } from "./types";
 

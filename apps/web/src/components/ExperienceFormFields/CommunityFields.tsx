@@ -1,6 +1,7 @@
-import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   DATE_SEGMENT,
   DateInput,
@@ -8,18 +9,17 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
+import { nodeToString } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 import type {
   SubExperienceFormProps,
   CommunityFormValues,
 } from "~/types/experience";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { useStableDate } from "~/hooks/useStableDate";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;

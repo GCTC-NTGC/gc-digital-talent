@@ -1,12 +1,10 @@
-import { useIntl } from "react-intl";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   UpdateJobPosterTemplateJobDetailsFragment,
@@ -14,12 +12,14 @@ import type {
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import type { FormValues } from "../../../components/JobDetailsForm";
 import JobDetailsForm from "../../../components/JobDetailsForm";

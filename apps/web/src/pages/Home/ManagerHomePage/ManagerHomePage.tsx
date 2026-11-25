@@ -1,27 +1,27 @@
-import { defineMessage, useIntl } from "react-intl";
-import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
+import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+import { defineMessage, useIntl } from "react-intl";
 
-import { CardFlat, Flourish, Heading, CTALink } from "@gc-digital-talent/ui";
 import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
+import { CardFlat, Flourish, Heading, CTALink } from "@gc-digital-talent/ui";
 
+import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
+import managerHeroSquare from "~/assets/img/manager-hero-square.webp";
+import managerProfileLandscape from "~/assets/img/manager-profile-landscape.webp";
+import managerProfileSquare from "~/assets/img/manager-profile-square.webp";
+import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
+import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
+import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
+import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
+import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
-import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
-import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import managerHeroSquare from "~/assets/img/manager-hero-square.webp";
-import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
-import managerProfileSquare from "~/assets/img/manager-profile-square.webp";
-import managerProfileLandscape from "~/assets/img/manager-profile-landscape.webp";
-import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
-import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
-import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
+import useRoutes from "~/hooks/useRoutes";
 
 import HomeHero from "../components/HomeHero";
 

@@ -1,8 +1,14 @@
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import { useIntl } from "react-intl";
-import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import {
+  Input,
+  localizedEnumToOptions,
+  RadioGroup,
+} from "@gc-digital-talent/forms";
 import type {
   FragmentType,
   TalentNominationUserReview,
@@ -14,24 +20,18 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import {
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-} from "@gc-digital-talent/forms";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 
+import messages from "../messages";
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
+import EmployeeSearchWell from "./EmployeeSearchWell";
+import SubHeading from "./SubHeading";
 import type { SubmitDataTransformer } from "./UpdateForm";
 import UpdateForm from "./UpdateForm";
-import SubHeading from "./SubHeading";
-import messages from "../messages";
-import EmployeeSearchWell from "./EmployeeSearchWell";
-import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 interface FormValues extends BaseFormValues {
   nominee: string;

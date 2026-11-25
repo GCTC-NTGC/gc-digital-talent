@@ -1,8 +1,15 @@
-import { useState } from "react";
-import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import type { AuthPoolTeamable, AuthRole } from "@gc-digital-talent/auth";
+import type { RoleInput } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  formMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Dialog,
   Button,
@@ -11,13 +18,6 @@ import {
   IconButton,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  formMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import type { AuthPoolTeamable, AuthRole } from "@gc-digital-talent/auth";
-import type { RoleInput } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 

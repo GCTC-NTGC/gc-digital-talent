@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import CommunityInterest, {
   CommunityInterest_Fragment,

@@ -1,13 +1,13 @@
-import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+import { useIntl } from "react-intl";
 
-import { CTALink } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { CTALink } from "@gc-digital-talent/ui";
 
-import useRoutes from "~/hooks/useRoutes";
-import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
-import homeProfileSquare from "~/assets/img/home-profile-square.webp";
 import homeProfileLandscape from "~/assets/img/home-profile-landscape.webp";
+import homeProfileSquare from "~/assets/img/home-profile-square.webp";
+import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
+import useRoutes from "~/hooks/useRoutes";
 
 const Profile = () => {
   const intl = useIntl();

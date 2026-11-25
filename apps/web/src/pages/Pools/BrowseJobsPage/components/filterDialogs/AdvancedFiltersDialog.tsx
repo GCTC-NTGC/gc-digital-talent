@@ -6,13 +6,13 @@ import {
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { ENUM_SORT_ORDER, narrowEnumType } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ENUM_SORT_ORDER, narrowEnumType } from "@gc-digital-talent/i18n";
 
 import useBrowseJobsSearchParams from "../../useBrowseJobsSearchParams";
 import FilterDialog from "./FilterDialog";

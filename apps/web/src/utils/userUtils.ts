@@ -1,12 +1,12 @@
-import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
 
 import type {
   EvaluatedLanguageAbility,
   LocalizedString,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PositionDuration } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   GenericLocalizedEnum,
   TEmploymentDuration,

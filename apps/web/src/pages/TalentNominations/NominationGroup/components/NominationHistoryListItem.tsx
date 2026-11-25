@@ -1,8 +1,13 @@
-import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useIntl } from "react-intl";
 
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import {
   getFragment,
   graphql,
@@ -10,17 +15,12 @@ import {
   TalentNominationGroupDecision,
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
-import { PreviewList } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  DATE_FORMAT_LOCALIZED,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { PreviewList } from "@gc-digital-talent/ui";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import NominationDetailsDialog from "./NominationDetailsDialog/NominationDetailsDialog";
 
