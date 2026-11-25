@@ -117,7 +117,7 @@ const emphasize = (text: ReactNode) => (
  *
  *
  */
-// eslint-disable-next-line formatjs/no-literal-string-in-jsx
+// oxlint-disable-next-line formatjs/no-literal-string-in-jsx
 const softHyphen = () => <>&shy;</>;
 
 /**

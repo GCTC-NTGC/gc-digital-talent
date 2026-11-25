@@ -21,7 +21,7 @@ const compareNormalized = (strA: string, strB: string): number => {
 };
 
 // Note: any required for react-table
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
   const unknownValueA = rowA.getValue<unknown>(columnId);
   const strValueA = typeof unknownValueA === "string" ? unknownValueA : "";
@@ -47,7 +47,7 @@ const compareNumeric = (a: number, b: number): number => {
 };
 
 // Note: any required for react-table
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export const numeric: SortingFn<any> = (rowA, rowB, columnId) => {
   const unknownValueA = rowA.getValue<unknown>(columnId);
   const numericValueA = Number(unknownValueA);

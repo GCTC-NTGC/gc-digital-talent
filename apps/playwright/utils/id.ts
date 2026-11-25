@@ -7,7 +7,7 @@ function sanitize(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/* eslint-disable turbo/no-undeclared-env-vars */
+/* oxlint-disable turbo/no-undeclared-env-vars */
 export function generateUniqueTestId(prefix = "pw") {
   // Use some playwright vars to add to the uniqueness for each run (shard, project, retry, etc.)
   const workerIndex = sanitize(process.env.TEST_WORKER_INDEX ?? "0");

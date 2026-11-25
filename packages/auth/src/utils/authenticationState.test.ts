@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from "../const";

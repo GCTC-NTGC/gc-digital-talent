@@ -1,4 +1,4 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
+/* oxlint-disable turbo/no-undeclared-env-vars */
 import path from "node:path";
 
 import { defineConfig, devices } from "@playwright/test";

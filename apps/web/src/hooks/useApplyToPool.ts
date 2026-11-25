@@ -163,7 +163,7 @@ const useApplyToPool = ({
     void apply();
     // NOTE: `apply` is recreated each render, so we key off the primitive values
     // it closes over instead; the `resumed` ref already guards against re-firing.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [loggedIn, poolId, applicationId, canApply]);
 
   return { apply, rememberIntent, applying: fetching };

@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-underscore-dangle
+// oxlint-disable-next-line no-underscore-dangle
 declare const __RUNTIME_VARS__: Record<string, string>;
 
 const RUNTIME_VARS = [

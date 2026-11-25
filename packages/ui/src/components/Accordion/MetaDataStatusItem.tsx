@@ -30,7 +30,6 @@ const statusItem = tv({
       interested: {
         icon: "text-secondary dark:text-secondary-300",
       },
-      // eslint-disable-next-line camelcase
       in_program: {
         icon: "text-secondary dark:text-secondary-300",
       },

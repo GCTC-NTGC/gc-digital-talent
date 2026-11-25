@@ -294,8 +294,6 @@ const Link = forwardRef<
           href={href}
           icon={icon}
           mode={mode}
-          // Comes from react-router
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           state={state}
           className={navMenuLink({
             isIcon: false,

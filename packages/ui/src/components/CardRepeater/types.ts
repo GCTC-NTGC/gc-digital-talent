@@ -1,5 +1,5 @@
 // This is just a default value
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export type BaseItem = Record<string, any>;
 
 export type ItemWithId<T> = T & { id: string };

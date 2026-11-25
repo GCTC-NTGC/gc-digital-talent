@@ -234,7 +234,7 @@ const ReviewTalentRequestDialogContent = ({
               </span>
               <span
                 className="font-normal"
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                // oxlint-disable-next-line formatjs/no-literal-string-in-jsx
               >{` (${request.applicantFilter?.skills?.length ?? 0})`}</span>
             </Accordion.Trigger>
             <Accordion.Content>
@@ -259,7 +259,7 @@ const ReviewTalentRequestDialogContent = ({
               </span>
               <span
                 className="font-normal"
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                // oxlint-disable-next-line formatjs/no-literal-string-in-jsx
               >{` (${equityDescriptions.length})`}</span>
             </Accordion.Trigger>
             <Accordion.Content>
@@ -282,7 +282,7 @@ const ReviewTalentRequestDialogContent = ({
               </span>
               <span
                 className="font-normal"
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                // oxlint-disable-next-line formatjs/no-literal-string-in-jsx
               >{` (${request.applicantFilter?.locationPreferences?.length ?? 0})`}</span>
             </Accordion.Trigger>
             <Accordion.Content>
@@ -311,7 +311,7 @@ const ReviewTalentRequestDialogContent = ({
               </span>
               <span
                 className="font-normal"
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                // oxlint-disable-next-line formatjs/no-literal-string-in-jsx
               >{` (${request.applicantFilter?.operationalRequirements?.length ?? 0})`}</span>
             </Accordion.Trigger>
             <Accordion.Content>

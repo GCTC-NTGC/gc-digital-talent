@@ -227,7 +227,7 @@ const Multi = ({
   });
 
   const downshiftInputProps = getInputProps(
-    // eslint-disable-next-line react-hooks/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
+    // oxlint-disable-next-line react/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
     getDropdownProps({ preventKeyAction: isOpen, ref: inputRef }),
   );
 

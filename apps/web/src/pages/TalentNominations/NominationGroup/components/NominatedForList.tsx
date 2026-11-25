@@ -1,4 +1,4 @@
-/* eslint-disable formatjs/enforce-plural-rules */
+/* oxlint-disable formatjs/enforce-plural-rules */
 // NOTE: Not really plural, I guess?
 import { useIntl } from "react-intl";
 
