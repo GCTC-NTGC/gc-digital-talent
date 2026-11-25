@@ -5548,6 +5548,10 @@
     "defaultMessage": "Télécharger les profils complets (.docx)",
     "description": "Button label for downloading selected user profiles"
   },
+  "KFgKGg": {
+    "defaultMessage": "Retirez {communityName}",
+    "description": "Title for to remove community from experience"
+  },
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
     "description": "A date at which data will expire, in the local time zone"
@@ -14480,10 +14484,6 @@
   "uR9G1H": {
     "defaultMessage": "Statut de supervision",
     "description": "Talent request - supervisory status title"
-  },
-  "uTf8vH": {
-    "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
-    "description": "Title for to remove community from experience"
   },
   "uVtmGg": {
     "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
