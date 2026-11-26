@@ -486,9 +486,6 @@ class TalentManagement extends AppPage {
   }
 
   async viewNominee(nomineeIdentifier: string) {
-    await this.locators[FIELD.PAGE_SIZE].click();
-    await this.locators[FIELD.PAGE_SIZE_500].click();
-    await this.page.keyboard.press("Escape");
     await this.locators[FIELD.TALENT_NOMINATIONS_REGION]
       .getByRole("link", { name: nomineeIdentifier })
       .click();
