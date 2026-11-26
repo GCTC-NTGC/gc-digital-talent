@@ -59,7 +59,7 @@
     "jsdom": "^31.0.0",
     "oxfmt": "^0.79.0",
     "oxlint": "^1.91.0",
-    "oxlint-tsgolint": "^7.0.2005",
+    "oxlint-tsgolint": "^7.0.2007",
     "playwright": "^1.65.0",
     "storybook": "^10.6.7",
     "storybook-react-intl": "^10.2.2",
