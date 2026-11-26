@@ -31,12 +31,10 @@
     "vitest-fail-on-console": "^0.10.1"
   },
   "devDependencies": {
-    "@gc-digital-talent/eslint-config": "workspace:*",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.13",
     "@types/react": "^19.3.0",
-    "eslint": "^9.20.1",
     "jsdom": "^31.0.0",
     "react": "^19.3.1",
     "tsconfig": "workspace:*",
