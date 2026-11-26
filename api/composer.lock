@@ -3878,16 +3878,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v5.15.1",
+            "version": "v5.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "a0e4271fbc66c5678e645eb628751630cbbe1f34"
+                "reference": "e16e49f57806c3ceb486205cba66ded33d708638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/a0e4271fbc66c5678e645eb628751630cbbe1f34",
-                "reference": "a0e4271fbc66c5678e645eb628751630cbbe1f34",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/e16e49f57806c3ceb486205cba66ded33d708638",
+                "reference": "e16e49f57806c3ceb486205cba66ded33d708638",
                 "shasum": ""
             },
             "require": {
@@ -3958,7 +3958,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v5.15.1"
+                "source": "https://github.com/openspout/openspout/tree/v5.15.3"
             },
             "funding": [
                 {
@@ -3970,7 +3970,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-18T14:16:01+00:00"
+            "time": "2026-11-19T11:47:39+00:00"
         },
         {
             "name": "phpoffice/math",
@@ -5629,8 +5629,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-11-10T15:32:22+00:00",
-            "published-time": "2026-11-10T15:34:58+00:00"
+            "time": "2026-11-10T15:32:22+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
@@ -13259,5 +13258,5 @@
     "platform-overrides": {
         "php": "8.5.12"
     },
-    "plugin-api-version": "2.11.0"
+    "plugin-api-version": "2.9.0"
 }
