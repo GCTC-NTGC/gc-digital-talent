@@ -25,10 +25,10 @@ const getServerConfig = (): Map<string, string> => {
     return new Map<string, string>();
   }
 
-  // eslint-disable-next-line no-underscore-dangle
+  // oxlint-disable-next-line no-underscore-dangle
   windowWithConfig.__SERVER_CONFIG__ ??= new Map<string, string>();
 
-  // eslint-disable-next-line no-underscore-dangle
+  // oxlint-disable-next-line no-underscore-dangle
   return windowWithConfig.__SERVER_CONFIG__;
 };
 

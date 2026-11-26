@@ -52,7 +52,7 @@ const ControlledInput = ({
   const rawDefaultValue: unknown = get(defaultValues, name);
   const content =
     rawDefaultValue !== null && rawDefaultValue !== undefined
-      ? // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      ? // oxlint-disable-next-line typescript/no-base-to-string
         String(rawDefaultValue)
       : undefined;
 

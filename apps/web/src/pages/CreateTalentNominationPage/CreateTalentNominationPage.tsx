@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/refs */
+/* oxlint-disable react/refs */
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";

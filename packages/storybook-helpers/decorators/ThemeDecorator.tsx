@@ -52,7 +52,7 @@ const withThemeFromTailwind = ({
     const selectedTheme = pluckThemeFromContext(context);
 
     const selected =
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // oxlint-disable-next-line typescript/no-unsafe-member-access
       (context?.parameters?.themes?.themeOverride as string) ||
       selectedTheme ||
       defaultTheme;

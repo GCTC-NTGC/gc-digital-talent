@@ -1,5 +1,5 @@
 import type { Locales } from "@gc-digital-talent/i18n";
-/* eslint-disable testing-library/no-debugging-utils */
+/* oxlint-disable testing-library/no-debugging-utils */
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from "../const";
@@ -55,7 +55,6 @@ function getAuthenticationState({
       const response = await fetch(tokenRefreshPath, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // eslint-disable-next-line camelcase
         body: JSON.stringify({ refresh_token: storedRefreshToken }),
       });
       if (response.ok) {

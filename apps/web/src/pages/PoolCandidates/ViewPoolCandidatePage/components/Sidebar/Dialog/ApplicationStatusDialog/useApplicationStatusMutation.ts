@@ -18,7 +18,7 @@ import {
 type StatusStrategy = (
   id: string,
   data: FormValues,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
 ) => Promise<OperationResult<any, any>>;
 
 const useApplicationStatusMutation = () => {

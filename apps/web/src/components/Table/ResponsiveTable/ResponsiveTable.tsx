@@ -194,7 +194,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     sorting: sortingState,
     columnFilters: columnFilterState,
     // This comes from react-table and unsure how to adjust
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // oxlint-disable-next-line typescript/no-unsafe-assignment
     globalFilter: globalFilterState,
     columnVisibility: columnVisibilityState,
     pagination: paginationState,
@@ -400,7 +400,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     }
     // Note, exhaustive-deps causes over announcing
     // Fix by memoizing the announcement and cancel debounce in cleanup
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [totalRows]);
 
   return (

@@ -86,9 +86,7 @@ class Registration extends AppPage {
     // CanadaLogin provides this data for us
     const claims = {
       locale: "en",
-      // eslint-disable-next-line camelcase
       given_name: this.firstName,
-      // eslint-disable-next-line camelcase
       family_name: this.lastName,
       email: this.uniqueEmailAddress,
     };
@@ -133,7 +131,7 @@ class Registration extends AppPage {
     await this.locators[FIELD.ORGANIZATION].fill("test organization");
     await this.locators[FIELD.TEAM].fill("test team");
     await this.locators[FIELD.SIZE]
-      // eslint-disable-next-line no-useless-escape
+      // oxlint-disable-next-line no-useless-escape
       .getByRole("radio", { name: /1\-35/i })
       .click();
     await this.locators[FIELD.SENIORITY]

@@ -85,7 +85,7 @@ const Single = ({
     },
   });
 
-  // eslint-disable-next-line react-hooks/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
+  // oxlint-disable-next-line react/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
   const downshiftInputProps = getInputProps({ ref: inputRef });
 
   const handleClear = () => {
