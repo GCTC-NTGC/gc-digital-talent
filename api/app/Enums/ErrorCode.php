@@ -77,6 +77,7 @@ enum ErrorCode
 
     // Notifications
     case CANNOT_ENABLE_NOTIFICATION_FAMILY;
+    case NEED_VERIFIED_WORK_EMAIL;
 
     // Pool
     case CLOSING_DATE_REQUIRED;

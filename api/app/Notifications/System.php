@@ -4,7 +4,9 @@ namespace App\Notifications;
 
 use App\Contracts\LowPriorityJob;
 use App\Enums\Language;
+use App\Enums\NotificationFamily;
 use App\Models\User;
+use App\Notifications\Concerns\HasNotificationFamilyChannels;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\View;
 
 class System extends Notification implements CanBeSentViaGcNotifyEmail, LowPriorityJob
 {
+    use HasNotificationFamilyChannels;
     use Queueable;
 
     /**
@@ -37,20 +40,21 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail, LowPrior
      */
     public function via(User $notifiable): array
     {
-        // $notificationFamily = NotificationFamily::SYSTEM_MESSAGE->name;
-        // Can't ignore system messages
+        // System messages can't be ignored for contact email or in-app, but the
+        // work email copy is opt-in.
+        $enabledChannels = $this->channelsForFamily($notifiable, NotificationFamily::SYSTEM_MESSAGE);
 
-        $arr = [];
-
+        // the channels requested for this message command
+        $requestedChannels = [];
         if ($this->channelApp) {
-            $arr[] = 'database';
+            $requestedChannels[] = 'database';
         }
-
         if ($this->channelEmail) {
-            $arr[] = GcNotifyEmailChannel::class;
+            $requestedChannels[] = GcNotifyEmailChannel::class;
+            $requestedChannels[] = GcNotifyWorkEmailChannel::class;
         }
 
-        return $arr;
+        return array_values(array_intersect($enabledChannels, $requestedChannels));
     }
 
     /**
