@@ -12,10 +12,12 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
+use App\Support\ProtectedRequestGuard;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HasTalentRequestSources;
 use App\Traits\HydratesSnapshot;
+use BackedEnum;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -36,6 +38,7 @@ use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
+use LogicException;
 use Spatie\Activitylog\Models\Concerns\CausesActivity;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
@@ -121,6 +124,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasRelationships;
     use HasRolesAndPermissions {
         roles as baseRoles;
+        hasRole as laratrustHasRole;
+        hasPermission as laratrustHasPermission;
     }
     use HasTalentRequestSources;
     use HydratesSnapshot;
@@ -285,6 +290,42 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontLogEmptyChanges();
+    }
+
+    /**
+     * Extends Laratrust's role check so a privileged role is only usable on a protected request.
+     */
+    public function hasRole(string|array|BackedEnum $name, mixed $team = null, bool $requireAll = false): bool
+    {
+        if (! ProtectedRequestGuard::isSafeToUseRole($name, $requireAll)) {
+            return false;
+        }
+
+        return $this->laratrustHasRole($name, $team, $requireAll);
+    }
+
+    /**
+     * Extends Laratrust's permission check so a privileged permission is only usable on a protected request.
+     */
+    public function hasPermission(string|array|BackedEnum $permission, mixed $team = null, bool $requireAll = false): bool
+    {
+        if (! ProtectedRequestGuard::isSafeToUsePermission($permission, $requireAll)) {
+            return false;
+        }
+
+        return $this->laratrustHasPermission($permission, $team, $requireAll);
+    }
+
+    /**
+     * Blocks Laratrust's ability(), which checks without hasRole() and hasPermission() and so would skip the protected request guard.
+     */
+    public function ability(
+        string|array|BackedEnum $roles,
+        string|array|BackedEnum $permissions,
+        mixed $team = null,
+        array $options = []
+    ): array|bool {
+        throw new LogicException('ability() would skip the protected request guard, use hasRole() or hasPermission() instead.');
     }
 
     /**

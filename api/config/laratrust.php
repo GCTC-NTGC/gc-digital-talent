@@ -1,6 +1,5 @@
 <?php
 
-use App\Checkers\ProtectedRequestUserChecker;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Team;
@@ -17,47 +16,6 @@ return [
     |
     */
     'use_morph_map' => false,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Checkers
-    |--------------------------------------------------------------------------
-    |
-    | Manage Laratrust's role and permissions checkers configurations.
-    |
-    */
-    'checkers' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Which permissions checker to use.
-        |--------------------------------------------------------------------------
-        |
-        | Defines if you want to use the roles and permissions checker.
-        | Available:
-        | - default: Check for the roles and permissions using the method that Laratrust
-        |            has always used.
-        | - query: Check for the roles and permissions using direct queries to the database.
-        |           This method doesn't support cache yet.
-        | - class that extends Laratrust\Checkers\User\UserChecker
-        */
-        'user' => ProtectedRequestUserChecker::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Which role checker to use.
-        |--------------------------------------------------------------------------
-        |
-        | Defines if you want to use the roles and permissions checker.
-        | Available:
-        | - default: Check for the roles and permissions using the method that Laratrust
-                     has always used.
-        | - query: Check for the roles and permissions using direct queries to the database.
-        |          This method doesn't support cache yet.
-        | - class that extends Laratrust\Checkers\Role\RoleChecker
-        */
-        'role' => 'default',
-    ],
 
     /*
     |--------------------------------------------------------------------------

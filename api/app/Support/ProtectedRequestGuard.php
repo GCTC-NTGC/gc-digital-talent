@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Checkers;
+namespace App\Support;
 
 use App\Models\Permission;
 use BackedEnum;
@@ -9,11 +9,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use Laratrust\Checkers\User\UserDefaultChecker;
-use Laratrust\Helper;
 
-// This class extends the default user checker to add additional checks for privileged permissions on unprotected requests
-class ProtectedRequestUserChecker extends UserDefaultChecker
+// Decides if a role or permission may be used on the current request: privileged ones only on protected requests
+class ProtectedRequestGuard
 {
     // these are the role names with limited permissions that can safely be used on unprotected requests
     const LIMITED_ROLES = [
@@ -22,14 +20,14 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     ];
 
     // decide if it is safe for the current user to use the given role
-    protected function isSafeToUseRole(string|array|BackedEnum $name, bool $requireAll = false): bool
+    public static function isSafeToUseRole(string|array|BackedEnum $name, bool $requireAll = false): bool
     {
-        $name = Helper::standardize($name);
+        $name = self::standardize($name);
 
         $isProtectedRequest = Request::instance()->attributes->get('isProtectedRequest');
         $isNotRoutedRequest = is_null(Route::current());
 
-        $isLimitedRole = $this->isLimited($name, $this::LIMITED_ROLES, $requireAll);
+        $isLimitedRole = self::isLimited($name, self::LIMITED_ROLES, $requireAll);
 
         return
             $isProtectedRequest      // if it's a protected request then any role is safe to use
@@ -38,20 +36,20 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     }
 
     // decide if it is safe for the current user to use the given permission
-    protected function isSafeToUsePermission(string|array|BackedEnum $permission, bool $requireAll = false): bool
+    public static function isSafeToUsePermission(string|array|BackedEnum $permission, bool $requireAll = false): bool
     {
-        $permission = Helper::standardize($permission);
+        $permission = self::standardize($permission);
 
         $isProtectedRequest = Request::instance()->attributes->get('isProtectedRequest');
         $limitedPermissions =
         Cache::remember('limitedPermissions', 3600, function () {
             return
           Permission::whereHas('roles', function (Builder $query) {
-              $query->whereIn('name', $this::LIMITED_ROLES);
+              $query->whereIn('name', self::LIMITED_ROLES);
           })->pluck('name')->toArray();
         });
 
-        $isLimitedPermission = $this->isLimited($permission, $limitedPermissions, $requireAll);
+        $isLimitedPermission = self::isLimited($permission, $limitedPermissions, $requireAll);
         $isNotRoutedRequest = is_null(Route::current());
 
         return $isProtectedRequest  // if it's a protected request then any permission is safe to use
@@ -59,31 +57,21 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         || $isNotRoutedRequest;     // if it's not a routed request (Tinker, scheduled job) then any role is safe to use
     }
 
-    public function currentUserHasRole(
-        string|array|BackedEnum $name,
-        mixed $team = null,
-        bool $requireAll = false
-    ): bool {
-        if (! $this->isSafeToUseRole($name, $requireAll)) {
-            return false; // user effectively doesn't have role if it is unsafe to use it
+    // enums to their values and pipe-separated names to a list, as Laratrust 8's Helper::standardize did
+    private static function standardize(string|array|BackedEnum $value): string|array
+    {
+        if ($value instanceof BackedEnum) {
+            return $value->value;
         }
 
-        return parent::currentUserHasRole($name, $team, $requireAll);
-    }
-
-    public function currentUserHasPermission(
-        string|array|BackedEnum $permission,
-        mixed $team = null,
-        bool $requireAll = false
-    ): bool {
-        if (! $this->isSafeToUsePermission($permission, $requireAll)) {
-            return false; // user effectively doesn't have permission if it is unsafe to use it
+        if (is_array($value)) {
+            return array_map(fn ($item) => $item instanceof BackedEnum ? $item->value : $item, $value);
         }
 
-        return parent::currentUserHasPermission($permission, $team, $requireAll);
+        return str_contains($value, '|') ? explode('|', $value) : $value;
     }
 
-    private function isLimited(string|array|BackedEnum $needle, array $haystack, bool $requireAll = false)
+    private static function isLimited(string|array|BackedEnum $needle, array $haystack, bool $requireAll = false)
     {
         $needleCollection = collect(Arr::wrap($needle));
         $haystackCollection = collect($haystack);
