@@ -30,10 +30,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
@@ -698,52 +696,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Custom logging for adding/removing roles for a user
-     *
-     * This comes from Laratrust so it is missed in the normal
-     * event logging for this model. Since we do not have access to specific data
-     * the shape is slightly different
-     *
-     *  - Subject is the user being affected (role added to or removed from)
-     *  - Properties are the subject users id, role id and if it is a team based role, the team id
-     *
-     * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
-     * @param  User  $user  User being affected (subject)
-     * @param  ?string  $roleId  Id of the role being added or removed
-     * @param  mixed  $team  IF team based role, the ID or array of then team ID
-     */
-    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
-    {
-        if (! $roleId) {
-            return;
-        }
-
-        $properties = [
-            'user_id' => $user->id,
-            'role_id' => $roleId,
-        ];
-        if ($team) {
-            $teamId = $team;
-            if (is_array($team)) {
-                if (Arr::isAssoc($team) && isset($team['id'])) {
-                    $teamId = $team['id'];
-                } elseif (isset($team[0]['id'])) {
-                    $teamId = $team[0]['id'];
-                }
-            }
-
-            $properties['team_id'] = $teamId;
-        }
-
-        activity()
-            ->causedBy(Auth::user())
-            ->performedOn($user)
-            ->withChanges(['attributes' => $properties])
-            ->event($eventName)
-            ->log($eventName);
-    }
-
-    /**
      * Boot function for using with User Events
      *
      * @return void
@@ -817,14 +769,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             }
 
             $user->save();
-        });
-
-        static::roleAdded(function (User $user, string $role, $team) {
-            self::logRoleChange('roleAdded', $user, $role, $team);
-        });
-
-        static::roleRemoved(function (User $user, string $role, $team) {
-            self::logRoleChange('roleRemoved', $user, $role, $team);
         });
     }
 
