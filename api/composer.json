@@ -25,7 +25,7 @@
     "nuwave/lighthouse": "^6.15",
     "openspout/openspout": "^5.7",
     "phpoffice/phpword": "^1.2",
-    "santigarcor/laratrust": "^8.3.0",
+    "santigarcor/laratrust": "^9.0.0",
     "spatie/laravel-activitylog": "^5.0",
     "spatie/php-structure-discoverer": "^2.1",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
