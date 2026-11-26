@@ -252,8 +252,8 @@ importers:
         specifier: ^26.6.6
         version: 26.6.6
       axe-core:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.14.1
+        version: 4.14.1
       dotenv:
         specifier: ^18.0.10
         version: 18.0.10
@@ -1384,8 +1384,8 @@ importers:
         specifier: workspace:*
         version: link:../rich-text-elements
       axe-core:
-        specifier: ^4.14.0
-        version: 4.14.0
+        specifier: ^4.14.1
+        version: 4.14.1
       react-intl:
         specifier: ^10.1.26
         version: 10.1.26(@types/react@19.3.0)(react@19.3.1)
@@ -4817,8 +4817,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axe-core@4.14.0:
-    resolution: {integrity: sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==}
+  axe-core@4.14.1:
+    resolution: {integrity: sha512-FHfa+lmNjQZfJz1q8wKqIDwC6DExcHt/pkjNQb09a3NPjCKg2rhu5qb2S4r76ASyFNNtuFooJpZe37OgudVGtQ==}
     engines: {node: '>=4'}
 
   axobject-query@4.1.0:
@@ -7847,7 +7847,7 @@ snapshots:
 
   '@axe-core/playwright@4.14.0(playwright-core@1.65.0)':
     dependencies:
-      axe-core: 4.14.0
+      axe-core: 4.14.1
       playwright-core: 1.65.0
 
   '@babel/code-frame@7.29.7':
@@ -9905,7 +9905,7 @@ snapshots:
   '@storybook/addon-a11y@10.6.7(storybook@10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1))':
     dependencies:
       '@storybook/global': 5.0.0
-      axe-core: 4.14.0
+      axe-core: 4.14.1
       storybook: 10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1)
 
   '@storybook/addon-designs@12.0.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(storybook@10.6.7(@types/react@19.3.0)(prettier@3.10.0)(react@19.3.1))':
@@ -11023,7 +11023,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axe-core@4.14.0: {}
+  axe-core@4.14.1: {}
 
   axobject-query@4.1.0: {}
 
@@ -11671,7 +11671,7 @@ snapshots:
       array-includes: 3.1.9
       array.prototype.flatmap: 1.3.3
       ast-types-flow: 0.0.8
-      axe-core: 4.14.0
+      axe-core: 4.14.1
       axobject-query: 4.1.0
       damerau-levenshtein: 1.0.8
       emoji-regex: 9.2.2
@@ -14058,7 +14058,7 @@ snapshots:
   vitest-axe@1.0.0-pre.5(vitest@5.0.5):
     dependencies:
       '@vitest/pretty-format': 3.2.4
-      axe-core: 4.14.0
+      axe-core: 4.14.1
       chalk: 5.6.2
       lodash-es: 4.17.23
       vitest: 5.0.5(@types/node@26.6.6)(@vitest/browser-playwright@5.0.5)(@vitest/coverage-v8@5.0.5)(@vitest/ui@5.0.5)(jsdom@30.1.3)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.46.0)(tsx@4.23.15)(yaml@2.8.3))
