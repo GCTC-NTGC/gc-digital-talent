@@ -20,11 +20,11 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.3.2",
+    "@dr.pogodin/react-helmet": "^3.3.3",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
-    "axe-core": "^4.14.0",
+    "axe-core": "^4.14.1",
     "react-intl": "^10.1.26",
-    "react-router": "^8.5.0",
+    "react-router": "^8.5.2",
     "vite": "^8.3.8",
     "vitest": "^5.0.5",
     "vitest-axe": "1.0.0-pre.5",
@@ -34,10 +34,10 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.10",
+    "@testing-library/user-event": "^14.6.13",
     "@types/react": "^19.3.0",
     "eslint": "^9.20.1",
-    "jsdom": "^30.1.3",
+    "jsdom": "^31.0.0",
     "react": "^19.3.1",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3"
