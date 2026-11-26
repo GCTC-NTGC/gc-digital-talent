@@ -135,8 +135,8 @@ const InukSection = ({ labels, intl }: InukSectionProps) => (
           {
             value: "inuk",
             label: intl.formatMessage({
-              defaultMessage: `"I am Inuk"`,
-              id: "vDb+O+",
+              defaultMessage: "I am Inuk",
+              id: "YRcKQM",
               description: "Label text for Inuk community declaration",
             }),
           },
@@ -162,8 +162,8 @@ const MetisSection = ({ labels, intl }: MetisSectionProps) => (
           {
             value: "metis",
             label: intl.formatMessage({
-              defaultMessage: `"I am Métis"`,
-              id: "/81xCT",
+              defaultMessage: "I am Métis",
+              id: "IXQy/Q",
               description: "Label text for Métis community declaration",
             }),
           },
@@ -265,8 +265,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 {
                   value: "other",
                   label: intl.formatMessage({
-                    defaultMessage: `"I am Indigenous and I don't see my community here"`,
-                    id: "FRcbbi",
+                    defaultMessage:
+                      "I am Indigenous and I don't see my community here",
+                    id: "zeinYk",
                     description:
                       "Label text for not represented community declaration",
                   }),

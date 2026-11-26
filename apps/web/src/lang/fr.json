@@ -279,10 +279,6 @@
     "defaultMessage": "Vous trouverez les processus de recrutement pour lesquels vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
     "description": "Message informing applicant of the connected recruitment process in the preview list below"
   },
-  "/81xCT": {
-    "defaultMessage": "« Je suis métisse ou métis »",
-    "description": "Label text for Métis community declaration"
-  },
   "/86QL/": {
     "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 seconde} one {# seconde} other {# secondes} }</strong>",
     "description": "Inactivity timer remaining time in seconds"
@@ -4326,10 +4322,6 @@
     "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
     "description": "Third list item in warning message before removing a professionalization"
   },
-  "FRcbbi": {
-    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
-    "description": "Label text for not represented community declaration"
-  },
   "FS23BP": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettent aux cadres supérieurs et aux équipes de recrutement des RH de vous trouver facilement. Cette page vous offre un aperçu de nos processus de recrutement ouverts. Revenez consulter cette page régulièrement!",
     "description": "Summary of the platform for executives and opportunities available"
@@ -5111,6 +5103,10 @@
   "IWWSkL": {
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
+  },
+  "IXQy/Q": {
+    "defaultMessage": "Je suis métisse ou métis",
+    "description": "Label text for Métis community declaration"
   },
   "IYUqNY": {
     "defaultMessage": "Pour commencer une nouvelle candidature, consultez la page « Parcourir les offres d’emploi » ou réajoutez des candidatures à votre tableau de bord à partir de la page « Candidatures ».",
@@ -9027,6 +9023,10 @@
   "YQ3j5R": {
     "defaultMessage": "Consultez le site Web de ConnexionCanada et assurez‑vous que votre adresse de courriel et votre numéro de téléphone correspondent aux coordonnées figurant dans votre profil Talents numériques du GC actuel.",
     "description": "Instruction to update contact information on CanadaLogin"
+  },
+  "YRcKQM": {
+    "defaultMessage": "Je suis Inuk",
+    "description": "Label text for Inuk community declaration"
   },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
@@ -14625,10 +14625,6 @@
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
   },
-  "vDb+O+": {
-    "defaultMessage": "« Je suis Inuk »",
-    "description": "Label text for Inuk community declaration"
-  },
   "vEniKQ": {
     "defaultMessage": "Annulation des modifications",
     "description": "Button text to cancel editing a profile section"
@@ -15706,6 +15702,10 @@
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
     "description": "Heading for the education requirement option secondary school diploma."
+  },
+  "zeinYk": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "Label text for not represented community declaration"
   },
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
