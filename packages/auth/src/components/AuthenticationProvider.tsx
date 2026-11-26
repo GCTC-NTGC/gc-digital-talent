@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+// oxlint-disable-next-line no-restricted-imports
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import AuthenticationContainer from "./AuthenticationContainer";

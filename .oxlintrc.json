@@ -6,7 +6,8 @@
     "eslint-plugin-formatjs"
   ],
   "categories": {
-    "correctness": "error"
+    "correctness": "error",
+    "suspicious": "error"
   },
   "options": {
     "typeAware": true
@@ -26,7 +27,6 @@
     "packages/theme/src/init.js"
   ],
   "rules": {
-    "typescript/consistent-return": "error",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -43,6 +43,7 @@
     "import/no-duplicates": "warn",
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "warn",
+    "import/no-unassigned-import": "off",
     "no-alert": "error",
     "no-console": "error",
     "no-param-reassign": "error",
@@ -53,7 +54,10 @@
         "allow": ["__typename"]
       }
     ],
+    "no-unneeded-ternary": "off",
     "no-use-before-define": "error",
+    "no-useless-constructor": "off",
+    "typescript/consistent-return": "error",
     "typescript/consistent-type-imports": [
       "error",
       {
@@ -62,11 +66,37 @@
       }
     ],
     "typescript/no-deprecated": "warn",
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-generated-empty-object-type": "off",
+    "typescript/no-unnecessary-boolean-literal-compare": "off",
+    "typescript/no-unnecessary-template-expression": "off",
+    "typescript/no-unnecessary-type-arguments": "off",
+    "typescript/no-unnecessary-type-conversion": "off",
+    "typescript/no-unnecessary-type-parameters": "off",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-enum-assignment": "off",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "off",
+    "typescript/no-unused-vars": "error",
     "typescript/no-misused-promises": [
       "error",
       {
         "checksVoidReturn": {
           "attributes": false
+        }
+      }
+    ],
+    "typescript/no-restricted-types": [
+      "error",
+      {
+        "types": {
+          "React.FunctionComponent": "https://github.com/facebook/create-react-app/pull/8177",
+          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
+          "Maybe": "Deprecated type",
+          "InputMaybe": "Deprecated type",
+          "Scalars": "Deprecated type"
         }
       }
     ],
@@ -78,6 +108,7 @@
         }
       }
     ],
+    "typescript/require-await": "error",
     "no-empty-function": "error",
     "no-unused-vars": [
       "error",
@@ -94,6 +125,13 @@
     "no-restricted-imports": [
       "error",
       {
+        "paths": [
+          {
+            "name": "@gc-digital-talent/i18n",
+            "importNames": ["useLocale"],
+            "message": "Please use getLocale instead."
+          }
+        ],
         "patterns": [
           {
             "group": ["lodash", "!lodash/"],
@@ -157,8 +195,13 @@
         "additionalTestBlockFunctions": []
       }
     ],
+    "react/capitalized-calls": "off",
+    "react/exhaustive-effect-dependencies": "off",
     "react/incompatible-library": "off",
+    "react/memo-dependencies": "off",
+    "react/no-unstable-nested-components": "off",
     "react/preserve-manual-memoization": "off",
+    "react/react-in-jsx-scope": "off",
     "react/forbid-elements": [
       "warn",
       {
@@ -205,18 +248,6 @@
         "li": ["menuitem", "option", "row", "tab", "treeitem"],
         "table": ["grid"],
         "td": ["gridcell"]
-      }
-    ],
-    "typescript/no-restricted-types": [
-      "error",
-      {
-        "types": {
-          "React.FunctionComponent": "https://github.com/facebook/create-react-app/pull/8177",
-          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
-          "Maybe": "Deprecated type",
-          "InputMaybe": "Deprecated type",
-          "Scalars": "Deprecated type"
-        }
       }
     ],
     "testing-library/await-async-events": [
