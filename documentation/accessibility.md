@@ -4,17 +4,17 @@ The goal of this document is to explain the what tooling we have in place and te
 
 ## Tooling / Automated Testing
 
-There are plans to introduce multiple levels of automated a11y testing however, currently the only tooling we have in place is [`eslint-plugin-jsx-a11y`](https://www.npmjs.com/package/eslint-plugin-jsx-a11y).
+There are plans to introduce multiple levels of automated a11y testing however, currently the only tooling we have in place is the [`jsx-a11y`](https://oxc.rs/docs/guide/usage/linter/rules.html#jsx-a11y) plugin in Oxlint.
 
 ### Linting
 
-`eslint-plugin-jsx-ally` works with eslint to catch common problems related the markup of our application. If your IDE supports it, [setting up eslint](http://wiki.openbravo.com/wiki/How_To_Setup_ESLint_And_Prettier_In_Your_IDE) can be very beneficial to highlight these errors without the need to the the `lint` script.
+The `jsx-a11y` plugin catches common problems related the markup of our application. If your IDE supports it, installing the [Oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) can be very beneficial to highlight these errors without the need to the the `lint` script.
 
-If you are unable to setup eslint in your IDE, we recommend running `pnpm run lint` before pushing your code to catch any markup related a11y warnings/errors early.
+If you are unable to setup Oxlint in your IDE, we recommend running `pnpm run lint` before pushing your code to catch any markup related a11y warnings/errors early.
 
 #### Ignoring Rules
 
-While we encourage you to explore options in order to not ignore `eslint-plugin-jsx-ally`, sometimes this is not an option. When you do _need_ to ignore a rule, please comment on the reasoning so that other team members can understand why.
+While we encourage you to explore options in order to not ignore the `jsx-a11y` plugin, sometimes this is not an option. When you do _need_ to ignore a rule, please comment on the reasoning so that other team members can understand why.
 
 ##### Example
 
