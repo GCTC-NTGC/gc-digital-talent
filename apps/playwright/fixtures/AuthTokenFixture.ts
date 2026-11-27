@@ -29,16 +29,16 @@ class AuthTokenFixture {
   }
 
   // Create both refresh and graphql request listeners (Request promises)
-  // Ignoring eslint because it can't tell that we are returning them
+  // Ignoring oxlint because it can't tell that we are returning them
   createListeners() {
     // Prepare the refresh listener
-    // eslint-disable-next-line playwright/missing-playwright-await
+    // oxlint-disable-next-line playwright/missing-playwright-await
     const refresh = this.page.waitForRequest(
       (req) => req.url().includes("/refresh") && req.method() === "POST",
     );
 
     // Prepare a graphql request listener
-    // eslint-disable-next-line playwright/missing-playwright-await
+    // oxlint-disable-next-line playwright/missing-playwright-await
     const graphql = this.page.waitForRequest(async (req) => {
       if (req.url()?.includes("/graphql")) {
         const reqJson = (await req?.postDataJSON()) as GraphQLOperation | null;

@@ -484,7 +484,7 @@ const UserTable = ({ title }: UserTableProps) => {
         initialState: defaultState.sortState,
       }}
       filter={{
-        // eslint-disable-next-line react-hooks/refs
+        // oxlint-disable-next-line react/refs
         state: filterRef.current,
         component: (
           <UserFilterDialog

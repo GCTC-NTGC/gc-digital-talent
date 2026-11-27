@@ -14,7 +14,7 @@ export function narrowTeamableType<
   items: readonly T[],
   enumName: EnumName,
 ): Extract<T, { __typename?: `${EnumName}` }>[] {
-  const typename = `${enumName}` as const;
+  const typename = enumName;
   return items.filter(
     (item): item is Extract<T, { __typename?: `${EnumName}` }> =>
       typeof item.__typename === "string" && item.__typename === typename,

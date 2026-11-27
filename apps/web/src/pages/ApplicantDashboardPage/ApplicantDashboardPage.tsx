@@ -474,7 +474,7 @@ export const DashboardPage = ({
                         hiddenContextPrefix={intl.formatMessage(
                           stateDescriptions[careerPlanningState],
                         )}
-                        href={`${paths.careerPlanning()}`}
+                        href={paths.careerPlanning()}
                         asListItem={false}
                       />
                     </li>

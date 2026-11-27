@@ -30,7 +30,7 @@ export const appendLanguageName = ({
       </>
     );
   }
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+  // oxlint-disable-next-line typescript/no-base-to-string, typescript/restrict-template-expressions
   return `${label} ${labels[lang]}`;
 };
 
@@ -57,6 +57,6 @@ export const appendShortenedLanguageName = ({
     }),
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+  // oxlint-disable-next-line typescript/no-base-to-string, typescript/restrict-template-expressions
   return `${label} ${labels[lang]}`;
 };

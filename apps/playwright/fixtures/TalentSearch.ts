@@ -145,10 +145,6 @@ class TalentSearch extends AppPage {
   readonly reasonMap = reasonMap;
   readonly locationPrefUpdate = new LocationPreferenceUpdatePage(this.page);
 
-  constructor(page: Page) {
-    super(page);
-  }
-
   async goToIndex() {
     await this.page.goto(this.baseUrl);
     await this.waitForGraphqlResponse("SearchForm");

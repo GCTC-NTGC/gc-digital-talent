@@ -31,7 +31,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   // https://stackoverflow.com/a/34602679
-  const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localTimeZone = new Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <Dialog.Root>

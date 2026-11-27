@@ -67,7 +67,7 @@ const NotificationDownload = forwardRef<
 
   return (
     // NOTE: We need this for downloads
-    // eslint-disable-next-line react/forbid-elements
+    // oxlint-disable-next-line react/forbid-elements
     <a
       ref={forwardedRef}
       href={href}

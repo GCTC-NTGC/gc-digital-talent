@@ -11,8 +11,9 @@ import {
   type TalentRequestCompletionDetail,
   type FragmentType,
   TalentRequestStatus,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,

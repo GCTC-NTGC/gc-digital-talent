@@ -30,12 +30,10 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^6.18.2",
-    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/yargs": "^17.0.35",
-    "eslint": "^9.20.1",
     "history": "^5.3.0",
     "jsdom": "^31.0.0",
     "js-yaml": "^5.5.0",

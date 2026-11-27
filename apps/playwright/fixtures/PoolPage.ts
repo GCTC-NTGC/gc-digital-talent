@@ -222,7 +222,7 @@ class PoolPage extends AppPage {
 
   async navigateBackToProcess(processTitle: string) {
     await this.page
-      .getByRole("link", { name: `${processTitle}` })
+      .getByRole("link", { name: processTitle })
       .click({ timeout: 10000 });
   }
 

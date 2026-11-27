@@ -71,7 +71,7 @@ const SidebarNotesForm = ({ values, onSave }: SidebarNotesFormProps) => {
             {values?.notes ? (
               // NOTE: Scroll elements need tab index
               // REF: https://dequeuniversity.com/rules/axe/4.11/scrollable-region-focusable?application=axeAPI
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
               <div className="mt-3 max-h-40 overflow-y-auto" tabIndex={0}>
                 {values?.notes}
               </div>

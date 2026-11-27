@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+/* oxlint-disable typescript/no-empty-object-type */
 import "axe-core";
 import type { AxeMatchers } from "vitest-axe";
 
