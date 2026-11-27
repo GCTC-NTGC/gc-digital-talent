@@ -1,5 +1,9 @@
 import { FormProvider, useForm } from "react-hook-form";
-import { defineMessage, useIntl } from "react-intl";
+import {
+  defineMessage,
+  useIntl,
+  type TypedMessageDescriptor,
+} from "react-intl";
 import { useQuery } from "urql";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
