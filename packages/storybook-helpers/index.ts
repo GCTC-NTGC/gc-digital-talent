@@ -1,4 +1,5 @@
 import { GLOBAL_A11Y_EXCLUDES } from "./a11y";
+import ContainerDecorator from "./decorators/ContainerDecorator";
 import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
 import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
@@ -14,6 +15,7 @@ import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 export type { RuntimeVariables };
 
 export {
+  ContainerDecorator,
   FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
