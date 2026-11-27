@@ -10,6 +10,7 @@ use App\Providers\FakerServiceProvider;
 use App\Providers\GraphQLServiceProvider;
 use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
+use App\Providers\RedisManagedIdentityProvider;
 use App\Providers\RouteServiceProvider;
 use App\Providers\ValidationRulesServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
@@ -286,6 +287,7 @@ return [
         RouteServiceProvider::class,
         ClockInterfaceProvider::class,
         ManagedIdentityProvider::class,
+        RedisManagedIdentityProvider::class,
         ValidationRulesServiceProvider::class,
 
         // Additional Providers
