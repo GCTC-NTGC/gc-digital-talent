@@ -36,7 +36,6 @@ const main: StorybookConfig = {
   async viteFinal(config) {
     const { mergeConfig } = await import("vite");
     return mergeConfig(config, {
-      dedupe: ["react-intl"],
       plugins: [
         // Weird thing to get tailwind working with storybook
         (await import("@tailwindcss/vite")).default(),
