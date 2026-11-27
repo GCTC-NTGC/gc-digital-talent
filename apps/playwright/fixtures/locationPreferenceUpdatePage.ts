@@ -80,7 +80,7 @@ class LocationPreferenceUpdatePage extends AppPage {
 
   async goToPersonalInformationPage(sub: string) {
     await loginBySub(this.page, sub);
-    await this.page.goto(`${this.baseUrl}`);
+    await this.page.goto((this.baseUrl));
     await this.waitForGraphqlResponse("ProfileUser");
   }
 
