@@ -1,7 +1,6 @@
 import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json" with { type: "json" };
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";
 import {
-  ContainerDecorator,
   FeatureFlagDecorator,
   GLOBAL_A11Y_EXCLUDES,
   HelmetDecorator,
@@ -85,5 +84,4 @@ export const decorators = [
   MockGraphqlDecorator,
   ThemeDecorator,
   RouterDecorator,
-  ContainerDecorator,
 ];
