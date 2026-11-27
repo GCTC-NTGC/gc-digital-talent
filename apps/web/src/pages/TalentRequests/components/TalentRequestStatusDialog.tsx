@@ -10,7 +10,9 @@ import {
   type TalentRequestInProgressDetail,
   type TalentRequestCompletionDetail,
   type FragmentType,
-  TalentRequestStatus,getFragment,graphql
+  TalentRequestStatus,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {

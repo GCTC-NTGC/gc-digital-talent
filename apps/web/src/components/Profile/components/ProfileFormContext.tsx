@@ -58,9 +58,9 @@ const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     });
   }, []);
 
-  const toggleSubmitting = (newIsSubmitting: boolean) => {
+  const toggleSubmitting = useCallback((newIsSubmitting: boolean) => {
     setSubmitting(newIsSubmitting);
-  };
+  }, []);
 
   const state = useMemo(
     () => ({
@@ -69,7 +69,7 @@ const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
       setSubmitting: toggleSubmitting,
       toggleDirty,
     }),
-    [isSubmitting, toggleDirty, dirtySections],
+    [isSubmitting, toggleDirty, dirtySections, toggleSubmitting],
   );
 
   return (

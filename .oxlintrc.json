@@ -1,10 +1,6 @@
 {
   "plugins": ["typescript", "react", "jsx-a11y", "import", "vitest"],
-  "jsPlugins": [
-    "eslint-plugin-turbo",
-    "eslint-plugin-testing-library",
-    "eslint-plugin-formatjs"
-  ],
+  "jsPlugins": ["eslint-plugin-turbo", "eslint-plugin-formatjs"],
   "categories": {
     "correctness": "error",
     "suspicious": "error"
@@ -17,15 +13,7 @@
     "browser": true,
     "es2020": true
   },
-  "ignorePatterns": [
-    "**/index.js",
-    "**/styleMock.ts",
-    "**/fileMock.ts",
-    "**/gql/graphql.ts",
-    "**/*.snap",
-    "apps/web/src/utils/initTheme.js",
-    "packages/theme/src/init.js"
-  ],
+  "ignorePatterns": ["**/gql/graphql.ts", "apps/web/src/utils/initTheme.js"],
   "rules": {
     "import/extensions": [
       "error",
@@ -38,12 +26,22 @@
         "json": "always"
       }
     ],
-    "import/default": "error",
-    "import/namespace": "off",
     "import/no-duplicates": "warn",
-    "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "warn",
-    "import/no-unassigned-import": "off",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": [
+          "**/*.css",
+          "**/setup.ts",
+          "**/*.d.ts",
+          "@testing-library/jest-dom",
+          "vitest-axe/extend-expect",
+          "axe-core",
+          "@tanstack/react-table"
+        ]
+      }
+    ],
     "no-alert": "error",
     "no-console": "error",
     "no-param-reassign": "error",
@@ -54,9 +52,7 @@
         "allow": ["__typename"]
       }
     ],
-    "no-unneeded-ternary": "off",
     "no-use-before-define": "error",
-    "no-useless-constructor": "off",
     "typescript/consistent-return": "error",
     "typescript/consistent-type-imports": [
       "error",
@@ -68,9 +64,6 @@
     "typescript/no-deprecated": "warn",
     "typescript/no-empty-object-type": "error",
     "typescript/no-explicit-any": "error",
-    "typescript/no-generated-empty-object-type": "off",
-    "typescript/no-unnecessary-boolean-literal-compare": "off",
-    "typescript/no-unnecessary-template-expression": "off",
     "typescript/no-unnecessary-type-arguments": "off",
     "typescript/no-unnecessary-type-conversion": "off",
     "typescript/no-unnecessary-type-parameters": "off",
@@ -79,7 +72,6 @@
     "typescript/no-unsafe-member-access": "error",
     "typescript/no-unsafe-return": "error",
     "typescript/no-unsafe-type-assertion": "off",
-    "typescript/no-unused-vars": "error",
     "typescript/no-misused-promises": [
       "error",
       {
@@ -186,7 +178,6 @@
       }
     ],
     "turbo/no-undeclared-env-vars": "error",
-    "vitest/no-focused-tests": "error",
     "vitest/require-mock-type-parameters": "off",
     "vitest/expect-expect": [
       "error",
@@ -195,10 +186,8 @@
         "additionalTestBlockFunctions": []
       }
     ],
-    "react/capitalized-calls": "off",
     "react/exhaustive-effect-dependencies": "off",
     "react/incompatible-library": "off",
-    "react/memo-dependencies": "off",
     "react/no-unstable-nested-components": "off",
     "react/preserve-manual-memoization": "off",
     "react/react-in-jsx-scope": "off",
@@ -250,38 +239,6 @@
         "td": ["gridcell"]
       }
     ],
-    "testing-library/await-async-events": [
-      "error",
-      {
-        "eventModule": "userEvent"
-      }
-    ],
-    "testing-library/await-async-queries": "error",
-    "testing-library/await-async-utils": "error",
-    "testing-library/no-await-sync-events": [
-      "error",
-      {
-        "eventModules": ["fire-event"]
-      }
-    ],
-    "testing-library/no-await-sync-queries": "error",
-    "testing-library/no-container": "error",
-    "testing-library/no-debugging-utils": "warn",
-    "testing-library/no-dom-import": ["error", "react"],
-    "testing-library/no-global-regexp-flag-in-query": "error",
-    "testing-library/no-manual-cleanup": "error",
-    "testing-library/no-node-access": "error",
-    "testing-library/no-promise-in-fire-event": "error",
-    "testing-library/no-render-in-lifecycle": "error",
-    "testing-library/no-unnecessary-act": "error",
-    "testing-library/no-wait-for-multiple-assertions": "error",
-    "testing-library/no-wait-for-side-effects": "error",
-    "testing-library/no-wait-for-snapshot": "error",
-    "testing-library/prefer-find-by": "error",
-    "testing-library/prefer-presence-queries": "error",
-    "testing-library/prefer-query-by-disappearance": "error",
-    "testing-library/prefer-screen-queries": "error",
-    "testing-library/render-result-naming-convention": "error",
     "formatjs/no-offset": "error",
     "formatjs/enforce-default-message": ["error", "literal"],
     "formatjs/enforce-description": ["error", "literal"],
@@ -361,6 +318,44 @@
       }
     },
     {
+      "files": ["**/*.test.ts*"],
+      "jsPlugins": ["eslint-plugin-testing-library"],
+      "rules": {
+        "testing-library/await-async-events": [
+          "error",
+          {
+            "eventModule": "userEvent"
+          }
+        ],
+        "testing-library/await-async-queries": "error",
+        "testing-library/await-async-utils": "error",
+        "testing-library/no-await-sync-events": [
+          "error",
+          {
+            "eventModules": ["fire-event"]
+          }
+        ],
+        "testing-library/no-await-sync-queries": "error",
+        "testing-library/no-container": "error",
+        "testing-library/no-debugging-utils": "warn",
+        "testing-library/no-dom-import": ["error", "react"],
+        "testing-library/no-global-regexp-flag-in-query": "error",
+        "testing-library/no-manual-cleanup": "error",
+        "testing-library/no-node-access": "error",
+        "testing-library/no-promise-in-fire-event": "error",
+        "testing-library/no-render-in-lifecycle": "error",
+        "testing-library/no-unnecessary-act": "error",
+        "testing-library/no-wait-for-multiple-assertions": "error",
+        "testing-library/no-wait-for-side-effects": "error",
+        "testing-library/no-wait-for-snapshot": "error",
+        "testing-library/prefer-find-by": "error",
+        "testing-library/prefer-presence-queries": "error",
+        "testing-library/prefer-query-by-disappearance": "error",
+        "testing-library/prefer-screen-queries": "error",
+        "testing-library/render-result-naming-convention": "error"
+      }
+    },
+    {
       "files": ["packages/fake-data/**"],
       "rules": {
         "no-restricted-imports": "off"
@@ -383,7 +378,6 @@
       "jsPlugins": ["eslint-plugin-playwright"],
       "rules": {
         "no-restricted-imports": "off",
-        "no-empty-pattern": "off",
         "playwright/consistent-spacing-between-blocks": "warn",
         "playwright/expect-expect": [
           "error",
@@ -430,9 +424,7 @@
         "playwright/valid-expect-in-promise": "error",
         "playwright/valid-test-tags": "error",
         "playwright/valid-title": "error",
-        "no-console": "warn",
-        "testing-library/prefer-screen-queries": "off",
-        "testing-library/no-node-access": "off"
+        "no-console": "warn"
       }
     }
   ]

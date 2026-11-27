@@ -29,7 +29,7 @@ class AuthTokenFixture {
   }
 
   // Create both refresh and graphql request listeners (Request promises)
-  // Ignoring eslint because it can't tell that we are returning them
+  // Ignoring oxlint because it can't tell that we are returning them
   createListeners() {
     // Prepare the refresh listener
     // oxlint-disable-next-line playwright/missing-playwright-await

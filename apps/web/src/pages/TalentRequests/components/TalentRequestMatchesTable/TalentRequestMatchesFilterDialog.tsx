@@ -16,7 +16,9 @@ import {
   type OperationalRequirement,
   type PriorityWeight,
   type TalentRequestSource,
-  type TalentRequestUserSkillMatchFragment,getFragment,graphql
+  type TalentRequestUserSkillMatchFragment,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
