@@ -134,7 +134,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     if (currentPage?.title) {
       announce(currentPage?.title);
     }
-  }, [announce, currentPage?.title, intl]);
+  }, [announce, currentPage?.title]);
 
   return (
     <>

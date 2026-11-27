@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* oxlint-disable typescript/no-unused-vars */
 import type { StoryFn } from "@storybook/react-vite";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";

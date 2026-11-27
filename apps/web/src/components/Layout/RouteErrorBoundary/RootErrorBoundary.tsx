@@ -1,7 +1,7 @@
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import type { ReactNode } from "react";
-/* eslint-disable react/forbid-elements */
+/* oxlint-disable react/forbid-elements */
 // NOTE: `a` needed here to avoid styling, etc
 import { IntlProvider, useIntl } from "react-intl";
 import { useLocation } from "react-router";

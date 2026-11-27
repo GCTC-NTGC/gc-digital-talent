@@ -48,7 +48,7 @@ const TalentNominationEventCard = ({
     TalentNominationEventCard_Fragment,
     talentNominationEventQuery,
   );
-  const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localTimeZone = new Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
     <>

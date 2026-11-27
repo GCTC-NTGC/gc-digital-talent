@@ -96,9 +96,9 @@ const ReferralHistory = ({ query }: ReferralHistoryProps) => {
                   <li key={r.reason.value}>
                     {r.reason.label.localized ??
                       intl.formatMessage(commonMessages.notAvailable)}
-                    {/* eslint-disable formatjs/no-literal-string-in-jsx -- NOTE: space and parentheses wrap a numeric count; structural punctuation, not translatable text */}{" "}
+                    {/* oxlint-disable formatjs/no-literal-string-in-jsx -- NOTE: space and parentheses wrap a numeric count; structural punctuation, not translatable text */}{" "}
                     ({r.count})
-                    {/* eslint-enable formatjs/no-literal-string-in-jsx */}
+                    {/* oxlint-enable formatjs/no-literal-string-in-jsx */}
                   </li>
                 ))}
               </Ul>

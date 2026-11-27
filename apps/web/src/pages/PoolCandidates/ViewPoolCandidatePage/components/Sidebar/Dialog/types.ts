@@ -31,7 +31,7 @@ export interface MutationMessages {
 }
 
 export type MutationHandler = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   mutation: Promise<OperationResult<any, any>>,
   messages: MutationMessages,
 ) => Promise<void>;

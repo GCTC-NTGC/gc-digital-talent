@@ -25,7 +25,7 @@ const Template: StoryFn<typeof EmployeeInformationForm> = () => {
     <EmployeeInformationForm
       navigationTarget="#"
       // Note: Needed for function colouring
-      // eslint-disable-next-line @typescript-eslint/require-await
+      // oxlint-disable-next-line typescript/require-await
       onSubmit={async (data) => {
         action("submit")(data);
       }}

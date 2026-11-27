@@ -192,5 +192,5 @@ export const buildColumn = ({
         columnDialogHeader: altHeader,
       },
     },
-  ) as AssessmentTableRowColumn;
+  );
 };

@@ -1,6 +1,5 @@
 import isEqual from "lodash/isEqual";
 import type { CombinedError } from "urql";
-/* eslint-disable camelcase */
 import { vi } from "vitest";
 
 import { extractErrorMessages } from "../../utils/errors";
@@ -67,7 +66,7 @@ describe("ClientProvider tests", () => {
           source: undefined,
           positions: undefined,
           originalError: undefined,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // oxlint-disable-next-line typescript/no-explicit-any
           toJSON: (): any => "test",
           [Symbol.toStringTag]: "test",
           name: "Test Error",

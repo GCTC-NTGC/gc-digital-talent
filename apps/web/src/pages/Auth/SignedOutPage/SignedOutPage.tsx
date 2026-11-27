@@ -47,7 +47,6 @@ export const clientLoader: ClientLoaderFunction = ({ request }) => {
   if (from) {
     const safeFrom = getSafeRedirectPath(from, url.origin);
     if (safeFrom) {
-      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect(safeFrom);
     }
     logger.warning(`Received an unsafe uri in the from parameter: ${from}`);

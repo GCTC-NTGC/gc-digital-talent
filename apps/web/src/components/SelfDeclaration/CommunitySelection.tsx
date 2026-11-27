@@ -65,8 +65,8 @@ const FirstNationSection = ({
           trackUnsaved={false}
           value="firstNations"
           label={intl.formatMessage({
-            defaultMessage: '"I am First Nations"',
-            id: "Wpj2OY",
+            defaultMessage: "I am First Nations",
+            id: "0blbyb",
             description: "Text for the option to self-declare as first nations",
           })}
           aria-describedby={customAlertId}
@@ -98,8 +98,8 @@ const FirstNationSection = ({
               {
                 value: "status",
                 label: intl.formatMessage({
-                  defaultMessage: '"I am Status First Nations"',
-                  id: "ssJxrj",
+                  defaultMessage: "I am Status First Nations",
+                  id: "Yh1sXR",
                   description:
                     "Text for the option to self-declare as a status first nations",
                 }),
@@ -107,8 +107,8 @@ const FirstNationSection = ({
               {
                 value: "nonStatus",
                 label: intl.formatMessage({
-                  defaultMessage: '"I am Non-Status First Nations"',
-                  id: "sSE4kt",
+                  defaultMessage: "I am Non-Status First Nations",
+                  id: "g/Jfxy",
                   description:
                     "Text for the option to self-declare as a non-status first nations",
                 }),
@@ -135,8 +135,8 @@ const InukSection = ({ labels, intl }: InukSectionProps) => (
           {
             value: "inuk",
             label: intl.formatMessage({
-              defaultMessage: `"I am Inuk"`,
-              id: "vDb+O+",
+              defaultMessage: "I am Inuk",
+              id: "YRcKQM",
               description: "Label text for Inuk community declaration",
             }),
           },
@@ -162,8 +162,8 @@ const MetisSection = ({ labels, intl }: MetisSectionProps) => (
           {
             value: "metis",
             label: intl.formatMessage({
-              defaultMessage: `"I am Métis"`,
-              id: "/81xCT",
+              defaultMessage: "I am Métis",
+              id: "IXQy/Q",
               description: "Label text for Métis community declaration",
             }),
           },
@@ -265,8 +265,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 {
                   value: "other",
                   label: intl.formatMessage({
-                    defaultMessage: `"I am Indigenous and I don't see my community here"`,
-                    id: "FRcbbi",
+                    defaultMessage:
+                      "I am Indigenous and I don't see my community here",
+                    id: "zeinYk",
                     description:
                       "Label text for not represented community declaration",
                   }),

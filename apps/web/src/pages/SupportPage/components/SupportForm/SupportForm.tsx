@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-/* eslint-disable camelcase */
-// Note: Disable camelcase since variables are being used by API
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
@@ -51,7 +49,7 @@ interface SupportFormSuccessProps {
 
 const anchorTag = (chunks: ReactNode) => (
   // Toast is not within the IntlProvider, can't use Link component.
-  // eslint-disable-next-line react/forbid-elements
+  // oxlint-disable-next-line react/forbid-elements
   <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
 );
 

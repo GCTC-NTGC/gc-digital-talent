@@ -1,4 +1,4 @@
-/* eslint-disable playwright/no-conditional-in-test */
+/* oxlint-disable playwright/no-conditional-in-test */
 import type { User } from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,

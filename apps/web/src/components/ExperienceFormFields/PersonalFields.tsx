@@ -58,7 +58,7 @@ const PersonalFields = ({
   }, [defaultValues?.learningDescription, setValue, watchDescription]);
 
   useEffect(() => {
-    if (isCurrent === true) {
+    if (isCurrent) {
       resetField("endDate", { keepDirty: false, defaultValue: null }); // reset endDate for current experience
     }
   }, [isCurrent, resetField]);

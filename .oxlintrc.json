@@ -1,13 +1,9 @@
 {
   "plugins": ["typescript", "react", "jsx-a11y", "import", "vitest"],
-  "jsPlugins": [
-    "eslint-plugin-turbo",
-    "eslint-plugin-no-only-tests",
-    "eslint-plugin-testing-library",
-    "eslint-plugin-formatjs"
-  ],
+  "jsPlugins": ["eslint-plugin-turbo", "eslint-plugin-formatjs"],
   "categories": {
-    "correctness": "error"
+    "correctness": "error",
+    "suspicious": "error"
   },
   "options": {
     "typeAware": true
@@ -17,19 +13,8 @@
     "browser": true,
     "es2020": true
   },
-  "ignorePatterns": [
-    "**/eslint.config.js",
-    "**/eslint.config.mjs",
-    "**/index.js",
-    "**/styleMock.ts",
-    "**/fileMock.ts",
-    "**/gql/graphql.ts",
-    "**/*.snap",
-    "apps/web/src/utils/initTheme.js",
-    "packages/theme/src/init.js"
-  ],
+  "ignorePatterns": ["**/gql/graphql.ts", "apps/web/src/utils/initTheme.js"],
   "rules": {
-    "typescript/consistent-return": "error",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -41,14 +26,24 @@
         "json": "always"
       }
     ],
-    "import/default": "error",
-    "import/namespace": "off",
     "import/no-duplicates": "warn",
-    "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "warn",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": [
+          "**/*.css",
+          "**/setup.ts",
+          "**/*.d.ts",
+          "@testing-library/jest-dom",
+          "vitest-axe/extend-expect",
+          "axe-core",
+          "@tanstack/react-table"
+        ]
+      }
+    ],
     "no-alert": "error",
     "no-console": "error",
-    "no-only-tests/no-only-tests": "error",
     "no-param-reassign": "error",
     "no-shadow": "error",
     "no-underscore-dangle": [
@@ -58,6 +53,7 @@
       }
     ],
     "no-use-before-define": "error",
+    "typescript/consistent-return": "error",
     "typescript/consistent-type-imports": [
       "error",
       {
@@ -66,11 +62,33 @@
       }
     ],
     "typescript/no-deprecated": "warn",
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-unnecessary-type-arguments": "off",
+    "typescript/no-unnecessary-type-conversion": "off",
+    "typescript/no-unnecessary-type-parameters": "off",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-enum-assignment": "off",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "off",
     "typescript/no-misused-promises": [
       "error",
       {
         "checksVoidReturn": {
           "attributes": false
+        }
+      }
+    ],
+    "typescript/no-restricted-types": [
+      "error",
+      {
+        "types": {
+          "React.FunctionComponent": "https://github.com/facebook/create-react-app/pull/8177",
+          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
+          "Maybe": "Deprecated type",
+          "InputMaybe": "Deprecated type",
+          "Scalars": "Deprecated type"
         }
       }
     ],
@@ -82,6 +100,7 @@
         }
       }
     ],
+    "typescript/require-await": "error",
     "no-empty-function": "error",
     "no-unused-vars": [
       "error",
@@ -98,6 +117,13 @@
     "no-restricted-imports": [
       "error",
       {
+        "paths": [
+          {
+            "name": "@gc-digital-talent/i18n",
+            "importNames": ["useLocale"],
+            "message": "Please use getLocale instead."
+          }
+        ],
         "patterns": [
           {
             "group": ["lodash", "!lodash/"],
@@ -160,8 +186,11 @@
         "additionalTestBlockFunctions": []
       }
     ],
+    "react/exhaustive-effect-dependencies": "off",
     "react/incompatible-library": "off",
+    "react/no-unstable-nested-components": "off",
     "react/preserve-manual-memoization": "off",
+    "react/react-in-jsx-scope": "off",
     "react/forbid-elements": [
       "warn",
       {
@@ -210,50 +239,6 @@
         "td": ["gridcell"]
       }
     ],
-    "typescript/no-restricted-types": [
-      "error",
-      {
-        "types": {
-          "React.FunctionComponent": "https://github.com/facebook/create-react-app/pull/8177",
-          "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
-          "Maybe": "Deprecated type",
-          "InputMaybe": "Deprecated type",
-          "Scalars": "Deprecated type"
-        }
-      }
-    ],
-    "testing-library/await-async-events": [
-      "error",
-      {
-        "eventModule": "userEvent"
-      }
-    ],
-    "testing-library/await-async-queries": "error",
-    "testing-library/await-async-utils": "error",
-    "testing-library/no-await-sync-events": [
-      "error",
-      {
-        "eventModules": ["fire-event"]
-      }
-    ],
-    "testing-library/no-await-sync-queries": "error",
-    "testing-library/no-container": "error",
-    "testing-library/no-debugging-utils": "warn",
-    "testing-library/no-dom-import": ["error", "react"],
-    "testing-library/no-global-regexp-flag-in-query": "error",
-    "testing-library/no-manual-cleanup": "error",
-    "testing-library/no-node-access": "error",
-    "testing-library/no-promise-in-fire-event": "error",
-    "testing-library/no-render-in-lifecycle": "error",
-    "testing-library/no-unnecessary-act": "error",
-    "testing-library/no-wait-for-multiple-assertions": "error",
-    "testing-library/no-wait-for-side-effects": "error",
-    "testing-library/no-wait-for-snapshot": "error",
-    "testing-library/prefer-find-by": "error",
-    "testing-library/prefer-presence-queries": "error",
-    "testing-library/prefer-query-by-disappearance": "error",
-    "testing-library/prefer-screen-queries": "error",
-    "testing-library/render-result-naming-convention": "error",
     "formatjs/no-offset": "error",
     "formatjs/enforce-default-message": ["error", "literal"],
     "formatjs/enforce-description": ["error", "literal"],
@@ -330,6 +315,44 @@
       }
     },
     {
+      "files": ["**/*.test.ts*"],
+      "jsPlugins": ["eslint-plugin-testing-library"],
+      "rules": {
+        "testing-library/await-async-events": [
+          "error",
+          {
+            "eventModule": "userEvent"
+          }
+        ],
+        "testing-library/await-async-queries": "error",
+        "testing-library/await-async-utils": "error",
+        "testing-library/no-await-sync-events": [
+          "error",
+          {
+            "eventModules": ["fire-event"]
+          }
+        ],
+        "testing-library/no-await-sync-queries": "error",
+        "testing-library/no-container": "error",
+        "testing-library/no-debugging-utils": "warn",
+        "testing-library/no-dom-import": ["error", "react"],
+        "testing-library/no-global-regexp-flag-in-query": "error",
+        "testing-library/no-manual-cleanup": "error",
+        "testing-library/no-node-access": "error",
+        "testing-library/no-promise-in-fire-event": "error",
+        "testing-library/no-render-in-lifecycle": "error",
+        "testing-library/no-unnecessary-act": "error",
+        "testing-library/no-wait-for-multiple-assertions": "error",
+        "testing-library/no-wait-for-side-effects": "error",
+        "testing-library/no-wait-for-snapshot": "error",
+        "testing-library/prefer-find-by": "error",
+        "testing-library/prefer-presence-queries": "error",
+        "testing-library/prefer-query-by-disappearance": "error",
+        "testing-library/prefer-screen-queries": "error",
+        "testing-library/render-result-naming-convention": "error"
+      }
+    },
+    {
       "files": ["packages/fake-data/**"],
       "rules": {
         "no-restricted-imports": "off"
@@ -352,7 +375,6 @@
       "jsPlugins": ["eslint-plugin-playwright"],
       "rules": {
         "no-restricted-imports": "off",
-        "no-empty-pattern": "off",
         "playwright/consistent-spacing-between-blocks": "warn",
         "playwright/expect-expect": [
           "error",
@@ -399,9 +421,7 @@
         "playwright/valid-expect-in-promise": "error",
         "playwright/valid-test-tags": "error",
         "playwright/valid-title": "error",
-        "no-console": "warn",
-        "testing-library/prefer-screen-queries": "off",
-        "testing-library/no-node-access": "off"
+        "no-console": "warn"
       }
     }
   ]

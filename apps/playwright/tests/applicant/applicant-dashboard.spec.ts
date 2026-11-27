@@ -48,8 +48,8 @@ test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
     const userWithGovExp = await createUserWithRoles(platformAdminCtx, {
       roles: ["base_user"],
       user: {
-        firstName: `${testId}`,
-        email: `${govSub}`,
+        firstName: testId,
+        email: govSub,
         sub: govSub,
         isGovEmployee: true,
         workEmail: govSub,
@@ -92,7 +92,7 @@ test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
       roles: ["base_user"],
       user: {
         firstName: `NonGov ${testId}`,
-        email: `${nonGovSub}`,
+        email: nonGovSub,
         sub: nonGovSub,
         isGovEmployee: false,
         currentProvince: ProvinceOrTerritory.Ontario,

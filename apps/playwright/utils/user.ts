@@ -329,7 +329,6 @@ export const getUserById: GraphQLRequestFunc<User, GetUserByIdArgs> = async (
     .then((res) => res.user);
 };
 
-// eslint-disable-next-line camelcase
 const Test_DeleteUser = /* GraphQL */ `
   mutation Test_DeleteUser($id: ID!) {
     deleteUser(id: $id) {

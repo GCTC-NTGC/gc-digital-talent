@@ -43,7 +43,7 @@ const InnerActivityContainer = ({
   };
 
   // This is how the example is written: https://idletimer.dev/docs/features/confirm-prompt#example
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+  // oxlint-disable-next-line typescript/unbound-method
   const { getRemainingTime, activate } = useIdleTimer({
     onIdle,
     onActive,

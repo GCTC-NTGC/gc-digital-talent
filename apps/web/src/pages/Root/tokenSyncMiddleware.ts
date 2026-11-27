@@ -20,7 +20,6 @@ const tokenSyncMiddleware: Route.ClientMiddlewareFunction = (
     url.searchParams.delete("expires_in");
     url.searchParams.delete("grant_id");
     url.searchParams.delete("scope");
-    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect(url.href);
   }
 

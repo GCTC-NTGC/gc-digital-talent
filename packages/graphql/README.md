@@ -30,10 +30,9 @@ must not use them. Instead:
 - Write a small TypeScript interface with only the fields you need.
 
 Only `fake-data` may import from this subpath, because building mock objects is
-the one case that needs the full shapes. An ESLint rule
-(`no-restricted-imports` in `@gc-digital-talent/eslint-config`) blocks this
-import in every other package; `fake-data` turns that rule off in its own
-`eslint.config.js`.
+the one case that needs the full shapes. An Oxlint rule
+(`no-restricted-imports` in `.oxlintrc.json`) blocks this import in every other
+package; `.oxlintrc.json` turns that rule off for `fake-data` in an override.
 
 ## Making a schema type available in app code
 

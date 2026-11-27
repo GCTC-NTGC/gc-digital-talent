@@ -11,6 +11,7 @@ use App\Listeners\BroadcastNotificationReceived;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeGovEmployeeProfileData;
 use App\Listeners\LogArtisanCommand;
+use App\Listeners\LogRoleChange;
 use App\Listeners\LogTimedOutJob;
 use App\Listeners\SendFileGeneratedNotification;
 use App\Listeners\SendTalentNominationSubmittedNotifications;
@@ -22,6 +23,8 @@ use Illuminate\Notifications\Events\NotificationSent;
 use Illuminate\Queue\Events\JobTimedOut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Laratrust\Events\RoleAdded;
+use Laratrust\Events\RoleRemoved;
 use Nuwave\Lighthouse\Events\EndExecution;
 use Nuwave\Lighthouse\Events\EndOperationOrOperations;
 use Nuwave\Lighthouse\Events\EndRequest;
@@ -63,6 +66,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         CommandProducedResults::class => [
             LogArtisanCommand::class.'@produced',
+        ],
+        RoleAdded::class => [
+            LogRoleChange::class.'@added',
+        ],
+        RoleRemoved::class => [
+            LogRoleChange::class.'@removed',
         ],
     ];
 

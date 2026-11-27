@@ -151,7 +151,7 @@ const CareerDevelopmentTaskCard = ({
     {
       key: "edit-career-planning-key",
       type: "link",
-      href: `${paths.careerPlanning()}`,
+      href: paths.careerPlanning(),
       color: "primary",
       children: <>{editCareerPlanningLinkText}</>,
     },
