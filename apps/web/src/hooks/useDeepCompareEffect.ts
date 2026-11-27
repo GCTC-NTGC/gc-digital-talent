@@ -23,8 +23,6 @@ function useDeepCompareEffect(
   callback: EffectCallback,
   dependencies: DependencyList,
 ): void {
-  // this function was added to oxlint so deps will be checked at the calling location
-
   // Memoize entire array to ensure consistent hook call order.
   const memoizedDeps = useDeepCompareMemoize(dependencies);
 

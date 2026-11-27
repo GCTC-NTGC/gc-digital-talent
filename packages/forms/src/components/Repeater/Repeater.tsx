@@ -115,7 +115,6 @@ const Fieldset = ({
         );
       }
     } else {
-      // oxlint-disable-next-line testing-library/no-debugging-utils
       defaultLogger.debug("No onRemove for handler to call.");
     }
   };

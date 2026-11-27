@@ -1,5 +1,4 @@
 import type { Locales } from "@gc-digital-talent/i18n";
-/* oxlint-disable testing-library/no-debugging-utils */
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from "../const";
