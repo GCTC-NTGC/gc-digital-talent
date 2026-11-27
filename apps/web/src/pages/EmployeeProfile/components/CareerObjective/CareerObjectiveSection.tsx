@@ -315,7 +315,7 @@ const CareerObjectiveSection = ({
       });
     }
     // reset cSuiteRoleTitle when toggling watchIsCSuiteRole
-    if (watchIsCSuiteRole !== true) {
+    if (!watchIsCSuiteRole) {
       methods.resetField("cSuiteRoleTitle", {
         keepDirty: false,
         defaultValue: null,
