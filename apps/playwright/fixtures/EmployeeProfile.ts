@@ -1,5 +1,3 @@
-import type { Page } from "@playwright/test";
-
 import AppPage from "./AppPage";
 
 type ObjectValues<T> = T[keyof T];
@@ -17,10 +15,6 @@ type EmployeeProfileForm = ObjectValues<typeof EMPLOYEE_PROFILE_FORM>;
  * GC Employee Profile Page
  */
 class EmployeeProfile extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
   async goToEmployeeVerification() {
     await this.page.goto("/en/employee");
     await this.waitForGraphqlResponse("EmployeeVerificationPage");
