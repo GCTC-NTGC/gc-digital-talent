@@ -37,14 +37,12 @@ class ActivityLogTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->baseUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
         $community = Community::factory()->create();
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($community->id)
             ->asAdmin()
             ->create([

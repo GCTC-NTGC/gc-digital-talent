@@ -29,7 +29,6 @@ class ProtectedRequestGuardTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
@@ -124,7 +123,7 @@ class ProtectedRequestGuardTest extends TestCase
             'privilegedPermission' => $this->adminUser->isAbleTo('create-any-classification'),
             'privilegedRole' => $this->adminUser->hasRole('platform_admin'),
             'limitedPermission' => $this->adminUser->isAbleTo('view-any-skill'),
-            'limitedRole' => $this->adminUser->hasRole('applicant'),
+            'limitedRole' => $this->adminUser->hasRole('base_user'),
         ]);
 
         return $uri;

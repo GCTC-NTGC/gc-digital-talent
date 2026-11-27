@@ -52,7 +52,6 @@ class TalentRequestTestSeeder extends Seeder
         if ($otherNominees->isEmpty()) {
             $otherNominees = User::factory()
                 ->count(1)
-                ->asApplicant()
                 ->withGovEmployeeProfile()
                 ->withCommunityInterests([$digital->id])
                 ->create();

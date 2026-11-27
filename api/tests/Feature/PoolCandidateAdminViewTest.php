@@ -52,7 +52,7 @@ class PoolCandidateAdminViewTest extends TestCase
 
     protected Department $otherDepartment;
 
-    public User $applicant;
+    public User $baseUser;
 
     public User $platformAdmin;
 
@@ -173,7 +173,7 @@ class PoolCandidateAdminViewTest extends TestCase
         ]);
 
         // Users
-        $this->applicant = User::factory()->asApplicant()->create();
+        $this->baseUser = User::factory()->create();
         $this->platformAdmin = User::factory()->asAdmin()->create();
         $this->communityAdmin = User::factory()->asCommunityAdmin($this->community->id)->create();
         $this->otherCommunityAdmin = User::factory()->asCommunityAdmin($this->otherCommunity->id)->create();
@@ -189,7 +189,7 @@ class PoolCandidateAdminViewTest extends TestCase
         // PoolCandidates
         $this->applicantPoolCandidate = PoolCandidate::factory()->availableInSearch()->create(
             [
-                'user_id' => $this->applicant->id,
+                'user_id' => $this->baseUser->id,
                 'pool_id' => $this->pool->id,
                 'application_status' => ApplicationStatus::TO_ASSESS->name,
                 'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
@@ -253,9 +253,9 @@ class PoolCandidateAdminViewTest extends TestCase
     }
 
     // applicant cannot even view own
-    public function testApplicantViewsNoOne(): void
+    public function testBaseUserViewsNoOne(): void
     {
-        $this->assertPaginatedResponse($this->applicant, 0, []);
+        $this->assertPaginatedResponse($this->baseUser, 0, []);
     }
 
     // views all submitted applications
@@ -411,7 +411,6 @@ class PoolCandidateAdminViewTest extends TestCase
             ->withSnapshot()
             ->create([
                 'user_id' => User::factory()
-                    ->asApplicant()
                     ->withGovEmployeeProfile(),
                 'pool_id' => Pool::factory()->create([
                     'community_id' => Community::factory()->create(),
@@ -442,7 +441,6 @@ class PoolCandidateAdminViewTest extends TestCase
             ->withSnapshot()
             ->create([
                 'user_id' => User::factory()
-                    ->asApplicant()
                     ->withGovEmployeeProfile(),
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
                 'is_flagged' => false,
@@ -451,7 +449,6 @@ class PoolCandidateAdminViewTest extends TestCase
             ->withSnapshot()
             ->create([
                 'user_id' => User::factory()
-                    ->asApplicant()
                     ->withGovEmployeeProfile(),
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
                 'is_flagged' => true,
@@ -460,7 +457,6 @@ class PoolCandidateAdminViewTest extends TestCase
             ->withSnapshot()
             ->create([
                 'user_id' => User::factory()
-                    ->asApplicant()
                     ->withGovEmployeeProfile(),
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
                 'is_flagged' => false,
@@ -695,10 +691,10 @@ class PoolCandidateAdminViewTest extends TestCase
         $departmentA = Department::factory()->create(['name' => ['en' => 'AA (EN)', 'fr' => 'AA (FR)']]);
         $departmentB = Department::factory()->create(['name' => ['en' => 'BB (EN)', 'fr' => 'BB (FR)']]);
 
-        $userA = User::factory()->asApplicant()->create();
+        $userA = User::factory()->create();
         WorkExperience::factory()->asSubstantive()->for($userA)->for($departmentA)->create();
 
-        $userB = User::factory()->asApplicant()->create();
+        $userB = User::factory()->create();
         WorkExperience::factory()->asSubstantive()->for($userB)->for($departmentB)->create();
 
         PoolCandidate::truncate();

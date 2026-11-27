@@ -128,17 +128,17 @@ class AssessmentStepAuthorizationScopeTest extends TestCase
     }
 
     /**
-     * Negative Case: Applicant role.
-     * Applicants have NO view permissions for assessmentPlan in rolepermission.php.
+     * Negative Case: Base user role.
+     * Base users have NO view permissions for assessmentPlan in rolepermission.php.
      */
-    public function testScopeAuthorizedToViewAsApplicant(): void
+    public function testScopeAuthorizedToViewAsBaseUser(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        Auth::shouldReceive('user')->andReturn($applicant);
+        $baseUser = User::factory()->create();
+        Auth::shouldReceive('user')->andReturn($baseUser);
 
         $viewableIds = AssessmentStep::whereAuthorizedToView()->pluck('id')->toArray();
 
-        $this->assertEmpty($viewableIds, 'Applicants should have no access to internal assessment steps.');
+        $this->assertEmpty($viewableIds, 'Base users should have no access to internal assessment steps.');
     }
 
     /**

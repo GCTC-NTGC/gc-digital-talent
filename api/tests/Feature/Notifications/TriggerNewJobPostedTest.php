@@ -32,7 +32,6 @@ class TriggerNewJobPostedTest extends TestCase
         Community::factory()->create();
 
         $this->regularUser = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'regularUser',
                 'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],

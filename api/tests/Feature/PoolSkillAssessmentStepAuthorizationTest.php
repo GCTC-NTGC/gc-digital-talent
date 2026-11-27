@@ -100,12 +100,12 @@ class PoolSkillAssessmentStepAuthorizationTest extends TestCase
             ->assertJsonFragment(['id' => $stepIdB]);
     }
 
-    public function testApplicantCannotViewNestedSteps(): void
+    public function testBaseUserCannotViewNestedSteps(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
+        $baseUser = User::factory()->create();
         $skillIdA = $this->poolA->poolSkills->first()->id;
 
-        $this->actingAs($applicant, 'api')
+        $this->actingAs($baseUser, 'api')
             ->graphQL($this->query, ['id' => $this->poolA->id])
             ->assertJson([
                 'data' => [

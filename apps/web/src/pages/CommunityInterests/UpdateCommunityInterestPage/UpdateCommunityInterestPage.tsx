@@ -385,7 +385,7 @@ export const UpdateCommunityInterestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
     <UpdateCommunityInterestPage />
   </RequireAuth>
 );

@@ -123,10 +123,10 @@ class AssessmentStepPolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->step)));
     }
 
-    public function testApplicantCannotViewAssessmentStep(): void
+    public function testBaseUserCannotViewAssessmentStep(): void
     {
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->view($applicant, $this->step)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->view($baseUser, $this->step)));
     }
 
     #[DataProvider('allTeamRolesProvider')]

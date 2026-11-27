@@ -116,7 +116,6 @@ class AuthControllerTest extends TestCase
         // assert new user has expected roles
         $expectedRoleNames = [
             Role::where('name', 'base_user')->sole()->name,
-            Role::where('name', 'applicant')->sole()->name,
         ];
         $actualRoleNames = $newUser->roles->map(function ($role) {
             return $role->name;

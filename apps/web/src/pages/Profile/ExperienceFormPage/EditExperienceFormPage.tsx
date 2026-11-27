@@ -10,7 +10,7 @@ export const Component = () => {
   const { careerExperience } = useFeatureFlags();
 
   return (
-    <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <RequireAuth roles={[ROLE_NAME.BaseUser]}>
       {careerExperience ? (
         <EditExperienceTypeFormContainer />
       ) : (

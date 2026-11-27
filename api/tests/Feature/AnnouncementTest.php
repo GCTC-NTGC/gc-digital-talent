@@ -63,7 +63,7 @@ class AnnouncementTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
 
-        $this->nonAdmin = User::factory()->asApplicant()->create();
+        $this->nonAdmin = User::factory()->create();
         $this->admin = User::factory()->asAdmin()->create();
 
         $this->announcement = Announcement::factory()->sitewide()->create([

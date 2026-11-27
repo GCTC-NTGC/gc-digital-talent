@@ -57,14 +57,12 @@ class PoolCandidateSearchTest extends TestCase
                 'community_id' => $this->community->id,
             ]);
         $this->processOperator = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->pool->id)
             ->create([
                 'email' => 'process-operator@test.com',
                 'sub' => 'process-operator@test.com',
             ]);
         $this->communityRecruiter = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create([
                 'email' => 'community-recruiter@test.com',

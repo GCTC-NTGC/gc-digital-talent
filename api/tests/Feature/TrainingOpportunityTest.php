@@ -33,7 +33,6 @@ class TrainingOpportunityTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->admin = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create([
                 'email' => 'admin@test.com',

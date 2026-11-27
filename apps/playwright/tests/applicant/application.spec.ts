@@ -58,7 +58,7 @@ test.describe("Application", () => {
         ],
         positionDuration: [PositionDuration.Permanent],
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
 
     userId = user?.id ?? "";

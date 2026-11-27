@@ -46,7 +46,7 @@ class PoolCandidateUpdateTest extends TestCase
     use UsesProtectedGraphqlEndpoint;
     use WithFaker;
 
-    protected $applicantUser;
+    protected $baseUser;
 
     protected $candidateUser;
 
@@ -167,11 +167,10 @@ class PoolCandidateUpdateTest extends TestCase
             'community_id' => $this->community->id,
         ]);
 
-        $this->applicantUser = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
@@ -182,7 +181,6 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
 
         $this->candidateUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
@@ -303,7 +301,7 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
 
         // other applicant can't add a step
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
                 'errors' => [
@@ -426,11 +424,11 @@ class PoolCandidateUpdateTest extends TestCase
         ';
 
         // create experience for other user ids
-        $otherAwardExperienceId = AwardExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
-        $otherCommunityExperienceId = CommunityExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
-        $otherEducationExperienceId = EducationExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
-        $otherPersonalExperienceId = PersonalExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
-        $otherWorkExperienceId = WorkExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+        $otherAwardExperienceId = AwardExperience::factory()->create(['user_id' => $this->baseUser->id])->id;
+        $otherCommunityExperienceId = CommunityExperience::factory()->create(['user_id' => $this->baseUser->id])->id;
+        $otherEducationExperienceId = EducationExperience::factory()->create(['user_id' => $this->baseUser->id])->id;
+        $otherPersonalExperienceId = PersonalExperience::factory()->create(['user_id' => $this->baseUser->id])->id;
+        $otherWorkExperienceId = WorkExperience::factory()->create(['user_id' => $this->baseUser->id])->id;
 
         $this->poolCandidate->submitted_at = null;
         $this->poolCandidate->education_requirement_option = null;
@@ -842,14 +840,14 @@ class PoolCandidateUpdateTest extends TestCase
         // Create a removed candidate with all removed fields set
         $candidate = PoolCandidate::factory()
             ->removed(CandidateRemovalReason::OTHER)
-            ->for($this->applicantUser)
+            ->for($this->baseUser)
             ->create();
 
         $this->assertNotNull($candidate->removal_reason);
         $this->assertNotNull($candidate->removal_reason_other);
 
         // Applicant can't reinstate their own application
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
@@ -871,7 +869,7 @@ class PoolCandidateUpdateTest extends TestCase
         ];
 
         foreach ($statusesThatShouldFail as $status) {
-            $candidate = PoolCandidate::factory()->for($this->applicantUser)->create([
+            $candidate = PoolCandidate::factory()->for($this->baseUser)->create([
                 'application_status' => $status,
             ]);
 

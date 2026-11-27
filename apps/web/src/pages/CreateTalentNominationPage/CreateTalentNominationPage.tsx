@@ -203,7 +203,7 @@ const CreateTalentNominationApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
     <CreateTalentNominationApi />
   </RequireAuth>
 );

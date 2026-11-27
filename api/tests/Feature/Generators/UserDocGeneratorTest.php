@@ -43,12 +43,10 @@ class UserDocGeneratorTest extends TestCase
         WorkStream::factory()->create();
 
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create();
 
         $targetUser = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();

@@ -27,7 +27,6 @@ class NotificationAuthorizationScopeTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user1 = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'user1@example.org',
                 'enabled_email_notifications' => [],
@@ -36,7 +35,6 @@ class NotificationAuthorizationScopeTest extends TestCase
         $this->user1->notify(new Test('Notification1', 'database'));
 
         $this->user2 = User::factory()
-            ->asApplicant()
             ->create([
                 'sub' => 'user2@example.org',
                 'enabled_email_notifications' => [],
@@ -56,8 +54,8 @@ class NotificationAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $notifications->toArray());
     }
 
-    // an applicant should be able to view just their own notifications
-    public function testViewAsApplicant(): void
+    // a base user should be able to view just their own notifications
+    public function testViewAsBaseUser(): void
     {
         Auth::shouldReceive('user')
             ->andReturn($this->user1);

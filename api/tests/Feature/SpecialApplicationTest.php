@@ -31,7 +31,7 @@ class SpecialApplicationTest extends TestCase
 
     public Pool $pool;
 
-    public User $applicant;
+    public User $baseUser;
 
     public User $admin;
 
@@ -55,7 +55,7 @@ class SpecialApplicationTest extends TestCase
 
         $this->pool = Pool::factory()->published()->create();
 
-        $this->applicant = User::factory()->asApplicant()->create();
+        $this->baseUser = User::factory()->create();
 
         $this->admin = User::factory()->asAdmin()->create();
     }
@@ -70,7 +70,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $this->pool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -80,7 +80,7 @@ class SpecialApplicationTest extends TestCase
                 'data' => [
                     'createSpecialApplication' => [
                         'pool' => ['id' => $this->pool->id],
-                        'user' => ['id' => $this->applicant->id],
+                        'user' => ['id' => $this->baseUser->id],
                         'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
                         'specialApplicationJustification' => 'reasons',
                         'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -99,8 +99,8 @@ class SpecialApplicationTest extends TestCase
         $dateTimeString = $dateTimeObject->format('Y-m-d H:i:s');
 
         // check property attributes
-        assertSame($this->applicant->id, $attributes['user_id']);
-        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->baseUser->id, $attributes['user_id']);
+        assertSame($this->baseUser->fullName, $attributes['user_name']);
         assertSame($this->pool->id, $attributes['pool_id']);
         assertSame(ApplicationStatus::DRAFT->name, $attributes['application_status']);
         assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
@@ -114,7 +114,7 @@ class SpecialApplicationTest extends TestCase
     {
         $existingApplication = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'submitted_at' => null,
         ]);
 
@@ -124,7 +124,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $this->pool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -134,7 +134,7 @@ class SpecialApplicationTest extends TestCase
                 'data' => [
                     'createSpecialApplication' => [
                         'pool' => ['id' => $this->pool->id],
-                        'user' => ['id' => $this->applicant->id],
+                        'user' => ['id' => $this->baseUser->id],
                         'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
                         'specialApplicationJustification' => 'reasons',
                         'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -159,8 +159,8 @@ class SpecialApplicationTest extends TestCase
         $dateTimeString = $dateTimeObject->format('Y-m-d H:i:s');
 
         // check property attributes
-        assertSame($this->applicant->id, $attributes['user_id']);
-        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->baseUser->id, $attributes['user_id']);
+        assertSame($this->baseUser->fullName, $attributes['user_name']);
         assertSame($this->pool->id, $attributes['pool_id']);
         assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
         assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
@@ -174,7 +174,7 @@ class SpecialApplicationTest extends TestCase
     {
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'submitted_at' => config('constants.far_past_datetime'),
         ]);
 
@@ -182,7 +182,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $this->pool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -198,7 +198,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $this->pool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_past_datetime'),
@@ -223,7 +223,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $this->pool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => $poolClosingDate,
@@ -233,7 +233,7 @@ class SpecialApplicationTest extends TestCase
                 'data' => [
                     'createSpecialApplication' => [
                         'pool' => ['id' => $this->pool->id],
-                        'user' => ['id' => $this->applicant->id],
+                        'user' => ['id' => $this->baseUser->id],
                         'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
                         'specialApplicationJustification' => 'reasons',
                         'specialApplicationClosingDate' => $poolClosingDate,
@@ -281,13 +281,13 @@ class SpecialApplicationTest extends TestCase
         $this->pool->save();
 
         // applicant unable to apply due to both those reasons, normally
-        $this->applicant->email_verified_at = config('constants.far_past_datetime');
-        $this->applicant->work_email_verified_at = null;
-        $this->applicant->save();
+        $this->baseUser->email_verified_at = config('constants.far_past_datetime');
+        $this->baseUser->work_email_verified_at = null;
+        $this->baseUser->save();
 
         $newPoolCandidate = PoolCandidate::factory()
             ->completed()
-            ->for($this->applicant)
+            ->for($this->baseUser)
             ->for($this->pool)
             ->create([
                 'special_application_type' => SpecialApplicationType::PRIORITY->name,
@@ -300,7 +300,7 @@ class SpecialApplicationTest extends TestCase
         Activity::truncate();
 
         // applicant able to successfully submit the application
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -323,13 +323,13 @@ class SpecialApplicationTest extends TestCase
         $activity = Activity::where('event', ActivityEvent::SPECIAL_APPLICATION_SUBMITTED->value)
             ->where('subject_type', PoolCandidate::class)
             ->where('subject_id', $newPoolCandidate->id)
-            ->where('causer_id', $this->applicant->id)
+            ->where('causer_id', $this->baseUser->id)
             ->sole();
 
         $attributes = $activity->properties['attributes'];
 
         // check property attributes
-        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->baseUser->fullName, $attributes['user_name']);
         assertSame($this->pool->id, $attributes['pool_id']);
         assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
         assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
@@ -349,7 +349,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $draftPool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -365,7 +365,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $openPool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -375,7 +375,7 @@ class SpecialApplicationTest extends TestCase
                 'data' => [
                     'createSpecialApplication' => [
                         'pool' => ['id' => $openPool->id],
-                        'user' => ['id' => $this->applicant->id],
+                        'user' => ['id' => $this->baseUser->id],
                         'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
                         'specialApplicationJustification' => 'reasons',
                         'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -388,7 +388,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $closedPool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -398,7 +398,7 @@ class SpecialApplicationTest extends TestCase
                 'data' => [
                     'createSpecialApplication' => [
                         'pool' => ['id' => $closedPool->id],
-                        'user' => ['id' => $this->applicant->id],
+                        'user' => ['id' => $this->baseUser->id],
                         'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
                         'specialApplicationJustification' => 'reasons',
                         'specialApplicationClosingDate' => config('constants.far_future_datetime'),
@@ -411,7 +411,7 @@ class SpecialApplicationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
                     'pool' => ['connect' => $archivedPool->id],
-                    'user' => ['connect' => $this->applicant->id],
+                    'user' => ['connect' => $this->baseUser->id],
                     'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
                     'specialApplicationJustification' => 'reasons',
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),

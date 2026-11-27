@@ -61,12 +61,12 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         $poolB = Pool::factory()->published()->create();
 
         $candidateInPoolA = PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($poolA)
             ->create();
 
         PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($poolB)
             ->create();
 
@@ -86,12 +86,12 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         $poolB = Pool::factory()->published()->create(['department_id' => $departmentB->id]);
 
         $candidateInPoolA = PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($poolA)
             ->create();
 
         PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($poolB)
             ->create();
 
@@ -114,7 +114,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
             'department_id' => $otherDepartment->id,
         ]);
 
-        $consentedGovUser = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $consentedGovUser = User::factory()->withGovEmployeeProfile()->create();
         $consentedCandidate = PoolCandidate::factory()->for($consentedGovUser)->for($unrelatedPool)->create();
         CommunityInterest::factory()
             ->for($consentedGovUser)
@@ -123,7 +123,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
             ->create();
 
         // not a verified gov employee, despite consenting -> should not be visible
-        $nonGovUser = User::factory()->asApplicant()->create();
+        $nonGovUser = User::factory()->create();
         PoolCandidate::factory()->for($nonGovUser)->for($unrelatedPool)->create();
         CommunityInterest::factory()
             ->for($nonGovUser)
@@ -132,7 +132,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
             ->create();
 
         // verified gov employee, but did not consent to share -> should not be visible
-        $nonConsentedGovUser = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $nonConsentedGovUser = User::factory()->withGovEmployeeProfile()->create();
         PoolCandidate::factory()->for($nonConsentedGovUser)->for($unrelatedPool)->create();
         CommunityInterest::factory()
             ->for($nonConsentedGovUser)
@@ -164,12 +164,12 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
 
         // visible via the pool-based branch (applicant profile access to the community's pool)
         $applicantInCommunityPool = PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($communityPool)
             ->create();
 
         // visible via the user-based branch (consented, verified community talent)
-        $consentedGovUser = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $consentedGovUser = User::factory()->withGovEmployeeProfile()->create();
         $communityTalentCandidate = PoolCandidate::factory()->for($consentedGovUser)->for($unrelatedPool)->create();
         CommunityInterest::factory()
             ->for($consentedGovUser)
@@ -179,7 +179,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
 
         // visible via neither branch
         PoolCandidate::factory()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($unrelatedPool)
             ->create();
 
@@ -209,14 +209,14 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         // a plain applicant in the operated pool
         $candidateInOperatedPool = PoolCandidate::factory()
             ->submitted()
-            ->for(User::factory()->asApplicant()->create())
+            ->for(User::factory()->create())
             ->for($operatedPool)
             ->create();
 
         // the next three are consented, verified gov employees, so they all count as community talent
 
         // interest in the other community, candidate in the operated pool
-        $consentedGovUser1 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $consentedGovUser1 = User::factory()->withGovEmployeeProfile()->create();
         $communityCandidateOtherCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser1)->for($operatedPool)->create();
         CommunityInterest::factory()
             ->for($consentedGovUser1)
@@ -225,7 +225,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
             ->create();
 
         // interest in the other community, candidate in that same community's pool
-        $consentedGovUser2 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $consentedGovUser2 = User::factory()->withGovEmployeeProfile()->create();
         $otherCommunityCandidateOtherCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser2)->for($otherPool)->create();
         CommunityInterest::factory()
             ->for($consentedGovUser2)
@@ -234,7 +234,7 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
             ->create();
 
         // interest in the operated pool's community, candidate in the other community's pool
-        $consentedGovUser3 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $consentedGovUser3 = User::factory()->withGovEmployeeProfile()->create();
         $otherCommunityCandidateCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser3)->for($otherPool)->create();
         CommunityInterest::factory()
             ->for($consentedGovUser3)

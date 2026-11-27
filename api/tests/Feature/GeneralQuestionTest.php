@@ -57,7 +57,6 @@ class GeneralQuestionTest extends TestCase
                 'community_id' => $this->community->id,
             ]); // this seeds 3 questions onto the pool
         $this->processOperator = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->pool->id)
             ->create([
                 'email' => 'process-operator@test.com',

@@ -47,7 +47,6 @@ class CandidateExcelGenerationTest extends TestCase
             ]);
 
         $this->adminUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->asAdmin()
             ->create();

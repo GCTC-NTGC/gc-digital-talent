@@ -31,8 +31,6 @@ class CommunityInterestTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $applicant;
-
     protected $baseUser;
 
     protected $platformAdmin;
@@ -103,8 +101,7 @@ class CommunityInterestTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->applicant = User::factory()
-            ->asApplicant()
+        $this->baseUser = User::factory()
             ->withGovEmployeeProfile()
             ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())
             ->create([
@@ -117,8 +114,6 @@ class CommunityInterestTest extends TestCase
         $this->workStreamIds = $community->workStreams()->pluck('id')->toArray();
 
         $communityPool = Pool::factory()->create(['community_id' => $this->communityId]);
-
-        $this->baseUser = User::factory()->create();
 
         $this->platformAdmin = User::factory()
             ->asAdmin()
@@ -142,17 +137,17 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can create just the community interest
+     * Test base user can create just the community interest
      */
-    public function testApplicantCanCreateOwnCommunityInterest()
+    public function testBaseUserCanCreateOwnCommunityInterest()
     {
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 $this->createMutation,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
-                        'userId' => $this->applicant->id,
+                        'userId' => $this->baseUser->id,
                         'communityInterest' => [
                             'communityId' => $this->communityId,
                             ...$this->input,
@@ -179,19 +174,19 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can create with development programs
+     * Test base user can create with development programs
      */
-    public function testApplicantCanCreateOwnCommunityInterestWithDevelopmentPrograms()
+    public function testBaseUserCanCreateOwnCommunityInterestWithDevelopmentPrograms()
     {
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 $this->createMutation,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
-                        'userId' => $this->applicant->id,
+                        'userId' => $this->baseUser->id,
                         'communityInterest' => [
                             'communityId' => $this->communityId,
                             ...$this->input,
@@ -216,15 +211,15 @@ class CommunityInterestTest extends TestCase
         // record in pivot table created
         $developmentProgramUserRecord = DB::table('development_program_user')->sole();
         assertEquals($developmentProgramUserRecord->development_program_id, $developmentProgram->id);
-        assertEquals($developmentProgramUserRecord->user_id, $this->applicant->id);
+        assertEquals($developmentProgramUserRecord->user_id, $this->baseUser->id);
         assertEquals($developmentProgramUserRecord->education_experience_id, $educationExperience->id);
         assertEquals($developmentProgramUserRecord->participation_status, DevelopmentProgramParticipationStatus::ENROLLED->name);
     }
 
     /**
-     * Test applicant can create a community interest for Finance
+     * Test base user can create a community interest for Finance
      */
-    public function testApplicantCanCreateOwnCommunityInterestForFinance()
+    public function testBaseUserCanCreateOwnCommunityInterestForFinance()
     {
         $financeCommunity = Community::factory()->create([
             'key' => 'finance',
@@ -234,12 +229,12 @@ class CommunityInterestTest extends TestCase
             ],
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 $this->createMutation,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
-                        'userId' => $this->applicant->id,
+                        'userId' => $this->baseUser->id,
                         'communityInterest' => [
                             'communityId' => $financeCommunity->id,
                             ...$this->input,
@@ -261,9 +256,9 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can create a community interest for Procurement
+     * Test base user can create a community interest for Procurement
      */
-    public function testApplicantCanCreateOwnCommunityInterestForProcurement()
+    public function testBaseUserCanCreateOwnCommunityInterestForProcurement()
     {
         $procurementCommunity = Community::factory()->create([
             'key' => 'procurement',
@@ -273,7 +268,7 @@ class CommunityInterestTest extends TestCase
             ],
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 <<<'GRAPHQL'
                     mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
@@ -291,7 +286,7 @@ class CommunityInterestTest extends TestCase
                 GRAPHQL,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
-                        'userId' => $this->applicant->id,
+                        'userId' => $this->baseUser->id,
                         'communityInterest' => [
                             'communityId' => $procurementCommunity->id,
                             'procurementIsSDO' => true,
@@ -317,19 +312,19 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant cannot connect someone else's experience
+     * Test base user cannot connect someone else's experience
      */
-    public function testApplicantCannotConnectOtherUsersEducationExperience()
+    public function testBaseUserCannotConnectOtherUsersEducationExperience()
     {
         $developmentProgram = DevelopmentProgram::factory()->create();
         $otherUserEducationExperience = EducationExperience::factory()->create(['user_id' => User::factory()->create()]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(
                 $this->createMutation,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
-                        'userId' => $this->applicant->id,
+                        'userId' => $this->baseUser->id,
                         'communityInterest' => [
                             'communityId' => $this->communityId,
                             ...$this->input,
@@ -353,13 +348,13 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can update own
+     * Test base user can update own
      */
-    public function testApplicantCanUpdateOwn()
+    public function testBaseUserCanUpdateOwn()
     {
-        $communityInterestId = $this->applicant->employeeProfile->communityInterests[0]?->id;
+        $communityInterestId = $this->baseUser->employeeProfile->communityInterests[0]?->id;
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->updateMutation,
                 [
                     'communityInterestWithDevelopmentPrograms' => [
@@ -381,13 +376,13 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can delete own
+     * Test base user can delete own
      */
-    public function testApplicantCanDeleteOwn()
+    public function testBaseUserCanDeleteOwn()
     {
-        $communityInterest = $this->applicant->employeeProfile->communityInterests()->first();
+        $communityInterest = $this->baseUser->employeeProfile->communityInterests()->first();
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation DeleteCommunityInterest($id: UUID!) {
                     deleteCommunityInterest(id: $id) {
@@ -407,13 +402,13 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicants cannot create for another
+     * Test base users cannot create for another
      */
-    public function testApplicantCannotCreateForOtherUser()
+    public function testBaseUserCannotCreateForOtherUser()
     {
         $otherId = User::factory()->create()->id;
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
                     'userId' => $otherId,
@@ -434,10 +429,10 @@ class CommunityInterestTest extends TestCase
 
     public function testCommunityExistsValidation()
     {
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
-                    'userId' => $this->applicant->id,
+                    'userId' => $this->baseUser->id,
                     'communityInterest' => [
                         'communityId' => Str::uuid(),
                         ...$this->input,
@@ -451,12 +446,12 @@ class CommunityInterestTest extends TestCase
 
     public function testUniqueValidation()
     {
-        $communityId = $this->applicant->employeeProfile->communityInterests()->first()->community->id;
+        $communityId = $this->baseUser->employeeProfile->communityInterests()->first()->community->id;
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
-                    'userId' => $this->applicant->id,
+                    'userId' => $this->baseUser->id,
                     'communityInterest' => [
                         'communityId' => $communityId,
                         ...$this->input,
@@ -474,10 +469,10 @@ class CommunityInterestTest extends TestCase
             'community_id' => $this->communityId,
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
-                    'userId' => $this->applicant->id,
+                    'userId' => $this->baseUser->id,
                     'communityInterest' => [
                         'communityId' => $community->id,
                         ...$this->input,
@@ -498,7 +493,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         /** @var User */
-        $owningUser = User::factory()->withGovEmployeeProfile()->asApplicant()->create();
+        $owningUser = User::factory()->withGovEmployeeProfile()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
             'community_id' => $this->communityId,
@@ -506,10 +501,6 @@ class CommunityInterestTest extends TestCase
         ]);
 
         // these roles cannot see the created model
-        $this->actingAs($this->applicant, 'api')->graphQL(
-            $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 0]);
         $this->actingAs($this->baseUser, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
@@ -575,7 +566,7 @@ class CommunityInterestTest extends TestCase
     {
         // made-up names so random factory data can't match the searches
         $interestFor = fn (string $first, string $last) => CommunityInterest::factory()->create([
-            'user_id' => User::factory()->withGovEmployeeProfile()->asApplicant()
+            'user_id' => User::factory()->withGovEmployeeProfile()
                 ->create(['first_name' => $first, 'last_name' => $last])->id,
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
@@ -725,16 +716,16 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can update the linked education experience on a development program
+     * Test base user can update the linked education experience on a development program
      */
-    public function testApplicantCanUpdateLinkedExperience(): void
+    public function testBaseUserCanUpdateLinkedExperience(): void
     {
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
-        $originalExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
-        $newExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+        $originalExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
+        $newExperience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
         $communityInterest = CommunityInterest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
@@ -742,13 +733,13 @@ class CommunityInterestTest extends TestCase
         DB::table('development_program_user')->insert([
             'id' => Str::uuid(),
             'development_program_id' => $developmentProgram->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'education_experience_id' => $originalExperience->id,
             'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
             'completion_date' => null,
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->updateMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
                     'id' => $communityInterest->id,
@@ -766,21 +757,21 @@ class CommunityInterestTest extends TestCase
 
         $this->assertDatabaseHas('development_program_user', [
             'development_program_id' => $developmentProgram->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'education_experience_id' => $newExperience->id,
         ]);
     }
 
     /**
-     * Test applicant can remove a linked education experience by setting it to null
+     * Test base user can remove a linked education experience by setting it to null
      */
-    public function testApplicantCanUnlinkExperience(): void
+    public function testBaseUserCanUnlinkExperience(): void
     {
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
-        $experience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+        $experience = EducationExperience::factory()->create(['user_id' => $this->baseUser->id]);
 
         $communityInterest = CommunityInterest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
@@ -788,13 +779,13 @@ class CommunityInterestTest extends TestCase
         DB::table('development_program_user')->insert([
             'id' => Str::uuid(),
             'development_program_id' => $developmentProgram->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'education_experience_id' => $experience->id,
             'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
             'completion_date' => null,
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->updateMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
                     'id' => $communityInterest->id,
@@ -812,7 +803,7 @@ class CommunityInterestTest extends TestCase
 
         $this->assertDatabaseHas('development_program_user', [
             'development_program_id' => $developmentProgram->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'education_experience_id' => null,
         ]);
     }
@@ -824,10 +815,10 @@ class CommunityInterestTest extends TestCase
     {
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($this->communityId)->create();
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
-                    'userId' => $this->applicant->id,
+                    'userId' => $this->baseUser->id,
                     'communityInterest' => [
                         'communityId' => $this->communityId,
                         ...$this->input,
@@ -846,7 +837,7 @@ class CommunityInterestTest extends TestCase
 
         $this->assertDatabaseHas('development_program_user', [
             'development_program_id' => $developmentProgram->id,
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
             'completion_date' => null,
         ]);
@@ -857,10 +848,10 @@ class CommunityInterestTest extends TestCase
         $otherCommunity = Community::factory()->create();
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($otherCommunity->id)->create();
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->createMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
-                    'userId' => $this->applicant->id,
+                    'userId' => $this->baseUser->id,
                     'communityInterest' => [
                         'communityId' => $this->communityId,
                         ...$this->input,
@@ -890,12 +881,12 @@ class CommunityInterestTest extends TestCase
         $developmentProgram = DevelopmentProgram::factory()->withCommunity($otherCommunity->id)->create();
 
         $communityInterest = CommunityInterest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->baseUser->id,
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
 
-        $this->actingAs($this->applicant, 'api')
+        $this->actingAs($this->baseUser, 'api')
             ->graphQL($this->updateMutation, [
                 'communityInterestWithDevelopmentPrograms' => [
                     'id' => $communityInterest->id,

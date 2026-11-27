@@ -126,7 +126,7 @@ class KeywordSearchTest extends TestCase
     // Test user can be edited and searched by the changed value
     public function testUserSearchByEditedValue()
     {
-        $user = User::factory()->asApplicant()->create([
+        $user = User::factory()->create([
             'first_name' => 'user',
             'last_name' => 'test',
             'telephone' => '1234567890',

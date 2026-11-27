@@ -36,7 +36,6 @@ class TalentNominationGroupTest extends TestCase
     protected function makeEmployee(string $userName)
     {
         return User::factory()
-            ->asApplicant()
             ->create([
                 'email' => $userName.'@test.com',
                 'computed_is_gov_employee' => true,
@@ -562,7 +561,6 @@ class TalentNominationGroupTest extends TestCase
         ]);
 
         $nominee = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominee@test.com',
                 'computed_is_gov_employee' => true,

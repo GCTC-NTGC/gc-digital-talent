@@ -55,7 +55,6 @@ class TalentNominationUnprotectedTest extends TestCase
                 'work_email' => 'coordinator@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asApplicant()
             ->asCommunityTalentCoordinator($event->community_id)
             ->create();
 

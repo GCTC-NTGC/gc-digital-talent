@@ -57,7 +57,7 @@ test.describe("Location Preference Update", () => {
         email: `${sub}@test.org`,
         sub,
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
 
     user = createdUser ?? NO_USER;

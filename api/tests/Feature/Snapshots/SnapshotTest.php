@@ -52,7 +52,6 @@ class SnapshotTest extends TestCase
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
 
@@ -197,7 +196,6 @@ class SnapshotTest extends TestCase
     {
         // non-null snapshot value set
         $user = User::factory()
-            ->asApplicant()
             ->create();
         $pool = Pool::factory()->published()->create();
         $poolCandidate = PoolCandidate::factory()->create([
@@ -219,7 +217,6 @@ class SnapshotTest extends TestCase
     {
         // non-null snapshot value set
         $user = User::factory()
-            ->asApplicant()
             ->create();
         $pool = Pool::factory()->published()->create();
         $poolCandidate = PoolCandidate::factory()->create([

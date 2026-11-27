@@ -47,7 +47,6 @@ class CommunityDevelopmentProgramTest extends TestCase
             ->id;
 
         $this->communityAdmin = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin([$this->communityId])
             ->create([
                 'email' => 'community-admin-test@test.com',
@@ -179,7 +178,7 @@ class CommunityDevelopmentProgramTest extends TestCase
             ->classifications()
             ->sync($classificationIds);
 
-        $employee = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $employee = User::factory()->withGovEmployeeProfile()->create();
 
         $response = $this->actingAs($employee, 'api')
             ->graphQL(<<<'GRAPHQL'

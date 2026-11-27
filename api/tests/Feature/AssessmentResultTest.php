@@ -50,7 +50,6 @@ class AssessmentResultTest extends TestCase
             'community_id' => $this->community->id,
         ]);
         $this->communityUser = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->pool->id)
             ->create([
                 'email' => 'community-user@test.com',

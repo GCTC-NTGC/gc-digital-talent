@@ -797,18 +797,6 @@ return [
             'is_team_based' => false,
         ],
 
-        'applicant' => [
-            'display_name' => [
-                'en' => 'Applicant',
-                'fr' => 'Candidat',
-            ],
-            'description' => [
-                'en' => 'Can edit their own profile and apply to jobs.',
-                'fr' => 'Peut modifier son propre profil et postuler des emplois.',
-            ],
-            'is_team_based' => false,
-        ],
-
         'process_operator' => [
             'display_name' => [
                 'en' => 'Process Operator',
@@ -945,13 +933,11 @@ return [
             ],
             'talentRequest' => [
                 'any' => ['create'],
+                'own' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
             ],
-        ],
-
-        'applicant' => [
             'application' => [
                 'own' => ['view'],
             ],
@@ -981,9 +967,6 @@ return [
             ],
             'employeeProfile' => [
                 'own' => ['view', 'update'],
-            ],
-            'talentRequest' => [
-                'own' => ['view'],
             ],
             'user' => [
                 'own' => ['view', 'update'],

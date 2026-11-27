@@ -36,7 +36,6 @@ class TalentNominationGroupStatusTest extends TestCase
         $this->seed(SkillSeeder::class);
 
         $nominator = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominator@test.com',
                 'computed_is_gov_employee' => true,
@@ -45,7 +44,6 @@ class TalentNominationGroupStatusTest extends TestCase
             ]);
 
         $nominee = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominee@test.com',
                 'computed_is_gov_employee' => true,

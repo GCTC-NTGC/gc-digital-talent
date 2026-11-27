@@ -50,7 +50,6 @@ class BigSeederPoolCandidateUser extends Seeder
         // User - non-government
         for ($i = 0; $i < $limit; $i++) {
             User::factory()
-                ->asApplicant()
                 ->withNonGovProfile()
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
@@ -62,7 +61,6 @@ class BigSeederPoolCandidateUser extends Seeder
         // User - government
         for ($i = 0; $i < $limit; $i++) {
             User::factory()
-                ->asApplicant()
                 ->withGovEmployeeProfile()
                 ->withCommunityInterests(
                     [$digitalCommunityId, $atipCommunityId, $financeCommunityId],

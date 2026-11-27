@@ -51,12 +51,10 @@ class ChecksTeamPermissionsTraitTest extends TestCase
         ]);
 
         $this->processOperatorUser = User::factory()
-            ->asApplicant()
             ->asProcessOperator($this->pool->id)
             ->create();
 
         $this->communityRecruiterUser = User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create();
 

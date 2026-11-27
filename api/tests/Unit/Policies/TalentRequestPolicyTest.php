@@ -88,17 +88,17 @@ class TalentRequestPolicyTest extends PolicyTestCase
 
     public function testViewReturnsTrueForViewOwnPermissionWhenOwner(): void
     {
-        $owner = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
         $request = $this->createTalentRequest(owner: $owner);
         $this->assertTrue($this->ensureBool($this->policy->view($owner, $request)));
     }
 
     public function testViewReturnsFalseForViewOwnPermissionWhenNotOwner(): void
     {
-        $owner = User::factory()->asApplicant()->create();
-        $otherApplicant = User::factory()->asApplicant()->create();
+        $owner = User::factory()->create();
+        $otherBaseUser = User::factory()->create();
         $request = $this->createTalentRequest(owner: $owner);
-        $this->assertFalse($this->ensureBool($this->policy->view($otherApplicant, $request)));
+        $this->assertFalse($this->ensureBool($this->policy->view($otherBaseUser, $request)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -128,8 +128,8 @@ class TalentRequestPolicyTest extends PolicyTestCase
     {
         $communityWithoutTeam = $this->createCommunityWithoutTeam();
         $request = $this->createTalentRequest($communityWithoutTeam);
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertFalse($this->ensureBool($this->policy->view($applicant, $request)));
+        $baseUser = User::factory()->create();
+        $this->assertFalse($this->ensureBool($this->policy->view($baseUser, $request)));
     }
 
     // --- create() ---
@@ -138,8 +138,8 @@ class TalentRequestPolicyTest extends PolicyTestCase
     {
         $this->assertTrue($this->ensureBool($this->policy->create(null)));
 
-        $applicant = User::factory()->asApplicant()->create();
-        $this->assertTrue($this->ensureBool($this->policy->create($applicant)));
+        $baseUser = User::factory()->create();
+        $this->assertTrue($this->ensureBool($this->policy->create($baseUser)));
     }
 
     // --- update() / delete() ---

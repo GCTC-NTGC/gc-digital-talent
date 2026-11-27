@@ -54,10 +54,9 @@ class ApplicationDocGeneratorTest extends TestCase
 
         $community = Community::where('key', 'digital')->sole();
 
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asAdmin()->create();
 
         $user = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();

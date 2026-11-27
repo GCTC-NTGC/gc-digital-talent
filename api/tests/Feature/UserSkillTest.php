@@ -42,13 +42,11 @@ class UserSkillTest extends TestCase
         // Run necessary seeders
         $this->seed(RolePermissionSeeder::class);
         $this->user = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'user@test.com',
                 'sub' => 'user@test.com',
             ]);
         $this->differentUser = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'mischievous@test.com',
                 'sub' => 'mischievous@test.com',

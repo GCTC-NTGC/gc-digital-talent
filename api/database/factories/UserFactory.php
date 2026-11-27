@@ -359,18 +359,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Attach the applicant role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asApplicant()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('applicant');
-        });
-    }
-
-    /**
      * Attach the admin role to a user after creation.
      *
      * @return $this

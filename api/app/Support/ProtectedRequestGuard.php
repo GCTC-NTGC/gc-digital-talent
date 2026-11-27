@@ -16,7 +16,6 @@ class ProtectedRequestGuard
     // these are the role names with limited permissions that can safely be used on unprotected requests
     const LIMITED_ROLES = [
         'base_user',
-        'applicant',
     ];
 
     // decide if it is safe for the current user to use the given role

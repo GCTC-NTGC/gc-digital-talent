@@ -39,7 +39,6 @@ class ComputeGovInfoTest extends TestCase
         ]);
 
         $this->user = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'computed-gov-info@test.com',
                 'sub' => 'computed-gov-info@test.com',

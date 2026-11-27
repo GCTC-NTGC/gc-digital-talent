@@ -61,7 +61,6 @@ class HardDeleteOldUsersTest extends TestCase
     {
         $deletedDate = Carbon::now()->subYears(5);
         User::factory()
-            ->asApplicant()
             ->has(PoolCandidate::factory())
             ->has(WorkExperience::factory())
             ->has(UserSkill::factory())

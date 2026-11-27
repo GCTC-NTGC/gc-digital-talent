@@ -6,7 +6,6 @@ import {
   NAV_ROLE_KEY,
   useAuthentication,
   useAuthorization,
-  ROLE_NAME,
 } from "@gc-digital-talent/auth";
 import { assertUnreachable, notEmpty } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -48,12 +47,10 @@ export const NavContext = createContext<NavContextState>({
 
 export function convertRoleToNavRole(role: RoleName): NavRole {
   switch (role) {
-    case "base_user":
-      return null;
     case "department_admin":
     case "department_hr_advisor":
       return "department";
-    case "applicant":
+    case "base_user":
       return "applicant";
     case "process_operator":
     case "community_recruiter":
@@ -101,7 +98,6 @@ const NavContextContainer = ({ children }: NavContextContainerProps) => {
 
   const userRoleNames = roleAssignments
     ?.map((a) => a.role?.name)
-    .filter((a) => a !== ROLE_NAME.BaseUser)
     .filter(notEmpty) as RoleName[];
 
   useEffect(() => {

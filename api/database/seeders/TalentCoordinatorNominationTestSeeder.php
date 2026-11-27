@@ -64,7 +64,6 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
         // Seed a few new user nominations with a mix of approved and rejected
         $assessedNominees = User::factory()
             ->count(5)
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
 
@@ -143,15 +142,12 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
 
         // Seed a nomination with unverified users for the nominee, nominator, and advancement reference
         $unverifiedNominee = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create(['work_email_verified_at' => null]);
         $unverifiedNominator = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create(['work_email_verified_at' => null]);
         $unverifiedReference = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create(['work_email_verified_at' => null]);
 

@@ -258,7 +258,7 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
   const ownRoles = unpackMaybes(roleAssignments)
     .map((roleAssign) => roleAssign.role)
     .filter((role) => !!role)
-    .filter((role) => !["base_user", "applicant"].includes(role.name));
+    .filter((role) => role.name !== "base_user");
 
   return (
     <>

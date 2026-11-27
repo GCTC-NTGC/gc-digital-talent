@@ -33,7 +33,6 @@ class UserTestSeeder extends Seeder
 
         // shared auth users for testing
         $adminUser = User::factory()
-            ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->asAdmin()
             ->withGovEmployeeProfile()
@@ -51,7 +50,6 @@ class UserTestSeeder extends Seeder
         PersonalExperience::factory()->create(['user_id' => $adminUser->id]);
 
         User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->withGovEmployeeProfile()
             ->create([
@@ -63,7 +61,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->withNonGovProfile()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
@@ -76,7 +73,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $financeCommunityId])
             ->create([
@@ -89,6 +85,9 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
+            ->afterCreating(function (User $user) {
+                $user->removeRole('base_user');
+            })
             ->create([
                 'first_name' => 'Hilary',
                 'last_name' => 'Seward',
@@ -97,7 +96,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asProcessOperator(Pool::factory()->create()->id)
             ->withGovEmployeeProfile()
             ->create([
@@ -109,7 +107,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asCommunityRecruiter([$digitalCommunityId, $atipCommunityId])
             ->withGovEmployeeProfile()
             ->create([
@@ -121,7 +118,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->withGovEmployeeProfile()
             ->create([
@@ -133,7 +129,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asCommunityTalentCoordinator([$digitalCommunityId, $atipCommunityId])
             ->withGovEmployeeProfile()
             ->create([
@@ -145,7 +140,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asDepartmentAdmin([$departmentId])
             ->withGovEmployeeProfile()
             ->create([
@@ -157,7 +151,6 @@ class UserTestSeeder extends Seeder
             ]);
 
         User::factory()
-            ->asApplicant()
             ->asDepartmentHRAdvisor([$departmentId])
             ->withGovEmployeeProfile()
             ->create([

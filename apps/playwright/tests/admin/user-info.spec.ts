@@ -78,7 +78,7 @@ test.describe("User information", { tag: "@uat" }, () => {
           ],
         },
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
 
     user = createdUser ?? NO_USER;

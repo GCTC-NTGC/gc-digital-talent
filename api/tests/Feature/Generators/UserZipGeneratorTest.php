@@ -33,17 +33,14 @@ class UserZipGeneratorTest extends TestCase
     {
         // arrange
         $adminUser = User::factory()
-            ->asApplicant()
             ->asAdmin()
             ->create();
 
         $targetUser1 = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
 
         $targetUser2 = User::factory()
-            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create();
 

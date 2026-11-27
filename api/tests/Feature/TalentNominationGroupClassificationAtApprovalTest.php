@@ -37,7 +37,6 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
         $this->nomineeClassification = Classification::factory()->create();
 
         $nominator = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominator@test.com',
                 'computed_is_gov_employee' => true,
@@ -46,7 +45,6 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
             ]);
 
         $nominee = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominee@test.com',
                 'computed_is_gov_employee' => true,
@@ -94,7 +92,6 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
     public function testApprovingAdvancementWithNoNomineeClassificationLeavesFieldNull()
     {
         $nominator = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominator2@test.com',
                 'computed_is_gov_employee' => true,
@@ -103,7 +100,6 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
             ]);
 
         $nominee = User::factory()
-            ->asApplicant()
             ->create([
                 'email' => 'nominee2@test.com',
                 'computed_is_gov_employee' => true,

@@ -20,10 +20,10 @@
 
 1. Sign in with any authentication provider
 2. Run `php artisan tinker` in `/api` directory
-3. Run the following commands in tinker to add `base_user`, `applicant`, and `platform_admin` roles to the user. Replace *username@domain.tld* with email address associated with the account.
+3. Run the following commands in tinker to add `base_user` and `platform_admin` roles to the user. Replace *username@domain.tld* with email address associated with the account.
 
 ```
 $user = User::where('email', 'username@domain.tld')->sole();
-$user->addRoles(['base_user', 'applicant', 'platform_admin']);
+$user->addRoles(['base_user', 'platform_admin']);
 $user->roles()->get()->pluck('name');
 ```

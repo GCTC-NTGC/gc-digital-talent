@@ -29,7 +29,7 @@ test.describe("Employee Profile", { tag: "@uat" }, () => {
         workEmail: `${sub}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
     userId = createdUser?.id;
   });
@@ -56,7 +56,7 @@ test.describe("Employee Profile", { tag: "@uat" }, () => {
         workEmail: `${sub2}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["base_user", "applicant"],
+      roles: ["base_user"],
     });
     userId2 = createdUser2?.id;
 
