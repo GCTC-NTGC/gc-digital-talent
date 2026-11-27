@@ -13,15 +13,7 @@
     "browser": true,
     "es2020": true
   },
-  "ignorePatterns": [
-    "**/index.js",
-    "**/styleMock.ts",
-    "**/fileMock.ts",
-    "**/gql/graphql.ts",
-    "**/*.snap",
-    "apps/web/src/utils/initTheme.js",
-    "packages/theme/src/init.js"
-  ],
+  "ignorePatterns": ["**/gql/graphql.ts", "apps/web/src/utils/initTheme.js"],
   "rules": {
     "import/extensions": [
       "error",
@@ -34,7 +26,6 @@
         "json": "always"
       }
     ],
-    "import/default": "error",
     "import/no-duplicates": "warn",
     "import/no-named-as-default-member": "warn",
     "import/no-unassigned-import": [
@@ -187,7 +178,6 @@
       }
     ],
     "turbo/no-undeclared-env-vars": "error",
-    "vitest/no-focused-tests": "error",
     "vitest/require-mock-type-parameters": "off",
     "vitest/expect-expect": [
       "error",
