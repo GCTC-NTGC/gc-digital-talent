@@ -5,12 +5,12 @@ import { useRef, useEffect } from "react";
 function useDeepCompareMemoize(value: DependencyList): DependencyList {
   const ref = useRef<DependencyList>([]);
   // Reading the ref during render is intentional here
-  // eslint-disable-next-line react-hooks/refs
+  // oxlint-disable-next-line react/refs
   if (!isEqual(value, ref.current)) {
-    // eslint-disable-next-line react-hooks/refs
+    // oxlint-disable-next-line react/refs
     ref.current = value;
   }
-  // eslint-disable-next-line react-hooks/refs
+  // oxlint-disable-next-line react/refs
   return ref.current;
 }
 
@@ -23,13 +23,11 @@ function useDeepCompareEffect(
   callback: EffectCallback,
   dependencies: DependencyList,
 ): void {
-  // this function was added to eslint so deps will be checked at the calling location
-
   // Memoize entire array to ensure consistent hook call order.
   const memoizedDeps = useDeepCompareMemoize(dependencies);
 
   // Linter cannot statically track variables through custom memoization.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // oxlint-disable-next-line react/exhaustive-deps
   useEffect(callback, [memoizedDeps]);
 }
 

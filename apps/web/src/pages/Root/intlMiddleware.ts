@@ -17,7 +17,6 @@ const intlMiddleware: Route.ClientMiddlewareFunction = ({ request }, next) => {
     const targetLocale = getDesiredLocale();
     const newPath = `/${targetLocale}${url.pathname}${url.search}`;
 
-    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect(newPath);
   }
 

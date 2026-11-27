@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+// oxlint-disable-next-line no-restricted-imports
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import AuthenticationContainer from "./AuthenticationContainer";
@@ -9,7 +10,6 @@ interface AuthenticationContainerProps {
 }
 
 const AuthenticationProvider = ({ children }: AuthenticationContainerProps) => {
-  // eslint-disable-next-line no-restricted-syntax
   const locale = useLocale();
 
   return (

@@ -1,4 +1,4 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
+/* oxlint-disable turbo/no-undeclared-env-vars */
 const testConfig = {
   signInSubs: {
     adminSignIn: process.env.ADMIN ?? `admin@test.com`,

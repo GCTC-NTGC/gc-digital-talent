@@ -46,7 +46,7 @@ php artisan migrate         # Run pending migrations
 php artisan migrate:fresh --seed  # Reset and seed database
 
 # Code Quality
-pnpm lint:fix               # ESLint auto-fix
+pnpm lint:fix               # Oxlint auto-fix
 pnpm tsc                    # TypeScript type check
 pnpm fmt:fix                # Oxfmt auto-format
 ./vendor/bin/pint           # PHP linting (Pint)

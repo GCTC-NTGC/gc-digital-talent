@@ -1,4 +1,4 @@
-/* eslint-disable react/forbid-elements */
+/* oxlint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
 
 import type { LinkProps } from "@gc-digital-talent/ui";

@@ -23,7 +23,7 @@ export interface BaseLinkProps
 const BaseLink = forwardRef<HTMLAnchorElement, Omit<BaseLinkProps, "ref">>(
   ({ external, href, newTab, children, ...rest }, forwardedRef) => {
     // NOTE: Only expect strings so far
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    // oxlint-disable-next-line typescript/no-base-to-string
     const url = href ? sanitizeUrl(String(href)) : undefined;
 
     const commonProps = {
@@ -34,7 +34,7 @@ const BaseLink = forwardRef<HTMLAnchorElement, Omit<BaseLinkProps, "ref">>(
     if (external) {
       return (
         // NOTE: We do want to allow external links to be rendered as <a> tags
-        // eslint-disable-next-line react/forbid-elements
+        // oxlint-disable-next-line react/forbid-elements
         <a ref={forwardedRef} href={url ?? ""} {...commonProps}>
           {children}
         </a>

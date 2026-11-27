@@ -136,7 +136,7 @@ const TrackedUserListItem = ({
         {reason ? <span>{reason}</span> : null}
         <span className="flex items-center gap-x-1.5">
           <span className="rounded border border-gray-200 p-1 dark:border-gray-700">
-            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {/* oxlint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {trackedUser.skillCount ?? 0}/{requestedSkillsCount ?? 0}
           </span>
           {intl.formatMessage(talentRequestMessages.requestedSkills)}

@@ -84,6 +84,8 @@ class RolePermissionSeeder extends Seeder
             }
 
             $role->permissions()->sync(collect($permissions)->pluck('id'));
+            // a direct pivot sync bypasses Laratrust's cache flush
+            $role->flushLaratrustCache();
         }
     }
 }

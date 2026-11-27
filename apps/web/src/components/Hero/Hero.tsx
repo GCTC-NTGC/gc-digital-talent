@@ -116,7 +116,7 @@ const Hero = (
   const overlap = "overlap" in props ? props.overlap : false;
 
   const imgPath = "imgPath" in props ? props.imgPath : undefined;
-  const centered = "centered" in props && props.centered ? true : false;
+  const centered = !!props.centered;
 
   const intl = useIntl();
 

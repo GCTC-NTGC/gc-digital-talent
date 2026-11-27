@@ -63,7 +63,7 @@ const CheckButton = ({
   const { btn, icon: iconStyles } = checkBtn({ color });
 
   // NOTE: Not redundant
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  // oxlint-disable-next-line typescript/no-redundant-type-constituents
   let Icon: string | IconType = "span";
   if (indeterminate) {
     Icon = MinusIcon;

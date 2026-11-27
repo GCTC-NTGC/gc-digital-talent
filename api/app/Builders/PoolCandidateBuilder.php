@@ -874,7 +874,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         // and adding unnecessary overhead when the user is assigned to many teams
         //
         // Each use of these should be wrapped in a single call to isAbleTo so that necessary
-        // checks are made before using the teams for that permission (ProtectedRequestUserChecker)
+        // checks are made before using the teams for that permission (ProtectedRequestGuard)
         $teamIdsByPermission = [];
         foreach ($permissions as $perm) {
             $teamIdsByPermission[$perm] = HelpersTeamHelpers::getTeamIdsForPermission($user, $perm);

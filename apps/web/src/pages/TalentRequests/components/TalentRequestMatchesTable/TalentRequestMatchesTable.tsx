@@ -494,7 +494,7 @@ const TalentRequestMatchesTable = ({
         }}
         filter={{
           initialState: defaultWhere,
-          // eslint-disable-next-line react-hooks/refs
+          // oxlint-disable-next-line react/refs
           state: filterRef.current,
           component: (
             <TalentRequestMatchesFilterDialog

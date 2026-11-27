@@ -42,7 +42,7 @@ const useControllableState = <T>({
   controlledProp,
   defaultValue,
   // Note: Setting a default here ( we do want it to be empty )
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // oxlint-disable-next-line typescript/no-empty-function
   onChange = () => {},
 }: UseControllableStateArgs<T>) => {
   const [unControlledProp, setUncontrolledProp] = useUnControlledState({

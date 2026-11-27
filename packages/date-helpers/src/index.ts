@@ -241,7 +241,7 @@ export const isDateStringExpired = (expiryDate: string): boolean => {
 
   // the function and below line are matching the logic in
   // PoolCandidateBuilder::whereExpiryStatus()
-  return expiryDateParsed < nowParsed ? true : false;
+  return expiryDateParsed < nowParsed;
 };
 
 type Order = "asc" | "desc";

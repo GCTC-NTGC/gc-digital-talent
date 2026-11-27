@@ -10,7 +10,7 @@ function isStringTrue(str: string | undefined): boolean {
 export const getRuntimeVariable = (name: string): string | undefined => {
   if (typeof window === "undefined") return undefined;
   const windowWithConfig = window as unknown as HasServerConfig;
-  // eslint-disable-next-line no-underscore-dangle
+  // oxlint-disable-next-line no-underscore-dangle
   return windowWithConfig.__SERVER_CONFIG__?.get(name);
 };
 
@@ -23,7 +23,7 @@ export const getRuntimeVariableNotNull = (name: string): string => {
     return runtimeVariable;
   }
 
-  // eslint-disable-next-line no-console
+  // oxlint-disable-next-line no-console
   console.error(`Missing mandatory runtime variable: ${name}`);
   return " ";
 };

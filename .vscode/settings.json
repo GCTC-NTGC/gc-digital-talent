@@ -13,15 +13,8 @@
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.oxc": "explicit"
   },
-  "eslint.workingDirectories": [
-    "./apps/web",
-    "./apps/playwright",
-    {
-      "pattern": "./packages/*"
-    }
-  ],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },
@@ -65,8 +58,7 @@
     "package.json",
     "composer.json",
     "composer.lock",
-    "tsconfig.json",
-    ".eslintrc"
+    "tsconfig.json"
   ],
   "cSpell.ignoreRegExpList": [
     "/id\\: \\\"[A-Za-z0-9+\\/]{6}\\\"/g",

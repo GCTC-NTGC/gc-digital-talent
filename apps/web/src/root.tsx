@@ -1,4 +1,4 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
+/* oxlint-disable formatjs/no-literal-string-in-jsx */
 import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
@@ -10,7 +10,7 @@ import "~/assets/css/tailwind.css";
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { getDocumentNonce } from "./utils/csp";
-// eslint-disable-next-line import/extensions
+// oxlint-disable-next-line import/extensions
 import initTheme from "./utils/initTheme.js?raw";
 import { makeServerConfigJS } from "./utils/runtime";
 

@@ -25,7 +25,7 @@ const Definition = ({ url, quotedDefinition }: DefinitionProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  // eslint-disable-next-line formatjs/prefer-full-sentence
+                  // oxlint-disable-next-line formatjs/prefer-full-sentence
                   "According to the <link>Statistics Canada definition</link>, this group ",
                 id: "X3pHUD",
                 description:

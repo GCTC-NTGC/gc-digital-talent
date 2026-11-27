@@ -433,6 +433,7 @@ test.describe("Verify the downloads", { tag: "@uat" }, () => {
         talentEvent.name.en ?? "",
       );
       await talentManagement.viewNominations();
+      await tableValidation.showFirst500Rows();
 
       const names =
         await test.step(`Download nominations in Excel for the ${status.toLowerCase()} event`, async () => {
