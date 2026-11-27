@@ -23,7 +23,7 @@
     "@dr.pogodin/react-helmet": "^3.3.3",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "axe-core": "^4.14.1",
-    "react-intl": "^12.1.4",
+    "react-intl": "^12.2.2",
     "react-router": "^8.5.2",
     "vite": "^8.3.8",
     "vitest": "^5.0.5",

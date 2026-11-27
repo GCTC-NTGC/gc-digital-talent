@@ -50,7 +50,7 @@
     "jsdom": "^31.0.0",
     "react": "^19.3.1",
     "react-hook-form": "^7.92.0",
-    "react-intl": "^12.1.4",
+    "react-intl": "^12.2.2",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
     "vitest": "^5.0.5"
