@@ -56,7 +56,7 @@
     "@vitest/browser": "^5.0.5",
     "@vitest/browser-playwright": "^5.0.5",
     "@vitest/coverage-v8": "^5.0.5",
-    "eslint-plugin-formatjs": "^8.4.1",
+    "eslint-plugin-formatjs": "^8.4.0",
     "eslint-plugin-testing-library": "^7.16.2",
     "eslint-plugin-turbo": "^2.11.11",
     "jsdom": "^31.0.0",
