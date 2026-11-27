@@ -893,7 +893,7 @@ const PoolCandidatesTable = ({
         return (
           // NOTE: We do want to pass on empty strings
 
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+          // oxlint-disable-next-line typescript/prefer-nullish-coalescing
           (assessmentStep?.title?.localized ||
             assessmentStep?.type?.label?.localized) ??
           ""
@@ -1175,7 +1175,7 @@ const PoolCandidatesTable = ({
       }}
       filter={{
         initialState: initialFilterInput,
-        // eslint-disable-next-line react-hooks/refs
+        // oxlint-disable-next-line react/refs
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog

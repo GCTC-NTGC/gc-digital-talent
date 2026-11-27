@@ -158,7 +158,7 @@ const StatusItem = ({
     <>
       {hiddenContextPrefix ? (
         <span className="sr-only">
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+          {/* oxlint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {`${hiddenContextPrefix} - `}
         </span>
       ) : null}

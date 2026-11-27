@@ -110,7 +110,7 @@ export function getClient({
         },
       }),
       // NOTE: Needed to colour the function
-      // eslint-disable-next-line @typescript-eslint/require-await
+      // oxlint-disable-next-line typescript/require-await
       authExchange(async (utils) => {
         return {
           addAuthToOperation: (operation) => {
@@ -120,7 +120,7 @@ export function getClient({
                 Authorization: `Bearer ${accessToken}`,
               });
             }
-            // eslint-disable-next-line testing-library/no-debugging-utils
+            // oxlint-disable-next-line testing-library/no-debugging-utils
             logger.debug("No access token to add to operation");
             return operation;
           },

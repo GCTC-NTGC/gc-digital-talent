@@ -1,3 +1,4 @@
+// oxlint-disable formatjs/no-literal-string-in-jsx
 import { action } from "storybook/actions";
 
 import type { AccordionMetaDataProps } from "./Accordion";
@@ -13,7 +14,6 @@ export const testMetaData: AccordionMetaDataProps["metadata"] = [
     key: "button-component-id",
     type: "button-component",
     component: (
-      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
       <MetaDataButton onClick={action("MetaDataButton.onClick")}>
         Button component
       </MetaDataButton>

@@ -27,7 +27,7 @@ const StepLink = ({
   if (state === "disabled" && !preventDisable) {
     return (
       // NOTE: This is a custom disabled link component
-      // eslint-disable-next-line react/forbid-elements
+      // oxlint-disable-next-line react/forbid-elements
       <a
         // The anchor has no href, so it has no implicit link role
         // oxlint-disable-next-line jsx-a11y/no-redundant-roles

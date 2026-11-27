@@ -279,10 +279,6 @@
     "defaultMessage": "Vous trouverez les processus de recrutement pour lesquels vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
     "description": "Message informing applicant of the connected recruitment process in the preview list below"
   },
-  "/81xCT": {
-    "defaultMessage": "« Je suis métisse ou métis »",
-    "description": "Label text for Métis community declaration"
-  },
   "/86QL/": {
     "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 seconde} one {# seconde} other {# secondes} }</strong>",
     "description": "Inactivity timer remaining time in seconds"
@@ -661,6 +657,10 @@
   "0bf24C": {
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'create a work stream' form"
+  },
+  "0blbyb": {
+    "defaultMessage": "Je suis membre des Premières Nations",
+    "description": "Text for the option to self-declare as first nations"
   },
   "0c/3Iw": {
     "defaultMessage": "Vos objectifs et votre style de travail",
@@ -3866,6 +3866,10 @@
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
   },
+  "DZdPO5": {
+    "defaultMessage": "{classification} à {departmentName} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is given."
+  },
   "DZfLMk": {
     "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
     "description": "Message displayed to a user after signing into a deleted account"
@@ -4321,10 +4325,6 @@
   "FQe7E0": {
     "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
     "description": "Third list item in warning message before removing a professionalization"
-  },
-  "FRcbbi": {
-    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
-    "description": "Label text for not represented community declaration"
   },
   "FS23BP": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettent aux cadres supérieurs et aux équipes de recrutement des RH de vous trouver facilement. Cette page vous offre un aperçu de nos processus de recrutement ouverts. Revenez consulter cette page régulièrement!",
@@ -5108,6 +5108,10 @@
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
   },
+  "IXQy/Q": {
+    "defaultMessage": "Je suis métisse ou métis",
+    "description": "Label text for Métis community declaration"
+  },
   "IYUqNY": {
     "defaultMessage": "Pour commencer une nouvelle candidature, consultez la page « Parcourir les offres d’emploi » ou réajoutez des candidatures à votre tableau de bord à partir de la page « Candidatures ».",
     "description": "Body for notice when there are no applications in the dashboard"
@@ -5536,6 +5540,10 @@
     "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins quatre jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
   },
+  "KEMz1f": {
+    "defaultMessage": "{classification} processus hors plateforme",
+    "description": "Title for an off platform recruitment process if department is not given."
+  },
   "KESOSJ": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a community member was added to a community"
@@ -5547,6 +5555,10 @@
   "KF5u2L": {
     "defaultMessage": "Télécharger les profils complets (.docx)",
     "description": "Button label for downloading selected user profiles"
+  },
+  "KFgKGg": {
+    "defaultMessage": "Retirez {communityName}",
+    "description": "Title for to remove community from experience"
   },
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
@@ -8640,10 +8652,6 @@
     "defaultMessage": "Le droit de priorité est un statut offert par la Commission de la fonction publique du Canada. Pour en apprendre davantage, <priorityEntitlementLink>consultez le site Web Information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence describing what priority entitlement is"
   },
-  "Wpj2OY": {
-    "defaultMessage": "« Je suis membre d’une Première Nation »",
-    "description": "Text for the option to self-declare as first nations"
-  },
   "WpoUnf": {
     "defaultMessage": "Offrir des possibilités de perfectionnement lors des nominations en gestion des talents",
     "description": "Dialog body text for providing development opportunity options during Talent Management nominations"
@@ -9028,6 +9036,10 @@
     "defaultMessage": "Consultez le site Web de ConnexionCanada et assurez‑vous que votre adresse de courriel et votre numéro de téléphone correspondent aux coordonnées figurant dans votre profil Talents numériques du GC actuel.",
     "description": "Instruction to update contact information on CanadaLogin"
   },
+  "YRcKQM": {
+    "defaultMessage": "Je suis Inuk",
+    "description": "Label text for Inuk community declaration"
+  },
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
@@ -9103,6 +9115,10 @@
   "Yh/4po": {
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
+  },
+  "Yh1sXR": {
+    "defaultMessage": "Je suis membre des Premières Nations (avec inscription)",
+    "description": "Text for the option to self-declare as a status first nations"
   },
   "Yh8UWM": {
     "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement",
@@ -9827,6 +9843,10 @@
   "buTxFT": {
     "defaultMessage": "Confirmer une autre adresse courriel professionnelle",
     "description": "Link to update to a different email when initially your work email and contact email are the same"
+  },
+  "buavit": {
+    "defaultMessage": "Retirer le rôle {role}",
+    "description": "Label for the form to remove a role from a user"
   },
   "bw4CAS": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
@@ -10965,6 +10985,10 @@
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
+  },
+  "g/Jfxy": {
+    "defaultMessage": "Je suis membre des Premières Nations (sans inscription)",
+    "description": "Text for the option to self-declare as a non-status first nations"
   },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
@@ -13993,10 +14017,6 @@
     "defaultMessage": "Accédez à ConnexionCanada.",
     "description": "Text for first registrion step, head to canada login"
   },
-  "sSE4kt": {
-    "defaultMessage": "Je suis un membre des Premières Nations sans statut",
-    "description": "Text for the option to self-declare as a non-status first nations"
-  },
   "sTPYhS": {
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
@@ -14084,10 +14104,6 @@
   "sry9Wl": {
     "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",
     "description": "Language profiles list for language requirements dialog"
-  },
-  "ssJxrj": {
-    "defaultMessage": "Je suis un membre des Premières Nations.",
-    "description": "Text for the option to self-declare as a status first nations"
   },
   "ssSdOn": {
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
@@ -14477,10 +14493,6 @@
     "defaultMessage": "Statut de supervision",
     "description": "Talent request - supervisory status title"
   },
-  "uTf8vH": {
-    "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
-    "description": "Title for to remove community from experience"
-  },
   "uVtmGg": {
     "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
     "description": "Label for budget management field"
@@ -14624,10 +14636,6 @@
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
-  },
-  "vDb+O+": {
-    "defaultMessage": "« Je suis Inuk »",
-    "description": "Label text for Inuk community declaration"
   },
   "vEniKQ": {
     "defaultMessage": "Annulation des modifications",
@@ -15706,6 +15714,10 @@
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
     "description": "Heading for the education requirement option secondary school diploma."
+  },
+  "zeinYk": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "Label text for not represented community declaration"
   },
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",

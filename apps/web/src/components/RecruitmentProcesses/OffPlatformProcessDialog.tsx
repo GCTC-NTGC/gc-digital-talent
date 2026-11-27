@@ -293,8 +293,8 @@ const OffPlatformProcessDialog = ({
                 ? intl.formatMessage(
                     {
                       defaultMessage:
-                        "{classification} with {departmentName} <hidden>off platform process</hidden>",
-                      id: "pBRz2q",
+                        "{classification} with {departmentName} off platform process",
+                      id: "DZdPO5",
                       description:
                         "Title for an off platform recruitment process if department is given.",
                     },
@@ -307,9 +307,8 @@ const OffPlatformProcessDialog = ({
                   )
                 : intl.formatMessage(
                     {
-                      defaultMessage:
-                        "{classification} <hidden>off platform process</hidden>",
-                      id: "QtDQkD",
+                      defaultMessage: "{classification} off platform process",
+                      id: "KEMz1f",
                       description:
                         "Title for an off platform recruitment process if department is not given.",
                     },

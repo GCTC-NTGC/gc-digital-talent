@@ -146,7 +146,6 @@ describe("createPusher connection lifetime", () => {
     sendResponse(
       Response.json({
         data: null,
-        // eslint-disable-next-line camelcase -- Lighthouse controls this name, we cannot change it
         extensions: { lighthouse_subscriptions: { channel: "private-test" } },
       }),
     );

@@ -18,19 +18,16 @@
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/env": "workspace:*",
-    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
-    "axe-core": "^4.14.0",
+    "axe-core": "^4.14.1",
     "dotenv": "^18.0.10",
-    "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.12.2",
     "exceljs": "^4.4.0",
     "mammoth": "^1.13.0",
     "monocart-coverage-reports": "^3.2.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.72.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.14.0"

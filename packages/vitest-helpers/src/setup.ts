@@ -32,7 +32,7 @@ const matchMediaMock = vi
     dispatchEvent: vi.fn(),
     // Both add/remove are deprecated but,
     // we do not control these and need to satisfy the type
-    /* eslint-disable @typescript-eslint/no-deprecated */
+    /* oxlint-disable typescript/no-deprecated */
     addListener: vi.fn(), // deprecated
     removeListener: vi.fn(), // deprecated
   }));

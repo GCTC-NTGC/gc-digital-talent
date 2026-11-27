@@ -3,7 +3,7 @@ import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { m, AnimatePresence } from "motion/react";
 import type { KeyboardEventHandler, ReactNode, ReactElement } from "react";
 import { useEffect, useState, useRef } from "react";
-/* eslint-disable react/forbid-elements */
+/* oxlint-disable react/forbid-elements */
 import { FocusOn } from "react-focus-on";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";

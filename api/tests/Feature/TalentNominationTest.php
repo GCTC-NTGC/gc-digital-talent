@@ -13,6 +13,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -764,5 +765,118 @@ class TalentNominationTest extends TestCase
             ]);
 
         $response->assertGraphQLValidationError('advancement_classifications', 'The advancement classifications field is prohibited.');
+    }
+
+    private function createEventWithDevelopmentProgram(): TalentNominationEvent
+    {
+        return TalentNominationEvent::factory()
+            ->withDevelopmentPrograms(1, 1)
+            ->create([
+                'open_date' => config('constants.past_datetime'),
+                'close_date' => config('constants.far_future_datetime'),
+            ]);
+    }
+
+    public function testCanCreateNominationWithCommunityDevelopmentPrograms()
+    {
+        $event = $this->createEventWithDevelopmentProgram();
+        $communityDevelopmentProgram = $event->communityDevelopmentPrograms()->sole();
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation CreateTalentNomination($talentNomination: CreateTalentNominationInput!) {
+                    createTalentNomination(talentNomination: $talentNomination) {
+                        id
+                        communityDevelopmentPrograms {
+                            id
+                            developmentProgram { id }
+                        }
+                    }
+                }
+            GRAPHQL, [
+                'talentNomination' => [
+                    'talentNominationEvent' => ['connect' => $event->id],
+                    'nominateForDevelopmentPrograms' => true,
+                    'communityDevelopmentPrograms' => ['sync' => [$communityDevelopmentProgram->id]],
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.createTalentNomination.communityDevelopmentPrograms.0.id', $communityDevelopmentProgram->id)
+            ->assertJsonPath(
+                'data.createTalentNomination.communityDevelopmentPrograms.0.developmentProgram.id',
+                $communityDevelopmentProgram->development_program_id
+            );
+    }
+
+    public function testCanUpdateNominationCommunityDevelopmentPrograms()
+    {
+        $event = $this->createEventWithDevelopmentProgram();
+        $communityDevelopmentProgram = $event->communityDevelopmentPrograms()->sole();
+        $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $event->id,
+            'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
+        ]);
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'communityDevelopmentPrograms' => ['sync' => [$communityDevelopmentProgram->id]],
+                ],
+            ])
+            ->assertGraphQLErrorFree();
+
+        $this->assertSame(
+            [$communityDevelopmentProgram->id],
+            $nomination->fresh()->communityDevelopmentPrograms->pluck('id')->all()
+        );
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'communityDevelopmentPrograms' => ['sync' => []],
+                ],
+            ])
+            ->assertGraphQLErrorFree();
+
+        $this->assertCount(0, $nomination->fresh()->communityDevelopmentPrograms);
+    }
+
+    public function testCantCreateNominationWithNonexistentCommunityDevelopmentProgram()
+    {
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => ['connect' => $this->nominationEvent->id],
+                    'communityDevelopmentPrograms' => ['sync' => [Str::uuid()->toString()]],
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'talentNomination.communityDevelopmentPrograms.sync',
+                ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name
+            );
+    }
+
+    public function testCantUpdateNominationWithNonexistentCommunityDevelopmentProgram()
+    {
+        $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $this->nominationEvent->id,
+            'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
+        ]);
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'communityDevelopmentPrograms' => ['sync' => [Str::uuid()->toString()]],
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'talentNomination.communityDevelopmentPrograms.sync',
+                ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name
+            );
     }
 }

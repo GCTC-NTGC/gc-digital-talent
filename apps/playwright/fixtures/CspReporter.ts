@@ -17,7 +17,6 @@ class CspReporter {
       window.cspViolations = [];
 
       const cspObserver = new ReportingObserver(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (reports, _) => {
           window.cspViolations = [...(window?.cspViolations ?? []), ...reports];
         },

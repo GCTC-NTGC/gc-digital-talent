@@ -206,9 +206,6 @@ type CommunityInterest {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
-    @hasMany
-    @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
   communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
@@ -229,17 +226,6 @@ type OffPlatformRecruitmentProcess {
   classification: Classification! @belongsTo
   platform: LocalizedHiringPlatform!
   platformOther: String @rename(attribute: "platform_other")
-}
-
-# A pivot table for employees to express interest in the development programs of a community.
-type DevelopmentProgramInterest {
-  id: UUID!
-  communityDevelopmentProgram: CommunityDevelopmentProgram! @belongsTo
-  developmentProgram: DevelopmentProgram!
-    @hasOne(relation: "developmentProgramThroughPivot")
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
 }
 
 type EmployeeProfile {
@@ -845,12 +831,6 @@ type DevelopmentProgram {
   name: LocalizedString!
   descriptionForProfile: LocalizedString!
     @rename(attribute: "description_for_profile")
-  descriptionForNominations: LocalizedString
-    @rename(attribute: "description_for_nominations")
-    @deprecated(
-      reason: "replaced by description on community_development_program_talent_nomination_event pivot"
-    )
-  eligibleClassifications: [Classification!] @belongsToMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedCommunities: [Community!]
     @hasMany(relation: "communitiesThroughPivot")
@@ -2604,10 +2584,6 @@ input UpdateCommunityInput {
   contactEmail: String @rename(attribute: "contact_email")
 }
 
-input DevelopmentProgramBelongsToMany {
-  sync: [UUID!]
-}
-
 input CommunityDevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
@@ -3427,28 +3403,10 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
-  createCommunityInterest(
-    communityInterest: CreateCommunityInterestInput! @spread
-  ): CommunityInterest
-    @guard
-    @create
-    @canModel(ability: "create", injectArgs: true)
-    @deprecated(
-      reason: "replaced by createCommunityInterestWithDevelopmentPrograms"
-    )
   createCommunityInterestWithDevelopmentPrograms(
     communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
       @spread
   ): CommunityInterest @guard @canModel(ability: "create", injectArgs: true)
-  updateCommunityInterest(
-    communityInterest: UpdateCommunityInterestInput! @spread
-  ): CommunityInterest
-    @guard
-    @update(model: "CommunityInterest")
-    @canFind(ability: "update", find: "id", model: "CommunityInterest")
-    @deprecated(
-      reason: "replaced by updateCommunityInterestWithDevelopmentPrograms"
-    )
   updateCommunityInterestWithDevelopmentPrograms(
     communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
       @spread

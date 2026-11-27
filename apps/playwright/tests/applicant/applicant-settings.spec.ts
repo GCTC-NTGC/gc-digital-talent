@@ -45,7 +45,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
   });
 
   test("Registration and work email for New User", async ({ appPage }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
+    // oxlint-disable-next-line playwright/no-skipped-test
     test.skip(
       !!process.env.TESTING_ENDPOINT_SECRET,
       "Registration flow is not supported against live UAT",
@@ -90,7 +90,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
   });
 
   test("Unsubscribe link works after signing in (EN)", async ({ appPage }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
+    // oxlint-disable-next-line playwright/no-skipped-test
     test.skip(
       !!process.env.TESTING_ENDPOINT_SECRET,
       "Not supported against UAT",
@@ -123,7 +123,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
   });
 
   test("Unsubscribe link works after signing in (FR)", async ({ appPage }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
+    // oxlint-disable-next-line playwright/no-skipped-test
     test.skip(
       !!process.env.TESTING_ENDPOINT_SECRET,
       "Not supported against UAT",

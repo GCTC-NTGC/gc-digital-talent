@@ -198,9 +198,8 @@ const ExperienceWorkStreams = () => {
                         }
                         label={intl.formatMessage(
                           {
-                            defaultMessage:
-                              "Remove<hidden> {communityName}</hidden>",
-                            id: "uTf8vH",
+                            defaultMessage: "Remove {communityName}",
+                            id: "KFgKGg",
                             description:
                               "Title for to remove community from experience",
                           },

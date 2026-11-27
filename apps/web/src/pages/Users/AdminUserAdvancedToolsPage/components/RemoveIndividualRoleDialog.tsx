@@ -59,10 +59,21 @@ const RemoveIndividualRoleDialog = ({
     },
   );
 
+  const buttonLabel = intl.formatMessage(
+    {
+      defaultMessage: "Remove role {role}",
+      id: "buavit",
+      description: "Label for the form to remove a role from a user",
+    },
+    {
+      role: roleDisplayName,
+    },
+  );
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <IconButton color="error" icon={TrashIcon} label={label} />
+        <IconButton color="error" icon={TrashIcon} label={buttonLabel} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>

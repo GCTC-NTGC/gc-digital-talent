@@ -12,10 +12,12 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
+use App\Support\ProtectedRequestGuard;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HasTalentRequestSources;
 use App\Traits\HydratesSnapshot;
+use BackedEnum;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -30,14 +32,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
+use LogicException;
 use Spatie\Activitylog\Models\Concerns\CausesActivity;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
@@ -123,6 +124,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasRelationships;
     use HasRolesAndPermissions {
         roles as baseRoles;
+        hasRole as laratrustHasRole;
+        hasPermission as laratrustHasPermission;
     }
     use HasTalentRequestSources;
     use HydratesSnapshot;
@@ -287,6 +290,42 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontLogEmptyChanges();
+    }
+
+    /**
+     * Extends Laratrust's role check so a privileged role is only usable on a protected request.
+     */
+    public function hasRole(string|array|BackedEnum $name, mixed $team = null, bool $requireAll = false): bool
+    {
+        if (! ProtectedRequestGuard::isSafeToUseRole($name, $requireAll)) {
+            return false;
+        }
+
+        return $this->laratrustHasRole($name, $team, $requireAll);
+    }
+
+    /**
+     * Extends Laratrust's permission check so a privileged permission is only usable on a protected request.
+     */
+    public function hasPermission(string|array|BackedEnum $permission, mixed $team = null, bool $requireAll = false): bool
+    {
+        if (! ProtectedRequestGuard::isSafeToUsePermission($permission, $requireAll)) {
+            return false;
+        }
+
+        return $this->laratrustHasPermission($permission, $team, $requireAll);
+    }
+
+    /**
+     * Blocks Laratrust's ability(), which checks without hasRole() and hasPermission() and so would skip the protected request guard.
+     */
+    public function ability(
+        string|array|BackedEnum $roles,
+        string|array|BackedEnum $permissions,
+        mixed $team = null,
+        array $options = []
+    ): array|bool {
+        throw new LogicException('ability() would skip the protected request guard, use hasRole() or hasPermission() instead.');
     }
 
     /**
@@ -698,52 +737,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Custom logging for adding/removing roles for a user
-     *
-     * This comes from Laratrust so it is missed in the normal
-     * event logging for this model. Since we do not have access to specific data
-     * the shape is slightly different
-     *
-     *  - Subject is the user being affected (role added to or removed from)
-     *  - Properties are the subject users id, role id and if it is a team based role, the team id
-     *
-     * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
-     * @param  User  $user  User being affected (subject)
-     * @param  ?string  $roleId  Id of the role being added or removed
-     * @param  mixed  $team  IF team based role, the ID or array of then team ID
-     */
-    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
-    {
-        if (! $roleId) {
-            return;
-        }
-
-        $properties = [
-            'user_id' => $user->id,
-            'role_id' => $roleId,
-        ];
-        if ($team) {
-            $teamId = $team;
-            if (is_array($team)) {
-                if (Arr::isAssoc($team) && isset($team['id'])) {
-                    $teamId = $team['id'];
-                } elseif (isset($team[0]['id'])) {
-                    $teamId = $team[0]['id'];
-                }
-            }
-
-            $properties['team_id'] = $teamId;
-        }
-
-        activity()
-            ->causedBy(Auth::user())
-            ->performedOn($user)
-            ->withChanges(['attributes' => $properties])
-            ->event($eventName)
-            ->log($eventName);
-    }
-
-    /**
      * Boot function for using with User Events
      *
      * @return void
@@ -817,14 +810,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             }
 
             $user->save();
-        });
-
-        static::roleAdded(function (User $user, string $role, $team) {
-            self::logRoleChange('roleAdded', $user, $role, $team);
-        });
-
-        static::roleRemoved(function (User $user, string $role, $team) {
-            self::logRoleChange('roleRemoved', $user, $role, $team);
         });
     }
 
