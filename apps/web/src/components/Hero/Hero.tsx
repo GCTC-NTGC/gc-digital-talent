@@ -25,7 +25,8 @@ const hero = tv({
     container: "relative pt-15",
     content: "relative z-3 text-center text-white",
     breadcrumbs: "flex flex-wrap justify-center gap-3 p-0 [&_li]:inline-block",
-    tabs: "mt-12 flex",
+    // Active tab opens into the page, so it matches the page background
+    tabs: "mt-12 flex [&_li[data-state=active]]:bg-background",
   },
   variants: {
     centered: {
