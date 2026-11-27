@@ -1,4 +1,3 @@
-import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
@@ -17,18 +16,18 @@ import {
 } from "@gc-digital-talent/graphql";
 import { isEnumValue, isUUID, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Heading, Notice, Pending, Ul } from "@gc-digital-talent/ui";
-
-import JobCard from "~/components/JobCard/JobCard";
+import { Button, Heading, Notice, Pending } from "@gc-digital-talent/ui";
 
 import browseJobsMessages from "./browseJobsMessages";
 import FilterBar from "./components/FilterBar/FilterBar";
+import OpportunityResults from "./components/OpportunityResults/OpportunityResults";
 import ResultsBar from "./components/ResultsBar/ResultsBar";
 import useBrowseJobsSearchParams from "./useBrowseJobsSearchParams";
 
 // features in progress
-const featurePaginationButton = true;
 const featureManageAlertButtons = true;
+
+const PAGE_SIZE = 20;
 
 const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
   query OpenOpportunitiesPage(
@@ -42,6 +41,10 @@ const OpenOpportunitiesPage_Query = graphql(/* GraphQL */ `
           id
           ...JobCard
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
       totalCount
     }
@@ -90,12 +93,14 @@ export const OpenOpportunitiesPage = () => {
     },
   };
 
+  const orderBy = [orderByVariable[sortBy]];
+
   const [{ data, fetching, error }] = useQuery({
     query: OpenOpportunitiesPage_Query,
     variables: {
       where: whereVariable,
-      first: 20,
-      orderBy: [orderByVariable[sortBy]],
+      first: PAGE_SIZE,
+      orderBy,
     },
   });
 
@@ -146,13 +151,14 @@ export const OpenOpportunitiesPage = () => {
               />
 
               {pools.length ? (
-                <Ul unStyled className="flex flex-col gap-1.5">
-                  {pools.map((pool) => (
-                    <li key={pool.id}>
-                      <JobCard poolQuery={pool} />
-                    </li>
-                  ))}
-                </Ul>
+                <OpportunityResults
+                  // start the list over when the filters or sort change, so cards loaded for the previous search don't stay below the new results
+                  key={JSON.stringify({ whereVariable, orderBy })}
+                  firstPage={data.publishedPoolsSearch}
+                  pageSize={PAGE_SIZE}
+                  where={whereVariable}
+                  orderBy={orderBy}
+                />
               ) : (
                 <Notice.Root mode="card">
                   <Notice.Content>
@@ -179,19 +185,6 @@ export const OpenOpportunitiesPage = () => {
                   </Notice.Actions>
                 </Notice.Root>
               )}
-
-              {featurePaginationButton ? (
-                <div className="mt-6 self-center">
-                  <Button color="secondary" icon={ArrowPathIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Load more results",
-                      id: "HuA8aL",
-                      description:
-                        "Button text to load the next set of results",
-                    })}
-                  </Button>
-                </div>
-              ) : null}
             </div>
           </div>
         ) : (
