@@ -138,10 +138,9 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
           <Card className="flex flex-col gap-y-18">
             <TableOfContents.Section id={SECTION_ID.NOMINATIONS_RECEIVED}>
               <Heading
-                className="mt-0 font-normal sm:text-left"
+                className="mt-0 sm:text-left"
                 rank="h2"
                 icon={isVerifiedGovEmployee ? TrophyIcon : LockClosedIcon}
-                size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}
               >
                 {intl.formatMessage({
@@ -171,10 +170,9 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
           <Card className="mt-6.75 flex flex-col gap-y-18">
             <TableOfContents.Section id={SECTION_ID.EMPLOYEES_NOMINATED}>
               <Heading
-                className="mt-0 font-normal sm:text-left"
+                className="mt-0 sm:text-left"
                 rank="h2"
                 icon={isVerifiedGovEmployee ? StarIcon : LockClosedIcon}
-                size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}
               >
                 {intl.formatMessage({

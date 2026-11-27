@@ -26,7 +26,7 @@ const TalentRequestSectionCard = ({
 }: TalentRequestSectionCardProps) => {
   return (
     <Card>
-      <Heading color={color} icon={icon} size="h4" className="mt-0 font-normal">
+      <Heading color={color} icon={icon} className="mt-0">
         {title}
       </Heading>
       {subtitle && <p>{subtitle}</p>}

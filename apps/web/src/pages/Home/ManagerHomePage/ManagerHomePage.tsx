@@ -55,7 +55,6 @@ const ManagerHomePage = () => {
       />
       <HomeHero
         title={intl.formatMessage(pageTitle)}
-        titleSize="h2"
         subtitle={intl.formatMessage(pageSubtitle)}
         img={{
           sources: { sm: managerHeroSquare },
@@ -92,10 +91,9 @@ const ManagerHomePage = () => {
       <SkewedContainer>
         <Heading
           rank="h2"
-          size="h3"
           icon={SparklesIcon}
           color="secondary"
-          className="mt-0 font-normal"
+          className="mt-0"
         >
           {intl.formatMessage({
             defaultMessage: "What we can do for you",
@@ -223,8 +221,7 @@ const ManagerHomePage = () => {
       >
         <Heading
           rank="h2"
-          size="h3"
-          className="mt-0 mb-3 font-normal"
+          className="mt-0 mb-3"
           icon={CheckBadgeIcon}
           color="warning"
         >

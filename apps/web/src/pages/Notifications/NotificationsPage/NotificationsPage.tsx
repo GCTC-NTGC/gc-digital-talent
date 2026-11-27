@@ -78,7 +78,7 @@ const NotificationsPage = () => {
               rank="h2"
               icon={BellAlertIcon}
               color="secondary"
-              className="mt-0 font-normal"
+              className="mt-0"
             >
               {intl.formatMessage({
                 defaultMessage: "Notification history",

@@ -34,7 +34,6 @@ const KeyTasks = ({ jobPosterTemplateQuery }: KeyTasksProps) => {
     <>
       <Heading
         icon={ClipboardDocumentIcon}
-        size="h2"
         color="primary"
         className="mt-0 mb-6"
       >

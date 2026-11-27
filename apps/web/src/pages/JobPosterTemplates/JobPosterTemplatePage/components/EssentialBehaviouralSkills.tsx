@@ -81,7 +81,7 @@ const EssentialBehaviouralSkills = ({
 
   return (
     <>
-      <Heading icon={BoltIcon} size="h2" color="warning" className="mt-0 mb-6">
+      <Heading icon={BoltIcon} color="warning" className="mt-0 mb-6">
         {intl.formatMessage(sections.essentialBehaviouralSkills.longTitle)}
       </Heading>
       <div className="flex flex-col gap-6">

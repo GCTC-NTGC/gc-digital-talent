@@ -551,7 +551,6 @@ export const EditPoolForm = ({
                   <div>
                     <Heading
                       rank="h2"
-                      size="h3"
                       icon={sectionMetadata.basicInfo.icon}
                       color={sectionMetadata.basicInfo.color}
                       className="mt-0 mb-6"
@@ -610,7 +609,6 @@ export const EditPoolForm = ({
                   <div>
                     <Heading
                       rank="h2"
-                      size="h3"
                       icon={sectionMetadata.skillRequirements.icon}
                       color={sectionMetadata.skillRequirements.color}
                       className="mt-0 mb-6"
@@ -639,7 +637,6 @@ export const EditPoolForm = ({
                     <div>
                       <Heading
                         rank="h2"
-                        size="h3"
                         icon={sectionMetadata.aboutRole.icon}
                         color={sectionMetadata.aboutRole.color}
                         className="mt-0 mb-6"
@@ -683,7 +680,6 @@ export const EditPoolForm = ({
                     <div>
                       <Heading
                         rank="h2"
-                        size="h3"
                         icon={sectionMetadata.commonQuestions.icon}
                         color={sectionMetadata.commonQuestions.color}
                         className="mt-0 mb-6"

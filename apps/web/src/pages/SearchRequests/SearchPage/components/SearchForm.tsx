@@ -208,10 +208,9 @@ export const SearchForm = ({
             <div>
               <Heading
                 rank="h2"
-                size="h3"
                 icon={BuildingOffice2Icon}
                 color="secondary"
-                className="mt-0 mb-6 font-normal"
+                className="mt-0 mb-6"
               >
                 {intl.formatMessage({
                   defaultMessage: "About this tool",

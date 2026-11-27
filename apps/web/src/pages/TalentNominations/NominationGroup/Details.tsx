@@ -104,10 +104,9 @@ const TalentNominationGroupDetails = ({
       <div className="flex items-center justify-between">
         <Heading
           rank="h2"
-          size="h4"
           icon={ClipboardDocumentListIcon}
           color="secondary"
-          className="my-0 font-normal"
+          className="my-0"
         >
           {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
         </Heading>

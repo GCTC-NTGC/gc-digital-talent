@@ -234,7 +234,6 @@ export const UpdateSkillFamily = ({
             <div className="flex justify-center xs:justify-start">
               <Heading
                 color="secondary"
-                size="h2"
                 className="mt-0"
                 icon={IdentificationIcon}
               >

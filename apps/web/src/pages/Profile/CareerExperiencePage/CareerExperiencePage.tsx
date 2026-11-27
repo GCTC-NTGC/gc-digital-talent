@@ -121,12 +121,7 @@ export const CareerExperience = ({
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <TableOfContents.Section id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
-          <Heading
-            icon={NewspaperIcon}
-            color="primary"
-            size="h3"
-            className="mt-0 mb-6 font-normal"
-          >
+          <Heading icon={NewspaperIcon} color="primary" className="mt-0 mb-6">
             {intl.formatMessage(pageTitle)}
           </Heading>
           <p className="mb-6">
@@ -205,12 +200,7 @@ export const CareerTimeline = ({
 
   return (
     <>
-      <Heading
-        icon={BookmarkSquareIcon}
-        color="error"
-        size="h3"
-        className="mt-0 mb-6 font-normal"
-      >
+      <Heading icon={BookmarkSquareIcon} color="error" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Manage your career timeline",
           id: "eZYP/W",

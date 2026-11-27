@@ -125,12 +125,7 @@ export const CommunityProfessionalizationForm = ({
       <Container className="my-12">
         <Card>
           <div className="mb-3 flex flex-col gap-6 px-3 pt-3">
-            <Heading
-              size="h3"
-              icon={CheckBadgeIcon}
-              color="primary"
-              className="mt-0"
-            >
+            <Heading icon={CheckBadgeIcon} color="primary" className="mt-0">
               {pageTitle}
             </Heading>
             <p>

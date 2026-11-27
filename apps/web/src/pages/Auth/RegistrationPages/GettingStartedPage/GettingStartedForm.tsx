@@ -110,10 +110,9 @@ const GettingStartedForm = ({
       <Heading
         id={GETTING_STARTED_FORM_ID}
         rank="h2"
-        size="h3"
         icon={FlagIcon}
         color="primary"
-        className="mt-0 mb-6 font-normal"
+        className="mt-0 mb-6"
       >
         {intl.formatMessage(sectionTitle)}
       </Heading>

@@ -209,7 +209,7 @@ export const Component = () => {
               rank="h2"
               color="primary"
               icon={SparklesIcon}
-              className="mt-0 font-normal"
+              className="mt-0"
             >
               {intl.formatMessage({
                 defaultMessage: "Welcome back",

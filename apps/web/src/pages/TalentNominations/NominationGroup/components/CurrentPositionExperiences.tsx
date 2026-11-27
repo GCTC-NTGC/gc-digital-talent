@@ -101,13 +101,7 @@ const CurrentPositionExperiences = ({
 
   return (
     <>
-      <Heading
-        icon={FlagIcon}
-        rank="h2"
-        size="h4"
-        color="secondary"
-        className="mt-0 font-normal"
-      >
+      <Heading icon={FlagIcon} rank="h2" color="secondary" className="mt-0">
         {intl.formatMessage({
           defaultMessage: "Current position",
           id: "elMgS2",

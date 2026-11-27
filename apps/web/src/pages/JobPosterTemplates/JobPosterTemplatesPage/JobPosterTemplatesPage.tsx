@@ -318,12 +318,7 @@ const JobPosterTemplatesPage = () => {
         crumbs={crumbs}
       />
       <Container>
-        <Heading
-          rank="h2"
-          size="h3"
-          color="secondary"
-          icon={RectangleStackIcon}
-        >
+        <Heading rank="h2" color="secondary" icon={RectangleStackIcon}>
           {intl.formatMessage({
             defaultMessage: "Find a template",
             id: "XIDaGg",

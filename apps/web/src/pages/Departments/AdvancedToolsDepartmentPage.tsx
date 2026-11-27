@@ -47,7 +47,7 @@ export const AdvancedToolsDepartment = ({
           rank="h2"
           color="secondary"
           icon={Cog8ToothIcon}
-          className="mt-0 mb-7 font-normal"
+          className="mt-0 mb-7"
         >
           {intl.formatMessage(adminMessages.advancedTools)}
         </Heading>

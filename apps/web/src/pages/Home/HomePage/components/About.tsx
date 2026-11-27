@@ -16,12 +16,7 @@ const About = () => {
   return (
     <div className="relative z-[2] -mt-[3%] bg-linear-120 from-primary via-success to-warning">
       <Container className="relative pt-24 pb-18 text-black xs:pt-36 xs:pb-24 sm:pt-48 sm:pb-36">
-        <Heading
-          rank="h2"
-          size="h3"
-          icon={NewspaperIcon}
-          className="mt-0 font-normal"
-        >
+        <Heading rank="h2" icon={NewspaperIcon} className="mt-0">
           {intl.formatMessage({
             defaultMessage: "Learn more",
             id: "87FqAO",

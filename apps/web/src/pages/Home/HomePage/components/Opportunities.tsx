@@ -17,10 +17,9 @@ const Opportunities = () => {
     <SkewedContainer>
       <Heading
         rank="h2"
-        size="h3"
         icon={SparklesIcon}
         color="secondary"
-        className="mt-0 mb-12 font-normal"
+        className="mt-0 mb-12"
       >
         {intl.formatMessage({
           defaultMessage: "Build your digital career",

@@ -26,12 +26,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
     <div>
       {edit ? (
         <>
-          <Heading
-            icon={PencilSquareIcon}
-            color="secondary"
-            size="h3"
-            className="mt-0 font-normal"
-          >
+          <Heading icon={PencilSquareIcon} color="secondary" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Edit an experience",
               id: "RzXSJ9",
@@ -51,12 +46,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
         </>
       ) : (
         <>
-          <Heading
-            icon={PlusCircleIcon}
-            color="secondary"
-            size="h3"
-            className="mt-0 font-normal"
-          >
+          <Heading icon={PlusCircleIcon} color="secondary" className="mt-0">
             {intl.formatMessage(experienceMessages.addNewExperience)}
           </Heading>
           <p className="my-6">
