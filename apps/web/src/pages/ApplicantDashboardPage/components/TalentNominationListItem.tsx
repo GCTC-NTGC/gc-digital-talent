@@ -68,7 +68,7 @@ const TalentNominationListItem = ({
     : intl.formatMessage(commonMessages.notProvided);
   const title = displayCreatedDate
     ? `${fullName} (${localizedDateString})`
-    : `${fullName}`;
+    : fullName;
   const statusChip = useMetaDataTalentNominationChip({
     submittedAt: talentNominationListItemFragment.submittedAt,
   });

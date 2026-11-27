@@ -145,7 +145,7 @@ class ApplicantDashboardPage extends AppPage {
 
     for (const subSectionName of subSectionNames) {
       const subSectionLink = this.page.getByRole("link", {
-        name: new RegExp(`${subSectionName}`, "i"),
+        name: new RegExp(subSectionName, "i"),
       });
       await expect(subSectionLink.first()).toBeVisible();
       await subSectionLink.first().click();

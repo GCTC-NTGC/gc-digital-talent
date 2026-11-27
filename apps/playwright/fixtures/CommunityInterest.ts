@@ -1,5 +1,3 @@
-import { type Page } from "@playwright/test";
-
 import AppPage from "./AppPage";
 
 /**
@@ -8,10 +6,6 @@ import AppPage from "./AppPage";
  * Page containing utilities to interact with community interests
  */
 class CommunityInterest extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
   async createCommunityInterest(communityName: string, workStreamName: string) {
     await this.page
       .getByRole("combobox", { name: /functional community/i })

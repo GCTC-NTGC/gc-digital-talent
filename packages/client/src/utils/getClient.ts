@@ -120,7 +120,6 @@ export function getClient({
                 Authorization: `Bearer ${accessToken}`,
               });
             }
-            // oxlint-disable-next-line testing-library/no-debugging-utils
             logger.debug("No access token to add to operation");
             return operation;
           },

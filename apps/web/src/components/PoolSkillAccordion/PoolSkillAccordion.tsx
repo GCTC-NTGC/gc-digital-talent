@@ -116,10 +116,10 @@ const PoolSkillAccordion = ({
     ? intl.formatMessage(definitionAndLevel.name)
     : intl.formatMessage(commonMessages.notFound);
 
-  const skillLevelItem = `${`${
+  const skillLevelItem = `${
     intl.formatMessage(commonMessages.level) +
     intl.formatMessage(commonMessages.dividingColon)
-  } ${skillLevel}`}`;
+  } ${skillLevel}`;
 
   const screeningTime =
     poolSkill.skill.category.value === SkillCategory.Technical

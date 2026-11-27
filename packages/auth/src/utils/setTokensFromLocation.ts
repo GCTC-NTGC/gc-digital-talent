@@ -1,4 +1,3 @@
-/* oxlint-disable testing-library/no-debugging-utils */
 import { appInsights } from "@gc-digital-talent/app-insights";
 import { getLogger } from "@gc-digital-talent/logger";
 

@@ -5,12 +5,14 @@ on:
     branches: [main]
     paths:
       - .github/workflows/*lint*.yml
+      - .oxlintrc.json
       - apps/**
       - packages/**
       - api/**
   pull_request:
     paths:
       - .github/workflows/*lint*.yml
+      - .oxlintrc.json
       - apps/**
       - packages/**
       - api/**
