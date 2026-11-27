@@ -71,6 +71,10 @@ enum ErrorCode
     case ENUM_NOT_FOUND;
     case ENUM_NOT_LOCALIZED;
 
+    // Job alert
+    case JOB_ALERT_LIMIT_REACHED;
+    case JOB_ALERT_FILTER_REQUIRED;
+
     // Job poster template
     case ESSENTIAL_SKILL_REQUIRES_LEVEL;
     case NONESSENTIAL_SKILL_PROHIBITS_LEVEL;

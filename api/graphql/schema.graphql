@@ -176,6 +176,9 @@ type User {
     @rename(attribute: "enabled_in_app_notifications")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
+  # Job alerts
+  jobAlerts: [JobAlert!] @hasMany
+
   # Bookmarks
   poolBookmarks: [Pool] @guard @belongsToMany(scopes: ["authorizedToView"])
   poolCandidateBookmarks: [PoolCandidate]
@@ -1092,6 +1095,24 @@ type PoolCandidateFilter {
     @rename(attribute: "operational_requirements")
   workRegions: [LocalizedWorkRegion] @rename(attribute: "work_regions")
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
+}
+
+type JobAlert {
+  id: UUID!
+  name: String!
+  isPaused: Boolean! @rename(attribute: "is_paused")
+  jobAlertFilter: JobAlertFilter! @hasOne
+}
+
+# Matches PublishedPoolsSearchInput field names so a saved filter can be loaded back into the search
+type JobAlertFilter {
+  id: UUID!
+  keywordSearch: [String!] @rename(attribute: "keyword_search")
+  eligibility: [LocalizedPoolAreaOfSelection!]
+  departments: [Department!] @belongsToMany
+  classifications: [Classification!] @belongsToMany
+  languages: [LocalizedLanguageAbility!]
+  salaryRange: LocalizedSalaryRange @rename(attribute: "salary_range")
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -2797,6 +2818,29 @@ input ApplicantFilterBelongsTo {
   create: CreateApplicantFilterInput!
 }
 
+input CreateJobAlertFilterInput {
+  keywordSearch: [String!] @rename(attribute: "keyword_search")
+  eligibility: [PoolAreaOfSelection!]
+  departments: DepartmentBelongsToMany
+  classifications: ClassificationBelongsToMany
+  languages: [LanguageAbility!]
+  salaryRange: SalaryRange @rename(attribute: "salary_range")
+}
+
+input JobAlertFilterHasOne {
+  create: CreateJobAlertFilterInput!
+}
+
+input CreateJobAlertInput {
+  name: String!
+  jobAlertFilter: JobAlertFilterHasOne!
+}
+
+input UpdateJobAlertInput {
+  name: String
+  isPaused: Boolean @rename(attribute: "is_paused")
+}
+
 input CreateTalentRequestInput {
   fullName: String! @rename(attribute: "full_name")
   email: Email!
@@ -4095,6 +4139,24 @@ type Mutation {
     enabledEmailNotifications: [NotificationFamily]
     enabledInAppNotifications: [NotificationFamily]
   ): User @guard @validator
+
+  # Job alert mutations
+  createJobAlert(jobAlert: CreateJobAlertInput! @spread): JobAlert
+    @create
+    @inject(context: "user.id", name: "user_id")
+    @guard
+    @canModel(ability: "create")
+    @validator
+  updateJobAlert(id: UUID!, jobAlert: UpdateJobAlertInput! @spread): JobAlert
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
+  deleteJobAlert(id: UUID! @whereKey): JobAlert
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
+
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")

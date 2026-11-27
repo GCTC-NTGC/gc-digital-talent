@@ -483,6 +483,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(CommunityInterest::class);
     }
 
+    /** @return HasMany<JobAlert, $this> */
+    public function jobAlerts(): HasMany
+    {
+        return $this->hasMany(JobAlert::class);
+    }
+
     public function employeeProfile(): HasOne
     {
         return $this->hasOne(EmployeeProfile::class, 'id');
