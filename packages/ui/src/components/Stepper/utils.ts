@@ -60,7 +60,7 @@ export type StepVariants = VariantProps<typeof step>;
 export type StepState = StepVariants["state"];
 
 export const messageMap = new Map<
-  Omit<StepState, "disabled">,
+  Exclude<NonNullable<StepState>, "disabled">,
   MessageDescriptor
 >([
   ["active-error", uiMessages.stepError],
