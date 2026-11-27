@@ -1,7 +1,7 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 import isChromatic from "chromatic/isChromatic";
 import { useState, useEffect } from "react";
-import type { CombinedError } from "urql";
+import { CombinedError } from "urql";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
@@ -47,10 +47,9 @@ const TemplatePending: StoryFn<PendingArgs> = (args) => {
   const { wait, error, notFound, pause } = args;
 
   const combinedError = error
-    ? ({
-        name: "Error",
-        message: "There was an error fetching content.",
-      } as CombinedError)
+    ? new CombinedError({
+        networkError: new Error("There was an error fetching content."),
+      })
     : undefined;
 
   // Fake a network request

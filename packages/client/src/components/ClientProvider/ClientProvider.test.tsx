@@ -1,5 +1,6 @@
+import { GraphQLError } from "graphql";
 import isEqual from "lodash/isEqual";
-import type { CombinedError } from "urql";
+import { CombinedError } from "urql";
 import { vi } from "vitest";
 
 import { extractErrorMessages } from "../../utils/errors";
@@ -42,11 +43,9 @@ describe("ClientProvider tests", () => {
   test("finds validation errors", () => {
     // an error object for testing on
     // sorry, very ugly - would be nice to use stubs but I haven't figured that out
-    const testError: CombinedError = {
-      name: "Test Error",
-      message: "Test Message",
+    const testError = new CombinedError({
       graphQLErrors: [
-        {
+        new GraphQLError("Test Message", {
           extensions: {
             validation: {
               validation_rule_1: [
@@ -60,20 +59,9 @@ describe("ClientProvider tests", () => {
             },
             category: "validation",
           },
-          locations: undefined,
-          path: undefined,
-          nodes: undefined,
-          source: undefined,
-          positions: undefined,
-          originalError: undefined,
-          // oxlint-disable-next-line typescript/no-explicit-any
-          toJSON: (): any => "test",
-          [Symbol.toStringTag]: "test",
-          name: "Test Error",
-          message: "Test Message",
-        },
+        }),
       ],
-    };
+    });
 
     const validationMessages = extractErrorMessages(testError);
 
