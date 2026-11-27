@@ -204,10 +204,8 @@
         "additionalTestBlockFunctions": []
       }
     ],
-    "react/capitalized-calls": "off",
     "react/exhaustive-effect-dependencies": "off",
     "react/incompatible-library": "off",
-    "react/memo-dependencies": "off",
     "react/no-unstable-nested-components": "off",
     "react/preserve-manual-memoization": "off",
     "react/react-in-jsx-scope": "off",

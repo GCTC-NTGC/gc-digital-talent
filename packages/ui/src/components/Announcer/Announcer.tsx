@@ -32,20 +32,20 @@ const Announcer = ({ children }: AnnouncerProps) => {
   const cycle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const messageQueue = createMessageQueue();
 
-  const setCycle = (fn: () => void) => {
+  const setCycle = useCallback((fn: () => void) => {
     if (cycle.current) {
       clearTimeout(cycle.current);
     }
     cycle.current = setTimeout(fn, TIMEOUT);
     return cycle.current;
-  };
+  }, []);
 
-  const clearCycle = () => {
+  const clearCycle = useCallback(() => {
     if (cycle.current) {
       clearTimeout(cycle.current);
       cycle.current = null;
     }
-  };
+  }, []);
 
   const queueMessage = useCallback(() => {
     if (cycle.current || !container.current) {
@@ -73,7 +73,7 @@ const Announcer = ({ children }: AnnouncerProps) => {
     };
 
     nextCycle();
-  }, [messageQueue]);
+  }, [messageQueue, setCycle, clearCycle]);
 
   const announce = useCallback(
     (msg: string, priority?: number) => {
