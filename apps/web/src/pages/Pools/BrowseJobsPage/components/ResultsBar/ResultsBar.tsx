@@ -36,7 +36,7 @@ const sortByLabels: Record<SortBy, MessageDescriptor> = {
   deadline: commonMessages.deadline,
 };
 
-const resultMessageWithNoFilters = defineMessage({
+const resultMessageWithNoFilters = defineMessage<{ resultCount: number }>({
   defaultMessage: `{resultCount, plural,
                         =0 {0 open opportunities}
                         one {# open opportunity}
@@ -46,7 +46,7 @@ const resultMessageWithNoFilters = defineMessage({
   description: "Number of open job opportunities found",
 });
 
-const resultMessageWithSomeFilters = defineMessage({
+const resultMessageWithSomeFilters = defineMessage<{ resultCount: number }>({
   defaultMessage: `{resultCount, plural,
                         =0 {0 matching opportunities}
                         one {# matching opportunity}

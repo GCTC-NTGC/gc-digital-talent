@@ -59,7 +59,7 @@ export async function submitTicket(
     logger.error(`Failed to submit ticket: ${JSON.stringify(body)}`);
 
     const errorCode = `${response.status} - ${response.statusText}`;
-    let error = new UnknownError(errorCode);
+    let error: Error = new UnknownError(errorCode);
     if (
       body?.serviceResponse === "error" &&
       body?.errorDetail === "invalid_email"

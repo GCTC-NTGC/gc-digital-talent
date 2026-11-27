@@ -51,7 +51,6 @@ const RequestVerificationCodeContextMessage = () => {
             <p>
               {intl.formatMessage(
                 {
-                  // oxlint-disable-next-line formatjs/prefer-full-sentence
                   defaultMessage: `Please wait {delay, plural,
                     one { # second }
                     other { # seconds }

@@ -1,6 +1,6 @@
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 import { useState } from "react";
-import type { MessageDescriptor } from "react-intl";
+import type { TypedMessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -48,7 +48,7 @@ const statusColorMap = new Map<ApplicationStatus, StatusButtonProps["color"]>([
   [ApplicationStatus.Qualified, "success"],
 ]);
 
-const statusHeaderMap = new Map<ApplicationStatus, MessageDescriptor>([
+const statusHeaderMap = new Map<ApplicationStatus, TypedMessageDescriptor>([
   [ApplicationStatus.ToAssess, applicationMessages.applicationStatus],
   [ApplicationStatus.Qualified, messages.revertHeader],
   [ApplicationStatus.Disqualified, messages.revertHeader],

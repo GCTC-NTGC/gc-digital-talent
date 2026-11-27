@@ -5,7 +5,7 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import type { ReactNode } from "react";
-import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, TypedMessageDescriptor } from "react-intl";
 
 import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
 import {
@@ -406,7 +406,7 @@ export const getAdvertisementStatus = (
 
 interface StatusBadge {
   color: ChipProps["color"];
-  label?: MessageDescriptor | string;
+  label?: TypedMessageDescriptor | string;
   icon?: IconType;
 }
 
