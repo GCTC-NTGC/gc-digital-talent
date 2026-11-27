@@ -39,11 +39,22 @@
       }
     ],
     "import/default": "error",
-    "import/namespace": "off",
     "import/no-duplicates": "warn",
-    "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "warn",
-    "import/no-unassigned-import": "off",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": [
+          "**/*.css",
+          "**/setup.ts",
+          "**/*.d.ts",
+          "@testing-library/jest-dom",
+          "vitest-axe/extend-expect",
+          "axe-core",
+          "@tanstack/react-table"
+        ]
+      }
+    ],
     "no-alert": "error",
     "no-console": "error",
     "no-param-reassign": "error",
