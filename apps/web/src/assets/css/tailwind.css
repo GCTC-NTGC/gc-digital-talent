@@ -77,6 +77,9 @@
   --gcdt-color-black: #06070a;
   --gcdt-color-white: #ffffff;
 
+  /* Page background */
+  --gcdt-color-background: #eef1f9;
+
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.2);
@@ -102,6 +105,8 @@
 * NOTE: You can manually use a different variable with `dark:`
 */
 .dark {
+  --gcdt-color-background: var(--gcdt-color-gray-700);
+
   /** Dark mode shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
@@ -213,6 +218,8 @@
   --color-gray-500: var(--gcdt-color-gray-500);
   --color-gray-600: var(--gcdt-color-gray-600);
   --color-gray-700: var(--gcdt-color-gray-700);
+
+  --color-background: var(--gcdt-color-background);
 
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
